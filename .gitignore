@@ -40,3 +40,7 @@ yarn-error.log*
 # Local planning notes (not for GitHub)
 challenges.md
 assignments.md
+db-schema.md
+design-decisions.md
+agent-architecture.md
+architecture.md

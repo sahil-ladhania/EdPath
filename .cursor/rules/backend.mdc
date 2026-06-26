@@ -1,0 +1,13 @@
+---
+description: apps/edpath-backend — Express, /upload, CopilotKit Runtime, LangGraph agent
+globs: apps/edpath-backend/**
+alwaysApply: false
+---
+
+# apps/edpath-backend — Express + the LangGraph agent
+
+- `/upload` extracts, cleans, and validates PDF text **upstream of the graph** (the graph only ever starts on good text). See `docs/reference/feature-flow.md` Part C §2 and `docs/reference/architecture.md` §4.
+- Express hosts the CopilotKit Runtime (the bridge to the agent) and owns the run + `threadId`.
+- This is the single Zod validation chokepoint — validate every artifact here before it leaves the backend.
+- Graph/agent work (nodes, edges, interrupts, state object, reliability): read `docs/reference/agent-architecture.md`.
+- Persistence is the LangGraph Postgres checkpointer only — no app tables (`docs/reference/db-schema.md`).

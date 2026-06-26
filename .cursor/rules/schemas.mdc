@@ -1,0 +1,13 @@
+---
+description: packages/schemas — shared Zod contracts + types for both ends
+globs: packages/schemas/**
+alwaysApply: false
+---
+
+# packages/schemas — shared contracts
+
+One source of truth for the data contracts crossing web ↔ backend ↔ agent ↔ checkpointer. Both ends import from here; do not redefine these shapes anywhere else.
+
+- Design from the artifact + boundary contracts enumerated in `docs/reference/feature-flow.md` Part C ("data contracts to be typed") and the schemas/ACI in `docs/reference/agent-architecture.md` Gate 5.
+- Every artifact is Zod-validated at the backend boundary before it reaches state or the widget.
+- Assist firewall: `correctIndex` / `explanation` / `hint` / `sourceQuote` never enter assist context.

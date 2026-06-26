@@ -1,7 +1,7 @@
 # CLAUDE.md
 
-Claude Code-specific guidance for this repo. Imports the cross-tool rules below.
+The canonical, always-on agent rules live in `AGENTS.md` (shared by Claude Code and Cursor). This file imports them so there is one source, not two copies.
 
 @AGENTS.md
 
-> Placeholder — Claude-specific guidance will be added later. Keep this file under ~200 lines.
+> Add Claude-specific guidance below this line only if it does NOT belong in `AGENTS.md`. Keep both files thin — they route to the deep docs, they don't duplicate them.

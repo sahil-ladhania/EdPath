@@ -1,0 +1,16 @@
+---
+description: EdPath always-on agent rules — doc routing + working style (canonical rules live in AGENTS.md)
+alwaysApply: true
+---
+
+# EdPath — Cursor Core Rules (always-on)
+
+The canonical project rules — the non-negotiables, the stack, and the "for task X → read doc Y" doc map — live in `@AGENTS.md`. Read it. This file does **not** duplicate it; it adds the Cursor-specific working style on top.
+
+## Working style
+
+- **Docs-first, one doc at a time.** The locked reference docs live in `docs/reference/`. Before touching code, read the ONE relevant doc from the `@AGENTS.md` doc map — never all seven (loading every doc every time is the token bloat this setup exists to prevent). `docs/reference/design-decisions.md` is the source of truth for product behavior; don't infer locked behavior from memory.
+- **Review every change. No auto-accept.** Propose diffs for review; don't silently apply sweeping edits across many files.
+- **Deterministic-workflow discipline.** EdPath is a LangGraph workflow, not an autonomous agent: the LLM never chooses control flow, grading is code, the assist side-channel never sees the answer. Don't introduce agentic / tool-choosing patterns.
+- **No scope creep.** Build only what `docs/reference/assignment.md` requires. No RAG, vector DB, Neo4j, Prisma/custom tables, or Redis in v1 — flag anything that seems to need them instead of adding it.
+- **The seven root docs are read-only.** If one looks wrong or stale, flag it — don't rewrite it.

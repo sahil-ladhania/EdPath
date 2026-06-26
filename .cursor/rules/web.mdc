@@ -1,0 +1,12 @@
+---
+description: apps/edpath-web — Next.js + CopilotKit surface and genUI widgets
+globs: apps/edpath-web/**
+alwaysApply: false
+---
+
+# apps/edpath-web — Next.js + CopilotKit
+
+- This is NOT the Next.js you may know — read the in-repo guide referenced by `apps/edpath-web/AGENTS.md` before writing code.
+- Render from mirrored agent state. The client holds NO progress/score state (only `threadId`). See `docs/reference/feature-flow.md` Part C §1 and `docs/reference/architecture.md` §5 (the CopilotKit bridge).
+- Send intents only — approval decision, selected option index, free-text help. No business logic, no grading, no LLM calls client-side.
+- Green/red are functional feedback states, not styling.

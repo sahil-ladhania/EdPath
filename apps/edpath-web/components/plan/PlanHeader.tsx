@@ -16,13 +16,13 @@ export function PlanHeader({ pdfTitle, plan }: PlanHeaderProps) {
       <div className="space-y-2">
         <h1 className="font-display text-4xl text-ink">{pdfTitle}</h1>
         <p className="max-w-2xl text-base text-ink-muted">
-          Review the generated learning path before any quizzing starts. This
-          mirrors the `awaiting_approval` checkpoint in the full system.
+          Review the path before questions begin. You can approve it now or ask
+          for changes first.
         </p>
       </div>
       <div className="text-sm text-ink-muted">
-        {plan.objectives.length} objectives · ordered · one question stream at a
-        time
+        {plan.objectives.length} objectives · ordered from first step to final
+        review
       </div>
     </div>
   );

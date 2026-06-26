@@ -34,7 +34,7 @@ export function UploadCard() {
   const [status, setStatus] = useState<UploadCardState>({
     tone: "idle",
     message:
-      "The real `/upload` parse happens in the backend session. This screen validates and previews the PDF shell now.",
+      "Choose one PDF to build a focused lesson path from its contents.",
   });
 
   const fileMeta = useMemo(() => {
@@ -64,7 +64,7 @@ export function UploadCard() {
       setStatus({
         tone: "error",
         message:
-          "This mock upload is treating the PDF as oversized. Choose a smaller file so the lesson stays within the bounded v1 ceiling.",
+          "This PDF is too large for one focused lesson. Choose a file under 15 MB.",
       });
       return;
     }
@@ -74,7 +74,7 @@ export function UploadCard() {
       setStatus({
         tone: "error",
         message:
-          "This filename is being treated as a scanned or image-only PDF in the mock. The real backend will reject low-quality extraction the same way.",
+          "This looks like a scanned or image-only PDF. Choose a PDF with selectable text.",
       });
       return;
     }
@@ -82,8 +82,7 @@ export function UploadCard() {
     setSelectedFile(file);
     setStatus({
       tone: "success",
-      message:
-        "PDF accepted. The lesson shell is ready to start with a mock thread ID.",
+      message: "PDF ready. Start the lesson when you're ready to review the path.",
       });
   }
 
@@ -99,14 +98,14 @@ export function UploadCard() {
     if (!selectedFile) {
       setStatus({
         tone: "error",
-        message: "Choose a PDF first so we can open the lesson route.",
+        message: "Choose a PDF first.",
       });
       return;
     }
 
     setStatus({
       tone: "loading",
-      message: "Opening the lesson shell with a mock thread...",
+      message: "Building your lesson path...",
     });
 
     window.setTimeout(() => {
@@ -119,8 +118,8 @@ export function UploadCard() {
       <CardHeader className="space-y-2">
         <CardTitle className="text-2xl">Upload your source PDF</CardTitle>
         <CardDescription>
-          One bounded document becomes one structured lesson. The real parsing
-          and quality checks land in the backend session.
+          One bounded document becomes one structured lesson with a plan,
+          questions, feedback, and a final study report.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-5">
@@ -160,7 +159,7 @@ export function UploadCard() {
               Drag a PDF here or click to choose one
             </p>
             <p className="text-sm text-ink-muted">
-              Mock guardrails: PDF only, under 15 MB, and avoid scanned/image-only filenames.
+              PDF only · under 15 MB · selectable text required.
             </p>
           </div>
         </button>
@@ -186,9 +185,13 @@ export function UploadCard() {
       </CardContent>
       <CardFooter className="justify-between gap-3">
         <p className="text-sm text-ink-muted">
-          This route opens `/lesson/mock-thread-1` so you can review every UI surface now.
+          Your file is used to create one lesson.
         </p>
-        <Button size="lg" onClick={handleStartLesson}>
+        <Button
+          size="lg"
+          onClick={handleStartLesson}
+          disabled={!selectedFile || status.tone === "loading"}
+        >
           Start lesson
         </Button>
       </CardFooter>

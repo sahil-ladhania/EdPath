@@ -25,6 +25,8 @@ export function LessonRunner({ threadId }: LessonRunnerProps) {
             objectives={lesson.plan.objectives}
             currentObjectiveIndex={lesson.currentObjectiveIndex}
             phase={lesson.phase}
+            currentQuestionIndex={lesson.currentQuestionIndex}
+            questionCount={lesson.currentQuestions.length}
           />
         }
       >
@@ -34,7 +36,6 @@ export function LessonRunner({ threadId }: LessonRunnerProps) {
             pdfTitle={lesson.pdfTitle}
             plan={lesson.plan}
             onApprove={lesson.approvePlan}
-            onSaveObjectives={lesson.updateObjectives}
           />
         ) : null}
         {lesson.phase === "quizzing" ? <QuizzingLoader /> : null}
@@ -46,6 +47,7 @@ export function LessonRunner({ threadId }: LessonRunnerProps) {
             currentAttempt={lesson.currentAttempt}
             question={lesson.currentQuestion}
             selectedIndex={lesson.selectedIndex}
+            triedOptionIndices={lesson.triedOptionIndices}
             feedback={lesson.feedback}
             isOptionLocked={lesson.isOptionLocked}
             onSelect={lesson.selectOption}

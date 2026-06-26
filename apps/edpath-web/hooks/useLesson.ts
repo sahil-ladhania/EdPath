@@ -14,6 +14,7 @@ import type {
   Objective,
   ObjectiveResult,
   Phase,
+  QuestionAttemptState,
   Summary,
 } from "@/types/lesson.types";
 
@@ -33,6 +34,7 @@ interface UseLessonReturn {
   currentQuestion: MCQ;
   currentAttempt: number;
   selectedIndex: number | null;
+  triedOptionIndices: number[];
   feedback: FeedbackState | null;
   summary: Summary;
   isOptionLocked: boolean;
@@ -52,14 +54,30 @@ interface InternalState {
   plan: LessonPlan;
   currentObjectiveIndex: number;
   currentQuestionIndex: number;
-  selectedIndex: number | null;
-  attemptsForCurrentQuestion: number;
-  feedback: FeedbackState | null;
+  attemptState: QuestionAttemptState;
   results: ObjectiveResult[];
 }
 
 const PLAN_DELAY_MS = 700;
 const QUIZ_DELAY_MS = 700;
+
+function createEmptyAttemptState(): QuestionAttemptState {
+  return {
+    selectedIndex: null,
+    triedOptionIndices: [],
+    attemptsForCurrentQuestion: 0,
+    feedback: null,
+  };
+}
+
+function addTriedOption(
+  triedOptionIndices: number[],
+  selectedIndex: number,
+): number[] {
+  return triedOptionIndices.includes(selectedIndex)
+    ? triedOptionIndices
+    : [...triedOptionIndices, selectedIndex];
+}
 
 export function useLesson(
   threadId: string,
@@ -71,9 +89,7 @@ export function useLesson(
     plan: snapshot.plan,
     currentObjectiveIndex: 0,
     currentQuestionIndex: 0,
-    selectedIndex: null,
-    attemptsForCurrentQuestion: 0,
-    feedback: null,
+    attemptState: createEmptyAttemptState(),
     results: [],
   });
 
@@ -108,15 +124,17 @@ export function useLesson(
     setState((currentState) => ({
       ...currentState,
       phase,
-      selectedIndex: null,
-      feedback: null,
+      attemptState: createEmptyAttemptState(),
     }));
   }, []);
 
   const selectOption = useCallback((index: number): void => {
     setState((currentState) => ({
       ...currentState,
-      selectedIndex: index,
+      attemptState: {
+        ...currentState.attemptState,
+        selectedIndex: index,
+      },
     }));
   }, []);
 
@@ -128,12 +146,13 @@ export function useLesson(
           currentState.currentQuestionIndex
         ];
 
-      if (currentState.selectedIndex === null) {
+      if (currentState.attemptState.selectedIndex === null) {
         return currentState;
       }
 
-      const attempts = currentState.attemptsForCurrentQuestion + 1;
-      const isCorrect = currentState.selectedIndex === question.correctIndex;
+      const attempts = currentState.attemptState.attemptsForCurrentQuestion + 1;
+      const selectedIndex = currentState.attemptState.selectedIndex;
+      const isCorrect = selectedIndex === question.correctIndex;
       const isExhausted = !isCorrect && attempts >= MAX_ATTEMPTS;
       const nextResults = [...currentState.results];
 
@@ -150,7 +169,7 @@ export function useLesson(
       const feedback: FeedbackState = isCorrect
         ? {
             verdict: "correct",
-            highlightIndex: currentState.selectedIndex,
+            highlightIndex: selectedIndex,
             detailKind: "explanation",
             detail: question.explanation,
             canRetry: false,
@@ -159,7 +178,7 @@ export function useLesson(
           }
         : {
             verdict: "incorrect",
-            highlightIndex: currentState.selectedIndex,
+            highlightIndex: selectedIndex,
             detailKind: isExhausted ? "explanation" : "hint",
             detail: isExhausted ? question.explanation : question.hint,
             canRetry: !isExhausted,
@@ -169,8 +188,17 @@ export function useLesson(
 
       return {
         ...currentState,
-        attemptsForCurrentQuestion: attempts,
-        feedback,
+        attemptState: {
+          selectedIndex,
+          triedOptionIndices: isCorrect
+            ? currentState.attemptState.triedOptionIndices
+            : addTriedOption(
+                currentState.attemptState.triedOptionIndices,
+                selectedIndex,
+              ),
+          attemptsForCurrentQuestion: attempts,
+          feedback,
+        },
         results: nextResults,
       };
     });
@@ -179,8 +207,11 @@ export function useLesson(
   const retryQuestion = useCallback((): void => {
     setState((currentState) => ({
       ...currentState,
-      selectedIndex: null,
-      feedback: null,
+      attemptState: {
+        ...currentState.attemptState,
+        selectedIndex: null,
+        feedback: null,
+      },
     }));
   }, []);
 
@@ -197,9 +228,7 @@ export function useLesson(
         return {
           ...currentState,
           currentQuestionIndex: currentState.currentQuestionIndex + 1,
-          selectedIndex: null,
-          attemptsForCurrentQuestion: 0,
-          feedback: null,
+          attemptState: createEmptyAttemptState(),
           phase: "awaiting_input",
         };
       }
@@ -209,17 +238,14 @@ export function useLesson(
           ...currentState,
           currentObjectiveIndex: currentState.currentObjectiveIndex + 1,
           currentQuestionIndex: 0,
-          selectedIndex: null,
-          attemptsForCurrentQuestion: 0,
-          feedback: null,
+          attemptState: createEmptyAttemptState(),
           phase: "quizzing",
         };
       }
 
       return {
         ...currentState,
-        selectedIndex: null,
-        feedback: null,
+        attemptState: createEmptyAttemptState(),
         phase: "complete",
       };
     });
@@ -229,9 +255,7 @@ export function useLesson(
     setState((currentState) => ({
       ...currentState,
       phase: "quizzing",
-      selectedIndex: null,
-      feedback: null,
-      attemptsForCurrentQuestion: 0,
+      attemptState: createEmptyAttemptState(),
     }));
   }, []);
 
@@ -249,9 +273,7 @@ export function useLesson(
       ...currentState,
       currentObjectiveIndex: index,
       currentQuestionIndex: 0,
-      selectedIndex: null,
-      attemptsForCurrentQuestion: 0,
-      feedback: null,
+      attemptState: createEmptyAttemptState(),
       phase: "awaiting_input",
     }));
   }, []);
@@ -266,12 +288,15 @@ export function useLesson(
 
       setState((currentState) => ({
         ...currentState,
-        selectedIndex,
+        attemptState: {
+          ...currentState.attemptState,
+          selectedIndex,
+        },
       }));
 
       window.setTimeout(() => {
         setState((currentState) => {
-          if (currentState.selectedIndex === null) {
+          if (currentState.attemptState.selectedIndex === null) {
             return currentState;
           }
 
@@ -281,8 +306,9 @@ export function useLesson(
             snapshot.objectiveQuestionMap[objective.objectiveId][
               currentState.currentQuestionIndex
             ];
-          const attempts = currentState.attemptsForCurrentQuestion + 1;
-          const isCorrect = currentState.selectedIndex === question.correctIndex;
+          const attempts = currentState.attemptState.attemptsForCurrentQuestion + 1;
+          const selectedIndex = currentState.attemptState.selectedIndex;
+          const isCorrect = selectedIndex === question.correctIndex;
           const isExhausted = !isCorrect && attempts >= MAX_ATTEMPTS;
           const nextResults = [...currentState.results];
 
@@ -298,26 +324,35 @@ export function useLesson(
 
           return {
             ...currentState,
-            attemptsForCurrentQuestion: attempts,
-            feedback: isCorrect
-              ? {
-                  verdict: "correct",
-                  highlightIndex: currentState.selectedIndex,
-                  detailKind: "explanation",
-                  detail: question.explanation,
-                  canRetry: false,
-                  canAdvance: true,
-                  isExhausted: false,
-                }
-              : {
-                  verdict: "incorrect",
-                  highlightIndex: currentState.selectedIndex,
-                  detailKind: isExhausted ? "explanation" : "hint",
-                  detail: isExhausted ? question.explanation : question.hint,
-                  canRetry: !isExhausted,
-                  canAdvance: isExhausted,
-                  isExhausted,
-                },
+            attemptState: {
+              selectedIndex,
+              triedOptionIndices: isCorrect
+                ? currentState.attemptState.triedOptionIndices
+                : addTriedOption(
+                    currentState.attemptState.triedOptionIndices,
+                    selectedIndex,
+                  ),
+              attemptsForCurrentQuestion: attempts,
+              feedback: isCorrect
+                ? {
+                    verdict: "correct",
+                    highlightIndex: selectedIndex,
+                    detailKind: "explanation",
+                    detail: question.explanation,
+                    canRetry: false,
+                    canAdvance: true,
+                    isExhausted: false,
+                  }
+                : {
+                    verdict: "incorrect",
+                    highlightIndex: selectedIndex,
+                    detailKind: isExhausted ? "explanation" : "hint",
+                    detail: isExhausted ? question.explanation : question.hint,
+                    canRetry: !isExhausted,
+                    canAdvance: isExhausted,
+                    isExhausted,
+                  },
+            },
             results: nextResults,
           };
         });
@@ -336,13 +371,14 @@ export function useLesson(
     currentObjective,
     currentQuestions,
     currentQuestion,
-    currentAttempt: state.feedback
-      ? state.attemptsForCurrentQuestion
-      : Math.min(state.attemptsForCurrentQuestion + 1, MAX_ATTEMPTS),
-    selectedIndex: state.selectedIndex,
-    feedback: state.feedback,
+    currentAttempt: state.attemptState.feedback
+      ? state.attemptState.attemptsForCurrentQuestion
+      : Math.min(state.attemptState.attemptsForCurrentQuestion + 1, MAX_ATTEMPTS),
+    selectedIndex: state.attemptState.selectedIndex,
+    triedOptionIndices: state.attemptState.triedOptionIndices,
+    feedback: state.attemptState.feedback,
     summary,
-    isOptionLocked: state.feedback !== null,
+    isOptionLocked: state.attemptState.feedback !== null,
     setPhase,
     selectOption,
     submitAnswer,

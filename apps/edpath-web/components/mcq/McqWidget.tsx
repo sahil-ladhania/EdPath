@@ -16,6 +16,7 @@ interface McqWidgetProps {
   currentAttempt: number;
   question: MCQ;
   selectedIndex: number | null;
+  triedOptionIndices: number[];
   feedback: FeedbackState | null;
   isOptionLocked: boolean;
   onSelect: (index: number) => void;
@@ -31,6 +32,7 @@ export function McqWidget({
   currentAttempt,
   question,
   selectedIndex,
+  triedOptionIndices,
   feedback,
   isOptionLocked,
   onSelect,
@@ -50,13 +52,14 @@ export function McqWidget({
       <Separator />
       <div className="space-y-3">
         <p className="text-xs font-semibold uppercase text-ink-muted">
-          Multiple-choice check
+          Choose one answer
         </p>
         <h3 className="text-xl font-semibold text-ink">{question.question}</h3>
       </div>
       <OptionList
         question={question}
         selectedIndex={selectedIndex}
+        triedOptionIndices={triedOptionIndices}
         feedback={feedback}
         disabled={isOptionLocked}
         onSelect={onSelect}

@@ -9,26 +9,36 @@ interface ObjectiveRailProps {
   objectives: Objective[];
   currentObjectiveIndex: number;
   phase: Phase;
+  currentQuestionIndex?: number;
+  questionCount?: number;
 }
 
 export function ObjectiveRail({
   objectives,
   currentObjectiveIndex,
   phase,
+  currentQuestionIndex = 0,
+  questionCount = 0,
 }: ObjectiveRailProps) {
+  const isQuizMode = phase === "quizzing" || phase === "awaiting_input";
+
   return (
     <div className="sticky top-6 rounded-lg border border-border bg-surface p-5 shadow-sm">
       <div className="mb-5 space-y-1">
         <p className="text-xs font-semibold uppercase text-ink-muted">
-          Objective rail
+          Learning path
         </p>
-        <h2 className="font-display text-2xl text-ink">Learning path</h2>
+        <h2 className="font-display text-2xl text-ink">
+          {isQuizMode ? "Current progress" : "Plan order"}
+        </h2>
         <p className="text-sm text-ink-muted">
-          One objective at a time, with the current step pinned in focus.
+          {isQuizMode
+            ? "One question at a time."
+            : "Review the full path before questions begin."}
         </p>
       </div>
 
-      <ol className="space-y-4">
+      <ol className="space-y-3">
         {objectives.map((objective, index) => {
           const isCompleted =
             phase === "complete" || index < currentObjectiveIndex;
@@ -41,7 +51,7 @@ export function ObjectiveRail({
                   className={cn(
                     "flex size-8 shrink-0 items-center justify-center rounded-full border text-sm font-semibold transition-colors",
                     isCompleted &&
-                      "border-success bg-success text-white shadow-sm",
+                      "border-primary-soft bg-primary-soft text-primary",
                     isCurrent &&
                       "border-primary bg-primary text-white shadow-sm shadow-primary/20",
                     !isCompleted &&
@@ -66,7 +76,11 @@ export function ObjectiveRail({
                 >
                   {objective.title}
                 </p>
-                <p className="text-sm text-ink-muted">{objective.description}</p>
+                {isQuizMode && isCurrent ? (
+                  <p className="text-xs font-medium text-primary">
+                    Question {currentQuestionIndex + 1} of {questionCount}
+                  </p>
+                ) : null}
               </div>
             </li>
           );

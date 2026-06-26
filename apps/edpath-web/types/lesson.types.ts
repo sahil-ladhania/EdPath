@@ -47,6 +47,13 @@ export interface FeedbackState {
   isExhausted: boolean;
 }
 
+export interface QuestionAttemptState {
+  selectedIndex: number | null;
+  triedOptionIndices: number[];
+  attemptsForCurrentQuestion: number;
+  feedback: FeedbackState | null;
+}
+
 export interface ObjectiveResult {
   objectiveId: string;
   questionId: string;

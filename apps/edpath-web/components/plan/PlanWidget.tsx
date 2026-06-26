@@ -4,20 +4,18 @@ import { PlanActions } from "@/components/plan/PlanActions";
 import { PlanHeader } from "@/components/plan/PlanHeader";
 import { PlanObjectiveItem } from "@/components/plan/PlanObjectiveItem";
 import { Separator } from "@/components/ui/separator";
-import type { LessonPlan, Objective } from "@/types/lesson.types";
+import type { LessonPlan } from "@/types/lesson.types";
 
 interface PlanWidgetProps {
   pdfTitle: string;
   plan: LessonPlan;
   onApprove: () => void;
-  onSaveObjectives: (objectives: Objective[]) => void;
 }
 
 export function PlanWidget({
   pdfTitle,
   plan,
   onApprove,
-  onSaveObjectives,
 }: PlanWidgetProps) {
   return (
     <div className="space-y-6 rounded-lg border border-border bg-surface p-6 shadow-sm">
@@ -32,11 +30,7 @@ export function PlanWidget({
           />
         ))}
       </div>
-      <PlanActions
-        objectives={plan.objectives}
-        onApprove={onApprove}
-        onSaveObjectives={onSaveObjectives}
-      />
+      <PlanActions onApprove={onApprove} />
     </div>
   );
 }

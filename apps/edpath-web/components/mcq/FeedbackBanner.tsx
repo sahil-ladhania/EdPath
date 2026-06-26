@@ -16,10 +16,10 @@ export function FeedbackBanner({ feedback }: FeedbackBannerProps) {
 
   const title =
     feedback.verdict === "correct"
-      ? "Correct answer"
+      ? "Correct"
       : feedback.isExhausted
-        ? "Attempts used up"
-        : "Try once more";
+        ? "Review the explanation"
+        : "Try again";
 
   const Icon = feedback.verdict === "correct" ? CheckCircle2Icon : LightbulbIcon;
 

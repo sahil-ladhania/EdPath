@@ -22,9 +22,9 @@ export function OverallScore({ summary }: OverallScoreProps) {
         </p>
       </div>
       <div className="space-y-1">
-        <p className="text-sm text-ink-muted">Lesson mode</p>
+        <p className="text-sm text-ink-muted">Lesson style</p>
         <p className="text-lg font-semibold text-ink">
-          Guided, retry-aware, checkpoint-ready
+          Guided practice with retries
         </p>
       </div>
     </div>

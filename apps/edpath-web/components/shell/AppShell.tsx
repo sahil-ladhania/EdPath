@@ -5,42 +5,63 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 interface AppShellProps {
   children: ReactNode;
-  modeLabel: string;
+  headerVariant?: "default" | "landing";
+  modeLabel?: string;
 }
 
-export function AppShell({ children, modeLabel }: AppShellProps): ReactNode {
+export function AppShell({
+  children,
+  headerVariant = "default",
+  modeLabel,
+}: AppShellProps): ReactNode {
+  const isLanding = headerVariant === "landing";
+
   return (
-    <div className="flex min-h-screen flex-col bg-paper">
-      <header className="border-b border-border bg-surface/90 backdrop-blur-sm">
+    <div className="flex min-h-screen flex-col bg-paper-textured">
+      <header
+        className={cn(
+          "bg-surface/90 backdrop-blur-sm",
+          !isLanding && "border-b border-border",
+        )}
+      >
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <Link
             href="/"
+            aria-label="EdPath home"
             className="flex items-center gap-3 text-ink transition-colors hover:text-primary"
           >
             <Image
               src="/edpath-logo.svg"
-              alt="EdPath"
+              alt=""
               width={42}
               height={42}
               priority
-              className="size-10"
+              className="size-10 shrink-0"
+              aria-hidden
             />
-            <div className="space-y-0.5">
-              <p className="font-display text-xl font-semibold text-ink">EdPath</p>
-              <p className="text-sm text-ink-muted">
-                Turn one PDF into a guided lesson
+            <div className={cn(!isLanding && "space-y-0.5")}>
+              <p className="font-display text-xl font-semibold text-ink">
+                EdPath
               </p>
+              {!isLanding ? (
+                <p className="text-sm text-ink-muted">
+                  Turn one PDF into a guided lesson
+                </p>
+              ) : null}
             </div>
           </Link>
-          <Badge
-            variant="secondary"
-            className="rounded-sm px-3 py-1 text-xs font-semibold uppercase tracking-[var(--tracking-eyebrow)] text-primary"
-          >
-            {modeLabel}
-          </Badge>
+          {!isLanding && modeLabel ? (
+            <Badge
+              variant="secondary"
+              className="rounded-sm px-3 py-1 text-xs font-semibold uppercase tracking-[var(--tracking-eyebrow)] text-primary"
+            >
+              {modeLabel}
+            </Badge>
+          ) : null}
         </div>
       </header>
       <main className="flex flex-1 flex-col">{children}</main>

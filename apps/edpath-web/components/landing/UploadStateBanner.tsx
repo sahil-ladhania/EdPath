@@ -1,7 +1,13 @@
 "use client";
 
-import { AlertCircleIcon, CheckCircle2Icon, LoaderCircleIcon } from "lucide-react";
+import {
+  AlertCircleIcon,
+  CheckCircle2Icon,
+  LoaderCircleIcon,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
+import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/utils";
 
 interface UploadStateBannerProps {
@@ -9,25 +15,21 @@ interface UploadStateBannerProps {
   message: string;
 }
 
+const TONE_ICONS: Record<
+  Exclude<UploadStateBannerProps["tone"], "idle">,
+  LucideIcon
+> = {
+  error: AlertCircleIcon,
+  success: CheckCircle2Icon,
+  loading: LoaderCircleIcon,
+};
+
 export function UploadStateBanner({
   tone,
   message,
 }: UploadStateBannerProps) {
-  const Icon =
-    tone === "error"
-      ? AlertCircleIcon
-      : tone === "success"
-        ? CheckCircle2Icon
-        : tone === "loading"
-          ? LoaderCircleIcon
-          : AlertCircleIcon;
-
   if (tone === "idle") {
-    return (
-      <div className="rounded-lg border border-border bg-paper px-4 py-3 text-sm text-ink-muted">
-        {message}
-      </div>
-    );
+    return null;
   }
 
   return (
@@ -39,7 +41,12 @@ export function UploadStateBanner({
         tone === "loading" && "border-primary bg-primary-soft text-primary",
       )}
     >
-      <Icon className={cn("mt-0.5 size-4 shrink-0", tone === "loading" && "animate-spin")} />
+      <Icon
+        icon={TONE_ICONS[tone]}
+        size="sm"
+        variant={tone === "error" ? "error" : tone === "success" ? "success" : "brand"}
+        className={cn("mt-0.5", tone === "loading" && "animate-spin")}
+      />
       <p>{message}</p>
     </div>
   );

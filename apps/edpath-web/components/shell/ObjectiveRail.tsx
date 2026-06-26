@@ -3,6 +3,7 @@
 import { CheckIcon } from "lucide-react";
 import type { Objective, Phase } from "@repo/types";
 
+import { Panel } from "@/components/ui/Panel";
 import { cn } from "@/lib/utils";
 
 interface ObjectiveRailProps {
@@ -23,8 +24,8 @@ export function ObjectiveRail({
   const isQuizMode = phase === "quizzing" || phase === "awaiting_input";
 
   return (
-    <div className="sticky top-6 rounded-lg border border-border bg-surface p-5 shadow-sm">
-      <div className="mb-5 space-y-1">
+    <Panel size="sm" className="sticky top-6">
+      <div className="space-y-1">
         <p className="text-xs font-semibold uppercase tracking-[var(--tracking-eyebrow)] text-ink-muted">
           Learning path
         </p>
@@ -87,6 +88,6 @@ export function ObjectiveRail({
           );
         })}
       </ol>
-    </div>
+    </Panel>
   );
 }

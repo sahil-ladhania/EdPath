@@ -1,6 +1,9 @@
 "use client";
 
+import { CheckIcon } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/ui/Icon";
 
 interface PlanActionsProps {
   onApprove: () => void;
@@ -17,6 +20,7 @@ export function PlanActions({ onApprove }: PlanActionsProps) {
       </div>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <Button size="lg" className="sm:min-w-52" onClick={onApprove}>
+          <Icon icon={CheckIcon} size="sm" variant="inverse" />
           Approve lesson
         </Button>
         <Button size="lg" variant="outline" disabled>

@@ -4,10 +4,16 @@ import { AppShell } from "@/components/shell/AppShell";
 
 export default function Home() {
   return (
-    <AppShell modeLabel="Upload">
-      <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center gap-10 px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-        <LandingHero />
-        <UploadCard />
+    <AppShell headerVariant="landing">
+      <div className="mx-auto flex w-full max-w-5xl flex-1 items-center px-4 py-8 sm:px-5 lg:px-6 lg:py-10">
+        <div className="grid w-full gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
+          <div className="min-w-0">
+            <LandingHero />
+          </div>
+          <div className="min-w-0">
+            <UploadCard />
+          </div>
+        </div>
       </div>
     </AppShell>
   );

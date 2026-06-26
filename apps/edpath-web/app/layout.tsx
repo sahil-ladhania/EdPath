@@ -45,7 +45,7 @@ export default function RootLayout({
         geistMono.variable,
       )}
     >
-      <body className="flex min-h-full flex-col bg-paper font-sans text-ink">
+      <body className="flex min-h-full flex-col bg-paper-textured font-sans text-ink">
         {children}
       </body>
     </html>

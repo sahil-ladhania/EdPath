@@ -1,11 +1,14 @@
 "use client";
 
+import { GraduationCapIcon } from "lucide-react";
 import type { Summary } from "@repo/types";
 
 import { OverallScore } from "@/components/summary/OverallScore";
 import { PerObjectiveTable } from "@/components/summary/PerObjectiveTable";
 import { RestartCta } from "@/components/summary/RestartCta";
 import { StudyTipsList } from "@/components/summary/StudyTipsList";
+import { Icon } from "@/components/ui/Icon";
+import { Panel } from "@/components/ui/Panel";
 
 interface SummaryViewProps {
   summary: Summary;
@@ -13,9 +16,10 @@ interface SummaryViewProps {
 
 export function SummaryView({ summary }: SummaryViewProps) {
   return (
-    <div className="space-y-6 rounded-lg border border-border bg-surface p-6 shadow-sm">
+    <Panel>
       <div className="space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-[var(--tracking-eyebrow)] text-primary">
+        <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[var(--tracking-eyebrow)] text-primary">
+          <Icon icon={GraduationCapIcon} size="xs" variant="brand" />
           Lesson complete
         </p>
         <h1 className="font-display text-4xl font-semibold tracking-[var(--tracking-display)] text-ink">
@@ -30,6 +34,6 @@ export function SummaryView({ summary }: SummaryViewProps) {
       <PerObjectiveTable summary={summary} />
       <StudyTipsList summary={summary} />
       <RestartCta />
-    </div>
+    </Panel>
   );
 }

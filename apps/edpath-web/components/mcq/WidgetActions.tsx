@@ -1,8 +1,10 @@
 "use client";
 
+import { ArrowRightIcon, SendIcon } from "lucide-react";
 import type { Feedback } from "@repo/types";
 
 import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/ui/Icon";
 
 interface WidgetActionsProps {
   hasSelection: boolean;
@@ -23,6 +25,7 @@ export function WidgetActions({
     return (
       <div className="flex justify-end">
         <Button size="lg" onClick={onSubmit} disabled={!hasSelection}>
+          <Icon icon={SendIcon} size="sm" variant="inverse" />
           Submit answer
         </Button>
       </div>
@@ -38,6 +41,7 @@ export function WidgetActions({
       ) : null}
       {!feedback.canRetry ? (
         <Button size="lg" onClick={onAdvance}>
+          <Icon icon={ArrowRightIcon} size="sm" variant="inverse" />
           Next question
         </Button>
       ) : null}

@@ -8,6 +8,7 @@ import { HelpInput } from "@/components/mcq/HelpInput";
 import { OptionList } from "@/components/mcq/OptionList";
 import { QuestionHeader } from "@/components/mcq/QuestionHeader";
 import { WidgetActions } from "@/components/mcq/WidgetActions";
+import { Panel } from "@/components/ui/Panel";
 import { Separator } from "@/components/ui/separator";
 
 interface McqWidgetProps {
@@ -42,7 +43,7 @@ export function McqWidget({
   onAdvance,
 }: McqWidgetProps) {
   return (
-    <div className="space-y-6 rounded-lg border border-border bg-surface p-6 shadow-sm">
+    <Panel>
       <QuestionHeader
         objectiveTitle={objectiveTitle}
         questionNumber={questionNumber}
@@ -77,6 +78,6 @@ export function McqWidget({
       />
       <Separator />
       <HelpInput />
-    </div>
+    </Panel>
   );
 }

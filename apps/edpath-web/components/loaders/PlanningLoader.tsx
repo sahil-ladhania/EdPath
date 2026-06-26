@@ -1,10 +1,11 @@
 "use client";
 
 import { Skeleton } from "@/components/ui/skeleton";
+import { Panel } from "@/components/ui/Panel";
 
 export function PlanningLoader() {
   return (
-    <div className="space-y-6 rounded-lg border border-border bg-surface p-6 shadow-sm">
+    <Panel>
       <div className="space-y-3">
         <Skeleton className="h-4 w-32 rounded-full" />
         <Skeleton className="h-12 w-2/3 rounded-lg" />
@@ -22,6 +23,6 @@ export function PlanningLoader() {
           </div>
         ))}
       </div>
-    </div>
+    </Panel>
   );
 }

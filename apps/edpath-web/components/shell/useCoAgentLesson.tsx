@@ -17,6 +17,7 @@ import { Role, TextMessage } from "@copilotkit/runtime-client-gql";
 import type { ApprovalDecision, CoAgentState, LessonPlan, Phase } from "@repo/types";
 
 import { Button } from "@/components/ui/button";
+import { Panel } from "@/components/ui/Panel";
 import { getMockCoAgentState } from "@/lib/mock-lesson";
 
 export const EDPATH_AGENT_ID = "edpath";
@@ -76,7 +77,7 @@ function ApprovalInterruptCard({
   }, [onApprove, onResolverReady]);
 
   return (
-    <div className="space-y-4 rounded-lg border border-border bg-surface p-5 shadow-sm">
+    <Panel size="sm">
       <div className="space-y-1">
         <p className="text-sm font-semibold text-ink">Approval needed</p>
         <p className="text-sm text-ink-muted">
@@ -85,7 +86,7 @@ function ApprovalInterruptCard({
         </p>
       </div>
       <Button onClick={onApprove}>Resolve approval interrupt</Button>
-    </div>
+    </Panel>
   );
 }
 

@@ -52,3 +52,13 @@ body {
     @apply font-sans;
   }
 }
+
+.bg-paper-textured {
+  background-color: var(--paper);
+  background-image: radial-gradient(
+    circle,
+    rgba(12, 148, 136, 0.07) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+}

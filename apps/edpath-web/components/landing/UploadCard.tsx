@@ -2,16 +2,16 @@
 
 import { useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { FileUpIcon, FileTextIcon } from "lucide-react";
+import { FileUpIcon, FileTextIcon, PlayIcon } from "lucide-react";
 import type { UploadResult } from "@repo/types";
 
+import { UploadGuidelines } from "@/components/landing/UploadGuidelines";
 import { UploadStateBanner } from "@/components/landing/UploadStateBanner";
 import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/ui/Icon";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -64,8 +64,7 @@ export function UploadCard() {
     if (!uploadResult) {
       return {
         tone: "idle",
-        message:
-          "Choose one PDF to build a focused lesson path from its contents.",
+        message: "",
       };
     }
 
@@ -90,6 +89,8 @@ export function UploadCard() {
 
   const acceptedUpload =
     uploadResult?.status === "accepted" ? uploadResult : null;
+
+  const showStatusBanner = status.tone !== "idle";
 
   async function validateAndStore(file: File): Promise<void> {
     setTransportError(null);
@@ -164,17 +165,13 @@ export function UploadCard() {
   }
 
   return (
-    <Card className="mx-auto w-full max-w-3xl border-border bg-surface shadow-sm">
-      <CardHeader className="space-y-2">
-        <CardTitle className="font-display text-2xl font-semibold tracking-[var(--tracking-display)]">
-          Upload your source PDF
+    <Card className="w-full border-border bg-surface shadow-sm">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-base font-semibold text-ink">
+          Upload PDF
         </CardTitle>
-        <CardDescription>
-          One bounded document becomes one structured lesson with a plan,
-          questions, feedback, and a final study report.
-        </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-5">
+      <CardContent className="space-y-4">
         <input
           ref={inputRef}
           type="file"
@@ -185,78 +182,76 @@ export function UploadCard() {
         />
 
         <button
-          type="button"
-          disabled={isBusy}
-          onClick={() => inputRef.current?.click()}
-          onDragOver={(event) => {
-            if (isBusy) {
-              return;
-            }
+            type="button"
+            disabled={isBusy}
+            onClick={() => inputRef.current?.click()}
+            onDragOver={(event) => {
+              if (isBusy) {
+                return;
+              }
 
-            event.preventDefault();
-            setIsDragging(true);
-          }}
-          onDragLeave={() => setIsDragging(false)}
-          onDrop={(event) => {
-            event.preventDefault();
-            setIsDragging(false);
-            handleFiles(event.dataTransfer.files);
-          }}
-          className={[
-            "flex w-full flex-col items-center justify-center gap-3 rounded-lg border border-dashed bg-paper px-6 py-10 text-center transition-colors",
-            isBusy
-              ? "cursor-not-allowed opacity-60"
-              : isDragging
-                ? "border-primary bg-primary-soft"
-                : "border-border hover:border-primary hover:bg-primary-soft/60",
-          ].join(" ")}
-        >
-          <div className="flex size-12 items-center justify-center rounded-full bg-surface text-primary shadow-sm">
-            <FileUpIcon className="size-5" />
-          </div>
-          <div className="space-y-1">
-            <p className="font-semibold text-ink">
-              Drag a PDF here or click to choose one
-            </p>
-            <p className="text-sm text-ink-muted">
-              PDF only · under 15 MB · selectable text required.
-            </p>
-          </div>
-        </button>
+              event.preventDefault();
+              setIsDragging(true);
+            }}
+            onDragLeave={() => setIsDragging(false)}
+            onDrop={(event) => {
+              event.preventDefault();
+              setIsDragging(false);
+              handleFiles(event.dataTransfer.files);
+            }}
+            className={[
+              "flex aspect-[5/2] w-full flex-row items-center justify-center gap-3 rounded-lg border border-dashed bg-paper px-4 py-5 text-center transition-colors sm:gap-4",
+              isBusy
+                ? "cursor-not-allowed opacity-60"
+                : isDragging
+                  ? "border-primary bg-primary-soft"
+                  : "border-border hover:border-primary hover:bg-primary-soft/60",
+            ].join(" ")}
+          >
+            <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-surface text-primary shadow-[var(--shadow-xs)]">
+              <Icon icon={FileUpIcon} size="sm" variant="brand" />
+            </div>
+            <div className="text-left">
+              <p className="text-sm font-semibold text-ink">Drop PDF here</p>
+              <p className="text-xs text-ink-muted">or choose a file</p>
+            </div>
+          </button>
 
         {selectedFile && acceptedUpload ? (
-          <div className="rounded-lg border border-border bg-paper px-4 py-4">
+          <div className="rounded-lg border border-border bg-paper px-4 py-3">
             <div className="flex items-start gap-3">
-              <div className="flex size-10 items-center justify-center rounded-lg bg-primary-soft text-primary">
-                <FileTextIcon className="size-5" />
+              <div className="flex size-9 items-center justify-center rounded-lg bg-primary-soft text-primary">
+                <Icon icon={FileTextIcon} size="sm" variant="brand" />
               </div>
-              <div className="space-y-1">
-                <p className="font-semibold text-ink">{selectedFile.name}</p>
+              <div className="min-w-0 space-y-1">
+                <p className="truncate font-semibold text-ink">
+                  {selectedFile.name}
+                </p>
                 <p className="text-sm text-ink-muted">
                   {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB · ~
-                  {acceptedUpload.pdfMeta.pageCount} pages · ~
-                  {acceptedUpload.pdfMeta.charCount.toLocaleString()} cleaned
-                  characters
+                  {acceptedUpload.pdfMeta.pageCount} pages
                 </p>
               </div>
             </div>
           </div>
         ) : null}
 
-        <UploadStateBanner tone={status.tone} message={status.message} />
-      </CardContent>
-      <CardFooter className="justify-between gap-3">
-        <p className="text-sm text-ink-muted">
-          Your file is used to create one lesson.
-        </p>
+        {showStatusBanner ? (
+          <UploadStateBanner tone={status.tone} message={status.message} />
+        ) : null}
+
+        <UploadGuidelines />
+
         <Button
+          className="w-full"
           size="lg"
           onClick={handleStartLesson}
           disabled={!selectedFile || isBusy}
         >
+          <Icon icon={PlayIcon} size="sm" variant="inverse" />
           Start lesson
         </Button>
-      </CardFooter>
+      </CardContent>
     </Card>
   );
 }

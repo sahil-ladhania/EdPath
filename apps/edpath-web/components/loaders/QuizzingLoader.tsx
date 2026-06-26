@@ -1,10 +1,11 @@
 "use client";
 
 import { Skeleton } from "@/components/ui/skeleton";
+import { Panel } from "@/components/ui/Panel";
 
 export function QuizzingLoader() {
   return (
-    <div className="space-y-6 rounded-lg border border-border bg-surface p-6 shadow-sm">
+    <Panel>
       <div className="flex items-center justify-between gap-4">
         <Skeleton className="h-5 w-1/3 rounded-full" />
         <Skeleton className="h-5 w-28 rounded-full" />
@@ -19,6 +20,6 @@ export function QuizzingLoader() {
         ))}
       </div>
       <Skeleton className="h-20 w-full rounded-lg" />
-    </div>
+    </Panel>
   );
 }

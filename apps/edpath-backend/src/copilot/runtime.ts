@@ -3,10 +3,10 @@ import {
   copilotRuntimeNodeExpressEndpoint,
   ExperimentalEmptyAdapter,
 } from "@copilotkit/runtime";
-import { LangGraphAgent } from "@copilotkit/runtime/langgraph";
 import type { RequestHandler } from "express";
 
 import { createInitialCoAgentState } from "../agent/initial-coagent-state.js";
+import { EdPathLangGraphAgent } from "./edpath-langgraph-agent.js";
 
 export const COPILOTKIT_ENDPOINT = "/copilotkit";
 export const EDPATH_AGENT_ID = "edpath";
@@ -32,7 +32,7 @@ export function createEdPathCopilotKitRuntime(
   const endpoint = options.endpoint ?? COPILOTKIT_ENDPOINT;
   const runtime = new CopilotRuntime({
     agents: {
-      [EDPATH_AGENT_ID]: new LangGraphAgent({
+      [EDPATH_AGENT_ID]: new EdPathLangGraphAgent({
         agentId: EDPATH_AGENT_ID,
         description: "EdPath LangGraph teaching workflow",
         deploymentUrl: options.langGraphDeploymentUrl,

@@ -42,7 +42,7 @@ export async function planNode(
     systemPrompt: PLAN_SYSTEM_PROMPT,
     userPrompt,
     schema: LessonPlanSchema,
-    model: getPlanModel(0),
+    getModel: getPlanModel,
     tokensUsed: state.tokensUsed,
   });
 
@@ -73,7 +73,7 @@ export async function generatePlanFromPdf(pdfText: string, note?: string) {
     systemPrompt: PLAN_SYSTEM_PROMPT,
     userPrompt,
     schema: LessonPlanSchema,
-    model: getPlanModel(0),
+    getModel: getPlanModel,
     tokensUsed: 0,
   });
 }

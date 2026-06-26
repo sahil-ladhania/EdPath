@@ -15,6 +15,8 @@ export interface StructuredGenerateOptions<T> {
   userPrompt: string;
   schema: ParseableSchema<T>;
   model?: string;
+  /** When set, selects the model per repair attempt (overrides `model`). */
+  getModel?: (attempt: number) => string;
   tokensUsed: number;
 }
 
@@ -59,10 +61,11 @@ export async function structuredGenerate<T>(
       };
     }
 
+    const model = options.getModel?.(attempt) ?? options.model;
     const result = await client.invoke(
       options.systemPrompt,
       userPrompt,
-      options.model,
+      model,
       { jsonMode: true },
     );
     tokensUsed += result.inputTokens + result.outputTokens;

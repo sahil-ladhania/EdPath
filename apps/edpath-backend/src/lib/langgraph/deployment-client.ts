@@ -35,6 +35,7 @@ export async function seedLessonThread(input: SeedLessonThreadInput): Promise<vo
     await client.threads.create({
       threadId: input.threadId,
       ifExists: "do_nothing",
+      graphId: env.EDPATH_LANGGRAPH_GRAPH_ID,
     });
 
     const existingState = await client.threads.getState(input.threadId);

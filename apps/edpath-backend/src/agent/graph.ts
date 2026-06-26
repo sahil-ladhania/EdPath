@@ -10,6 +10,7 @@ import { gradeNode } from "./nodes/grade.js";
 import { planNode } from "./nodes/plan.js";
 import { summarizeNode } from "./nodes/summarize.js";
 import { EdPathStateAnnotation, type GraphState } from "./state/annotation.js";
+import { CoAgentStateOutputAnnotation } from "./state/co-agent-output-annotation.js";
 
 /** LangGraph node names — must not collide with state channel keys. */
 const N1_PLAN = "plan_lesson";
@@ -53,7 +54,9 @@ function routeAfterGrade(
 }
 
 function createEdPathWorkflow() {
-  return new StateGraph(EdPathStateAnnotation)
+  return new StateGraph(EdPathStateAnnotation, {
+    output: CoAgentStateOutputAnnotation,
+  })
     .addNode(N1_PLAN, planNode)
     .addNode("approval_gate", approvalGateNode)
     .addNode("generate_mcq", generateMcqNode)

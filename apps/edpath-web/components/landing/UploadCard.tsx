@@ -16,17 +16,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  createLessonStartHandoff,
+  createThreadId,
   rememberThreadId,
 } from "@/lib/lesson-handoff";
+import { startLessonPdf } from "@/lib/start-api";
 import { uploadPdf } from "@/lib/upload-api";
 
 interface UploadBannerState {
   tone: "idle" | "error" | "success" | "loading";
   message: string;
 }
-
-const START_LESSON_DELAY_MS = 550;
 
 export function UploadCard() {
   const router = useRouter();
@@ -130,7 +129,7 @@ export function UploadCard() {
     void validateAndStore(file);
   }
 
-  function handleStartLesson(): void {
+  async function handleStartLesson(): Promise<void> {
     if (!selectedFile || !acceptedUpload) {
       setTransportError(null);
       setUploadResult({
@@ -141,17 +140,27 @@ export function UploadCard() {
       return;
     }
 
-    const handoff = createLessonStartHandoff({
-      file: selectedFile,
-      pdfMeta: acceptedUpload.pdfMeta,
-    });
+    const threadId = createThreadId();
 
-    rememberThreadId(handoff.threadId);
+    setTransportError(null);
     setIsStartingLesson(true);
 
-    window.setTimeout(() => {
-      router.push(`/lesson/${handoff.threadId}`);
-    }, START_LESSON_DELAY_MS);
+    const outcome = await startLessonPdf(selectedFile, threadId);
+
+    setIsStartingLesson(false);
+
+    if (outcome.kind === "transport_error") {
+      setTransportError(outcome.message);
+      return;
+    }
+
+    if (outcome.result.status === "rejected") {
+      setUploadResult(outcome.result);
+      return;
+    }
+
+    rememberThreadId(threadId);
+    router.push(`/lesson/${threadId}`);
   }
 
   return (

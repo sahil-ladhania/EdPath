@@ -151,7 +151,7 @@ export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
       void appendMessage(new TextMessage({
         id: crypto.randomUUID(),
         role: Role.User,
-        content: "Start the EdPath walking skeleton.",
+        content: "Start the lesson.",
       }));
     }, 250);
 

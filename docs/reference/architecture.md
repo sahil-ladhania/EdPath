@@ -3,7 +3,7 @@
 > Companion document: `[agent-architecture.md](./agent-architecture.md)` (the agent design / gate walk).
 > Source of truth: `[assignment.md](./assignment.md)` · risk register: `[challenges.md](./challenges.md)`.
 >
-> `PROVISIONAL:` tags mark positions adopted as the simplest sensible default for this document. They are **not** locked — the ~30 product design decisions are owned by a separate session that will produce `design-decisions.md`.
+> `PROVISIONAL:` tags marked simplest-default positions pending the decisions session. That session is complete: the locked outcomes live in `design-decisions.md` and have been reconciled into this document (see §9). A remaining `PROVISIONAL` tag marks a still-open *optional* item, not an unmade decision.
 
 ---
 
@@ -25,7 +25,7 @@ It is a **deterministic teaching system powered by an LLM**: a structured LangGr
 
 ### System input
 
-- **Primary:** one **PDF file**, uploaded by a single user. `PROVISIONAL: confirm in design-decisions session` — size/page ceiling; default assumption is a PDF whose cleaned text fits comfortably in the model's context window (no RAG).
+- **Primary:** one **PDF file**, uploaded by a single user. **Ingestion ceiling (locked — D3 / B6):** about 50 pages, 50K tokens, or 200K cleaned characters — token/character count is the real gate, page count a soft signal. Reject empty, scanned/image-only (no text layer), oversized, or otherwise unparseable PDFs at upload with a clear error; **no OCR in v1.** The cleaned text rides in context (no RAG).
 - **Runtime inputs (arrive during the run):** the plan **approval decision**; an **MCQ answer** (selected option) per question; optional **free-text help turns** ("hint" / "explain this topic").
 
 ### System output
@@ -94,7 +94,7 @@ EdPath is a **workflow** — a deterministic, engineer-controlled LangGraph with
 Node **[4a] ASSIST** (the "hint / learn more" turn, Challenge #2) is the only free-form pocket. It stays boxed in:
 
 1. **Structurally contained** — a side edge off [4] whose *only* exit is back to [4]; it cannot advance, grade, re-plan, or end.
-2. **Counted** — per-question help ceiling (`PROVISIONAL`), then steers back.
+2. **Counted** — per-question help ceiling **`MAX_HELP = 3`** (locked — B3), then steers back.
 3. **Guardrailed** — never receives `correctIndex`; must help *and* steer back (S10).
 4. **No tools, no exploration** — a single LLM call, so it is not an agent loop.
 
@@ -169,7 +169,7 @@ The only durable surface is the **LangGraph checkpoint** (the state object per `
 - **Postgres — keep, as the LangGraph checkpointer backend** (not a hand-designed app schema). It survives process restart and refresh, which reviewers will test. (SQLite/in-memory checkpointer is fine for pure local dev.)
 - **Redis — drop from v1.** Nothing hot to cache (`pdfText` is in graph state; LLM outputs are one-shot); the checkpointer is the session store; CopilotKit handles UI streaming for one user. Redis would add failure surface for zero current requirement.
 
-> `**PROVISIONAL: confirm in design-decisions session` — Storage recommendation:** Postgres only, as the checkpointer backend; no Redis in v1. Revisit Redis only on a concrete trigger (multi-user concurrency, rate-limiting, cross-instance streaming, or a measured cache need). The final state-storage lock belongs to the decisions session.
+> **Storage (locked — C5 / D5):** Postgres only, as the LangGraph checkpointer backend; no Redis in v1. Revisit Redis only on a concrete trigger (multi-user concurrency, rate-limiting, cross-instance streaming, or a measured cache need).
 
 ---
 
@@ -193,12 +193,14 @@ TypeScript (strict) everywhere · **LangGraph** (agent) · **CopilotKit / CoAgen
 
 ---
 
-## 9. Open `PROVISIONAL` items (for `design-decisions.md`)
+## 9. Resolved in `design-decisions.md`
 
-- PDF size/page ceiling and extraction strategy for messy/scanned PDFs.
-- Quiz shape: N MCQs per objective vs. one (drives whether state holds a question list).
-- Scoring rule for "retry without penalty" (track first-try vs. eventual-correct).
-- Difficulty representation in the plan.
-- Per-question retry cap, help-turn cap, max objectives, per-run cost ceiling.
-- Final state-storage lock (Postgres-only recommendation above; Redis trigger conditions).
+The items this document previously left `PROVISIONAL` are now locked in `design-decisions.md` and reconciled above:
+
+- PDF size/page ceiling and extraction strategy for messy/scanned PDFs → **D3 / B6** (≈50 pages / 50K tokens / 200K chars; whole cleaned text in context; reject scanned/oversized; no OCR).
+- Quiz shape: N MCQs per objective vs. one → **D2 / B1** (fixed `N = 3`, generated lazily per objective, presented one at a time).
+- Scoring rule for "retry without penalty" → **D5 / D10 / D13** (`results[]` canonical; `score` derived; retries never reduce score).
+- Difficulty representation in the plan → **D17** (`difficulty: "easy" | "medium" | "hard"`).
+- Per-question retry cap, help-turn cap, max objectives, per-run cost ceiling → **B2 / B3 / B4 / B7** (`MAX_ATTEMPTS = 3`, `MAX_HELP = 3`, ≤ 8 objectives, ≈1.5M tokens/thread).
+- Final state-storage lock → **C5 / D5** (Postgres-only checkpointer; Redis deferred).
 

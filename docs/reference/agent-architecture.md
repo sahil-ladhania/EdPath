@@ -4,7 +4,7 @@
 > Methodology: the Agent Engineering Handbook — Gates 0→6, *start with the simplest thing that meets today's requirement; climb only when a requirement demonstrably forces it.*
 > Source of truth: [`assignment.md`](./assignment.md) · risk register: [`challenges.md`](./challenges.md).
 >
-> `PROVISIONAL:` tags mark simplest-default positions, not locks. The ~30 product decisions belong to a separate session producing `design-decisions.md`.
+> `PROVISIONAL:` tags marked simplest-default positions pending the decisions session. That session is complete: the locked outcomes live in `design-decisions.md` and have been reconciled into this document (see the closing "Resolved" section). A remaining `PROVISIONAL` tag marks a still-open *optional* item, not an unmade decision.
 
 ---
 
@@ -53,7 +53,7 @@ Choosing an autonomous agent would trade latency, cost, and a large failure surf
 
 One augmented LLM, invoked at four generative nodes (plan, MCQ, assist, summarize). Same backbone, tailored context per node.
 
-- **Model:** Claude, current generation. Default workhorse **`claude-sonnet-4-6`**; **`claude-opus-4-8`** available for the heavier plan reasoning if quality demands. `PROVISIONAL: confirm in design-decisions session` — model-per-node and any cost routing is tuning, not architecture. Architecture requires only "a capable, structured-output-reliable Claude model."
+- **Model (locked — B8):** Claude, current generation. **`claude-sonnet-4-6`** is the workhorse for all four generative nodes (N1 plan, N3 MCQ, N5 assist, N9 summarize); **`claude-opus-4-8`** is an **N1-plan escape hatch only** if plan-quality evals demand it. N6/N7/N8 call no model. Model-per-node and cost routing remain tuning, not architecture — the architectural requirement is only "a capable, structured-output-reliable Claude model."
 - **Context per call (high-signal only):** a node-specific **system prompt** (role + job + guardrails, at the right altitude); **`pdfText`** (grounding — this is our "retrieval" minus a vector store); and a **minimal slice of state** (e.g. MCQ node → current objective; assist → current question *without* `correctIndex`; summary → results).
 - **Memory:** lives in the **LangGraph state object (checkpointed)**, not in the model and not in a bespoke store. The state *is* the memory — this is what makes refresh-survival (Challenge #1) and state-as-source-of-truth (Challenge #5) solvable.
 - **Tools:** the **LLM calls essentially none.** The only deterministic operation — grading — is plain code the graph calls (N6), never a model-chosen tool. The atomic unit is *"LLM + grounding context + state-as-memory + structured output"* with the tools dimension deliberately empty. Simplest possible unit, and enough.
@@ -91,9 +91,9 @@ The **bounded loop** (objectives + retries) is required by AC7/AC8; the **human 
 | Field | Type (contract level) | Purpose |
 |---|---|---|
 | **`pdfText`** | `string` | grounding source for every generative node |
-| `pdfMeta` | `{ filename, charCount }` | provenance (optional) |
+| `pdfMeta` | `{ filename, charCount, pageCount }` | provenance (D3) |
 | **`plan`** | `LessonPlan \| null` | approved objective list |
-| **`approval`** | `{ decision: "approve"\|"changes", note? } \| null` | HITL outcome; `changes` re-plans |
+| **`approval`** | `{ decision: "approve"\|"changes", note? } \| null` | HITL outcome; on `changes`, `approval.note` feeds the N1 re-plan (D6 / D7) |
 | **`currentObjectiveIndex`** | `number` | outer-loop pointer |
 | **`questions`** | `MCQ[]` | MCQ(s) for the current objective |
 | **`currentQuestionIndex`** | `number` | inner-loop pointer |
@@ -101,16 +101,16 @@ The **bounded loop** (objectives + retries) is required by AC7/AC8; the **human 
 | **`attempts`** | `number` | attempts on current question (retry + scoring) |
 | **`helpTurnsUsed`** | `number` | bounds the dynamic pocket |
 | **`results`** | `ObjectiveResult[]` | `{ objectiveId, questionId, correct, attempts, firstTryCorrect }` |
-| **`score`** | `{ correct, total, firstTry }` | retry-aware aggregate (derived from `results`) |
+| **`score`** | `{ correct, total, firstTry }` | retry-aware aggregate — a **derived projection** of `results`, never mutated independently |
 | **`summary`** | `Summary \| null` | final report |
 | **`messages`** | `Message[]` | chat history (CopilotKit + assist context) |
 | **`phase`** | `"planning"\|"awaiting_approval"\|"quizzing"\|"awaiting_input"\|"complete"` | lets the UI re-render the right surface after refresh |
 | `lastError` | `{ node, kind, detail } \| null` | reliability/recovery |
 
-**`PROVISIONAL: confirm in design-decisions session` fields:**
-- **`questions` (list) + `currentQuestionIndex`** assume *N MCQs per objective*; if the lock is one-per-objective, this collapses to a single `currentQuestion` and the inner loop disappears.
-- **`score` / `firstTryCorrect`** encode the "retry without penalty" rule (default: retries never reduce score; `firstTry` tracked for the summary).
-- **`difficulty`** representation in `LessonPlan`.
+**Locked field notes (from `design-decisions.md`):**
+- **`questions` (list) + `currentQuestionIndex`** — confirmed (D2 / B1): a fixed **`N = 3`** MCQs per objective, generated lazily in one batched N3 call and presented one at a time; `questions[]` is durable once generated and **never regenerated on resume** (D5). The inner loop stays.
+- **`score` / `firstTryCorrect`** encode the "retry without penalty" rule (D5 / D10): `results[]` is canonical, `score` is derived from it, retries never reduce score; `firstTry` is tracked for the summary.
+- **`difficulty`** in `LessonPlan` is locked to `"easy" | "medium" | "hard"` (D17).
 
 ### 5.2 Nodes
 
@@ -143,7 +143,7 @@ START ─► N1 plan ─► N2 approval_gate ⏸
         N8 ─[all done]─► N9 summarize ─► END
 ```
 
-Every branch is a **deterministic conditional over state**: `approval_gate` reads `approval.decision`; `await_input` split is a deterministic check on the resume payload's *kind* (widget answer vs. free text), not LLM routing; `feedback` reads the grade verdict; `advance` compares indices against lengths. The `incorrect → await_input` edge delivers AC7 (same question, `attempts++`, score untouched).
+Every branch is a **deterministic conditional over state**: `approval_gate` reads `approval.decision`; `await_input` split is a deterministic check on the resume payload's *kind* (widget answer vs. free text), not LLM routing; `feedback` reads the grade verdict; `advance` compares indices against lengths. The `incorrect → await_input` edge delivers AC7 (same question, `attempts++`, score untouched). The `N2 ─[changes]─► N1` edge re-runs planning with `pdfText` + `approval.note` (full re-plan, no diff/patch — D7). **No skip/back edges in v1 (D24)** — progression is linear.
 
 ### 5.4 Interrupts & resume
 
@@ -163,7 +163,7 @@ LessonPlan { objectives: Objective[] }                       // ordered todo lis
 Objective  { objectiveId: string
              title: string
              description: string                             // grounded in PDF
-             difficulty: "easy"|"medium"|"hard" }            // PROVISIONAL representation
+             difficulty: "easy"|"medium"|"hard" }            // locked (D17)
 ```
 
 **B. MCQ**
@@ -174,7 +174,8 @@ MCQ { questionId: string
       options: string[]                                      // >= 2; rendered as radios
       correctIndex: number                                   // NEVER placed in assist context
       explanation: string                                    // shown on correct (AC6), grounded
-      hint: string }                                         // shown on incorrect (AC7), no answer reveal
+      hint: string                                           // shown on incorrect (AC7), no answer reveal
+      sourceQuote: string }                                  // D4: grounding evidence; backend-only, behind the assist firewall
 ```
 
 **C. Feedback** (assembled in N7 from MCQ + grade — not a fresh LLM artifact)
@@ -197,7 +198,7 @@ Summary { perObjective: { objectiveId, title, correct, total, firstTryRate }[]
 **Assist (N5)** returns a plain chat message — no structured artifact — so it stays a single bounded call and can't drive UI state.
 
 **ACI rules (poka-yoke):**
-- `correctIndex` is **structurally firewalled** — present in `MCQ` for the grader, never in assist context, omitted from `Feedback` until correct. Leakage is prevented by *what each call can see*, not by hoping the prompt holds.
+- `correctIndex` is **structurally firewalled** — present in `MCQ` for the grader, never in assist context, omitted from `Feedback` until correct. The assist firewall likewise excludes `explanation`, `hint`, and `sourceQuote` (D4 / D20) — assist sees only the question + options. Leakage is prevented by *what each call can see*, not by hoping the prompt holds.
 - Answers are **integer indices, not free text** — grading can't misparse.
 - Stable IDs (`objectiveId`, `questionId`) thread plan → questions → results → summary.
 
@@ -221,17 +222,18 @@ No other tools. No retrieval tool (PDF is in-context), no web/DB tool. An empty 
 ### Bounded loops
 | Bound | Limit | Behavior at limit |
 |---|---|---|
-| Max retries / question | `MAX_ATTEMPTS` (`PROVISIONAL`, e.g. 5) | reveal explanation, mark not-first-try, advance |
-| Max help turns / question | `MAX_HELP` (`PROVISIONAL`, e.g. 3) | assist firmly steers back, declines tangents |
-| Max objectives / questions | from `plan`, hard-capped (`PROVISIONAL`, e.g. ≤ 10) | stops runaway plans on huge PDFs |
-| Per-run cost / iteration ceiling | token/step budget per thread | circuit-break → graceful error surface |
+| Max attempts / question | `MAX_ATTEMPTS = 3` (locked — B2; initial + 2 retries) | reveal explanation, mark not-first-try, advance |
+| Max help turns / question | `MAX_HELP = 3` (locked — B3) | assist firmly steers back, declines tangents |
+| Max objectives / plan | ≤ 8 (locked — B4; soft target 4–6) | stops runaway plans on huge PDFs |
+| Repair retries / node | ≤ 2 (locked — B5), then node error, no advance | bounds schema-drift recovery |
+| Per-run token ceiling | ≈ 1.5M aggregate tokens / thread (locked — B7; ~100K in / 8K out per node) | circuit-break → graceful error surface |
 
 ### Failure points → recovery
 | Failure | Where | Recovery |
 |---|---|---|
 | PDF parse fails (scanned/empty) | upstream extraction | reject at upload with a clear message; graph never starts on empty `pdfText` (Challenge #3) |
 | Invalid JSON / schema drift | N1, N3, N5, N9 | backend Zod catch → **bounded node retry** (e.g. ≤2, with a repair nudge) → else node-level error, **no state advance** (Challenge #4) |
-| Valid but ungrounded MCQ | N3 | optional grounding self-check (`PROVISIONAL`); default: caught by evals |
+| Valid but ungrounded MCQ | N3 | **deterministic source-anchor check** (locked — D4 / D16): each `sourceQuote` must match `pdfText` after normalization; inline LLM grounding self-check is a deferred escape hatch |
 | Grading error (bad index) | N6 | `GradingError` → re-surface same question, no mutation |
 | Interrupt/resume desync (refresh) | N2, N4 | checkpointer authoritative; rehydrate from `threadId`, re-render from `phase` (Challenge #1) |
 | One step derails trajectory | general | durable execution + resume-from-checkpoint (not restart) |
@@ -255,11 +257,16 @@ Use a handful of real PDFs (easy / dense / messy). Evaluate the **final state**,
 
 ---
 
-## Open `PROVISIONAL` items (for `design-decisions.md`)
-- Quiz shape: N MCQs per objective vs. one (drives `questions` list vs. single `currentQuestion`).
-- Scoring rule for "retry without penalty."
-- Difficulty representation.
-- Retry cap, help-turn cap, max objectives, per-run cost ceiling.
-- Model-per-node / cost routing.
-- Optional MCQ-grounding self-check (evaluator-optimizer guardrail).
-- Optional parallel MCQ pre-generation (latency).
+## Resolved in `design-decisions.md`
+
+The items this gate walk previously left `PROVISIONAL` are now locked:
+
+- Quiz shape: N MCQs per objective vs. one → **D2 / B1** (fixed `N = 3`; `questions[]` list retained).
+- Scoring rule for "retry without penalty" → **D5 / D10 / D13**.
+- Difficulty representation → **D17** (`"easy" | "medium" | "hard"`).
+- Retry cap, help-turn cap, max objectives, per-run cost ceiling → **B2 / B3 / B4 / B7** (3, 3, ≤ 8, ≈1.5M tokens), plus repair retries ≤ 2 (**B5**).
+- Model-per-node / cost routing → **B8** (`claude-sonnet-4-6` for N1/N3/N5/N9; `claude-opus-4-8` N1 escape hatch).
+- MCQ-grounding self-check → **D4** (deterministic source-anchor check locked; inline LLM self-check deferred as an escape hatch).
+
+**Still open (optional, latency-only — not required for v1):**
+- Parallel MCQ pre-generation across objectives (Gate 3, rung 4).

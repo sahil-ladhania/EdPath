@@ -1,3 +1,4 @@
+import { EdPathCopilotProvider } from "@/components/copilot/EdPathCopilotProvider";
 import { AppShell } from "@/components/shell/AppShell";
 import { LessonRunner } from "@/components/shell/LessonRunner";
 
@@ -13,8 +14,10 @@ export default async function LessonPage({
   const { threadId } = await params;
 
   return (
-    <AppShell modeLabel="Lesson">
-      <LessonRunner threadId={threadId} />
-    </AppShell>
+    <EdPathCopilotProvider threadId={threadId}>
+      <AppShell modeLabel="Lesson">
+        <LessonRunner threadId={threadId} />
+      </AppShell>
+    </EdPathCopilotProvider>
   );
 }

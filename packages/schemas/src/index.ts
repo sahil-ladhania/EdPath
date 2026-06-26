@@ -5,12 +5,12 @@
 //
 // DAG: @repo/types → @repo/schemas → zod (one direction only; schemas never
 // imports from @repo/types).
-export * from "./primitives.ts";
-export * from "./lesson-plan.ts";
-export * from "./mcq.ts";
-export * from "./feedback.ts";
-export * from "./summary.ts";
-export * from "./resume.ts";
-export * from "./upload.ts";
-export * from "./error.ts";
-export * from "./scoring.ts";
+export * from "./primitives.js";
+export * from "./lesson-plan.js";
+export * from "./mcq.js";
+export * from "./feedback.js";
+export * from "./summary.js";
+export * from "./resume.js";
+export * from "./upload.js";
+export * from "./error.js";
+export * from "./scoring.js";

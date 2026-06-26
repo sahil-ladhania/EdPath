@@ -45,3 +45,5 @@ design-decisions.md
 agent-architecture.md
 architecture.md
 feature-flow.md
+# LangGraph API
+.langgraph_api

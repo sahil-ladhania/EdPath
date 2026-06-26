@@ -8,6 +8,7 @@ import { PlanWidget } from "@/components/plan/PlanWidget";
 import { ObjectiveRail } from "@/components/shell/ObjectiveRail";
 import { LessonShell } from "@/components/shell/LessonShell";
 import { SummaryView } from "@/components/summary/SummaryView";
+import { useCoAgentLesson } from "@/components/shell/useCoAgentLesson";
 import { useLesson } from "@/hooks/useLesson";
 
 interface LessonRunnerProps {
@@ -16,31 +17,35 @@ interface LessonRunnerProps {
 
 export function LessonRunner({ threadId }: LessonRunnerProps) {
   const lesson = useLesson(threadId);
+  const coAgentLesson = useCoAgentLesson(threadId);
+  const plan = coAgentLesson.plan ?? lesson.plan;
+  const phase = coAgentLesson.phase;
+  const pdfTitle = coAgentLesson.pdfTitle;
 
   return (
     <>
       <LessonShell
         rail={
           <ObjectiveRail
-            objectives={lesson.plan.objectives}
-            currentObjectiveIndex={lesson.currentObjectiveIndex}
-            phase={lesson.phase}
-            currentQuestionIndex={lesson.currentQuestionIndex}
-            questionCount={lesson.currentQuestions.length}
+            objectives={plan.objectives}
+            currentObjectiveIndex={coAgentLesson.state.currentObjectiveIndex}
+            phase={phase}
+            currentQuestionIndex={coAgentLesson.state.currentQuestionIndex}
+            questionCount={coAgentLesson.state.questions.length}
           />
         }
       >
-        {lesson.phase === "planning" ? <PlanningLoader /> : null}
-        {lesson.phase === "awaiting_approval" ? (
+        {phase === "planning" ? <PlanningLoader /> : null}
+        {phase === "awaiting_approval" ? (
           <PlanWidget
-            pdfTitle={lesson.pdfTitle}
-            plan={lesson.plan}
-            phase={lesson.phase}
-            onApprove={lesson.approvePlan}
+            pdfTitle={pdfTitle}
+            plan={plan}
+            phase={phase}
+            onApprove={coAgentLesson.approvePlan}
           />
         ) : null}
-        {lesson.phase === "quizzing" ? <QuizzingLoader /> : null}
-        {lesson.phase === "awaiting_input" ? (
+        {phase === "quizzing" ? <QuizzingLoader /> : null}
+        {phase === "awaiting_input" ? (
           <McqWidget
             objectiveTitle={lesson.currentObjective.title}
             questionNumber={lesson.currentQuestionIndex + 1}
@@ -57,15 +62,18 @@ export function LessonRunner({ threadId }: LessonRunnerProps) {
             onAdvance={lesson.advance}
           />
         ) : null}
-        {lesson.phase === "complete" ? (
+        {phase === "complete" ? (
           <SummaryView summary={lesson.summary} />
+        ) : null}
+        {coAgentLesson.interruptElement ? (
+          <div className="mt-6">{coAgentLesson.interruptElement}</div>
         ) : null}
       </LessonShell>
 
       <DevPhaseSwitcher
-        phase={lesson.phase}
-        objectiveCount={lesson.plan.objectives.length}
-        currentObjectiveIndex={lesson.currentObjectiveIndex}
+        phase={phase}
+        objectiveCount={plan.objectives.length}
+        currentObjectiveIndex={coAgentLesson.state.currentObjectiveIndex}
         onSetPhase={lesson.setPhase}
         onJumpToObjective={lesson.jumpToObjective}
         onSimulateOutcome={lesson.simulateOutcome}

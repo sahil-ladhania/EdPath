@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { DifficultySchema } from "./primitives.ts";
+import { DifficultySchema } from "./primitives.js";
 
 /** One ordered learning objective in the plan (Gate 5 A). */
 export const ObjectiveSchema = z.object({

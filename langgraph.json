@@ -1,0 +1,7 @@
+{
+  "$schema": "https://langgra.ph/schema.json",
+  "dependencies": ["."],
+  "graphs": {
+    "edpath-walking-skeleton": "./apps/edpath-backend/src/agent/walking-skeleton.ts:graph"
+  }
+}

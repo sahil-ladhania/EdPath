@@ -4,11 +4,13 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "langgraph:dev": "npx @langchain/langgraph-cli dev --no-browser",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
+    "@langchain/langgraph-cli": "^1.4.1",
     "prettier": "^3.7.4",
     "turbo": "^2.10.0",
     "typescript": "5.9.2"

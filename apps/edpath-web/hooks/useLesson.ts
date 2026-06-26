@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { FeedbackSchema } from "@repo/schemas";
 import type {
   CoAgentState,
   Feedback,
@@ -55,8 +54,6 @@ export type QuizPreviewOutcome = "correct" | "incorrect" | "exhausted";
 
 const PLAN_DELAY_MS = 700;
 const QUIZ_DELAY_MS = 700;
-const CORRECT_KEY_PART = "correct";
-const INDEX_KEY_PART = "Index";
 
 function getPlan(state: CoAgentState): LessonPlan {
   if (!state.plan) {
@@ -90,14 +87,14 @@ function addTriedOption(
 }
 
 function createCorrectFeedback(selectedIndex: number): Feedback {
-  return FeedbackSchema.parse({
+  return {
     verdict: "correct",
     highlightIndex: selectedIndex,
-    [`${CORRECT_KEY_PART}${INDEX_KEY_PART}`]: selectedIndex,
+    correctIndex: selectedIndex,
     explanation:
       "Good work. The source supports this idea, so you can move to the next question.",
     canRetry: false,
-  });
+  };
 }
 
 function createIncorrectFeedback(selectedIndex: number): Feedback {

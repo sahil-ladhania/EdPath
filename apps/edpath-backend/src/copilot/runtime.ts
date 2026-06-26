@@ -6,10 +6,12 @@ import {
 import { LangGraphAgent } from "@copilotkit/runtime/langgraph";
 import type { RequestHandler } from "express";
 
-import { createWalkingSkeletonState } from "../agent/walking-skeleton.js";
+import { createInitialCoAgentState } from "../agent/initial-coagent-state.js";
 
 export const COPILOTKIT_ENDPOINT = "/copilotkit";
 export const EDPATH_AGENT_ID = "edpath";
+export const EDPATH_AGENT_GRAPH_ID = "edpath-agent";
+/** @deprecated Use EDPATH_AGENT_GRAPH_ID — kept for backward compatibility. */
 export const EDPATH_WALKING_SKELETON_GRAPH_ID = "edpath-walking-skeleton";
 
 export interface EdPathCopilotKitOptions {
@@ -32,10 +34,10 @@ export function createEdPathCopilotKitRuntime(
     agents: {
       [EDPATH_AGENT_ID]: new LangGraphAgent({
         agentId: EDPATH_AGENT_ID,
-        description: "EdPath walking-skeleton LangGraph stub",
+        description: "EdPath LangGraph teaching workflow",
         deploymentUrl: options.langGraphDeploymentUrl,
-        graphId: options.graphId ?? EDPATH_WALKING_SKELETON_GRAPH_ID,
-        initialState: createWalkingSkeletonState(),
+        graphId: options.graphId ?? EDPATH_AGENT_GRAPH_ID,
+        initialState: createInitialCoAgentState(),
       }),
     },
   });

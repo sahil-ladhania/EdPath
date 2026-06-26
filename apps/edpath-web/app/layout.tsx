@@ -25,6 +25,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "EdPath",
   description: "Turn one PDF into a guided, interactive lesson.",
+  icons: {
+    icon: "/edpath-logo.svg",
+    shortcut: "/edpath-logo.svg",
+    apple: "/edpath-logo.png",
+  },
 };
 
 export default function RootLayout({

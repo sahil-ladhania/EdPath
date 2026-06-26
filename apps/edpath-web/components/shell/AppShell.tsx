@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -19,9 +20,14 @@ export function AppShell({ children, modeLabel }: AppShellProps): ReactNode {
             href="/"
             className="flex items-center gap-3 text-ink transition-colors hover:text-primary"
           >
-            <div className="flex size-10 items-center justify-center rounded-lg bg-primary text-sm font-semibold text-white shadow-sm">
-              EP
-            </div>
+            <Image
+              src="/edpath-logo.svg"
+              alt="EdPath"
+              width={42}
+              height={42}
+              priority
+              className="size-10"
+            />
             <div className="space-y-0.5">
               <p className="font-display text-xl text-ink">EdPath</p>
               <p className="text-sm text-ink-muted">

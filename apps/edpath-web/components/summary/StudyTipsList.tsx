@@ -1,6 +1,6 @@
 "use client";
 
-import type { Summary } from "@/types/lesson.types";
+import type { Summary } from "@repo/types";
 
 interface StudyTipsListProps {
   summary: Summary;

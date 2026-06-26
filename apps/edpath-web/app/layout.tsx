@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Bricolage_Grotesque, Geist_Mono, Inter, Geist } from "next/font/google";
+import { Bricolage_Grotesque, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const inter = Inter({
   variable: "--font-inter",
@@ -40,7 +38,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", inter.variable, bricolage.variable, geistMono.variable, "font-sans", geist.variable)}
+      className={cn(
+        "h-full font-sans antialiased",
+        inter.variable,
+        bricolage.variable,
+        geistMono.variable,
+      )}
     >
       <body className="flex min-h-full flex-col bg-paper font-sans text-ink">
         {children}

@@ -3,6 +3,7 @@
 import { useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FileUpIcon, FileTextIcon } from "lucide-react";
+import type { UploadResult } from "@repo/types";
 
 import { UploadStateBanner } from "@/components/landing/UploadStateBanner";
 import { Button } from "@/components/ui/button";
@@ -15,15 +16,22 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-interface UploadCardState {
+interface UploadBannerState {
   tone: "idle" | "error" | "success" | "loading";
   message: string;
 }
 
 const MAX_FILE_SIZE_BYTES = 15 * 1024 * 1024;
 
-function estimateCharacterCount(file: File): number {
-  return Math.round(file.size * 0.7);
+function buildAcceptedUploadResult(file: File): UploadResult {
+  return {
+    status: "accepted",
+    pdfMeta: {
+      filename: file.name,
+      charCount: Math.round(file.size * 0.7),
+      pageCount: Math.max(1, Math.round(file.size / 120000)),
+    },
+  };
 }
 
 export function UploadCard() {
@@ -31,29 +39,49 @@ export function UploadCard() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [status, setStatus] = useState<UploadCardState>({
-    tone: "idle",
-    message:
-      "Choose one PDF to build a focused lesson path from its contents.",
-  });
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [uploadResult, setUploadResult] = useState<UploadResult | null>(null);
 
-  const fileMeta = useMemo(() => {
-    if (!selectedFile) {
-      return null;
+  const status = useMemo<UploadBannerState>(() => {
+    if (isUploading) {
+      return {
+        tone: "loading",
+        message: "Building your lesson path...",
+      };
+    }
+
+    if (!uploadResult) {
+      return {
+        tone: "idle",
+        message:
+          "Choose one PDF to build a focused lesson path from its contents.",
+      };
+    }
+
+    if (uploadResult.status === "rejected") {
+      return {
+        tone: "error",
+        message: uploadResult.message,
+      };
     }
 
     return {
-      sizeInMb: (selectedFile.size / (1024 * 1024)).toFixed(2),
-      estimatedCharacters: estimateCharacterCount(selectedFile).toLocaleString(),
-      estimatedPages: Math.max(1, Math.round(selectedFile.size / 120000)),
+      tone: "success",
+      message: "PDF ready. Start the lesson when you're ready to review the path.",
     };
-  }, [selectedFile]);
+  }, [isUploading, uploadResult]);
+
+  const acceptedUpload =
+    uploadResult?.status === "accepted" ? uploadResult : null;
 
   function validateAndStore(file: File): void {
+    setIsUploading(false);
+
     if (file.type !== "application/pdf" && !file.name.endsWith(".pdf")) {
       setSelectedFile(null);
-      setStatus({
-        tone: "error",
+      setUploadResult({
+        status: "rejected",
+        reason: "unparseable",
         message: "Upload a single PDF file. Other file types are rejected.",
       });
       return;
@@ -61,8 +89,9 @@ export function UploadCard() {
 
     if (file.size > MAX_FILE_SIZE_BYTES) {
       setSelectedFile(null);
-      setStatus({
-        tone: "error",
+      setUploadResult({
+        status: "rejected",
+        reason: "over_ceiling",
         message:
           "This PDF is too large for one focused lesson. Choose a file under 15 MB.",
       });
@@ -71,8 +100,9 @@ export function UploadCard() {
 
     if (/scan|image/i.test(file.name)) {
       setSelectedFile(null);
-      setStatus({
-        tone: "error",
+      setUploadResult({
+        status: "rejected",
+        reason: "no_text_layer",
         message:
           "This looks like a scanned or image-only PDF. Choose a PDF with selectable text.",
       });
@@ -80,10 +110,7 @@ export function UploadCard() {
     }
 
     setSelectedFile(file);
-    setStatus({
-      tone: "success",
-      message: "PDF ready. Start the lesson when you're ready to review the path.",
-      });
+    setUploadResult(buildAcceptedUploadResult(file));
   }
 
   function handleFiles(files: FileList | null): void {
@@ -91,32 +118,38 @@ export function UploadCard() {
       return;
     }
 
-    validateAndStore(files[0]);
+    const file = files.item(0);
+
+    if (!file) {
+      return;
+    }
+
+    validateAndStore(file);
   }
 
   function handleStartLesson(): void {
-    if (!selectedFile) {
-      setStatus({
-        tone: "error",
+    if (!selectedFile || !acceptedUpload) {
+      setUploadResult({
+        status: "rejected",
+        reason: "empty",
         message: "Choose a PDF first.",
       });
       return;
     }
 
-    setStatus({
-      tone: "loading",
-      message: "Building your lesson path...",
-    });
+    setIsUploading(true);
 
     window.setTimeout(() => {
-      router.push("/lesson/mock-thread-1");
+      router.push("/lesson/sample-lesson");
     }, 550);
   }
 
   return (
-    <Card className="mx-auto w-full max-w-3xl border-border shadow-sm">
+    <Card className="mx-auto w-full max-w-3xl border-border bg-surface shadow-sm">
       <CardHeader className="space-y-2">
-        <CardTitle className="text-2xl">Upload your source PDF</CardTitle>
+        <CardTitle className="font-display text-2xl font-semibold tracking-[var(--tracking-display)]">
+          Upload your source PDF
+        </CardTitle>
         <CardDescription>
           One bounded document becomes one structured lesson with a plan,
           questions, feedback, and a final study report.
@@ -164,7 +197,7 @@ export function UploadCard() {
           </div>
         </button>
 
-        {selectedFile && fileMeta ? (
+        {selectedFile && acceptedUpload ? (
           <div className="rounded-lg border border-border bg-paper px-4 py-4">
             <div className="flex items-start gap-3">
               <div className="flex size-10 items-center justify-center rounded-lg bg-primary-soft text-primary">
@@ -173,8 +206,10 @@ export function UploadCard() {
               <div className="space-y-1">
                 <p className="font-semibold text-ink">{selectedFile.name}</p>
                 <p className="text-sm text-ink-muted">
-                  {fileMeta.sizeInMb} MB · ~{fileMeta.estimatedPages} pages · ~
-                  {fileMeta.estimatedCharacters} cleaned characters
+                  {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB · ~
+                  {acceptedUpload.pdfMeta.pageCount} pages · ~
+                  {acceptedUpload.pdfMeta.charCount.toLocaleString()} cleaned
+                  characters
                 </p>
               </div>
             </div>

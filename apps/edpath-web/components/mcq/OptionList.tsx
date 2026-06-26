@@ -1,16 +1,16 @@
 "use client";
 
 import { CheckCircle2Icon, XCircleIcon } from "lucide-react";
+import type { Feedback, PublicMCQ } from "@repo/types";
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
-import type { FeedbackState, MCQ } from "@/types/lesson.types";
 
 interface OptionListProps {
-  question: MCQ;
+  question: PublicMCQ;
   selectedIndex: number | null;
   triedOptionIndices: number[];
-  feedback: FeedbackState | null;
+  feedback: Feedback | null;
   disabled: boolean;
   onSelect: (index: number) => void;
 }
@@ -34,7 +34,9 @@ export function OptionList({
         const isCorrect =
           feedback?.verdict === "correct" && feedback.highlightIndex === index;
         const isIncorrect =
-          feedback?.verdict === "incorrect" && feedback.highlightIndex === index;
+          (feedback?.verdict === "incorrect" ||
+            feedback?.verdict === "exhausted") &&
+          feedback.highlightIndex === index;
         const isPreviouslyTried =
           !feedback && triedOptionIndices.includes(index);
         const isOptionDisabled = disabled || isPreviouslyTried;
@@ -75,7 +77,7 @@ export function OptionList({
                   {option}
                 </p>
                 <p className="text-sm text-ink-muted">
-                  {isPreviouslyTried ? "Already tried" : `Option ${index + 1}`}
+                  {isPreviouslyTried ? "Already tried" : `Choice ${index + 1}`}
                 </p>
               </div>
               {isCorrect ? (

@@ -2,6 +2,7 @@ import type {
   PdfMeta,
   LessonPlan,
   ApprovalDecision,
+  Feedback,
   MCQ,
   PublicMCQ,
   ObjectiveResult,
@@ -36,6 +37,7 @@ export interface EdPathState<TMessage = unknown> {
   selectedIndex: number | null;
   attempts: number;
   helpTurnsUsed: number;
+  feedback: Feedback | null;
   results: ObjectiveResult[];
   score: Score;
   summary: Summary | null;
@@ -61,6 +63,7 @@ export interface CoAgentState {
   selectedIndex: number | null;
   attempts: number;
   helpTurnsUsed: number;
+  feedback: Feedback | null;
   results: ObjectiveResult[];
   score: Score;
   summary: Summary | null;

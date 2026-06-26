@@ -1,6 +1,6 @@
 "use client";
 
-import type { Summary } from "@/types/lesson.types";
+import type { Summary } from "@repo/types";
 
 interface PerObjectiveTableProps {
   summary: Summary;
@@ -24,7 +24,9 @@ export function PerObjectiveTable({ summary }: PerObjectiveTableProps) {
             <p className="font-mono text-ink">
               {objective.correct}/{objective.total}
             </p>
-            <p className="font-mono text-ink">{objective.firstTryRate}%</p>
+            <p className="font-mono text-ink">
+              {Math.round(objective.firstTryRate * 100)}%
+            </p>
           </div>
         ))}
       </div>

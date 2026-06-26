@@ -7,7 +7,7 @@ import { McqWidget } from "@/components/mcq/McqWidget";
 import { PlanWidget } from "@/components/plan/PlanWidget";
 import { ObjectiveRail } from "@/components/shell/ObjectiveRail";
 import { LessonShell } from "@/components/shell/LessonShell";
-import { SummaryReport } from "@/components/summary/SummaryReport";
+import { SummaryView } from "@/components/summary/SummaryView";
 import { useLesson } from "@/hooks/useLesson";
 
 interface LessonRunnerProps {
@@ -35,6 +35,7 @@ export function LessonRunner({ threadId }: LessonRunnerProps) {
           <PlanWidget
             pdfTitle={lesson.pdfTitle}
             plan={lesson.plan}
+            phase={lesson.phase}
             onApprove={lesson.approvePlan}
           />
         ) : null}
@@ -57,7 +58,7 @@ export function LessonRunner({ threadId }: LessonRunnerProps) {
           />
         ) : null}
         {lesson.phase === "complete" ? (
-          <SummaryReport summary={lesson.summary} />
+          <SummaryView summary={lesson.summary} />
         ) : null}
       </LessonShell>
 

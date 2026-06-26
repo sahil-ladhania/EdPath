@@ -1,6 +1,6 @@
 "use client";
 
-import type { Summary } from "@/types/lesson.types";
+import type { Summary } from "@repo/types";
 
 interface OverallScoreProps {
   summary: Summary;
@@ -18,7 +18,7 @@ export function OverallScore({ summary }: OverallScoreProps) {
       <div className="space-y-1">
         <p className="text-sm text-ink-muted">First-try rate</p>
         <p className="font-mono text-4xl text-ink">
-          {summary.overall.firstTryRate}%
+          {Math.round(summary.overall.firstTryRate * 100)}%
         </p>
       </div>
       <div className="space-y-1">

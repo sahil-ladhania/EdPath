@@ -14,7 +14,7 @@ interface AppShellProps {
 export function AppShell({ children, modeLabel }: AppShellProps): ReactNode {
   return (
     <div className="flex min-h-screen flex-col bg-paper">
-      <header className="border-b border-border bg-paper/95 backdrop-blur-sm">
+      <header className="border-b border-border bg-surface/90 backdrop-blur-sm">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <Link
             href="/"
@@ -29,13 +29,16 @@ export function AppShell({ children, modeLabel }: AppShellProps): ReactNode {
               className="size-10"
             />
             <div className="space-y-0.5">
-              <p className="font-display text-xl text-ink">EdPath</p>
+              <p className="font-display text-xl font-semibold text-ink">EdPath</p>
               <p className="text-sm text-ink-muted">
                 Turn one PDF into a guided lesson
               </p>
             </div>
           </Link>
-          <Badge variant="secondary" className="uppercase">
+          <Badge
+            variant="secondary"
+            className="rounded-sm px-3 py-1 text-xs font-semibold uppercase tracking-[var(--tracking-eyebrow)] text-primary"
+          >
             {modeLabel}
           </Badge>
         </div>

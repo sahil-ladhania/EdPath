@@ -18,11 +18,19 @@ const IncorrectFeedbackSchema = z.object({
   verdict: z.literal("incorrect"),
   highlightIndex: z.number().int().nonnegative(), // submitted option → red
   hint: z.string().min(1),
-  canRetry: z.boolean(), // true while attempts remain; false at MAX_ATTEMPTS
+  canRetry: z.literal(true),
+});
+
+const ExhaustedFeedbackSchema = z.object({
+  verdict: z.literal("exhausted"),
+  highlightIndex: z.number().int().nonnegative(), // final submitted option → red
+  explanation: z.string().min(1), // teaches at max attempts without revealing correctIndex
+  canRetry: z.literal(false),
 });
 
 export const FeedbackSchema = z.discriminatedUnion("verdict", [
   CorrectFeedbackSchema,
   IncorrectFeedbackSchema,
+  ExhaustedFeedbackSchema,
 ]);
 export type Feedback = z.infer<typeof FeedbackSchema>;

@@ -9,8 +9,8 @@ export function HelpInput() {
       <div className="space-y-1">
         <p className="text-sm font-semibold text-ink">Need a nudge?</p>
         <p className="text-sm text-ink-muted">
-          Ask for a conceptual hint or a quick explanation, then come back to
-          the same question.
+          Ask about the idea behind the question. The nudge will keep you with
+          the same choices.
         </p>
       </div>
       <Textarea

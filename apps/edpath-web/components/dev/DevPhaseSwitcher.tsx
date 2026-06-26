@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import type { Phase } from "@repo/types";
 
 import { Button } from "@/components/ui/button";
+import type { QuizPreviewOutcome } from "@/hooks/useLesson";
 import { cn } from "@/lib/utils";
-import type { Phase } from "@/types/lesson.types";
 
 interface DevPhaseSwitcherProps {
   phase: Phase;
@@ -12,15 +13,15 @@ interface DevPhaseSwitcherProps {
   currentObjectiveIndex: number;
   onSetPhase: (phase: Phase) => void;
   onJumpToObjective: (index: number) => void;
-  onSimulateOutcome: (correct: boolean) => void;
+  onSimulateOutcome: (outcome: QuizPreviewOutcome) => void;
 }
 
-interface DemoSurfaceOption {
+interface PreviewSurfaceOption {
   phase: Phase;
   label: string;
 }
 
-const surfaceOptions: DemoSurfaceOption[] = [
+const surfaceOptions: PreviewSurfaceOption[] = [
   { phase: "planning", label: "Building plan" },
   { phase: "awaiting_approval", label: "Plan review" },
   { phase: "quizzing", label: "Preparing questions" },
@@ -49,14 +50,14 @@ export function DevPhaseSwitcher({
         variant="outline"
         onClick={() => setIsOpen((current) => !current)}
       >
-        Demo controls
+        Preview controls
       </Button>
 
       {isOpen ? (
         <div className="w-[320px] rounded-lg border border-border bg-surface p-4 shadow-lg">
           <div className="space-y-1">
-            <p className="text-xs font-semibold uppercase text-primary">
-              Demo controls
+            <p className="text-xs font-semibold uppercase tracking-[var(--tracking-eyebrow)] text-primary">
+              Preview controls
             </p>
             <p className="text-sm text-ink-muted">
               Preview each lesson surface during review.
@@ -108,21 +109,26 @@ export function DevPhaseSwitcher({
 
             <div className="space-y-2">
               <p className="text-sm font-semibold text-ink">Answer outcome</p>
-              <div className="flex gap-2">
+              <div className="grid gap-2">
                 <Button
                   type="button"
                   variant="outline"
-                  className="flex-1"
-                  onClick={() => onSimulateOutcome(false)}
+                  onClick={() => onSimulateOutcome("incorrect")}
                 >
-                  Try incorrect
+                  Show hint
                 </Button>
                 <Button
                   type="button"
-                  className="flex-1"
-                  onClick={() => onSimulateOutcome(true)}
+                  variant="outline"
+                  onClick={() => onSimulateOutcome("exhausted")}
                 >
-                  Try correct
+                  Show explanation
+                </Button>
+                <Button
+                  type="button"
+                  onClick={() => onSimulateOutcome("correct")}
+                >
+                  Show success
                 </Button>
               </div>
             </div>

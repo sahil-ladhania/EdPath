@@ -1,5 +1,7 @@
 "use client";
 
+import type { Feedback, PublicMCQ } from "@repo/types";
+
 import { MAX_ATTEMPTS } from "@/lib/mock-lesson";
 import { FeedbackBanner } from "@/components/mcq/FeedbackBanner";
 import { HelpInput } from "@/components/mcq/HelpInput";
@@ -7,17 +9,16 @@ import { OptionList } from "@/components/mcq/OptionList";
 import { QuestionHeader } from "@/components/mcq/QuestionHeader";
 import { WidgetActions } from "@/components/mcq/WidgetActions";
 import { Separator } from "@/components/ui/separator";
-import type { FeedbackState, MCQ } from "@/types/lesson.types";
 
 interface McqWidgetProps {
   objectiveTitle: string;
   questionNumber: number;
   questionCount: number;
   currentAttempt: number;
-  question: MCQ;
+  question: PublicMCQ;
   selectedIndex: number | null;
   triedOptionIndices: number[];
-  feedback: FeedbackState | null;
+  feedback: Feedback | null;
   isOptionLocked: boolean;
   onSelect: (index: number) => void;
   onSubmit: () => void;
@@ -51,10 +52,12 @@ export function McqWidget({
       />
       <Separator />
       <div className="space-y-3">
-        <p className="text-xs font-semibold uppercase text-ink-muted">
+        <p className="text-xs font-semibold uppercase tracking-[var(--tracking-eyebrow)] text-ink-muted">
           Choose one answer
         </p>
-        <h3 className="text-xl font-semibold text-ink">{question.question}</h3>
+        <h3 className="text-xl font-semibold leading-ui text-ink">
+          {question.question}
+        </h3>
       </div>
       <OptionList
         question={question}

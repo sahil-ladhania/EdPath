@@ -1,9 +1,9 @@
 "use client";
 
 import { CheckIcon } from "lucide-react";
+import type { Objective, Phase } from "@repo/types";
 
 import { cn } from "@/lib/utils";
-import type { Objective, Phase } from "@/types/lesson.types";
 
 interface ObjectiveRailProps {
   objectives: Objective[];
@@ -25,10 +25,10 @@ export function ObjectiveRail({
   return (
     <div className="sticky top-6 rounded-lg border border-border bg-surface p-5 shadow-sm">
       <div className="mb-5 space-y-1">
-        <p className="text-xs font-semibold uppercase text-ink-muted">
+        <p className="text-xs font-semibold uppercase tracking-[var(--tracking-eyebrow)] text-ink-muted">
           Learning path
         </p>
-        <h2 className="font-display text-2xl text-ink">
+        <h2 className="font-display text-2xl font-semibold tracking-[var(--tracking-display)] text-ink">
           {isQuizMode ? "Current progress" : "Plan order"}
         </h2>
         <p className="text-sm text-ink-muted">
@@ -69,10 +69,11 @@ export function ObjectiveRail({
               <div className="min-w-0 space-y-1 pt-0.5">
                 <p
                   className={cn(
-                    "text-sm font-semibold",
+                    "truncate text-sm font-semibold",
                     isCurrent ? "text-ink" : "text-ink-muted",
                     isCompleted && "text-ink",
                   )}
+                  title={objective.title}
                 >
                   {objective.title}
                 </p>

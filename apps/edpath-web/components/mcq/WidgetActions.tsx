@@ -1,11 +1,12 @@
 "use client";
 
+import type { Feedback } from "@repo/types";
+
 import { Button } from "@/components/ui/button";
-import type { FeedbackState } from "@/types/lesson.types";
 
 interface WidgetActionsProps {
   hasSelection: boolean;
-  feedback: FeedbackState | null;
+  feedback: Feedback | null;
   onSubmit: () => void;
   onRetry: () => void;
   onAdvance: () => void;
@@ -35,7 +36,7 @@ export function WidgetActions({
           Retry question
         </Button>
       ) : null}
-      {feedback.canAdvance ? (
+      {!feedback.canRetry ? (
         <Button size="lg" onClick={onAdvance}>
           Next question
         </Button>

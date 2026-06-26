@@ -20,14 +20,20 @@ export function QuestionHeader({
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <div className="space-y-1">
-        <p className="text-xs font-semibold uppercase text-primary">
+        <p className="text-xs font-semibold uppercase tracking-[var(--tracking-eyebrow)] text-primary">
           Current objective
         </p>
-        <h2 className="font-display text-3xl text-ink">{objectiveTitle}</h2>
+        <h2 className="font-display text-3xl font-semibold tracking-[var(--tracking-display)] text-ink">
+          {objectiveTitle}
+        </h2>
       </div>
       <div className="flex flex-wrap gap-2">
-        <Badge variant="secondary">Question {questionNumber} of {questionCount}</Badge>
-        <Badge variant="outline">Attempt {attemptNumber} of {maxAttempts}</Badge>
+        <Badge variant="secondary">
+          Question {questionNumber} of {questionCount}
+        </Badge>
+        <Badge variant="outline">
+          Try {attemptNumber} of {maxAttempts}
+        </Badge>
       </div>
     </div>
   );

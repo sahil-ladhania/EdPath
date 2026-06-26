@@ -10,7 +10,7 @@ import {
 } from "react";
 import {
   useCoAgent,
-  useCopilotChat,
+  useCopilotChatInternal,
   useLangGraphInterrupt,
 } from "@copilotkit/react-core";
 import { Role, TextMessage } from "@copilotkit/runtime-client-gql";
@@ -94,8 +94,8 @@ export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
   const coAgent = useCoAgent<CoAgentState>({
     name: EDPATH_AGENT_ID,
   });
-  const { appendMessage, interrupt, isAvailable, isLoading } = useCopilotChat() as
-    ReturnType<typeof useCopilotChat> & { interrupt: ReactNode };
+  const { appendMessage, interrupt, isAvailable, isLoading } =
+    useCopilotChatInternal();
   const hasStartedAgentRef = useRef<boolean>(false);
   const normalizedState = useMemo<CoAgentState>(() => {
     const mirroredState = coAgent.state as Partial<CoAgentState> | undefined;

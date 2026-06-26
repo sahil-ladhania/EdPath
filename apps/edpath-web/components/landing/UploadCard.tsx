@@ -15,24 +15,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  createLessonStartHandoff,
+  rememberThreadId,
+} from "@/lib/lesson-handoff";
+import { uploadPdf } from "@/lib/upload-api";
 
 interface UploadBannerState {
   tone: "idle" | "error" | "success" | "loading";
   message: string;
 }
 
-const MAX_FILE_SIZE_BYTES = 15 * 1024 * 1024;
-
-function buildAcceptedUploadResult(file: File): UploadResult {
-  return {
-    status: "accepted",
-    pdfMeta: {
-      filename: file.name,
-      charCount: Math.round(file.size * 0.7),
-      pageCount: Math.max(1, Math.round(file.size / 120000)),
-    },
-  };
-}
+const START_LESSON_DELAY_MS = 550;
 
 export function UploadCard() {
   const router = useRouter();
@@ -40,13 +34,31 @@ export function UploadCard() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [isStartingLesson, setIsStartingLesson] = useState<boolean>(false);
   const [uploadResult, setUploadResult] = useState<UploadResult | null>(null);
+  const [transportError, setTransportError] = useState<string | null>(null);
+
+  const isBusy = isUploading || isStartingLesson;
 
   const status = useMemo<UploadBannerState>(() => {
-    if (isUploading) {
+    if (isStartingLesson) {
       return {
         tone: "loading",
         message: "Building your lesson path...",
+      };
+    }
+
+    if (isUploading) {
+      return {
+        tone: "loading",
+        message: "Checking your PDF...",
+      };
+    }
+
+    if (transportError) {
+      return {
+        tone: "error",
+        message: transportError,
       };
     }
 
@@ -67,54 +79,45 @@ export function UploadCard() {
 
     return {
       tone: "success",
-      message: "PDF ready. Start the lesson when you're ready to review the path.",
+      message:
+        "PDF ready. Start the lesson when you're ready to review the path.",
     };
-  }, [isUploading, uploadResult]);
+  }, [
+    isStartingLesson,
+    isUploading,
+    transportError,
+    uploadResult,
+  ]);
 
   const acceptedUpload =
     uploadResult?.status === "accepted" ? uploadResult : null;
 
-  function validateAndStore(file: File): void {
+  async function validateAndStore(file: File): Promise<void> {
+    setTransportError(null);
+    setUploadResult(null);
+    setSelectedFile(null);
+    setIsUploading(true);
+
+    const outcome = await uploadPdf(file);
+
     setIsUploading(false);
 
-    if (file.type !== "application/pdf" && !file.name.endsWith(".pdf")) {
-      setSelectedFile(null);
-      setUploadResult({
-        status: "rejected",
-        reason: "unparseable",
-        message: "Upload a single PDF file. Other file types are rejected.",
-      });
+    if (outcome.kind === "transport_error") {
+      setTransportError(outcome.message);
       return;
     }
 
-    if (file.size > MAX_FILE_SIZE_BYTES) {
-      setSelectedFile(null);
-      setUploadResult({
-        status: "rejected",
-        reason: "over_ceiling",
-        message:
-          "This PDF is too large for one focused lesson. Choose a file under 15 MB.",
-      });
-      return;
-    }
-
-    if (/scan|image/i.test(file.name)) {
-      setSelectedFile(null);
-      setUploadResult({
-        status: "rejected",
-        reason: "no_text_layer",
-        message:
-          "This looks like a scanned or image-only PDF. Choose a PDF with selectable text.",
-      });
+    if (outcome.result.status === "rejected") {
+      setUploadResult(outcome.result);
       return;
     }
 
     setSelectedFile(file);
-    setUploadResult(buildAcceptedUploadResult(file));
+    setUploadResult(outcome.result);
   }
 
   function handleFiles(files: FileList | null): void {
-    if (!files || files.length === 0) {
+    if (!files || files.length === 0 || isBusy) {
       return;
     }
 
@@ -124,11 +127,12 @@ export function UploadCard() {
       return;
     }
 
-    validateAndStore(file);
+    void validateAndStore(file);
   }
 
   function handleStartLesson(): void {
     if (!selectedFile || !acceptedUpload) {
+      setTransportError(null);
       setUploadResult({
         status: "rejected",
         reason: "empty",
@@ -137,11 +141,17 @@ export function UploadCard() {
       return;
     }
 
-    setIsUploading(true);
+    const handoff = createLessonStartHandoff({
+      file: selectedFile,
+      pdfMeta: acceptedUpload.pdfMeta,
+    });
+
+    rememberThreadId(handoff.threadId);
+    setIsStartingLesson(true);
 
     window.setTimeout(() => {
-      router.push("/lesson/sample-lesson");
-    }, 550);
+      router.push(`/lesson/${handoff.threadId}`);
+    }, START_LESSON_DELAY_MS);
   }
 
   return (
@@ -161,13 +171,19 @@ export function UploadCard() {
           type="file"
           accept="application/pdf"
           className="hidden"
+          disabled={isBusy}
           onChange={(event) => handleFiles(event.target.files)}
         />
 
         <button
           type="button"
+          disabled={isBusy}
           onClick={() => inputRef.current?.click()}
           onDragOver={(event) => {
+            if (isBusy) {
+              return;
+            }
+
             event.preventDefault();
             setIsDragging(true);
           }}
@@ -179,9 +195,11 @@ export function UploadCard() {
           }}
           className={[
             "flex w-full flex-col items-center justify-center gap-3 rounded-lg border border-dashed bg-paper px-6 py-10 text-center transition-colors",
-            isDragging
-              ? "border-primary bg-primary-soft"
-              : "border-border hover:border-primary hover:bg-primary-soft/60",
+            isBusy
+              ? "cursor-not-allowed opacity-60"
+              : isDragging
+                ? "border-primary bg-primary-soft"
+                : "border-border hover:border-primary hover:bg-primary-soft/60",
           ].join(" ")}
         >
           <div className="flex size-12 items-center justify-center rounded-full bg-surface text-primary shadow-sm">
@@ -225,7 +243,7 @@ export function UploadCard() {
         <Button
           size="lg"
           onClick={handleStartLesson}
-          disabled={!selectedFile || status.tone === "loading"}
+          disabled={!selectedFile || isBusy}
         >
           Start lesson
         </Button>

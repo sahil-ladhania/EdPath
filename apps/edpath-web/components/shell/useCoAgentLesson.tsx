@@ -14,13 +14,11 @@ import {
   useLangGraphInterrupt,
 } from "@copilotkit/react-core";
 import { Role, TextMessage } from "@copilotkit/runtime-client-gql";
-import { CheckIcon } from "lucide-react";
+import type { ResumePayload } from "@repo/schemas";
 import type { ApprovalDecision, CoAgentState, LessonPlan, Phase } from "@repo/types";
 
-import { Button } from "@/components/ui/button";
-import { Icon } from "@/components/ui/Icon";
-import { Panel } from "@/components/ui/Panel";
-import { getMockCoAgentState } from "@/lib/mock-lesson";
+import { getEmptyCoAgentState } from "@/lib/empty-co-agent-state";
+import { isLessonAlreadyInProgress } from "@/lib/lesson-in-progress";
 
 export const EDPATH_AGENT_ID = "edpath";
 
@@ -29,20 +27,31 @@ interface ApprovalInterruptValue {
   plan?: LessonPlan;
 }
 
+interface AwaitInputInterruptValue {
+  type?: string;
+}
+
 interface UseCoAgentLessonReturn {
   threadId: string;
   state: CoAgentState;
   phase: Phase;
   plan: LessonPlan | null;
   pdfTitle: string;
+  isRunning: boolean;
+  canSubmitAnswer: boolean;
   approvePlan: () => void;
+  submitAnswer: (selectedIndex: number) => void;
   interruptElement: ReactNode;
 }
 
-interface ApprovalInterruptCardProps {
-  eventValue: ApprovalInterruptValue;
+interface ApprovalInterruptBridgeProps {
   onApprove: () => void;
   onResolverReady: (resolver: (() => void) | null) => void;
+}
+
+interface AwaitInputInterruptBridgeProps {
+  onResolverReady: (resolver: ((payload: ResumePayload) => void) | null) => void;
+  resolve: (value: string) => void;
 }
 
 function parseApprovalInterruptValue(
@@ -53,9 +62,21 @@ function parseApprovalInterruptValue(
   }
 
   try {
-    const parsed = JSON.parse(eventValue) as ApprovalInterruptValue;
+    return JSON.parse(eventValue) as ApprovalInterruptValue;
+  } catch {
+    return {};
+  }
+}
 
-    return parsed;
+function parseAwaitInputInterruptValue(
+  eventValue: AwaitInputInterruptValue | string,
+): AwaitInputInterruptValue {
+  if (typeof eventValue !== "string") {
+    return eventValue;
+  }
+
+  try {
+    return JSON.parse(eventValue) as AwaitInputInterruptValue;
   } catch {
     return {};
   }
@@ -65,38 +86,48 @@ function isApprovalInterrupt(eventValue: ApprovalInterruptValue | string): boole
   return parseApprovalInterruptValue(eventValue).type === "approval";
 }
 
-function ApprovalInterruptCard({
-  eventValue,
+function isAwaitInputInterrupt(
+  eventValue: AwaitInputInterruptValue | string,
+): boolean {
+  return parseAwaitInputInterruptValue(eventValue).type === "await_input";
+}
+
+function ApprovalInterruptBridge({
   onApprove,
   onResolverReady,
-}: ApprovalInterruptCardProps): React.JSX.Element {
-  const objectiveCount = eventValue.plan?.objectives.length ?? 0;
+}: ApprovalInterruptBridgeProps): null {
+  const onApproveRef = useRef(onApprove);
+  onApproveRef.current = onApprove;
 
   useEffect(() => {
-    onResolverReady(() => onApprove);
+    onResolverReady(() => onApproveRef.current());
 
     return () => onResolverReady(null);
-  }, [onApprove, onResolverReady]);
+  }, [onResolverReady]);
 
-  return (
-    <Panel size="sm" variant="muted">
-      <div className="space-y-0.5">
-        <p className="text-sm font-semibold text-ink">Approval needed</p>
-        <p className="text-xs leading-snug text-ink-muted">
-          The LangGraph stub is paused at the fake approval interrupt
-          {objectiveCount > 0 ? ` with ${objectiveCount} objective(s).` : "."}
-        </p>
-      </div>
-      <Button onClick={onApprove}>
-        <Icon icon={CheckIcon} size="sm" variant="inverse" />
-        Resolve approval interrupt
-      </Button>
-    </Panel>
-  );
+  return null;
+}
+
+function AwaitInputInterruptBridge({
+  onResolverReady,
+  resolve,
+}: AwaitInputInterruptBridgeProps): null {
+  const resolveRef = useRef(resolve);
+  resolveRef.current = resolve;
+
+  useEffect(() => {
+    onResolverReady((payload: ResumePayload) => {
+      resolveRef.current(payload as unknown as string);
+    });
+
+    return () => onResolverReady(null);
+  }, [onResolverReady]);
+
+  return null;
 }
 
 export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
-  const initialState = useMemo(() => getMockCoAgentState(), []);
+  const emptyState = useMemo(() => getEmptyCoAgentState(), []);
   const coAgent = useCoAgent<CoAgentState>({
     name: EDPATH_AGENT_ID,
   });
@@ -107,37 +138,77 @@ export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
     const mirroredState = coAgent.state as Partial<CoAgentState> | undefined;
 
     return {
-      ...initialState,
+      ...emptyState,
       ...mirroredState,
-      pdfMeta: mirroredState?.pdfMeta ?? initialState.pdfMeta,
-      plan: mirroredState?.plan ?? initialState.plan,
-      questions: mirroredState?.questions ?? initialState.questions,
-      score: mirroredState?.score ?? initialState.score,
-      results: mirroredState?.results ?? initialState.results,
-      summary: mirroredState?.summary ?? initialState.summary,
+      pdfMeta: mirroredState?.pdfMeta ?? emptyState.pdfMeta,
+      plan: mirroredState?.plan ?? null,
+      questions: mirroredState?.questions ?? [],
+      score: mirroredState?.score ?? emptyState.score,
+      results: mirroredState?.results ?? [],
+      summary: mirroredState?.summary ?? null,
+      phase: mirroredState?.phase ?? "planning",
+      lastError: mirroredState?.lastError ?? null,
     };
-  }, [coAgent.state, initialState]);
+  }, [coAgent.state, emptyState]);
   const [approvalResolver, setApprovalResolver] = useState<(() => void) | null>(
     null,
   );
+  const [answerResolver, setAnswerResolver] = useState<
+    ((payload: ResumePayload) => void) | null
+  >(null);
 
-  useLangGraphInterrupt<ApprovalInterruptValue>({
+  // A bare state setter treats a function argument as a functional updater and
+  // *invokes* it instead of storing it — which would fire the interrupt's
+  // resolve() the instant a bridge mounts (auto-approving the plan, and
+  // resuming the answer gate with a null payload). Wrap in `() => resolver` so
+  // the resolver function is stored, not called.
+  const registerApprovalResolver = useCallback(
+    (resolver: (() => void) | null): void => {
+      setApprovalResolver(() => resolver);
+    },
+    [],
+  );
+  const registerAnswerResolver = useCallback(
+    (resolver: ((payload: ResumePayload) => void) | null): void => {
+      setAnswerResolver(() => resolver);
+    },
+    [],
+  );
+
+  // Single hook — two useLangGraphInterrupt instances fight over
+  // copilotkit.setInterruptElement(); the last one with element=null wins and
+  // prevents AwaitInputInterruptBridge from mounting (answerResolver stays null).
+  useLangGraphInterrupt<ApprovalInterruptValue | AwaitInputInterruptValue>({
     agentId: EDPATH_AGENT_ID,
-    enabled: ({ eventValue }) => isApprovalInterrupt(eventValue),
+    enabled: ({ eventValue }) =>
+      isApprovalInterrupt(eventValue) || isAwaitInputInterrupt(eventValue),
     render: ({ event, resolve }) => {
       const eventValue = parseApprovalInterruptValue(event.value);
-      const approve = (): void => {
-        const approval: ApprovalDecision = { decision: "approve" };
-        resolve(approval as unknown as string);
-      };
 
-      return (
-        <ApprovalInterruptCard
-          eventValue={eventValue}
-          onApprove={approve}
-          onResolverReady={setApprovalResolver}
-        />
-      );
+      if (isApprovalInterrupt(eventValue)) {
+        const approve = (): void => {
+          const approval: ApprovalDecision = { decision: "approve" };
+          resolve(approval as unknown as string);
+        };
+
+        return (
+          <ApprovalInterruptBridge
+            onApprove={approve}
+            onResolverReady={registerApprovalResolver}
+          />
+        );
+      }
+
+      if (isAwaitInputInterrupt(eventValue)) {
+        return (
+          <AwaitInputInterruptBridge
+            onResolverReady={registerAnswerResolver}
+            resolve={resolve}
+          />
+        );
+      }
+
+      return <></>;
     },
   });
 
@@ -147,7 +218,8 @@ export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
       !coAgent.threadId ||
       coAgent.running ||
       isLoading ||
-      !isAvailable
+      !isAvailable ||
+      isLessonAlreadyInProgress(normalizedState)
     ) {
       return;
     }
@@ -162,11 +234,30 @@ export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
     }, 250);
 
     return () => window.clearTimeout(startAgentRun);
-  }, [appendMessage, coAgent, isAvailable, isLoading]);
+  }, [appendMessage, coAgent, isAvailable, isLoading, normalizedState]);
 
   const approvePlan = useCallback((): void => {
     approvalResolver?.();
   }, [approvalResolver]);
+
+  const submitAnswer = useCallback(
+    (selectedIndex: number): void => {
+      if (!answerResolver) {
+        if (process.env.NODE_ENV === "development") {
+          console.warn(
+            "[EdPath] submitAnswer blocked: await_input interrupt resolver is not ready.",
+          );
+        }
+        return;
+      }
+
+      answerResolver({
+        kind: "answer",
+        selectedIndex,
+      });
+    },
+    [answerResolver],
+  );
 
   return {
     threadId,
@@ -174,7 +265,10 @@ export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
     phase: normalizedState.phase,
     plan: normalizedState.plan,
     pdfTitle: normalizedState.pdfMeta.filename,
+    isRunning: coAgent.running,
+    canSubmitAnswer: answerResolver !== null,
     approvePlan,
+    submitAnswer,
     interruptElement: interrupt,
   };
 }

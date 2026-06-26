@@ -26,6 +26,12 @@ export const MCQSchema = MCQObject.refine(
 });
 export type MCQ = z.infer<typeof MCQSchema>;
 
+/** LLM batch output for N3 generate_mcq (F4.1: exactly 3 MCQs per objective). */
+export const McqBatchSchema = z.object({
+  questions: z.array(MCQSchema).length(3),
+});
+export type McqBatch = z.infer<typeof McqBatchSchema>;
+
 /**
  * Redacted MCQ for the web mirror (Flag 2 — the structural firewall).
  * Omits the four firewalled fields so the answer cannot physically reach the

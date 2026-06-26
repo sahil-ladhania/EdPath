@@ -11,6 +11,7 @@ import { planNode } from "./nodes/plan.js";
 import { summarizeNode } from "./nodes/summarize.js";
 import { EdPathStateAnnotation, type GraphState } from "./state/annotation.js";
 import { CoAgentStateOutputAnnotation } from "./state/co-agent-output-annotation.js";
+import { MAX_REPAIR } from "./state/constants.js";
 
 /** LangGraph node names — must not collide with state channel keys. */
 const N1_PLAN = "plan_lesson";
@@ -30,10 +31,20 @@ function routeAfterPlan(state: GraphState): "approval_gate" | typeof END {
   return END;
 }
 
-function routeAfterGenerateMcq(state: GraphState): "await_input" | typeof END {
+function routeAfterGenerateMcq(
+  state: GraphState,
+): "await_input" | "generate_mcq" | typeof END {
   if (state.questions.length > 0 && state.lastError === null) {
     return "await_input";
   }
+
+  if (
+    state.lastError?.node === "generate_mcq" &&
+    state.mcqGenAttempts <= MAX_REPAIR
+  ) {
+    return "generate_mcq";
+  }
+
   return END;
 }
 
@@ -77,6 +88,7 @@ function createEdPathWorkflow() {
     })
     .addConditionalEdges("generate_mcq", routeAfterGenerateMcq, {
       await_input: "await_input",
+      generate_mcq: "generate_mcq",
       [END]: END,
     })
     .addConditionalEdges("await_input", routeAfterAwaitInput, {

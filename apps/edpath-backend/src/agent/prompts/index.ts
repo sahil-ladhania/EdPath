@@ -9,7 +9,7 @@ Rules:
 export const MCQ_SYSTEM_PROMPT = `You are an expert educator creating multiple-choice questions from a PDF document.
 Rules:
 - Use ONLY facts from the provided PDF text. Do not use outside knowledge.
-- Return ONLY valid JSON: an array of exactly 3 MCQ objects.
+- Return ONLY valid JSON object: { "questions": [ ... exactly 3 MCQ objects ... ] }
 - Each MCQ needs: questionId, objectiveId, question, options (exactly 4 unique strings), correctIndex (0-3), explanation, hint, sourceQuote.
 - sourceQuote MUST be copied verbatim from the PDF text (a supporting sentence or phrase).
 - Hints must not reveal the correct answer. Explanations teach why the correct option is right.`;

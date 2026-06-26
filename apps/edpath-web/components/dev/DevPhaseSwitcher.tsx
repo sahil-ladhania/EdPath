@@ -74,7 +74,7 @@ export function DevPhaseSwitcher({
                     type="button"
                     onClick={() => onSetPhase(option.phase)}
                     className={cn(
-                      "rounded-md border px-3 py-1.5 text-xs font-semibold capitalize transition-colors",
+                      "cursor-pointer rounded-md border px-3 py-1.5 text-xs font-semibold capitalize transition-colors",
                       option.phase === phase
                         ? "border-primary bg-primary text-white"
                         : "border-border bg-paper text-ink hover:border-primary",
@@ -95,7 +95,7 @@ export function DevPhaseSwitcher({
                     type="button"
                     onClick={() => onJumpToObjective(index)}
                     className={cn(
-                      "rounded-md border px-3 py-1.5 text-xs font-semibold transition-colors",
+                      "cursor-pointer rounded-md border px-3 py-1.5 text-xs font-semibold transition-colors",
                       index === currentObjectiveIndex
                         ? "border-primary bg-primary-soft text-primary"
                         : "border-border bg-paper text-ink",

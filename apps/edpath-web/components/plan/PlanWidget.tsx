@@ -33,7 +33,10 @@ export function PlanWidget({
           />
         ))}
       </div>
-      <PlanActions onApprove={onApprove} />
+      <PlanActions
+        objectiveCount={plan.objectives.length}
+        onApprove={onApprove}
+      />
     </Panel>
   );
 }

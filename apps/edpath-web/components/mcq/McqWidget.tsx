@@ -21,6 +21,9 @@ interface McqWidgetProps {
   triedOptionIndices: number[];
   feedback: Feedback | null;
   isOptionLocked: boolean;
+  isSubmitting?: boolean;
+  canSubmit?: boolean;
+  isWaitingForAnswer?: boolean;
   onSelect: (index: number) => void;
   onSubmit: () => void;
   onRetry: () => void;
@@ -37,6 +40,9 @@ export function McqWidget({
   triedOptionIndices,
   feedback,
   isOptionLocked,
+  isSubmitting = false,
+  canSubmit = true,
+  isWaitingForAnswer = false,
   onSelect,
   onSubmit,
   onRetry,
@@ -72,6 +78,9 @@ export function McqWidget({
       <WidgetActions
         hasSelection={selectedIndex !== null}
         feedback={feedback}
+        isSubmitting={isSubmitting}
+        canSubmit={canSubmit}
+        isWaitingForAnswer={isWaitingForAnswer}
         onSubmit={onSubmit}
         onRetry={onRetry}
         onAdvance={onAdvance}

@@ -26,9 +26,9 @@ export function PlanHeader({ pdfTitle, plan, phase }: PlanHeaderProps) {
         <p className="flex items-start gap-2 text-sm leading-snug text-ink-muted">
           <Icon icon={FileTextIcon} size="sm" className="mt-0.5 shrink-0" />
           <span>
-            This is the route EdPath will use for{" "}
-            <span className="font-medium text-ink">{pdfTitle}</span>. Approve it
-            to begin, or ask for changes first.
+            This is the full lesson path EdPath built from{" "}
+            <span className="font-medium text-ink">{pdfTitle}</span>. Approve
+            the complete roadmap to begin, or revise it first.
           </span>
         </p>
       </div>

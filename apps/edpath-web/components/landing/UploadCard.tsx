@@ -203,9 +203,12 @@ export function UploadCard() {
               "flex aspect-[5/2] w-full flex-row items-center justify-center gap-3 rounded-lg border border-dashed bg-paper px-4 py-5 text-center transition-colors sm:gap-4",
               isBusy
                 ? "cursor-not-allowed opacity-60"
-                : isDragging
-                  ? "border-primary bg-primary-soft"
-                  : "border-border hover:border-primary hover:bg-primary-soft/60",
+                : "cursor-pointer",
+              !isBusy && isDragging
+                ? "border-primary bg-primary-soft"
+                : !isBusy
+                  ? "border-border hover:border-primary hover:bg-primary-soft/60"
+                  : "border-border",
             ].join(" ")}
           >
             <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-surface text-primary shadow-[var(--shadow-xs)]">

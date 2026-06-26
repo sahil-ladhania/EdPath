@@ -22,6 +22,7 @@ export type {
   LessonPlan,
   // mcq (full = server/agent-side; public = redacted web mirror)
   MCQ,
+  McqBatch,
   PublicMCQ,
   // feedback
   Feedback,

@@ -9,6 +9,9 @@ import { Icon } from "@/components/ui/Icon";
 interface WidgetActionsProps {
   hasSelection: boolean;
   feedback: Feedback | null;
+  isSubmitting?: boolean;
+  canSubmit?: boolean;
+  isWaitingForAnswer?: boolean;
   onSubmit: () => void;
   onRetry: () => void;
   onAdvance: () => void;
@@ -17,34 +20,62 @@ interface WidgetActionsProps {
 export function WidgetActions({
   hasSelection,
   feedback,
+  isSubmitting = false,
+  canSubmit = true,
+  isWaitingForAnswer = false,
   onSubmit,
   onRetry,
   onAdvance,
 }: WidgetActionsProps) {
   if (!feedback) {
     return (
-      <div className="flex justify-end">
-        <Button size="lg" onClick={onSubmit} disabled={!hasSelection}>
+      <div className="flex flex-col items-end gap-2">
+        {isWaitingForAnswer ? (
+          <p className="text-sm text-ink-muted">Waiting for question…</p>
+        ) : null}
+        <Button
+          size="lg"
+          onClick={onSubmit}
+          disabled={!hasSelection || !canSubmit || isSubmitting}
+        >
           <Icon icon={SendIcon} size="sm" variant="inverse" />
-          Submit answer
+          {isSubmitting ? "Grading…" : "Submit answer"}
         </Button>
+      </div>
+    );
+  }
+
+  if (feedback.canRetry) {
+    return (
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-end">
+        {isWaitingForAnswer ? (
+          <p className="text-sm text-ink-muted sm:mr-auto">
+            Waiting for question…
+          </p>
+        ) : null}
+        <Button size="lg" variant="outline" onClick={onRetry}>
+          Retry question
+        </Button>
+        {hasSelection ? (
+          <Button
+            size="lg"
+            onClick={onSubmit}
+            disabled={!canSubmit || isSubmitting}
+          >
+            <Icon icon={SendIcon} size="sm" variant="inverse" />
+            {isSubmitting ? "Grading…" : "Submit answer"}
+          </Button>
+        ) : null}
       </div>
     );
   }
 
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
-      {feedback.canRetry ? (
-        <Button size="lg" variant="outline" onClick={onRetry}>
-          Retry question
-        </Button>
-      ) : null}
-      {!feedback.canRetry ? (
-        <Button size="lg" onClick={onAdvance}>
-          <Icon icon={ArrowRightIcon} size="sm" variant="inverse" />
-          Next question
-        </Button>
-      ) : null}
+      <Button size="lg" onClick={onAdvance}>
+        <Icon icon={ArrowRightIcon} size="sm" variant="inverse" />
+        Next question
+      </Button>
     </div>
   );
 }

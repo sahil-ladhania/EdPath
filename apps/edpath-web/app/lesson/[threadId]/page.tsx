@@ -15,7 +15,7 @@ export default async function LessonPage({
 
   return (
     <EdPathCopilotProvider threadId={threadId}>
-      <AppShell modeLabel="Lesson">
+      <AppShell headerVariant="landing">
         <LessonRunner threadId={threadId} />
       </AppShell>
     </EdPathCopilotProvider>

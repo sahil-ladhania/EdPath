@@ -1,6 +1,9 @@
 "use client";
 
 import type { LessonPlan, Phase } from "@repo/types";
+import { FileTextIcon } from "lucide-react";
+
+import { Icon } from "@/components/ui/Icon";
 
 interface PlanHeaderProps {
   pdfTitle: string;
@@ -12,23 +15,27 @@ export function PlanHeader({ pdfTitle, plan, phase }: PlanHeaderProps) {
   const isReviewing = phase === "awaiting_approval";
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       <p className="text-xs font-semibold uppercase tracking-[var(--tracking-eyebrow)] text-primary">
         {isReviewing ? "Review your path" : "Lesson path"}
       </p>
-      <div className="space-y-2">
-        <h1 className="font-display text-4xl font-semibold tracking-[var(--tracking-display)] text-ink">
+      <div className="space-y-1.5">
+        <h1 className="font-display text-2xl font-semibold tracking-[var(--tracking-display)] text-ink lg:text-3xl">
           Review your lesson path
         </h1>
-        <p className="max-w-2xl text-base text-ink-muted">
-          This is the route EdPath will use for {pdfTitle}. Approve it to begin,
-          or ask for changes first.
+        <p className="flex items-start gap-2 text-sm leading-snug text-ink-muted">
+          <Icon icon={FileTextIcon} size="sm" className="mt-0.5 shrink-0" />
+          <span>
+            This is the route EdPath will use for{" "}
+            <span className="font-medium text-ink">{pdfTitle}</span>. Approve it
+            to begin, or ask for changes first.
+          </span>
         </p>
       </div>
-      <div className="text-sm text-ink-muted">
+      <p className="text-xs text-ink-muted">
         {plan.objectives.length} objectives · ordered from first step to final
         review
-      </div>
+      </p>
     </div>
   );
 }

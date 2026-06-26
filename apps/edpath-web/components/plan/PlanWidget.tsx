@@ -25,7 +25,7 @@ export function PlanWidget({
     <Panel>
       <PlanHeader pdfTitle={pdfTitle} plan={plan} phase={phase} />
       <Separator />
-      <div className="space-y-4">
+      <div className="space-y-3">
         {plan.objectives.map((objective) => (
           <PlanObjectiveItem
             key={objective.objectiveId}

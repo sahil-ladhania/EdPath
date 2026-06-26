@@ -14,9 +14,11 @@ import {
   useLangGraphInterrupt,
 } from "@copilotkit/react-core";
 import { Role, TextMessage } from "@copilotkit/runtime-client-gql";
+import { CheckIcon } from "lucide-react";
 import type { ApprovalDecision, CoAgentState, LessonPlan, Phase } from "@repo/types";
 
 import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/ui/Icon";
 import { Panel } from "@/components/ui/Panel";
 import { getMockCoAgentState } from "@/lib/mock-lesson";
 
@@ -77,15 +79,18 @@ function ApprovalInterruptCard({
   }, [onApprove, onResolverReady]);
 
   return (
-    <Panel size="sm">
-      <div className="space-y-1">
+    <Panel size="sm" variant="muted">
+      <div className="space-y-0.5">
         <p className="text-sm font-semibold text-ink">Approval needed</p>
-        <p className="text-sm text-ink-muted">
+        <p className="text-xs leading-snug text-ink-muted">
           The LangGraph stub is paused at the fake approval interrupt
           {objectiveCount > 0 ? ` with ${objectiveCount} objective(s).` : "."}
         </p>
       </div>
-      <Button onClick={onApprove}>Resolve approval interrupt</Button>
+      <Button onClick={onApprove}>
+        <Icon icon={CheckIcon} size="sm" variant="inverse" />
+        Resolve approval interrupt
+      </Button>
     </Panel>
   );
 }

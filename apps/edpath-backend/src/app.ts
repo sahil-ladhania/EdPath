@@ -11,6 +11,11 @@ import {
   uploadHandler,
   uploadMiddleware,
 } from "./features/upload/upload.route.js";
+import {
+  startErrorHandler,
+  startHandler,
+  startMiddleware,
+} from "./features/start/start.route.js";
 
 const DEV_WEB_ORIGIN = "http://localhost:3000";
 
@@ -36,6 +41,7 @@ export function createApp(options: CreateAppOptions = {}): Express {
   });
 
   app.post("/upload", uploadMiddleware, uploadHandler, uploadErrorHandler);
+  app.post("/start", startMiddleware, startHandler, startErrorHandler);
 
   if (options.copilotKit) {
     const copilotKit = createEdPathCopilotKitRuntime(options.copilotKit);

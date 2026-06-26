@@ -1,9 +1,19 @@
+import { config as loadDotenv } from "dotenv";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { z } from "zod";
+
+const backendRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+loadDotenv({ path: resolve(backendRoot, ".env") });
 
 const envSchema = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
   PORT: z.coerce.number().int().positive().default(4000),
-  EDPATH_LANGGRAPH_DEPLOYMENT_URL: z.string().url(),
+  /** LangGraph dev server (`npm run langgraph:dev` → port 2024). */
+  EDPATH_LANGGRAPH_DEPLOYMENT_URL: z
+    .string()
+    .url()
+    .default("http://localhost:2024"),
   EDPATH_LANGGRAPH_GRAPH_ID: z
     .string()
     .min(1)
@@ -23,6 +33,19 @@ const envSchema = z.object({
   OPENAI_MODEL: z.string().min(1).default("gpt-4o-mini"),
   /** N1 plan escape hatch when repair retries are exhausted (B8). */
   OPENAI_PLAN_ESCAPE_MODEL: z.string().min(1).default("gpt-4o"),
+  /** LangSmith observability (optional — omit to disable tracing). */
+  LANGSMITH_TRACING: z
+    .enum(["true", "false"])
+    .optional()
+    .transform((v) => v === "true"),
+  LANGSMITH_API_KEY: z.string().min(1).optional(),
+  LANGSMITH_PROJECT: z.string().min(1).default("edpath"),
+  LANGSMITH_ENDPOINT: z.string().url().optional(),
+  /** Reduces tracing callback latency in non-serverless Node (recommended for dev). */
+  LANGCHAIN_CALLBACKS_BACKGROUND: z
+    .enum(["true", "false"])
+    .optional()
+    .transform((v) => v === "true"),
 });
 
 const parsed = envSchema.safeParse(process.env);
@@ -37,4 +60,9 @@ export const env = parsed.data;
 /** True when live OpenAI calls are available; otherwise nodes use stub content. */
 export function isOpenAiConfigured(): boolean {
   return Boolean(env.OPENAI_API_KEY);
+}
+
+/** True when LangSmith tracing is fully configured (flag + API key). */
+export function isLangSmithTracingEnabled(): boolean {
+  return env.LANGSMITH_TRACING === true && Boolean(env.LANGSMITH_API_KEY);
 }

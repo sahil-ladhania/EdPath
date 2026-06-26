@@ -8,6 +8,16 @@ const envSchema = z.object({
     .string()
     .min(1)
     .default("edpath-walking-skeleton"),
+  UPLOAD_MAX_BINARY_BYTES: z.coerce
+    .number()
+    .int()
+    .positive()
+    .default(15 * 1024 * 1024),
+  UPLOAD_MAX_CLEAN_CHARS: z.coerce.number().int().positive().default(200_000),
+  UPLOAD_MAX_TOKENS: z.coerce.number().int().positive().default(50_000),
+  UPLOAD_MAX_PAGES: z.coerce.number().int().positive().default(50),
+  UPLOAD_MIN_CLEAN_CHARS: z.coerce.number().int().nonnegative().default(200),
+  UPLOAD_MIN_CHARS_PER_PAGE: z.coerce.number().int().nonnegative().default(30),
 });
 
 const parsed = envSchema.safeParse(process.env);

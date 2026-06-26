@@ -4,6 +4,11 @@ import {
   createEdPathCopilotKitRuntime,
   type EdPathCopilotKitOptions,
 } from "./copilot/runtime.js";
+import {
+  uploadErrorHandler,
+  uploadHandler,
+  uploadMiddleware,
+} from "./features/upload/upload.route.js";
 
 export interface CreateAppOptions {
   copilotKit?: EdPathCopilotKitOptions;
@@ -17,6 +22,8 @@ export function createApp(options: CreateAppOptions = {}): Express {
   app.get("/health", (_req: Request, res: Response) => {
     res.json({ status: "ok" });
   });
+
+  app.post("/upload", uploadMiddleware, uploadHandler, uploadErrorHandler);
 
   if (options.copilotKit) {
     const copilotKit = createEdPathCopilotKitRuntime(options.copilotKit);

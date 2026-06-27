@@ -7,8 +7,10 @@ import type {
   Summary,
 } from "@repo/types";
 
-export const MAX_ATTEMPTS = 3;
-export const MAX_HELP = 3;
+// Re-exported from the shared contract (the canonical value lives in
+// @repo/schemas) so the dev-preview mock below keeps a single import surface
+// without redefining the constant.
+export { MAX_ATTEMPTS } from "@repo/schemas/constants";
 
 const mockPdfMeta: PdfMeta = {
   filename: "cell-biology-foundations.pdf",

@@ -2,7 +2,7 @@
 
 import type { Feedback, HelpThreadMessage, PublicMCQ } from "@repo/types";
 
-import { MAX_ATTEMPTS, MAX_HELP } from "@/lib/mock-lesson";
+import { MAX_ATTEMPTS, MAX_HELP } from "@repo/schemas/constants";
 import { FeedbackBanner } from "@/components/mcq/FeedbackBanner";
 import { HelpInput } from "@/components/mcq/HelpInput";
 import { OptionList } from "@/components/mcq/OptionList";

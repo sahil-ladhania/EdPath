@@ -5,7 +5,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./upload": "./src/upload.ts"
+    "./upload": "./src/upload.ts",
+    "./constants": "./src/constants.ts"
   },
   "scripts": {
     "check-types": "tsc --noEmit"

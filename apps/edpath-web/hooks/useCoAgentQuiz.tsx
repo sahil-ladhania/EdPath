@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CoAgentState, Feedback, LessonPlan, PublicMCQ } from "@repo/types";
 
-import { MAX_ATTEMPTS } from "@/lib/mock-lesson";
+import { MAX_ATTEMPTS } from "@repo/schemas/constants";
 
 interface UseCoAgentQuizOptions {
   state: CoAgentState;

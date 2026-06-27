@@ -11,6 +11,7 @@ import { SummaryView } from "@/components/summary/SummaryView";
 import { useCoAgentLesson } from "@/components/shell/useCoAgentLesson";
 import { GeneratingPanel } from "@/components/ui/GeneratingPanel";
 import { useCoAgentQuiz } from "@/hooks/useCoAgentQuiz";
+import { usePlanRevision } from "@/hooks/usePlanRevision";
 import {
   getGeneratingPhaseMessage,
   getGeneratingPhaseSubtext,
@@ -43,6 +44,12 @@ export function LessonRunner({ threadId }: LessonRunnerProps) {
     canSubmitAnswer: coAgentLesson.canSubmitAnswer,
     canSubmitHelp: coAgentLesson.canSubmitHelp,
     isRunning: coAgentLesson.isRunning,
+  });
+  const planRevision = usePlanRevision({
+    plan: coAgentLesson.plan,
+    isRunning: coAgentLesson.isRunning,
+    requestPlanRevision: coAgentLesson.requestPlanRevision,
+    canRequestPlanRevision: coAgentLesson.canRequestPlanRevision,
   });
   const phase = resolveLessonPhase(coAgentLesson.state);
   const plan = coAgentLesson.plan;
@@ -117,6 +124,9 @@ export function LessonRunner({ threadId }: LessonRunnerProps) {
             plan={plan}
             phase={phase}
             onApprove={coAgentLesson.approvePlan}
+            canSubmitRevision={planRevision.canSubmitRevision}
+            isReviseSubmitting={planRevision.isReviseSubmitting}
+            onSubmitRevision={planRevision.submitRevision}
           />
         ) : null}
         {showQuiz && coAgentQuiz.currentQuestion ? (

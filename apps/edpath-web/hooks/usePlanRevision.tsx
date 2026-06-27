@@ -1,0 +1,102 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
+import type { LessonPlan } from "@repo/types";
+
+interface UsePlanRevisionOptions {
+  plan: LessonPlan | null;
+  isRunning: boolean;
+  requestPlanRevision: (note: string) => void;
+  canRequestPlanRevision: boolean;
+}
+
+interface UsePlanRevisionReturn {
+  isReviseSubmitting: boolean;
+  canSubmitRevision: boolean;
+  submitRevision: (note: string) => void;
+}
+
+function getPlanFingerprint(plan: LessonPlan | null): string {
+  if (!plan) {
+    return "";
+  }
+
+  return JSON.stringify(
+    plan.objectives.map(
+      (objective) =>
+        `${objective.objectiveId}:${objective.title}:${objective.difficulty}`,
+    ),
+  );
+}
+
+export function usePlanRevision({
+  plan,
+  isRunning,
+  requestPlanRevision,
+  canRequestPlanRevision,
+}: UsePlanRevisionOptions): UsePlanRevisionReturn {
+  const [isReviseSubmitting, setIsReviseSubmitting] = useState<boolean>(false);
+  const planFingerprintAtSubmitRef = useRef<string>("");
+  const sawRunningSinceSubmitRef = useRef<boolean>(false);
+
+  useEffect(() => {
+    if (isReviseSubmitting && isRunning) {
+      sawRunningSinceSubmitRef.current = true;
+    }
+  }, [isReviseSubmitting, isRunning]);
+
+  useEffect(() => {
+    if (!isReviseSubmitting) {
+      return;
+    }
+
+    const currentFingerprint = getPlanFingerprint(plan);
+    const planChanged =
+      plan !== null &&
+      currentFingerprint !== planFingerprintAtSubmitRef.current;
+
+    if (planChanged) {
+      setIsReviseSubmitting(false);
+      sawRunningSinceSubmitRef.current = false;
+      return;
+    }
+
+    // At the approval interrupt the agent is idle (`isRunning === false`).
+    // Only treat idle as completion after the replan run actually started.
+    if (!isRunning && sawRunningSinceSubmitRef.current) {
+      setIsReviseSubmitting(false);
+      sawRunningSinceSubmitRef.current = false;
+    }
+  }, [isReviseSubmitting, isRunning, plan]);
+
+  const submitRevision = useCallback(
+    (note: string): void => {
+      const trimmed = note.trim();
+
+      if (!trimmed || !canRequestPlanRevision || isReviseSubmitting) {
+        if (!trimmed || isReviseSubmitting) {
+          return;
+        }
+
+        if (process.env.NODE_ENV === "development") {
+          console.warn(
+            "[EdPath] submitRevision blocked: approval interrupt resolver is not ready.",
+          );
+        }
+        return;
+      }
+
+      sawRunningSinceSubmitRef.current = false;
+      planFingerprintAtSubmitRef.current = getPlanFingerprint(plan);
+      setIsReviseSubmitting(true);
+      requestPlanRevision(trimmed);
+    },
+    [canRequestPlanRevision, isReviseSubmitting, plan, requestPlanRevision],
+  );
+
+  return {
+    isReviseSubmitting,
+    canSubmitRevision: canRequestPlanRevision && !isReviseSubmitting,
+    submitRevision,
+  };
+}

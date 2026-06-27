@@ -11,11 +11,17 @@ import { cn } from "@/lib/utils";
 interface PlanActionsProps {
   objectiveCount: number;
   onApprove: () => void;
+  canSubmitRevision: boolean;
+  isReviseSubmitting: boolean;
+  onSubmitRevision: (text: string) => void;
 }
 
 export function PlanActions({
   objectiveCount,
   onApprove,
+  canSubmitRevision,
+  isReviseSubmitting,
+  onSubmitRevision,
 }: PlanActionsProps): React.JSX.Element {
   const [isReviseOpen, setIsReviseOpen] = useState<boolean>(false);
   const objectiveLabel =
@@ -50,7 +56,12 @@ export function PlanActions({
       </div>
       {isReviseOpen ? (
         <div id="plan-revise-chat">
-          <PlanReviseChat onClose={() => setIsReviseOpen(false)} />
+          <PlanReviseChat
+            onClose={() => setIsReviseOpen(false)}
+            canSubmitRevision={canSubmitRevision}
+            isSubmitting={isReviseSubmitting}
+            onSubmitRevision={onSubmitRevision}
+          />
         </div>
       ) : null}
     </div>

@@ -40,15 +40,19 @@ interface UseCoAgentLessonReturn {
   isRunning: boolean;
   canSubmitAnswer: boolean;
   canSubmitHelp: boolean;
+  canRequestPlanRevision: boolean;
   approvePlan: () => void;
+  requestPlanRevision: (note: string) => void;
   submitAnswer: (selectedIndex: number) => void;
   submitHelp: (text: string) => void;
   interruptElement: ReactNode;
 }
 
 interface ApprovalInterruptBridgeProps {
-  onApprove: () => void;
-  onResolverReady: (resolver: (() => void) | null) => void;
+  onResolverReady: (
+    resolver: ((decision: ApprovalDecision) => void) | null,
+  ) => void;
+  resolve: (value: string) => void;
 }
 
 interface AwaitInputInterruptBridgeProps {
@@ -95,14 +99,16 @@ function isAwaitInputInterrupt(
 }
 
 function ApprovalInterruptBridge({
-  onApprove,
   onResolverReady,
+  resolve,
 }: ApprovalInterruptBridgeProps): null {
-  const onApproveRef = useRef(onApprove);
-  onApproveRef.current = onApprove;
+  const resolveRef = useRef(resolve);
+  resolveRef.current = resolve;
 
   useEffect(() => {
-    onResolverReady(() => onApproveRef.current());
+    onResolverReady((decision: ApprovalDecision) => {
+      resolveRef.current(decision as unknown as string);
+    });
 
     return () => onResolverReady(null);
   }, [onResolverReady]);
@@ -153,9 +159,9 @@ export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
       helpThread: mirroredState?.helpThread ?? [],
     };
   }, [coAgent.state, emptyState]);
-  const [approvalResolver, setApprovalResolver] = useState<(() => void) | null>(
-    null,
-  );
+  const [approvalResolver, setApprovalResolver] = useState<
+    ((decision: ApprovalDecision) => void) | null
+  >(null);
   const [answerResolver, setAnswerResolver] = useState<
     ((payload: ResumePayload) => void) | null
   >(null);
@@ -166,7 +172,7 @@ export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
   // resuming the answer gate with a null payload). Wrap in `() => resolver` so
   // the resolver function is stored, not called.
   const registerApprovalResolver = useCallback(
-    (resolver: (() => void) | null): void => {
+    (resolver: ((decision: ApprovalDecision) => void) | null): void => {
       setApprovalResolver(() => resolver);
     },
     [],
@@ -189,15 +195,10 @@ export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
       const eventValue = parseApprovalInterruptValue(event.value);
 
       if (isApprovalInterrupt(eventValue)) {
-        const approve = (): void => {
-          const approval: ApprovalDecision = { decision: "approve" };
-          resolve(approval as unknown as string);
-        };
-
         return (
           <ApprovalInterruptBridge
-            onApprove={approve}
             onResolverReady={registerApprovalResolver}
+            resolve={resolve}
           />
         );
       }
@@ -240,8 +241,42 @@ export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
   }, [appendMessage, coAgent, isAvailable, isLoading, normalizedState]);
 
   const approvePlan = useCallback((): void => {
-    approvalResolver?.();
+    if (!approvalResolver) {
+      if (process.env.NODE_ENV === "development") {
+        console.warn(
+          "[EdPath] approvePlan blocked: approval interrupt resolver is not ready.",
+        );
+      }
+      return;
+    }
+
+    approvalResolver({ decision: "approve" });
   }, [approvalResolver]);
+
+  const requestPlanRevision = useCallback(
+    (note: string): void => {
+      const trimmed = note.trim();
+
+      if (!trimmed) {
+        return;
+      }
+
+      if (!approvalResolver) {
+        if (process.env.NODE_ENV === "development") {
+          console.warn(
+            "[EdPath] requestPlanRevision blocked: approval interrupt resolver is not ready.",
+          );
+        }
+        return;
+      }
+
+      approvalResolver({ decision: "changes", note: trimmed });
+    },
+    [approvalResolver],
+  );
+
+  const canRequestPlanRevision =
+    approvalResolver !== null && normalizedState.phase === "awaiting_approval";
 
   const submitAnswer = useCallback(
     (selectedIndex: number): void => {
@@ -299,7 +334,9 @@ export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
     isRunning: coAgent.running,
     canSubmitAnswer: answerResolver !== null,
     canSubmitHelp,
+    canRequestPlanRevision,
     approvePlan,
+    requestPlanRevision,
     submitAnswer,
     submitHelp,
     interruptElement: interrupt,

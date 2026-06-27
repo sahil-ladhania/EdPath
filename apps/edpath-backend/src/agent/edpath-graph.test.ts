@@ -309,8 +309,10 @@ describe("EdPath LangGraph agent", () => {
 
     const state = await graph.getState(config);
     expect(state.values.helpTurnsUsed).toBe(1);
-    expect(state.values.messages.length).toBeGreaterThanOrEqual(2);
+    expect(state.values.helpThread).toHaveLength(2);
+    expect(state.values.messages).toHaveLength(0);
     assertCoAgentFirewall(state.values.coAgentSnapshot);
+    expect(state.values.coAgentSnapshot.helpThread).toHaveLength(2);
   });
 
   test("approval changes routes back through replan", async () => {

@@ -45,8 +45,10 @@ export async function assistNode(
     { role: "assistant", content: assistantContent },
   ];
 
+  // helpThread mirrors to the MCQ widget; do not append to `messages` — CopilotKit
+  // expects LangChain message types there and throws INCOMPLETE_STREAM otherwise.
   return withCoAgentSnapshot(state, {
-    messages: newMessages,
+    helpThread: [...state.helpThread, ...newMessages],
     helpTurnsUsed: atCap ? state.helpTurnsUsed : state.helpTurnsUsed + 1,
     pendingResumeKind: null,
     pendingHelpText: null,

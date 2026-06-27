@@ -49,6 +49,7 @@ export function createWalkingSkeletonState(): CoAgentState {
     selectedIndex: null,
     attempts: 0,
     helpTurnsUsed: 0,
+    helpThread: [],
     feedback: null,
     results: [],
     score: {
@@ -72,6 +73,7 @@ const CoAgentStateAnnotation = Annotation.Root({
   selectedIndex: Annotation<CoAgentState["selectedIndex"]>(),
   attempts: Annotation<CoAgentState["attempts"]>(),
   helpTurnsUsed: Annotation<CoAgentState["helpTurnsUsed"]>(),
+  helpThread: Annotation<CoAgentState["helpThread"]>(),
   feedback: Annotation<CoAgentState["feedback"]>(),
   results: Annotation<CoAgentState["results"]>(),
   score: Annotation<CoAgentState["score"]>(),

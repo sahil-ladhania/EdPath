@@ -18,6 +18,7 @@ export function buildInitialEdPathState(input: {
     selectedIndex: null,
     attempts: 0,
     helpTurnsUsed: 0,
+    helpThread: [],
     feedback: null,
     results: [],
     score: {

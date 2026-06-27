@@ -51,4 +51,4 @@ export type {
 // --- Pure compile-time types (defined in this package) ---
 export type { Phase } from "./phase.js";
 export type { ObjectiveId, QuestionId } from "./ids.js";
-export type { EdPathState, CoAgentState } from "./state.js";
+export type { EdPathState, CoAgentState, HelpThreadMessage } from "./state.js";

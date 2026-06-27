@@ -24,6 +24,7 @@ describe("EdPathLangGraphAgent.getStateSnapshot", () => {
       selectedIndex: null,
       attempts: 0,
       helpTurnsUsed: 0,
+      helpThread: [],
       feedback: null,
       results: [],
       score: { correct: 0, total: 0, firstTry: 0 },

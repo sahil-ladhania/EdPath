@@ -9,7 +9,9 @@ interface UseCoAgentQuizOptions {
   state: CoAgentState;
   plan: LessonPlan | null;
   submitAnswer: (selectedIndex: number) => void;
+  submitHelp: (text: string) => void;
   canSubmitAnswer: boolean;
+  canSubmitHelp: boolean;
   isRunning: boolean;
 }
 
@@ -24,10 +26,12 @@ interface UseCoAgentQuizReturn {
   feedback: Feedback | null;
   isOptionLocked: boolean;
   isSubmitting: boolean;
+  isHelpSubmitting: boolean;
   canSubmit: boolean;
   isWaitingForAnswer: boolean;
   selectOption: (index: number) => void;
   submitAnswer: () => void;
+  submitHelp: (text: string) => void;
   retryQuestion: () => void;
   advance: () => void;
 }
@@ -36,7 +40,9 @@ export function useCoAgentQuiz({
   state,
   plan,
   submitAnswer: submitAnswerToAgent,
+  submitHelp: submitHelpToAgent,
   canSubmitAnswer,
+  canSubmitHelp,
   isRunning,
 }: UseCoAgentQuizOptions): UseCoAgentQuizReturn {
   const [localSelectedIndex, setLocalSelectedIndex] = useState<number | null>(
@@ -45,7 +51,9 @@ export function useCoAgentQuiz({
   const [triedOptionIndices, setTriedOptionIndices] = useState<number[]>([]);
   const [retryUnlocked, setRetryUnlocked] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isHelpSubmitting, setIsHelpSubmitting] = useState<boolean>(false);
   const pendingSelectionRef = useRef<number | null>(null);
+  const helpThreadLengthAtSubmitRef = useRef<number>(0);
   const previousAttemptsRef = useRef<number>(state.attempts);
   const previousFeedbackRef = useRef<Feedback | null>(state.feedback);
 
@@ -54,6 +62,7 @@ export function useCoAgentQuiz({
     setTriedOptionIndices([]);
     setRetryUnlocked(false);
     setIsSubmitting(false);
+    setIsHelpSubmitting(false);
     pendingSelectionRef.current = null;
   }, [state.currentQuestionIndex, state.currentObjectiveIndex]);
 
@@ -78,6 +87,27 @@ export function useCoAgentQuiz({
   }, [isRunning, isSubmitting]);
 
   useEffect(() => {
+    if (!isHelpSubmitting) {
+      return;
+    }
+
+    const hasNewMessages =
+      state.helpThread.length > helpThreadLengthAtSubmitRef.current;
+    const latestMessage = state.helpThread.at(-1);
+
+    // Mirrored assist reply for this turn landed — re-enable input.
+    if (hasNewMessages && latestMessage?.role === "assistant") {
+      setIsHelpSubmitting(false);
+      return;
+    }
+
+    // Fallback if the run finished without a mirrored reply (transport error, etc.).
+    if (!isRunning) {
+      setIsHelpSubmitting(false);
+    }
+  }, [isHelpSubmitting, isRunning, state.helpThread]);
+
+  useEffect(() => {
     if (
       state.feedback?.verdict === "incorrect" ||
       state.feedback?.verdict === "exhausted"
@@ -96,7 +126,8 @@ export function useCoAgentQuiz({
   const feedback = state.feedback;
 
   const isOptionLocked = useMemo((): boolean => {
-    if (isSubmitting || isRunning) {
+    // Only lock radios while an answer is being graded — not during help turns.
+    if (isSubmitting) {
       return true;
     }
 
@@ -109,7 +140,7 @@ export function useCoAgentQuiz({
     }
 
     return true;
-  }, [feedback, isRunning, isSubmitting, retryUnlocked]);
+  }, [feedback, isSubmitting, retryUnlocked]);
 
   const canSubmit = useMemo((): boolean => {
     const maySubmitAfterRetry = retryUnlocked && feedback?.canRetry === true;
@@ -173,6 +204,24 @@ export function useCoAgentQuiz({
     submitAnswerToAgent(localSelectedIndex);
   }, [canSubmitAnswer, localSelectedIndex, submitAnswerToAgent]);
 
+  const submitHelp = useCallback(
+    (text: string): void => {
+      if (!canSubmitHelp) {
+        if (process.env.NODE_ENV === "development") {
+          console.warn(
+            "[EdPath] submitHelp blocked: await_input interrupt resolver is not ready.",
+          );
+        }
+        return;
+      }
+
+      setIsHelpSubmitting(true);
+      helpThreadLengthAtSubmitRef.current = state.helpThread.length;
+      submitHelpToAgent(text);
+    },
+    [canSubmitHelp, state.helpThread.length, submitHelpToAgent],
+  );
+
   const retryQuestion = useCallback((): void => {
     setLocalSelectedIndex(null);
     setRetryUnlocked(true);
@@ -202,10 +251,12 @@ export function useCoAgentQuiz({
     feedback,
     isOptionLocked,
     isSubmitting,
+    isHelpSubmitting,
     canSubmit,
     isWaitingForAnswer,
     selectOption,
     submitAnswer,
+    submitHelp,
     retryQuestion,
     advance,
   };

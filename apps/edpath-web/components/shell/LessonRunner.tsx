@@ -1,6 +1,6 @@
 "use client";
 
-import { DevPhaseSwitcher } from "@/components/dev/DevPhaseSwitcher";
+import { DevPreviewControls } from "@/components/dev/DevPreviewControls";
 import { useCopilotTransportError } from "@/components/copilot/copilot-transport-error-context";
 import { McqWidget } from "@/components/mcq/McqWidget";
 import { PlanWidget } from "@/components/plan/PlanWidget";
@@ -11,30 +11,37 @@ import { SummaryView } from "@/components/summary/SummaryView";
 import { useCoAgentLesson } from "@/components/shell/useCoAgentLesson";
 import { GeneratingPanel } from "@/components/ui/GeneratingPanel";
 import { useCoAgentQuiz } from "@/hooks/useCoAgentQuiz";
-import { useLesson } from "@/hooks/useLesson";
 import {
   getGeneratingPhaseMessage,
   getGeneratingPhaseSubtext,
   getLessonErrorTitle,
+  getSummarizingMessage,
+  getSummarizingSubtext,
   isGeneratingPhase,
   isLessonGenerationError,
+  isSummarizingTransition,
   resolveLessonPhase,
 } from "@/lib/phase-ui";
 import { useEffect } from "react";
+
+/** Dev-only: opt in with NEXT_PUBLIC_EDPATH_DEV_PREVIEW=true. Default OFF. */
+const DEV_PREVIEW_ENABLED =
+  process.env.NEXT_PUBLIC_EDPATH_DEV_PREVIEW === "true";
 
 interface LessonRunnerProps {
   threadId: string;
 }
 
 export function LessonRunner({ threadId }: LessonRunnerProps) {
-  const lesson = useLesson(threadId);
   const coAgentLesson = useCoAgentLesson(threadId);
   const { transportError, clearTransportError } = useCopilotTransportError();
   const coAgentQuiz = useCoAgentQuiz({
     state: coAgentLesson.state,
     plan: coAgentLesson.plan,
     submitAnswer: coAgentLesson.submitAnswer,
+    submitHelp: coAgentLesson.submitHelp,
     canSubmitAnswer: coAgentLesson.canSubmitAnswer,
+    canSubmitHelp: coAgentLesson.canSubmitHelp,
     isRunning: coAgentLesson.isRunning,
   });
   const phase = resolveLessonPhase(coAgentLesson.state);
@@ -44,11 +51,16 @@ export function LessonRunner({ threadId }: LessonRunnerProps) {
     ? coAgentLesson.state.lastError
     : null;
   const isGenerating = isGeneratingPhase(phase) && !generationError;
-  const generatingMessage =
-    getGeneratingPhaseMessage(phase) ?? "Generating your roadmap…";
-  const generatingSubtext = coAgentLesson.isRunning
-    ? `${getGeneratingPhaseSubtext(phase) ?? "Please wait…"} Still working…`
+  const isSummarizing = isSummarizingTransition(coAgentLesson.state);
+  const generatingMessage = isSummarizing
+    ? getSummarizingMessage()
+    : getGeneratingPhaseMessage(phase) ?? "Generating your roadmap…";
+  const generatingSubtextBase = isSummarizing
+    ? getSummarizingSubtext()
     : getGeneratingPhaseSubtext(phase);
+  const generatingSubtext = coAgentLesson.isRunning
+    ? `${generatingSubtextBase ?? "Please wait…"} Still working…`
+    : generatingSubtextBase;
   const showQuiz =
     phase === "awaiting_input" &&
     coAgentQuiz.currentQuestion !== null &&
@@ -119,32 +131,34 @@ export function LessonRunner({ threadId }: LessonRunnerProps) {
             feedback={coAgentQuiz.feedback}
             isOptionLocked={coAgentQuiz.isOptionLocked}
             isSubmitting={coAgentQuiz.isSubmitting}
+            isHelpSubmitting={coAgentQuiz.isHelpSubmitting}
             canSubmit={coAgentQuiz.canSubmit}
             isWaitingForAnswer={coAgentQuiz.isWaitingForAnswer}
+            helpThread={coAgentLesson.state.helpThread}
+            helpTurnsUsed={coAgentLesson.state.helpTurnsUsed}
+            canSubmitHelp={coAgentLesson.canSubmitHelp}
             onSelect={coAgentQuiz.selectOption}
             onSubmit={coAgentQuiz.submitAnswer}
+            onSubmitHelp={coAgentQuiz.submitHelp}
             onRetry={coAgentQuiz.retryQuestion}
             onAdvance={coAgentQuiz.advance}
           />
         ) : null}
-        {phase === "complete" ? (
-          <SummaryView
-            summary={coAgentLesson.state.summary ?? lesson.summary}
-          />
+        {phase === "complete" && coAgentLesson.state.summary ? (
+          <SummaryView summary={coAgentLesson.state.summary} />
         ) : null}
         <div className="sr-only" aria-hidden="true">
           {coAgentLesson.interruptElement}
         </div>
       </LessonShell>
 
-      <DevPhaseSwitcher
-        phase={phase}
-        objectiveCount={plan?.objectives.length ?? lesson.plan.objectives.length}
-        currentObjectiveIndex={coAgentLesson.state.currentObjectiveIndex}
-        onSetPhase={lesson.setPhase}
-        onJumpToObjective={lesson.jumpToObjective}
-        onSimulateOutcome={lesson.simulateOutcome}
-      />
+      {DEV_PREVIEW_ENABLED ? (
+        <DevPreviewControls
+          threadId={threadId}
+          phase={phase}
+          currentObjectiveIndex={coAgentLesson.state.currentObjectiveIndex}
+        />
+      ) : null}
     </>
   );
 }

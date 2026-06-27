@@ -34,6 +34,10 @@ export const EdPathStateAnnotation = Annotation.Root({
   selectedIndex: Annotation<number | null>(),
   attempts: Annotation<number>(),
   helpTurnsUsed: Annotation<number>(),
+  helpThread: Annotation<CoAgentState["helpThread"]>({
+    reducer: (_, update) => update,
+    default: () => [],
+  }),
   feedback: Annotation<Feedback | null>(),
   results: Annotation<ObjectiveResult[]>({
     reducer: (_, update) => update,

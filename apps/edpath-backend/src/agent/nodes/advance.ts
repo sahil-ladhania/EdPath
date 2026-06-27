@@ -24,6 +24,7 @@ export function advanceNode(
       selectedIndex: null,
       attempts: 0,
       helpTurnsUsed: 0,
+      helpThread: [],
       feedback: null,
       phase: "awaiting_input",
     });
@@ -39,6 +40,7 @@ export function advanceNode(
       selectedIndex: null,
       attempts: 0,
       helpTurnsUsed: 0,
+      helpThread: [],
       feedback: null,
       phase: "quizzing",
     });
@@ -48,6 +50,7 @@ export function advanceNode(
     selectedIndex: null,
     attempts: 0,
     helpTurnsUsed: 0,
+    helpThread: [],
     feedback: null,
     phase: "quizzing",
   });

@@ -18,10 +18,50 @@ const GENERATING_PHASE_SUBTEXT: Record<
   quizzing: "Creating questions for this objective.",
 };
 
+/**
+ * Loader copy for the question → summary transition.
+ *
+ * The graph has NO distinct "summarizing"/"scoring" phase: after the final
+ * question the `advance` node re-emits `phase: "quizzing"` and routes to
+ * `summarize` (which only flips to `"complete"` once the summary is built).
+ * So while the summary/score is generating, the live mirrored phase is
+ * `"quizzing"` — identical to MCQ generation. We distinguish it from real
+ * state (NOT position or a timer): real MCQ generation clears `questions` to
+ * `[]`, whereas the summary transition keeps the last objective's questions
+ * loaded with `summary` still `null` on the final objective.
+ */
+const SUMMARIZING_MESSAGE = "Generating your summary…";
+const SUMMARIZING_SUBTEXT = "Calculating your score and study tips…";
+
 function isGeneratingPhaseValue(
   phase: Phase,
 ): phase is (typeof GENERATING_PHASES)[number] {
   return (GENERATING_PHASES as readonly Phase[]).includes(phase);
+}
+
+/** True while the graph is building the summary after the final question. */
+export function isSummarizingTransition(state: {
+  phase: Phase;
+  questions: unknown[];
+  summary: unknown;
+  plan: { objectives: unknown[] } | null;
+  currentObjectiveIndex: number;
+}): boolean {
+  return (
+    state.phase === "quizzing" &&
+    state.summary === null &&
+    state.questions.length > 0 &&
+    state.plan !== null &&
+    state.currentObjectiveIndex >= state.plan.objectives.length - 1
+  );
+}
+
+export function getSummarizingMessage(): string {
+  return SUMMARIZING_MESSAGE;
+}
+
+export function getSummarizingSubtext(): string {
+  return SUMMARIZING_SUBTEXT;
 }
 
 export function isGeneratingPhase(phase: Phase): boolean {

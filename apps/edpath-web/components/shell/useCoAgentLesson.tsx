@@ -39,8 +39,10 @@ interface UseCoAgentLessonReturn {
   pdfTitle: string;
   isRunning: boolean;
   canSubmitAnswer: boolean;
+  canSubmitHelp: boolean;
   approvePlan: () => void;
   submitAnswer: (selectedIndex: number) => void;
+  submitHelp: (text: string) => void;
   interruptElement: ReactNode;
 }
 
@@ -148,6 +150,7 @@ export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
       summary: mirroredState?.summary ?? null,
       phase: mirroredState?.phase ?? "planning",
       lastError: mirroredState?.lastError ?? null,
+      helpThread: mirroredState?.helpThread ?? [],
     };
   }, [coAgent.state, emptyState]);
   const [approvalResolver, setApprovalResolver] = useState<(() => void) | null>(
@@ -259,6 +262,34 @@ export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
     [answerResolver],
   );
 
+  const submitHelp = useCallback(
+    (text: string): void => {
+      const trimmed = text.trim();
+
+      if (!trimmed) {
+        return;
+      }
+
+      if (!answerResolver) {
+        if (process.env.NODE_ENV === "development") {
+          console.warn(
+            "[EdPath] submitHelp blocked: await_input interrupt resolver is not ready.",
+          );
+        }
+        return;
+      }
+
+      answerResolver({
+        kind: "help",
+        text: trimmed,
+      });
+    },
+    [answerResolver],
+  );
+
+  const canSubmitHelp =
+    answerResolver !== null && normalizedState.phase === "awaiting_input";
+
   return {
     threadId,
     state: normalizedState,
@@ -267,8 +298,10 @@ export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
     pdfTitle: normalizedState.pdfMeta.filename,
     isRunning: coAgent.running,
     canSubmitAnswer: answerResolver !== null,
+    canSubmitHelp,
     approvePlan,
     submitAnswer,
+    submitHelp,
     interruptElement: interrupt,
   };
 }

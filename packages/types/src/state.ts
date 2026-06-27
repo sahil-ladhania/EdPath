@@ -12,6 +12,12 @@ import type {
 } from "@repo/schemas";
 import type { Phase } from "./phase.js";
 
+/** Per-question assist side-channel thread mirrored to the MCQ widget (F8). */
+export interface HelpThreadMessage {
+  role: "user" | "assistant";
+  content: string;
+}
+
 /**
  * The full checkpointed graph state (§5.1) — the single source of truth and the
  * agent's memory. A composed TS type (Flag 1): there is no runtime
@@ -37,6 +43,7 @@ export interface EdPathState<TMessage = unknown> {
   selectedIndex: number | null;
   attempts: number;
   helpTurnsUsed: number;
+  helpThread: HelpThreadMessage[];
   feedback: Feedback | null;
   results: ObjectiveResult[];
   score: Score;
@@ -63,6 +70,7 @@ export interface CoAgentState {
   selectedIndex: number | null;
   attempts: number;
   helpTurnsUsed: number;
+  helpThread: HelpThreadMessage[];
   feedback: Feedback | null;
   results: ObjectiveResult[];
   score: Score;

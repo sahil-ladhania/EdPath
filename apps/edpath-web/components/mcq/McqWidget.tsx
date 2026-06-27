@@ -1,8 +1,8 @@
 "use client";
 
-import type { Feedback, PublicMCQ } from "@repo/types";
+import type { Feedback, HelpThreadMessage, PublicMCQ } from "@repo/types";
 
-import { MAX_ATTEMPTS } from "@/lib/mock-lesson";
+import { MAX_ATTEMPTS, MAX_HELP } from "@/lib/mock-lesson";
 import { FeedbackBanner } from "@/components/mcq/FeedbackBanner";
 import { HelpInput } from "@/components/mcq/HelpInput";
 import { OptionList } from "@/components/mcq/OptionList";
@@ -22,10 +22,15 @@ interface McqWidgetProps {
   feedback: Feedback | null;
   isOptionLocked: boolean;
   isSubmitting?: boolean;
+  isHelpSubmitting?: boolean;
   canSubmit?: boolean;
   isWaitingForAnswer?: boolean;
+  helpThread?: HelpThreadMessage[];
+  helpTurnsUsed?: number;
+  canSubmitHelp?: boolean;
   onSelect: (index: number) => void;
   onSubmit: () => void;
+  onSubmitHelp?: (text: string) => void;
   onRetry: () => void;
   onAdvance: () => void;
 }
@@ -41,10 +46,15 @@ export function McqWidget({
   feedback,
   isOptionLocked,
   isSubmitting = false,
+  isHelpSubmitting = false,
   canSubmit = true,
   isWaitingForAnswer = false,
+  helpThread = [],
+  helpTurnsUsed = 0,
+  canSubmitHelp = false,
   onSelect,
   onSubmit,
+  onSubmitHelp,
   onRetry,
   onAdvance,
 }: McqWidgetProps) {
@@ -86,7 +96,14 @@ export function McqWidget({
         onAdvance={onAdvance}
       />
       <Separator />
-      <HelpInput />
+      <HelpInput
+        thread={helpThread}
+        helpTurnsUsed={helpTurnsUsed}
+        maxHelp={MAX_HELP}
+        canSubmitHelp={canSubmitHelp}
+        isSubmitting={isHelpSubmitting}
+        onSubmitHelp={onSubmitHelp ?? (() => undefined)}
+      />
     </Panel>
   );
 }

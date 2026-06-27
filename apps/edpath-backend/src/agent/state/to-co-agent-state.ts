@@ -22,6 +22,7 @@ export function toCoAgentState(state: EdPathState): CoAgentState {
     selectedIndex: state.selectedIndex,
     attempts: state.attempts,
     helpTurnsUsed: state.helpTurnsUsed,
+    helpThread: state.helpThread,
     feedback: state.feedback,
     results: state.results,
     score: state.score,

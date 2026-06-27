@@ -424,7 +424,7 @@ These are locked as simple v1 defaults. Each is intentionally short unless it ch
 
 **Trade-off.** More calls improve structure but increase cost; heavier models everywhere are unnecessary for deterministic nodes and routine generation.
 
-**LOCKED.** Typical lesson uses about `1 plan + 1 MCQ generation per objective + assist as used + 1 summary` (roughly 5-8 calls typical). Default model is `claude-sonnet-4-6`; `claude-opus-4-8` is an escape hatch for plan quality.
+**LOCKED.** Typical lesson uses about `1 plan + 1 MCQ generation per objective + assist as used + 1 summary` (roughly 5-8 calls typical). Default model is `gpt-4o-mini` (`OPENAI_MODEL`); `gpt-4o` (`OPENAI_PLAN_ESCAPE_MODEL`) is an escape hatch for plan quality.
 
 **Why this, for this assignment.** It keeps the lesson bounded while preserving structured-output quality.
 
@@ -566,15 +566,15 @@ All numeric bounds are locked defaults and tunable after evals.
 
 **LOCKED.**
 
-- N1 `plan`: `claude-sonnet-4-6` by default; `claude-opus-4-8` escape hatch if plan-quality evals demand it.
-- N3 `generate_mcq`: `claude-sonnet-4-6`.
-- N5 `assist`: `claude-sonnet-4-6`.
-- N9 `summarize`: `claude-sonnet-4-6`.
+- N1 `plan`: `gpt-4o-mini` (`OPENAI_MODEL`) by default; `gpt-4o` (`OPENAI_PLAN_ESCAPE_MODEL`) escape hatch if plan-quality evals demand it.
+- N3 `generate_mcq`: `gpt-4o-mini` (`OPENAI_MODEL`).
+- N5 `assist`: `gpt-4o-mini` (`OPENAI_MODEL`).
+- N9 `summarize`: `gpt-4o-mini` (`OPENAI_MODEL`).
 - N6 `grade`, N7 `feedback`, N8 `advance`: deterministic code, no model.
 
 **Why this, for this assignment.** A capable structured-output workhorse model is enough for v1; only planning may justify a heavier escape hatch.
 
-**Note.** Model-per-node and effort/thinking settings are tuning, not architecture. If `claude-opus-4-8` is used, determinism comes from prompting/effort rather than a temperature knob.
+**Note.** Model-per-node routing is tuning, not architecture. If `gpt-4o` is used for the plan escape hatch, determinism comes from structured JSON output and `temperature: 0`, not from a heavier default model everywhere.
 
 ### B9. Prompt Caching
 
@@ -603,7 +603,7 @@ These are not application-code changes. They are documentation follow-ups implie
 
 ### `agent-architecture.md`
 
-- `Gate 2`: record model-per-node defaults: `claude-sonnet-4-6` for N1/N3/N5/N9, with `claude-opus-4-8` as N1 escape hatch only if evals demand it.
+- `Gate 2`: record model-per-node defaults: `gpt-4o-mini` (`OPENAI_MODEL`) for N1/N3/N5/N9, with `gpt-4o` (`OPENAI_PLAN_ESCAPE_MODEL`) as N1 escape hatch only if evals demand it.
 - `§5.1`: update `pdfMeta` to `{ filename, charCount, pageCount }`.
 - `§5.1`: drop the provisional note on `questions` plus `currentQuestionIndex`; confirm N=3 default, lazy per-objective generation, and durable `questions[]`.
 - `§5.1`: clarify `score` as a derived projection from `results[]`, not independently mutated canonical state.

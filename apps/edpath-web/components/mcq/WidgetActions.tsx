@@ -5,17 +5,7 @@ import type { Feedback } from "@repo/types";
 
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/Icon";
-
-interface WidgetActionsProps {
-  hasSelection: boolean;
-  feedback: Feedback | null;
-  isSubmitting?: boolean;
-  canSubmit?: boolean;
-  isWaitingForAnswer?: boolean;
-  onSubmit: () => void;
-  onRetry: () => void;
-  onAdvance: () => void;
-}
+import type { WidgetActionsProps } from "@/types/mcq";
 
 export function WidgetActions({
   hasSelection,

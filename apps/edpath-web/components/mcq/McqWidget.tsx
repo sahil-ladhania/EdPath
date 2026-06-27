@@ -10,30 +10,7 @@ import { QuestionHeader } from "@/components/mcq/QuestionHeader";
 import { WidgetActions } from "@/components/mcq/WidgetActions";
 import { Panel } from "@/components/ui/Panel";
 import { Separator } from "@/components/ui/separator";
-
-interface McqWidgetProps {
-  objectiveTitle: string;
-  questionNumber: number;
-  questionCount: number;
-  currentAttempt: number;
-  question: PublicMCQ;
-  selectedIndex: number | null;
-  triedOptionIndices: number[];
-  feedback: Feedback | null;
-  isOptionLocked: boolean;
-  isSubmitting?: boolean;
-  isHelpSubmitting?: boolean;
-  canSubmit?: boolean;
-  isWaitingForAnswer?: boolean;
-  helpThread?: HelpThreadMessage[];
-  helpTurnsUsed?: number;
-  canSubmitHelp?: boolean;
-  onSelect: (index: number) => void;
-  onSubmit: () => void;
-  onSubmitHelp?: (text: string) => void;
-  onRetry: () => void;
-  onAdvance: () => void;
-}
+import type { McqWidgetProps } from "@/types/mcq";
 
 export function McqWidget({
   objectiveTitle,

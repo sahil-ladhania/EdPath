@@ -1,11 +1,8 @@
 import { UploadResultSchema } from "@repo/schemas/upload";
-import type { UploadResult } from "@repo/types";
+
+import type { UploadApiOutcome } from "@/types/api";
 
 export const UPLOAD_FIELD_NAME = "file";
-
-export type UploadApiOutcome =
-  | { kind: "success"; result: UploadResult }
-  | { kind: "transport_error"; message: string };
 
 function getUploadApiUrl(): string {
   const baseUrl = process.env.NEXT_PUBLIC_EDPATH_API_URL;

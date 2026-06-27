@@ -8,16 +8,7 @@ import { PlanObjectiveItem } from "@/components/plan/PlanObjectiveItem";
 import { GeneratingState } from "@/components/ui/GeneratingState";
 import { Panel } from "@/components/ui/Panel";
 import { Separator } from "@/components/ui/separator";
-
-interface PlanWidgetProps {
-  pdfTitle: string;
-  plan: LessonPlan;
-  phase: Phase;
-  onApprove: () => void;
-  canSubmitRevision: boolean;
-  isReviseSubmitting: boolean;
-  onSubmitRevision: (text: string) => void;
-}
+import type { PlanWidgetProps } from "@/types/plan";
 
 export function PlanWidget({
   pdfTitle,

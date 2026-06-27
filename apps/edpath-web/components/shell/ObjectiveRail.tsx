@@ -7,18 +7,7 @@ import { GeneratingState } from "@/components/ui/GeneratingState";
 import { Icon } from "@/components/ui/Icon";
 import { Panel } from "@/components/ui/Panel";
 import { cn } from "@/lib/utils";
-
-interface ObjectiveRailProps {
-  objectives: Objective[];
-  currentObjectiveIndex: number;
-  phase: Phase;
-  currentQuestionIndex?: number;
-  questionCount?: number;
-  isGenerating?: boolean;
-  hasGenerationError?: boolean;
-  generatingMessage?: string;
-  generatingSubtext?: string;
-}
+import type { ObjectiveRailProps } from "@/types/shell";
 
 export function ObjectiveRail({
   objectives,

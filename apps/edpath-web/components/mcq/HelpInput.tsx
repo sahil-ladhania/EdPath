@@ -7,16 +7,9 @@ import type { HelpThreadMessage } from "@repo/types";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/Icon";
 import { Textarea } from "@/components/ui/textarea";
+import { useTypewriter } from "@/hooks/useTypewriter";
 import { cn } from "@/lib/utils";
-
-interface HelpInputProps {
-  thread: HelpThreadMessage[];
-  helpTurnsUsed: number;
-  maxHelp: number;
-  canSubmitHelp: boolean;
-  isSubmitting: boolean;
-  onSubmitHelp: (text: string) => void;
-}
+import type { DisplayMessage, HelpInputProps } from "@/types/mcq";
 
 const HELP_CAP_MESSAGE =
   "You've used all available help turns for this question. Take your best guess and submit an answer when you're ready.";
@@ -26,44 +19,6 @@ const SUGGESTED_PROMPTS = [
   "What concept from the reading applies here?",
   "Give me a nudge without telling me the answer.",
 ] as const;
-
-const TYPEWRITER_MS = 16;
-
-interface DisplayMessage extends HelpThreadMessage {
-  key: string;
-  animate?: boolean;
-}
-
-function useTypewriter(
-  text: string,
-  enabled: boolean,
-  onComplete?: () => void,
-): string {
-  const [visible, setVisible] = useState<string>(enabled ? "" : text);
-
-  useEffect(() => {
-    if (!enabled) {
-      setVisible(text);
-      return;
-    }
-
-    setVisible("");
-    let index = 0;
-    const timer = window.setInterval(() => {
-      index += 1;
-      setVisible(text.slice(0, index));
-
-      if (index >= text.length) {
-        window.clearInterval(timer);
-        onComplete?.();
-      }
-    }, TYPEWRITER_MS);
-
-    return () => window.clearInterval(timer);
-  }, [enabled, onComplete, text]);
-
-  return visible;
-}
 
 function HelpThreadBubble({
   message,

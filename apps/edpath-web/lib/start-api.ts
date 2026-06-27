@@ -1,13 +1,9 @@
 import { UploadResultSchema } from "@repo/schemas/upload";
-import type { UploadResult } from "@repo/types";
 
 import { UPLOAD_FIELD_NAME } from "@/lib/upload-api";
+import type { StartApiOutcome } from "@/types/api";
 
 export const START_THREAD_ID_FIELD = "threadId";
-
-export type StartApiOutcome =
-  | { kind: "success"; result: UploadResult }
-  | { kind: "transport_error"; message: string };
 
 function getStartApiUrl(): string {
   const baseUrl = process.env.NEXT_PUBLIC_EDPATH_API_URL;

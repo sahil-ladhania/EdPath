@@ -5,37 +5,7 @@ import type { CoAgentState, Feedback, LessonPlan, PublicMCQ } from "@repo/types"
 
 import { MAX_ATTEMPTS } from "@repo/schemas/constants";
 
-interface UseCoAgentQuizOptions {
-  state: CoAgentState;
-  plan: LessonPlan | null;
-  submitAnswer: (selectedIndex: number) => void;
-  submitHelp: (text: string) => void;
-  advance: () => void;
-  canSubmitAnswer: boolean;
-  canSubmitHelp: boolean;
-  isRunning: boolean;
-}
-
-interface UseCoAgentQuizReturn {
-  currentObjectiveTitle: string;
-  currentQuestion: PublicMCQ | null;
-  questionNumber: number;
-  questionCount: number;
-  currentAttempt: number;
-  selectedIndex: number | null;
-  triedOptionIndices: number[];
-  feedback: Feedback | null;
-  isOptionLocked: boolean;
-  isSubmitting: boolean;
-  isHelpSubmitting: boolean;
-  canSubmit: boolean;
-  isWaitingForAnswer: boolean;
-  selectOption: (index: number) => void;
-  submitAnswer: () => void;
-  submitHelp: (text: string) => void;
-  retryQuestion: () => void;
-  advance: () => void;
-}
+import type { UseCoAgentQuizOptions, UseCoAgentQuizReturn } from "@/types/mcq";
 
 export function useCoAgentQuiz({
   state,

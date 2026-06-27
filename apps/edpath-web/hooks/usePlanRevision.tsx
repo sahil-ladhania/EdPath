@@ -1,33 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { LessonPlan } from "@repo/types";
 
-interface UsePlanRevisionOptions {
-  plan: LessonPlan | null;
-  isRunning: boolean;
-  requestPlanRevision: (note: string) => void;
-  canRequestPlanRevision: boolean;
-}
-
-interface UsePlanRevisionReturn {
-  isReviseSubmitting: boolean;
-  canSubmitRevision: boolean;
-  submitRevision: (note: string) => void;
-}
-
-function getPlanFingerprint(plan: LessonPlan | null): string {
-  if (!plan) {
-    return "";
-  }
-
-  return JSON.stringify(
-    plan.objectives.map(
-      (objective) =>
-        `${objective.objectiveId}:${objective.title}:${objective.difficulty}`,
-    ),
-  );
-}
+import { getPlanFingerprint } from "@/lib/plan";
+import type { UsePlanRevisionOptions, UsePlanRevisionReturn } from "@/types/plan";
 
 export function usePlanRevision({
   plan,

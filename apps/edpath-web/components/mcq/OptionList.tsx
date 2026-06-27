@@ -5,17 +5,9 @@ import type { Feedback, PublicMCQ } from "@repo/types";
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
+import type { OptionListProps } from "@/types/mcq";
 
 const OPTION_LETTERS = ["a", "b", "c", "d"] as const;
-
-interface OptionListProps {
-  question: PublicMCQ;
-  selectedIndex: number | null;
-  triedOptionIndices: number[];
-  feedback: Feedback | null;
-  disabled: boolean;
-  onSelect: (index: number) => void;
-}
 
 export function OptionList({
   question,

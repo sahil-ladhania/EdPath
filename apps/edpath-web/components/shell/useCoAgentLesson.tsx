@@ -19,86 +19,20 @@ import type { ApprovalDecision, CoAgentState, LessonPlan, Phase } from "@repo/ty
 
 import { getEmptyCoAgentState } from "@/lib/empty-co-agent-state";
 import { isLessonAlreadyInProgress } from "@/lib/lesson-in-progress";
+import {
+  isApprovalInterrupt,
+  isAwaitInputInterrupt,
+  parseApprovalInterruptValue,
+} from "@/lib/lesson";
+import type {
+  ApprovalInterruptBridgeProps,
+  ApprovalInterruptValue,
+  AwaitInputInterruptBridgeProps,
+  AwaitInputInterruptValue,
+  UseCoAgentLessonReturn,
+} from "@/types/lesson";
 
 export const EDPATH_AGENT_ID = "edpath";
-
-interface ApprovalInterruptValue {
-  type?: string;
-  plan?: LessonPlan;
-}
-
-interface AwaitInputInterruptValue {
-  type?: string;
-}
-
-interface UseCoAgentLessonReturn {
-  threadId: string;
-  state: CoAgentState;
-  phase: Phase;
-  plan: LessonPlan | null;
-  pdfTitle: string;
-  isRunning: boolean;
-  canSubmitAnswer: boolean;
-  canSubmitHelp: boolean;
-  canRequestPlanRevision: boolean;
-  approvePlan: () => void;
-  requestPlanRevision: (note: string) => void;
-  submitAnswer: (selectedIndex: number) => void;
-  submitHelp: (text: string) => void;
-  advance: () => void;
-  retryGeneration: () => void;
-  interruptElement: ReactNode;
-}
-
-interface ApprovalInterruptBridgeProps {
-  onResolverReady: (
-    resolver: ((decision: ApprovalDecision) => void) | null,
-  ) => void;
-  resolve: (value: string) => void;
-}
-
-interface AwaitInputInterruptBridgeProps {
-  onResolverReady: (resolver: ((payload: ResumePayload) => void) | null) => void;
-  resolve: (value: string) => void;
-}
-
-function parseApprovalInterruptValue(
-  eventValue: ApprovalInterruptValue | string,
-): ApprovalInterruptValue {
-  if (typeof eventValue !== "string") {
-    return eventValue;
-  }
-
-  try {
-    return JSON.parse(eventValue) as ApprovalInterruptValue;
-  } catch {
-    return {};
-  }
-}
-
-function parseAwaitInputInterruptValue(
-  eventValue: AwaitInputInterruptValue | string,
-): AwaitInputInterruptValue {
-  if (typeof eventValue !== "string") {
-    return eventValue;
-  }
-
-  try {
-    return JSON.parse(eventValue) as AwaitInputInterruptValue;
-  } catch {
-    return {};
-  }
-}
-
-function isApprovalInterrupt(eventValue: ApprovalInterruptValue | string): boolean {
-  return parseApprovalInterruptValue(eventValue).type === "approval";
-}
-
-function isAwaitInputInterrupt(
-  eventValue: AwaitInputInterruptValue | string,
-): boolean {
-  return parseAwaitInputInterruptValue(eventValue).type === "await_input";
-}
 
 function ApprovalInterruptBridge({
   onResolverReady,

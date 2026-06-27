@@ -21,11 +21,7 @@ import {
 } from "@/lib/lesson-handoff";
 import { startLessonPdf } from "@/lib/start-api";
 import { uploadPdf } from "@/lib/upload-api";
-
-interface UploadBannerState {
-  tone: "idle" | "error" | "success" | "loading";
-  message: string;
-}
+import type { UploadBannerState } from "@/types/landing";
 
 export function UploadCard() {
   const router = useRouter();

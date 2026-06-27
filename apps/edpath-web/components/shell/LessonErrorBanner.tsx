@@ -5,13 +5,7 @@ import type { LastError } from "@repo/types";
 
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/Icon";
-
-interface LessonErrorBannerProps {
-  lastError: LastError;
-  title?: string;
-  onRetry?: () => void;
-  isRetrying?: boolean;
-}
+import type { LessonErrorBannerProps } from "@/types/shell";
 
 export function LessonErrorBanner({
   lastError,

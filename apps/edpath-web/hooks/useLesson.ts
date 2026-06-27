@@ -3,148 +3,27 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type {
   CoAgentState,
-  Feedback,
-  LessonPlan,
-  Objective,
-  ObjectiveResult,
   Phase,
-  PublicMCQ,
-  Summary,
 } from "@repo/types";
 
 import {
+  addTriedOption,
   buildSummary,
+  createCorrectFeedback,
+  createExhaustedFeedback,
+  createIncorrectFeedback,
+  createResult,
+  getItemAt,
   getMockCoAgentState,
+  getPlan,
   getQuestionsForObjective,
   MAX_ATTEMPTS,
+  refreshSummary,
 } from "@/lib/mock-lesson";
-
-interface UseLessonReturn {
-  threadId: string;
-  state: CoAgentState;
-  phase: Phase;
-  plan: LessonPlan;
-  pdfTitle: string;
-  currentObjectiveIndex: number;
-  currentQuestionIndex: number;
-  currentObjective: Objective;
-  currentQuestions: PublicMCQ[];
-  currentQuestion: PublicMCQ;
-  currentAttempt: number;
-  selectedIndex: number | null;
-  triedOptionIndices: number[];
-  feedback: Feedback | null;
-  summary: Summary;
-  isOptionLocked: boolean;
-  setPhase: (phase: Phase) => void;
-  selectOption: (index: number) => void;
-  submitAnswer: () => void;
-  retryQuestion: () => void;
-  advance: () => void;
-  approvePlan: () => void;
-  jumpToObjective: (index: number) => void;
-  simulateOutcome: (outcome: QuizPreviewOutcome) => void;
-}
-
-interface QuizMemory {
-  triedOptionIndices: number[];
-}
-
-export type QuizPreviewOutcome = "correct" | "incorrect" | "exhausted";
+import type { QuizMemory, QuizPreviewOutcome, UseLessonReturn } from "@/types/lesson";
 
 const PLAN_DELAY_MS = 700;
 const QUIZ_DELAY_MS = 700;
-
-function getPlan(state: CoAgentState): LessonPlan {
-  if (!state.plan) {
-    throw new Error("Lesson plan is required for this lesson surface.");
-  }
-
-  return state.plan;
-}
-
-function getItemAt<TItem>(
-  items: TItem[],
-  index: number,
-  label: string,
-): TItem {
-  const item = items[index];
-
-  if (!item) {
-    throw new Error(`${label} is missing from this lesson surface.`);
-  }
-
-  return item;
-}
-
-function addTriedOption(
-  triedOptionIndices: number[],
-  selectedIndex: number,
-): number[] {
-  return triedOptionIndices.includes(selectedIndex)
-    ? triedOptionIndices
-    : [...triedOptionIndices, selectedIndex];
-}
-
-function createCorrectFeedback(selectedIndex: number): Feedback {
-  return {
-    verdict: "correct",
-    highlightIndex: selectedIndex,
-    explanation:
-      "Good work. The source supports this idea, so you can move to the next question.",
-    canRetry: false,
-  };
-}
-
-function createIncorrectFeedback(selectedIndex: number): Feedback {
-  return {
-    verdict: "incorrect",
-    highlightIndex: selectedIndex,
-    hint:
-      "Think about the role named in the question, then compare each option against that idea.",
-    canRetry: true,
-  };
-}
-
-function createExhaustedFeedback(selectedIndex: number): Feedback {
-  return {
-    verdict: "exhausted",
-    highlightIndex: selectedIndex,
-    explanation:
-      "This concept is about matching the structure to its role. Review the source note, then continue to keep the lesson moving.",
-    canRetry: false,
-  };
-}
-
-function createResult(
-  objective: Objective,
-  question: PublicMCQ,
-  isCorrectOutcome: boolean,
-  attempts: number,
-): ObjectiveResult {
-  return {
-    objectiveId: objective.objectiveId,
-    questionId: question.questionId,
-    correct: isCorrectOutcome,
-    attempts,
-    firstTryCorrect: isCorrectOutcome && attempts === 1,
-  };
-}
-
-function refreshSummary(state: CoAgentState): CoAgentState {
-  const plan = getPlan(state);
-  const summary = buildSummary(plan, state.results);
-
-  return {
-    ...state,
-    score: {
-      correct: summary.overall.correct,
-      total: summary.overall.total,
-      firstTry: state.results.filter((result) => result.firstTryCorrect).length,
-    },
-    summary,
-  };
-}
 
 export function useLesson(threadId: string): UseLessonReturn {
   const initialState = useMemo(() => getMockCoAgentState(), []);

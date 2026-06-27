@@ -1,15 +1,27 @@
 "use client";
 
+/**
+ * Quiz card composition — question, options, feedback, help, and actions.
+ */
+
+// Shared types
 import type { Feedback, HelpThreadMessage, PublicMCQ } from "@repo/types";
 
+// Constants
 import { MAX_ATTEMPTS, MAX_HELP } from "@repo/schemas/constants";
+
+// MCQ components
 import { FeedbackBanner } from "@/components/mcq/FeedbackBanner";
 import { HelpInput } from "@/components/mcq/HelpInput";
 import { OptionList } from "@/components/mcq/OptionList";
 import { QuestionHeader } from "@/components/mcq/QuestionHeader";
 import { WidgetActions } from "@/components/mcq/WidgetActions";
+
+// UI
 import { Panel } from "@/components/ui/Panel";
 import { Separator } from "@/components/ui/separator";
+
+// Local types
 import type { McqWidgetProps } from "@/types/mcq";
 
 export function McqWidget({

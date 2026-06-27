@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Lesson orchestrator — phase resolution and surface switching (plan / quiz / summary / loaders).
+ */
+
 import { DevPreviewControls } from "@/components/dev/DevPreviewControls";
 import { useCopilotTransportError } from "@/components/copilot/copilot-transport-error-context";
 import { McqWidget } from "@/components/mcq/McqWidget";
@@ -33,6 +37,7 @@ interface LessonRunnerProps {
   threadId: string;
 }
 
+/** Wires CoAgent hooks to plan, quiz, summary, and error surfaces for one thread. */
 export function LessonRunner({ threadId }: LessonRunnerProps) {
   const coAgentLesson = useCoAgentLesson(threadId);
   const { transportError, clearTransportError } = useCopilotTransportError();

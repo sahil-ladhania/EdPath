@@ -1,3 +1,7 @@
+/**
+ * Plan widget and revision hook prop/return contracts.
+ */
+
 import type { LessonPlan, Phase } from "@repo/types";
 
 interface UsePlanRevisionOptions {

@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Legacy quizzing skeleton — superseded by `GeneratingPanel`; kept for reference.
+ */
+
 import { Skeleton } from "@/components/ui/skeleton";
 import { Panel } from "@/components/ui/Panel";
 

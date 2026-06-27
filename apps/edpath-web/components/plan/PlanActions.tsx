@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Approve vs revise toggle and primary CTAs for the plan approval gate.
+ */
+
 import { useState } from "react";
 import { CircleCheckIcon, MessageSquareTextIcon } from "lucide-react";
 

@@ -1,9 +1,16 @@
 "use client";
 
+/**
+ * Generic typewriter animation for assist reply bubbles.
+ */
+
 import { useEffect, useState } from "react";
 
 const TYPEWRITER_MS = 16;
 
+/**
+ * Reveals `text` character-by-character when `enabled`; returns full text immediately otherwise.
+ */
 export function useTypewriter(
   text: string,
   enabled: boolean,

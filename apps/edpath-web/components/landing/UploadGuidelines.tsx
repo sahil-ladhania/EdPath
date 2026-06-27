@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Static PDF upload DO/DON'T guidelines.
+ */
+
 import {
   ArrowRightIcon,
   CircleCheckIcon,

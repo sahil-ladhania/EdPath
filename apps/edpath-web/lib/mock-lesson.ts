@@ -1,3 +1,7 @@
+/**
+ * Dev preview fixtures — mock plan, questions, and feedback builders for `useLesson`.
+ */
+
 import type {
   CoAgentState,
   Feedback,
@@ -185,6 +189,7 @@ const emptySummary: Summary = {
   studyTips: [],
 };
 
+/** Full mock CoAgent state seeded at `awaiting_approval` for dev preview. */
 export function getMockCoAgentState(): CoAgentState {
   return {
     pdfMeta: structuredClone(mockPdfMeta),
@@ -217,6 +222,7 @@ export function getQuestionsForObjective(
   return state.questions.filter((question) => question.objectiveId === objectiveId);
 }
 
+/** Builds a summary DTO from plan objectives and accumulated results (mock scoring). */
 export function buildSummary(
   plan: LessonPlan,
   results: ObjectiveResult[],
@@ -297,6 +303,7 @@ export function addTriedOption(
     : [...triedOptionIndices, selectedIndex];
 }
 
+/** Mock feedback for a first-try correct answer. */
 export function createCorrectFeedback(selectedIndex: number): Feedback {
   return {
     verdict: "correct",
@@ -307,6 +314,7 @@ export function createCorrectFeedback(selectedIndex: number): Feedback {
   };
 }
 
+/** Mock feedback for an incorrect answer with retry allowed. */
 export function createIncorrectFeedback(selectedIndex: number): Feedback {
   return {
     verdict: "incorrect",
@@ -317,6 +325,7 @@ export function createIncorrectFeedback(selectedIndex: number): Feedback {
   };
 }
 
+/** Mock feedback when max attempts are exhausted. */
 export function createExhaustedFeedback(selectedIndex: number): Feedback {
   return {
     verdict: "exhausted",
@@ -327,6 +336,7 @@ export function createExhaustedFeedback(selectedIndex: number): Feedback {
   };
 }
 
+/** Appends one objective result row for mock quiz progression. */
 export function createResult(
   objective: Objective,
   question: PublicMCQ,
@@ -342,6 +352,7 @@ export function createResult(
   };
 }
 
+/** Recomputes score and summary on mock state after a new result. */
 export function refreshSummary(state: CoAgentState): CoAgentState {
   const plan = getPlan(state);
   const summary = buildSummary(plan, state.results);

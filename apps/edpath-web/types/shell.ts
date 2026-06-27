@@ -1,3 +1,7 @@
+/**
+ * Shell layout prop types.
+ */
+
 import type { LastError, Objective, Phase } from "@repo/types";
 
 interface ObjectiveRailProps {

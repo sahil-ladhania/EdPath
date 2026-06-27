@@ -1,3 +1,7 @@
+/**
+ * CopilotKit transport error context types.
+ */
+
 import type { CopilotErrorEvent } from "@copilotkit/shared";
 
 export interface CopilotTransportError {

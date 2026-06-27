@@ -1,3 +1,7 @@
+/**
+ * Landing page — PDF upload entry point before lesson navigation.
+ */
+
 import { LandingHero } from "@/components/landing/LandingHero";
 import { UploadCard } from "@/components/landing/UploadCard";
 import { AppShell } from "@/components/shell/AppShell";

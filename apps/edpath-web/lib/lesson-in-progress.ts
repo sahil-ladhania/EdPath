@@ -1,3 +1,7 @@
+/**
+ * Guards agent auto-start — detects resumed or in-flight lesson checkpoints.
+ */
+
 import type { CoAgentState } from "@repo/types";
 
 /** True when the thread already has an active or resumed lesson checkpoint. */

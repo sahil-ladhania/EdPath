@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Verdict banner — maps correct/incorrect/exhausted to copy and styling.
+ */
+
 import { CheckCircle2Icon, LightbulbIcon } from "lucide-react";
 import type { Feedback } from "@repo/types";
 

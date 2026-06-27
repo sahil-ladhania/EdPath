@@ -1,3 +1,7 @@
+/**
+ * Dev preview control prop types.
+ */
+
 import type { Phase } from "@repo/types";
 
 import type { QuizPreviewOutcome } from "@/types/lesson";

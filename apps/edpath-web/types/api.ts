@@ -1,3 +1,7 @@
+/**
+ * Frontend API outcome unions for upload and start HTTP calls.
+ */
+
 import type { UploadResult } from "@repo/types";
 
 export type StartApiOutcome =

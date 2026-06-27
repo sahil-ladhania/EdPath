@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Dev surface jumper — phase and objective controls for mock preview.
+ */
+
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";

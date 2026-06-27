@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * MCQ option list — functional green/red/tried/disabled states (not styling-only).
+ */
+
 import { CheckCircle2Icon, XCircleIcon } from "lucide-react";
 import type { Feedback, PublicMCQ } from "@repo/types";
 
@@ -9,6 +13,7 @@ import type { OptionListProps } from "@/types/mcq";
 
 const OPTION_LETTERS = ["a", "b", "c", "d"] as const;
 
+/** Maps feedback verdict and tried indices to per-option functional states. */
 export function OptionList({
   question,
   selectedIndex,

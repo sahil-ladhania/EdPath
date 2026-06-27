@@ -1,12 +1,22 @@
 "use client";
 
+/**
+ * Lesson complete surface — composes score, per-objective table, tips, and restart.
+ */
+
+// Icons
 import { GraduationCapIcon } from "lucide-react";
+
+// Shared types
 import type { Summary } from "@repo/types";
 
+// Summary components
 import { OverallScore } from "@/components/summary/OverallScore";
 import { PerObjectiveTable } from "@/components/summary/PerObjectiveTable";
 import { RestartCta } from "@/components/summary/RestartCta";
 import { StudyTipsList } from "@/components/summary/StudyTipsList";
+
+// UI
 import { Icon } from "@/components/ui/Icon";
 import { Panel } from "@/components/ui/Panel";
 

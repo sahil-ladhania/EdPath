@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Plan revision chat — local transcript UX while a replan request runs.
+ */
+
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MessageSquareTextIcon, SendIcon, XIcon } from "lucide-react";
 
@@ -39,6 +43,7 @@ function PlanRevisingIndicator(): React.JSX.Element {
   );
 }
 
+/** Inline chat for plan revision notes — submits to the approval interrupt. */
 export function PlanReviseChat({
   onClose,
   canSubmitRevision,

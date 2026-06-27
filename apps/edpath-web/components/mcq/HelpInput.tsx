@@ -1,14 +1,30 @@
 "use client";
 
+/**
+ * Assist side-channel UI — bounded help thread, suggested prompts, and typewriter replies.
+ */
+
+// React
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+
+// Icons
 import { MessageCircleIcon, SendIcon } from "lucide-react";
+
+// Shared types
 import type { HelpThreadMessage } from "@repo/types";
 
+// UI
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/Icon";
 import { Textarea } from "@/components/ui/textarea";
+
+// Hooks
 import { useTypewriter } from "@/hooks/useTypewriter";
+
+// Utils
 import { cn } from "@/lib/utils";
+
+// Local types
 import type { DisplayMessage, HelpInputProps } from "@/types/mcq";
 
 const HELP_CAP_MESSAGE =
@@ -20,6 +36,7 @@ const SUGGESTED_PROMPTS = [
   "Give me a nudge without telling me the answer.",
 ] as const;
 
+/** Renders one help thread message with optional typewriter animation on assistant replies. */
 function HelpThreadBubble({
   message,
   animate,
@@ -72,6 +89,7 @@ function HelpTypingIndicator(): React.JSX.Element {
   );
 }
 
+/** Assist panel — turn cap, optimistic user bubble, and suggested prompts. */
 export function HelpInput({
   thread,
   helpTurnsUsed,

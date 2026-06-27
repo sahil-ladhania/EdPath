@@ -1,3 +1,7 @@
+/**
+ * MCQ widget and `useCoAgentQuiz` prop/return contracts.
+ */
+
 import type {
   CoAgentState,
   Feedback,

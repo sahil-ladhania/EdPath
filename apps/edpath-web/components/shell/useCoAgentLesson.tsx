@@ -1,5 +1,11 @@
 "use client";
 
+/**
+ * Production CoAgent bridge — state mirror, LangGraph interrupt resolution, and user intents.
+ * Dev-only mock equivalent: `useLesson.ts`.
+ */
+
+// React
 import {
   useCallback,
   useEffect,
@@ -8,15 +14,20 @@ import {
   useState,
   type ReactNode,
 } from "react";
+
+// CopilotKit
 import {
   useCoAgent,
   useCopilotChatInternal,
   useLangGraphInterrupt,
 } from "@copilotkit/react-core";
 import { Role, TextMessage } from "@copilotkit/runtime-client-gql";
+
+// Shared types
 import type { ResumePayload } from "@repo/schemas";
 import type { ApprovalDecision, CoAgentState, LessonPlan, Phase } from "@repo/types";
 
+// Internal lib
 import { getEmptyCoAgentState } from "@/lib/empty-co-agent-state";
 import { isLessonAlreadyInProgress } from "@/lib/lesson-in-progress";
 import {
@@ -24,6 +35,8 @@ import {
   isAwaitInputInterrupt,
   parseApprovalInterruptValue,
 } from "@/lib/lesson";
+
+// Local types
 import type {
   ApprovalInterruptBridgeProps,
   ApprovalInterruptValue,
@@ -34,6 +47,7 @@ import type {
 
 export const EDPATH_AGENT_ID = "edpath";
 
+/** Registers the approval interrupt resolver without invoking it on mount. */
 function ApprovalInterruptBridge({
   onResolverReady,
   resolve,
@@ -52,6 +66,7 @@ function ApprovalInterruptBridge({
   return null;
 }
 
+/** Registers the await-input interrupt resolver for answer, help, advance, and retry. */
 function AwaitInputInterruptBridge({
   onResolverReady,
   resolve,
@@ -70,6 +85,10 @@ function AwaitInputInterruptBridge({
   return null;
 }
 
+/**
+ * Owns live CoAgent lesson state and interrupt resolution.
+ * Sends user intents only — grading and control flow stay on the graph.
+ */
 export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
   const emptyState = useMemo(() => getEmptyCoAgentState(), []);
   const coAgent = useCoAgent<CoAgentState>({

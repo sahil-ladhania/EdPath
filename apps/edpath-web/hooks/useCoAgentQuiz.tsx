@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Quiz UX hook — local selection, retry, and help-submit state layered on mirrored CoAgent state.
+ */
+
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CoAgentState, Feedback, LessonPlan, PublicMCQ } from "@repo/types";
 
@@ -7,6 +11,10 @@ import { MAX_ATTEMPTS } from "@repo/schemas/constants";
 
 import type { UseCoAgentQuizOptions, UseCoAgentQuizReturn } from "@/types/mcq";
 
+/**
+ * Manages quiz interaction UX while the graph owns grading and feedback.
+ * Sends intents via callbacks; resets local state on question/objective changes.
+ */
 export function useCoAgentQuiz({
   state,
   plan,

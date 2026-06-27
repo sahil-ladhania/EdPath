@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Sidebar objective progress — plan preview and in-quiz highlighting.
+ */
+
 import { CheckIcon, CircleDotIcon, CircleIcon, RouteIcon } from "lucide-react";
 import type { Objective, Phase } from "@repo/types";
 
@@ -9,6 +13,7 @@ import { Panel } from "@/components/ui/Panel";
 import { cn } from "@/lib/utils";
 import type { ObjectiveRailProps } from "@/types/shell";
 
+/** Renders objective list with generating, plan-review, and in-quiz progress modes. */
 export function ObjectiveRail({
   objectives,
   currentObjectiveIndex,

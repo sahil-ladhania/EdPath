@@ -1,3 +1,7 @@
+/**
+ * Lesson and interrupt hook contracts — CoAgent bridge and dev mock return shapes.
+ */
+
 import type { ResumePayload } from "@repo/schemas";
 import type {
   ApprovalDecision,

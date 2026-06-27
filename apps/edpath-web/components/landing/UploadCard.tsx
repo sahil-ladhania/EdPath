@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Landing upload flow — preview via `/upload`, then start via `/start` before navigation.
+ */
+
 import { useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FileUpIcon, FileTextIcon, PlayIcon } from "lucide-react";
@@ -19,10 +23,11 @@ import {
   createThreadId,
   rememberThreadId,
 } from "@/lib/lesson-handoff";
-import { startLessonPdf } from "@/lib/start-api";
-import { uploadPdf } from "@/lib/upload-api";
+import { startLessonPdf } from "@/api/start-api";
+import { uploadPdf } from "@/api/upload-api";
 import type { UploadBannerState } from "@/types/landing";
 
+/** Two-step upload: validate on pick, re-upload with thread id on start. */
 export function UploadCard() {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement | null>(null);

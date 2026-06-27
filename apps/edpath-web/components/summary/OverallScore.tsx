@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Overall score display card.
+ */
+
 import type { Summary } from "@repo/types";
 
 interface OverallScoreProps {

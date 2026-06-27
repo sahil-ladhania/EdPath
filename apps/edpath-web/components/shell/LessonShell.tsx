@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Lesson layout grid — objective rail column and main content column.
+ */
+
 import type { ReactNode } from "react";
 
 interface LessonShellProps {

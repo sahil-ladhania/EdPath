@@ -1,8 +1,13 @@
+/**
+ * LangGraph interrupt helpers — parse and classify approval vs await-input payloads.
+ */
+
 import type {
   ApprovalInterruptValue,
   AwaitInputInterruptValue,
 } from "@/types/lesson";
 
+/** Parses interrupt payloads that may arrive as JSON strings. Returns `{}` on failure. */
 export function parseApprovalInterruptValue(
   eventValue: ApprovalInterruptValue | string,
 ): ApprovalInterruptValue {
@@ -17,6 +22,7 @@ export function parseApprovalInterruptValue(
   }
 }
 
+/** Parses await-input interrupt payloads that may arrive as JSON strings. Returns `{}` on failure. */
 export function parseAwaitInputInterruptValue(
   eventValue: AwaitInputInterruptValue | string,
 ): AwaitInputInterruptValue {
@@ -31,10 +37,12 @@ export function parseAwaitInputInterruptValue(
   }
 }
 
+/** Type guard — true when the interrupt is the plan approval gate. */
 export function isApprovalInterrupt(eventValue: ApprovalInterruptValue | string): boolean {
   return parseApprovalInterruptValue(eventValue).type === "approval";
 }
 
+/** Type guard — true when the interrupt is the MCQ answer/help gate. */
 export function isAwaitInputInterrupt(
   eventValue: AwaitInputInterruptValue | string,
 ): boolean {

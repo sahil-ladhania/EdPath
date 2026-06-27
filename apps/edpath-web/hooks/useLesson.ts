@@ -1,11 +1,20 @@
 "use client";
 
+/**
+ * Dev-only mock lesson state machine — simulates graph phases with timers.
+ * Production path uses `useCoAgentLesson`; this hook never runs when dev preview is off.
+ */
+
+// React
 import { useCallback, useEffect, useMemo, useState } from "react";
+
+// Shared types
 import type {
   CoAgentState,
   Phase,
 } from "@repo/types";
 
+// Mock lib
 import {
   addTriedOption,
   buildSummary,
@@ -20,11 +29,17 @@ import {
   MAX_ATTEMPTS,
   refreshSummary,
 } from "@/lib/mock-lesson";
+
+// Local types
 import type { QuizMemory, QuizPreviewOutcome, UseLessonReturn } from "@/types/lesson";
 
 const PLAN_DELAY_MS = 700;
 const QUIZ_DELAY_MS = 700;
 
+/**
+ * Drives the dev preview lesson without CopilotKit — local state, mock grading,
+ * and artificial delays for planning/quizzing phases.
+ */
 export function useLesson(threadId: string): UseLessonReturn {
   const initialState = useMemo(() => getMockCoAgentState(), []);
   const [state, setState] = useState<CoAgentState>(initialState);

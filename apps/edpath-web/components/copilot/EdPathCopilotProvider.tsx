@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * CopilotKit root — runtime URL, agent id, and transport error wiring.
+ */
+
 import { CopilotKit } from "@copilotkit/react-core";
 import type { ReactNode } from "react";
 
@@ -13,6 +17,7 @@ interface EdPathCopilotProviderProps {
   threadId?: string;
 }
 
+/** Wraps CopilotKit with transport error handling from context. */
 function CopilotKitWithErrorHandling({
   children,
   runtimeUrl,
@@ -36,6 +41,7 @@ function CopilotKitWithErrorHandling({
   );
 }
 
+/** Lesson-scoped CopilotKit provider — requires `NEXT_PUBLIC_EDPATH_COPILOT_RUNTIME_URL`. */
 export function EdPathCopilotProvider({
   children,
   threadId,

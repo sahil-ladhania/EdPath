@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Generation or transport error banner with optional retry action.
+ */
+
 import { AlertCircleIcon, RefreshCwIcon } from "lucide-react";
 import type { LastError } from "@repo/types";
 

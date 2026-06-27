@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Landing hero copy and step-by-step value proposition.
+ */
+
 import {
   CircleHelpIcon,
   FileUpIcon,

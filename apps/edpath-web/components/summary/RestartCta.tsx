@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Return-to-landing CTA after lesson completion.
+ */
+
 import Link from "next/link";
 import { RotateCcwIcon } from "lucide-react";
 

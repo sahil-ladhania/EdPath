@@ -32,6 +32,18 @@ Working notes that fill in during the build: [`docs/handoff/`](./docs/handoff/) 
 
 > **Why not just set `PostgresSaver` in the graph?** The CopilotKit ↔ LangGraph JS integration runs the graph via a LangGraph server over HTTP (it cannot host a compiled graph in-process). On that path the **server** owns persistence, so a `PostgresSaver` compiled into the graph would be ignored — production durability is achieved by giving that server a Postgres backend, not by changing the application code.
 
+## Evals
+
+Gate 6 eval scenarios live in `apps/edpath-backend/src/evals/`. They assert end-state quality across four dimensions (plan grounding, MCQ grounding, feedback/no-leakage, loop completion) mapped to the assignment acceptance criteria.
+
+| Tier | Command | LLM | When |
+|---|---|---|---|
+| **Tier 1 (CI)** | `npm test --workspace=edpath-backend -- src/evals/evals.test.ts` | No (stub plan/MCQs) | Every CI run |
+| **Tier 2 (manual)** | `EVAL_LLM=1 npm run eval --workspace=edpath-backend` | Yes | Pre-demo / pre-release |
+| **LangSmith sync** | `npm run eval:sync-dataset --workspace=edpath-backend` | — | Optional dataset upload |
+
+**Pass criteria:** all asserted dimensions green per case; Tier 1 stub cases must pass in CI; Tier 2 target ≥ 95% suite pass with LLM judges enabled (`EVAL_LLM=1` + `OPENAI_API_KEY`). Filter subsets with `EVAL_FILTER=HP-*` or `ADV-*`.
+
 ## Status
 
 Work in progress.

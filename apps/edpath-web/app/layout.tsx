@@ -22,7 +22,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "EdPath",
-  description: "Turn one PDF into a guided, interactive lesson.",
+  description: "Turn your PDF into a guided, interactive lesson.",
   icons: {
     icon: "/edpath-logo.svg",
     shortcut: "/edpath-logo.svg",
@@ -45,7 +45,7 @@ export default function RootLayout({
         geistMono.variable,
       )}
     >
-      <body className="flex min-h-full flex-col bg-paper-textured font-sans text-ink">
+      <body className="flex min-h-full flex-col bg-paper font-sans text-ink">
         {children}
       </body>
     </html>

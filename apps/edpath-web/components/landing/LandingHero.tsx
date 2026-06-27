@@ -21,7 +21,7 @@ export function LandingHero() {
   return (
     <section className="flex w-full flex-col gap-4 text-left">
       <h1 className="font-display text-3xl font-semibold tracking-[var(--tracking-display)] text-ink lg:text-4xl">
-        Turn one PDF into a{" "}
+        Turn your PDF into a{" "}
         <span className="text-primary">guided lesson.</span>
       </h1>
       <ol className="flex flex-col gap-4">

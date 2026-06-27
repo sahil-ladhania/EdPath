@@ -34,7 +34,7 @@ export function WidgetActions({
           <p className="text-sm text-ink-muted">Waiting for question…</p>
         ) : null}
         <Button
-          size="lg"
+          size="sm"
           onClick={onSubmit}
           disabled={!hasSelection || !canSubmit || isSubmitting}
         >
@@ -53,12 +53,12 @@ export function WidgetActions({
             Waiting for question…
           </p>
         ) : null}
-        <Button size="lg" variant="outline" onClick={onRetry}>
+        <Button size="sm" variant="outline" onClick={onRetry}>
           Retry question
         </Button>
         {hasSelection ? (
           <Button
-            size="lg"
+            size="sm"
             onClick={onSubmit}
             disabled={!canSubmit || isSubmitting}
           >
@@ -72,7 +72,7 @@ export function WidgetActions({
 
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
-      <Button size="lg" onClick={onAdvance}>
+      <Button size="sm" onClick={onAdvance}>
         <Icon icon={ArrowRightIcon} size="sm" variant="inverse" />
         Next question
       </Button>

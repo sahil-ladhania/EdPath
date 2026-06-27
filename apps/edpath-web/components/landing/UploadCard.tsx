@@ -166,10 +166,16 @@ export function UploadCard() {
 
   return (
     <Card className="w-full border-border bg-surface shadow-sm">
-      <CardHeader className="pb-2">
-        <CardTitle className="text-base font-semibold text-ink">
-          Upload PDF
-        </CardTitle>
+      <CardHeader className="flex flex-row items-center gap-3 pb-2">
+        <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary">
+          <Icon icon={FileUpIcon} size="sm" variant="brand" />
+        </div>
+        <div className="min-w-0 space-y-0.5">
+          <CardTitle className="text-base font-semibold text-ink">
+            Upload PDF
+          </CardTitle>
+          <p className="text-sm text-ink-muted">PDF only · one file at a time</p>
+        </div>
       </CardHeader>
       <CardContent className="space-y-4">
         <input

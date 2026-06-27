@@ -10,23 +10,29 @@ import { cn } from "@/lib/utils";
 interface AppShellProps {
   children: ReactNode;
   headerVariant?: "default" | "landing";
+  backgroundVariant?: "default" | "landing";
   modeLabel?: string;
 }
 
 export function AppShell({
   children,
   headerVariant = "default",
+  backgroundVariant = "default",
   modeLabel,
 }: AppShellProps): ReactNode {
   const isLanding = headerVariant === "landing";
 
   return (
-    <div className="flex min-h-screen flex-col bg-paper-textured">
+    <div
+      className={cn(
+        "flex min-h-screen flex-col",
+        backgroundVariant === "landing"
+          ? "bg-paper-textured-landing"
+          : "bg-paper-textured",
+      )}
+    >
       <header
-        className={cn(
-          "bg-surface/90 backdrop-blur-sm",
-          !isLanding && "border-b border-border",
-        )}
+        className="sticky top-0 z-50 border-b border-border/40 bg-surface/70 backdrop-blur-md backdrop-saturate-150 supports-backdrop-filter:bg-surface/55"
       >
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <Link
@@ -49,7 +55,7 @@ export function AppShell({
               </p>
               {!isLanding ? (
                 <p className="text-sm text-ink-muted">
-                  Turn one PDF into a guided lesson
+                  Turn your PDF into a guided lesson
                 </p>
               ) : null}
             </div>

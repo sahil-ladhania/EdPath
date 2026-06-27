@@ -296,7 +296,7 @@ export function HelpInput({
               type="button"
               disabled={inputDisabled}
               onClick={() => submitDraft(prompt)}
-              className="cursor-pointer rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-ink-muted transition-colors hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-50"
+              className="cursor-pointer rounded-full border border-border bg-surface px-2.5 py-0.5 text-xs font-medium text-ink-muted transition-colors hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-50"
             >
               {prompt}
             </button>
@@ -321,6 +321,7 @@ export function HelpInput({
         <div className="flex justify-end">
           <Button
             type="submit"
+            size="sm"
             variant="secondary"
             disabled={inputDisabled || draft.trim().length === 0}
           >

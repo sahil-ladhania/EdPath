@@ -59,7 +59,7 @@ export function McqWidget({
   onAdvance,
 }: McqWidgetProps) {
   return (
-    <Panel>
+    <Panel size="sm" className="w-full max-w-2xl">
       <QuestionHeader
         objectiveTitle={objectiveTitle}
         questionNumber={questionNumber}
@@ -68,11 +68,11 @@ export function McqWidget({
         maxAttempts={MAX_ATTEMPTS}
       />
       <Separator />
-      <div className="space-y-3">
+      <div className="space-y-2">
         <p className="text-xs font-semibold uppercase tracking-[var(--tracking-eyebrow)] text-ink-muted">
           Choose one answer
         </p>
-        <h3 className="text-xl font-semibold leading-ui text-ink">
+        <h3 className="text-lg font-semibold leading-snug text-ink">
           {question.question}
         </h3>
       </div>

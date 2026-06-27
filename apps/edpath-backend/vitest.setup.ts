@@ -7,7 +7,7 @@ loadDotenv({ path: resolve(backendRoot, ".env") });
 
 process.env.EDPATH_LANGGRAPH_DEPLOYMENT_URL ??=
   "http://127.0.0.1:2024";
-process.env.EDPATH_LANGGRAPH_GRAPH_ID ??= "edpath-walking-skeleton";
+process.env.EDPATH_LANGGRAPH_GRAPH_ID ??= "edpath-agent";
 
 /** Override .env for deterministic CI/local tests — no live LLM or LangSmith. */
 process.env.LANGSMITH_TRACING = "false";

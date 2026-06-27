@@ -3,7 +3,6 @@
   "dependencies": ["."],
   "env": "./apps/edpath-backend/.env",
   "graphs": {
-    "edpath-agent": "./apps/edpath-backend/src/agent/graph.ts:graph",
-    "edpath-walking-skeleton": "./apps/edpath-backend/src/agent/walking-skeleton.ts:graph"
+    "edpath-agent": "./apps/edpath-backend/src/agent/graph.ts:graph"
   }
 }

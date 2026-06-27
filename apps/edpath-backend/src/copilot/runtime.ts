@@ -11,8 +11,6 @@ import { EdPathLangGraphAgent } from "./edpath-langgraph-agent.js";
 export const COPILOTKIT_ENDPOINT = "/copilotkit";
 export const EDPATH_AGENT_ID = "edpath";
 export const EDPATH_AGENT_GRAPH_ID = "edpath-agent";
-/** @deprecated Use EDPATH_AGENT_GRAPH_ID — kept for backward compatibility. */
-export const EDPATH_WALKING_SKELETON_GRAPH_ID = "edpath-walking-skeleton";
 
 export interface EdPathCopilotKitOptions {
   langGraphDeploymentUrl: string;

@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Plan card header — PDF title, review copy, and objective count.
+ */
+
 import type { LessonPlan, Phase } from "@repo/types";
 import { FileTextIcon } from "lucide-react";
 

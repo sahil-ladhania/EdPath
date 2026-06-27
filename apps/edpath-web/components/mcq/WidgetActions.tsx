@@ -1,22 +1,17 @@
 "use client";
 
+/**
+ * Quiz action bar — submit, retry, and advance driven by feedback verdict.
+ */
+
 import { ArrowRightIcon, SendIcon } from "lucide-react";
 import type { Feedback } from "@repo/types";
 
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/Icon";
+import type { WidgetActionsProps } from "@/types/mcq";
 
-interface WidgetActionsProps {
-  hasSelection: boolean;
-  feedback: Feedback | null;
-  isSubmitting?: boolean;
-  canSubmit?: boolean;
-  isWaitingForAnswer?: boolean;
-  onSubmit: () => void;
-  onRetry: () => void;
-  onAdvance: () => void;
-}
-
+/** Shows submit, retry, or advance CTA depending on current feedback state. */
 export function WidgetActions({
   hasSelection,
   feedback,

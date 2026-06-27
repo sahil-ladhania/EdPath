@@ -1,3 +1,7 @@
+/**
+ * EdPath panel primitive — consistent card padding, elevation, and variants.
+ */
+
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 

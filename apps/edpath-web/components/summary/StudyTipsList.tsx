@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * PDF-grounded study tips list.
+ */
+
 import type { Summary } from "@repo/types";
 
 interface StudyTipsListProps {

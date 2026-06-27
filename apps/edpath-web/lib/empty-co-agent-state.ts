@@ -1,3 +1,7 @@
+/**
+ * Empty CoAgent seed — mirrors backend `build-initial-state` before the first graph run.
+ */
+
 import type { CoAgentState } from "@repo/types";
 
 /** Mirrors backend seed ([build-initial-state.ts]) — no mock plan or questions. */

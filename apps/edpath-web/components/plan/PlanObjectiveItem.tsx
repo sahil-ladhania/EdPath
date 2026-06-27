@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Single objective row in the plan approval list.
+ */
+
 import { BookOpenIcon } from "lucide-react";
 import type { Objective } from "@repo/types";
 

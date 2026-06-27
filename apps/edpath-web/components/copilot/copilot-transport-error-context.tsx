@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Transport error context — captures agent connection failures for the lesson UI.
+ */
+
 import {
   createContext,
   useCallback,
@@ -10,31 +14,16 @@ import {
 } from "react";
 import type { CopilotErrorEvent } from "@copilotkit/shared";
 
-export interface CopilotTransportError {
-  message: string;
-  detail: string;
-}
-
-interface CopilotTransportErrorContextValue {
-  transportError: CopilotTransportError | null;
-  handleCopilotError: (event: CopilotErrorEvent) => void;
-  clearTransportError: () => void;
-}
+import type {
+  CopilotTransportError,
+  CopilotTransportErrorContextValue,
+} from "@/types/copilot";
+import { isAgentTransportFailure } from "@/lib/copilot";
 
 const CopilotTransportErrorContext =
   createContext<CopilotTransportErrorContextValue | null>(null);
 
-function isAgentTransportFailure(message: string): boolean {
-  const normalized = message.toLowerCase();
-
-  return (
-    normalized.includes("langgraph") ||
-    normalized.includes("fetch failed") ||
-    normalized.includes("retrieve assistant") ||
-    normalized.includes("run_error")
-  );
-}
-
+/** Provides transport error state and CopilotKit `onError` handler to descendants. */
 export function CopilotTransportErrorProvider({
   children,
 }: {
@@ -89,6 +78,7 @@ export function CopilotTransportErrorProvider({
   );
 }
 
+/** Reads transport error context — must be used inside `CopilotTransportErrorProvider`. */
 export function useCopilotTransportError(): CopilotTransportErrorContextValue {
   const context = useContext(CopilotTransportErrorContext);
 

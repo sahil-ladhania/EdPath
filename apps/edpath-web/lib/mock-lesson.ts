@@ -1,14 +1,22 @@
+/**
+ * Dev preview fixtures — mock plan, questions, and feedback builders for `useLesson`.
+ */
+
 import type {
   CoAgentState,
+  Feedback,
   LessonPlan,
+  Objective,
   ObjectiveResult,
   PdfMeta,
   PublicMCQ,
   Summary,
 } from "@repo/types";
 
-export const MAX_ATTEMPTS = 3;
-export const MAX_HELP = 3;
+// Re-exported from the shared contract (the canonical value lives in
+// @repo/schemas) so the dev-preview mock below keeps a single import surface
+// without redefining the constant.
+export { MAX_ATTEMPTS } from "@repo/schemas/constants";
 
 const mockPdfMeta: PdfMeta = {
   filename: "cell-biology-foundations.pdf",
@@ -181,6 +189,7 @@ const emptySummary: Summary = {
   studyTips: [],
 };
 
+/** Full mock CoAgent state seeded at `awaiting_approval` for dev preview. */
 export function getMockCoAgentState(): CoAgentState {
   return {
     pdfMeta: structuredClone(mockPdfMeta),
@@ -213,6 +222,7 @@ export function getQuestionsForObjective(
   return state.questions.filter((question) => question.objectiveId === objectiveId);
 }
 
+/** Builds a summary DTO from plan objectives and accumulated results (mock scoring). */
 export function buildSummary(
   plan: LessonPlan,
   results: ObjectiveResult[],
@@ -259,5 +269,101 @@ export function buildSummary(
         : [
             "You were strong across every objective. Keep the momentum by summarizing the chapter in your own words once more tomorrow.",
           ],
+  };
+}
+
+export function getPlan(state: CoAgentState): LessonPlan {
+  if (!state.plan) {
+    throw new Error("Lesson plan is required for this lesson surface.");
+  }
+
+  return state.plan;
+}
+
+export function getItemAt<TItem>(
+  items: TItem[],
+  index: number,
+  label: string,
+): TItem {
+  const item = items[index];
+
+  if (!item) {
+    throw new Error(`${label} is missing from this lesson surface.`);
+  }
+
+  return item;
+}
+
+export function addTriedOption(
+  triedOptionIndices: number[],
+  selectedIndex: number,
+): number[] {
+  return triedOptionIndices.includes(selectedIndex)
+    ? triedOptionIndices
+    : [...triedOptionIndices, selectedIndex];
+}
+
+/** Mock feedback for a first-try correct answer. */
+export function createCorrectFeedback(selectedIndex: number): Feedback {
+  return {
+    verdict: "correct",
+    highlightIndex: selectedIndex,
+    explanation:
+      "Good work. The source supports this idea, so you can move to the next question.",
+    canRetry: false,
+  };
+}
+
+/** Mock feedback for an incorrect answer with retry allowed. */
+export function createIncorrectFeedback(selectedIndex: number): Feedback {
+  return {
+    verdict: "incorrect",
+    highlightIndex: selectedIndex,
+    hint:
+      "Think about the role named in the question, then compare each option against that idea.",
+    canRetry: true,
+  };
+}
+
+/** Mock feedback when max attempts are exhausted. */
+export function createExhaustedFeedback(selectedIndex: number): Feedback {
+  return {
+    verdict: "exhausted",
+    highlightIndex: selectedIndex,
+    explanation:
+      "This concept is about matching the structure to its role. Review the source note, then continue to keep the lesson moving.",
+    canRetry: false,
+  };
+}
+
+/** Appends one objective result row for mock quiz progression. */
+export function createResult(
+  objective: Objective,
+  question: PublicMCQ,
+  isCorrectOutcome: boolean,
+  attempts: number,
+): ObjectiveResult {
+  return {
+    objectiveId: objective.objectiveId,
+    questionId: question.questionId,
+    correct: isCorrectOutcome,
+    attempts,
+    firstTryCorrect: isCorrectOutcome && attempts === 1,
+  };
+}
+
+/** Recomputes score and summary on mock state after a new result. */
+export function refreshSummary(state: CoAgentState): CoAgentState {
+  const plan = getPlan(state);
+  const summary = buildSummary(plan, state.results);
+
+  return {
+    ...state,
+    score: {
+      correct: summary.overall.correct,
+      total: summary.overall.total,
+      firstTry: state.results.filter((result) => result.firstTryCorrect).length,
+    },
+    summary,
   };
 }

@@ -1,10 +1,14 @@
+/**
+ * Landing page — PDF upload entry point before lesson navigation.
+ */
+
 import { LandingHero } from "@/components/landing/LandingHero";
 import { UploadCard } from "@/components/landing/UploadCard";
 import { AppShell } from "@/components/shell/AppShell";
 
 export default function Home() {
   return (
-    <AppShell headerVariant="landing" backgroundVariant="landing">
+    <AppShell headerVariant="landing">
       <div className="mx-auto flex w-full max-w-5xl flex-1 items-center px-4 py-8 sm:px-5 lg:px-6 lg:py-10">
         <div className="grid w-full gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
           <div className="min-w-0">

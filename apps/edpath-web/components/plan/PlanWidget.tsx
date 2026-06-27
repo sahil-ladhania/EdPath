@@ -1,23 +1,24 @@
 "use client";
 
+/**
+ * Plan approval surface — objectives list, approve/revise actions, and replan overlay.
+ */
+
+// Shared types
 import type { LessonPlan, Phase } from "@repo/types";
 
+// Plan components
 import { PlanActions } from "@/components/plan/PlanActions";
 import { PlanHeader } from "@/components/plan/PlanHeader";
 import { PlanObjectiveItem } from "@/components/plan/PlanObjectiveItem";
+
+// UI
 import { GeneratingState } from "@/components/ui/GeneratingState";
 import { Panel } from "@/components/ui/Panel";
 import { Separator } from "@/components/ui/separator";
 
-interface PlanWidgetProps {
-  pdfTitle: string;
-  plan: LessonPlan;
-  phase: Phase;
-  onApprove: () => void;
-  canSubmitRevision: boolean;
-  isReviseSubmitting: boolean;
-  onSubmitRevision: (text: string) => void;
-}
+// Local types
+import type { PlanWidgetProps } from "@/types/plan";
 
 export function PlanWidget({
   pdfTitle,

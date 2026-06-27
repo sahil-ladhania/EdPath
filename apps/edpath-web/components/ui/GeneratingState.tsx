@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Accessible busy state for plan, question, and summary generation.
+ */
+
 import { LoaderCircleIcon } from "lucide-react";
 
 import { Icon } from "@/components/ui/Icon";

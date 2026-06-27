@@ -1,5 +1,11 @@
 "use client";
 
+/**
+ * Production CoAgent bridge — state mirror, LangGraph interrupt resolution, and user intents.
+ * Dev-only mock equivalent: `useLesson.ts`.
+ */
+
+// React
 import {
   useCallback,
   useEffect,
@@ -8,98 +14,40 @@ import {
   useState,
   type ReactNode,
 } from "react";
+
+// CopilotKit
 import {
   useCoAgent,
   useCopilotChatInternal,
   useLangGraphInterrupt,
 } from "@copilotkit/react-core";
 import { Role, TextMessage } from "@copilotkit/runtime-client-gql";
+
+// Shared types
 import type { ResumePayload } from "@repo/schemas";
 import type { ApprovalDecision, CoAgentState, LessonPlan, Phase } from "@repo/types";
 
+// Internal lib
 import { getEmptyCoAgentState } from "@/lib/empty-co-agent-state";
 import { isLessonAlreadyInProgress } from "@/lib/lesson-in-progress";
+import {
+  isApprovalInterrupt,
+  isAwaitInputInterrupt,
+  parseApprovalInterruptValue,
+} from "@/lib/lesson";
+
+// Local types
+import type {
+  ApprovalInterruptBridgeProps,
+  ApprovalInterruptValue,
+  AwaitInputInterruptBridgeProps,
+  AwaitInputInterruptValue,
+  UseCoAgentLessonReturn,
+} from "@/types/lesson";
 
 export const EDPATH_AGENT_ID = "edpath";
 
-interface ApprovalInterruptValue {
-  type?: string;
-  plan?: LessonPlan;
-}
-
-interface AwaitInputInterruptValue {
-  type?: string;
-}
-
-interface UseCoAgentLessonReturn {
-  threadId: string;
-  state: CoAgentState;
-  phase: Phase;
-  plan: LessonPlan | null;
-  pdfTitle: string;
-  isRunning: boolean;
-  canSubmitAnswer: boolean;
-  canSubmitHelp: boolean;
-  canRequestPlanRevision: boolean;
-  approvePlan: () => void;
-  requestPlanRevision: (note: string) => void;
-  submitAnswer: (selectedIndex: number) => void;
-  submitHelp: (text: string) => void;
-  advance: () => void;
-  retryGeneration: () => void;
-  interruptElement: ReactNode;
-}
-
-interface ApprovalInterruptBridgeProps {
-  onResolverReady: (
-    resolver: ((decision: ApprovalDecision) => void) | null,
-  ) => void;
-  resolve: (value: string) => void;
-}
-
-interface AwaitInputInterruptBridgeProps {
-  onResolverReady: (resolver: ((payload: ResumePayload) => void) | null) => void;
-  resolve: (value: string) => void;
-}
-
-function parseApprovalInterruptValue(
-  eventValue: ApprovalInterruptValue | string,
-): ApprovalInterruptValue {
-  if (typeof eventValue !== "string") {
-    return eventValue;
-  }
-
-  try {
-    return JSON.parse(eventValue) as ApprovalInterruptValue;
-  } catch {
-    return {};
-  }
-}
-
-function parseAwaitInputInterruptValue(
-  eventValue: AwaitInputInterruptValue | string,
-): AwaitInputInterruptValue {
-  if (typeof eventValue !== "string") {
-    return eventValue;
-  }
-
-  try {
-    return JSON.parse(eventValue) as AwaitInputInterruptValue;
-  } catch {
-    return {};
-  }
-}
-
-function isApprovalInterrupt(eventValue: ApprovalInterruptValue | string): boolean {
-  return parseApprovalInterruptValue(eventValue).type === "approval";
-}
-
-function isAwaitInputInterrupt(
-  eventValue: AwaitInputInterruptValue | string,
-): boolean {
-  return parseAwaitInputInterruptValue(eventValue).type === "await_input";
-}
-
+/** Registers the approval interrupt resolver without invoking it on mount. */
 function ApprovalInterruptBridge({
   onResolverReady,
   resolve,
@@ -118,6 +66,7 @@ function ApprovalInterruptBridge({
   return null;
 }
 
+/** Registers the await-input interrupt resolver for answer, help, advance, and retry. */
 function AwaitInputInterruptBridge({
   onResolverReady,
   resolve,
@@ -136,6 +85,10 @@ function AwaitInputInterruptBridge({
   return null;
 }
 
+/**
+ * Owns live CoAgent lesson state and interrupt resolution.
+ * Sends user intents only — grading and control flow stay on the graph.
+ */
 export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
   const emptyState = useMemo(() => getEmptyCoAgentState(), []);
   const coAgent = useCoAgent<CoAgentState>({

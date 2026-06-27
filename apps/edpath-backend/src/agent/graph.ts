@@ -13,13 +13,11 @@ import { EdPathStateAnnotation, type GraphState } from "./state/annotation.js";
 import { CoAgentStateOutputAnnotation } from "./state/co-agent-output-annotation.js";
 import { MAX_REPAIR } from "./state/constants.js";
 
-/** LangGraph node names — must not collide with state channel keys. */
-const N1_PLAN = "plan_lesson";
-const N7_FEEDBACK = "assemble_feedback";
-
-function routeAfterApproval(state: GraphState): typeof N1_PLAN | "generate_mcq" {
+function routeAfterApproval(
+  state: GraphState,
+): "plan_lesson" | "generate_mcq" {
   if (state.approval?.decision === "changes") {
-    return N1_PLAN;
+    return "plan_lesson";
   }
   return "generate_mcq";
 }
@@ -67,33 +65,33 @@ export function routeAfterAwaitInput(
 
 function routeAfterGrade(
   state: GraphState,
-): typeof N7_FEEDBACK | "await_input" {
+): "assemble_feedback" | "await_input" {
   if (state.lastError?.node === "grade" && state.lastError.kind === "grading") {
     return "await_input";
   }
-  return N7_FEEDBACK;
+  return "assemble_feedback";
 }
 
 function createEdPathWorkflow() {
   return new StateGraph(EdPathStateAnnotation, {
     output: CoAgentStateOutputAnnotation,
   })
-    .addNode(N1_PLAN, planNode)
+    .addNode("plan_lesson", planNode)
     .addNode("approval_gate", approvalGateNode)
     .addNode("generate_mcq", generateMcqNode)
     .addNode("await_input", awaitInputNode)
     .addNode("assist", assistNode)
     .addNode("grade", gradeNode)
-    .addNode(N7_FEEDBACK, feedbackNode)
+    .addNode("assemble_feedback", feedbackNode)
     .addNode("advance", advanceNode)
     .addNode("summarize", summarizeNode)
-    .addEdge(START, N1_PLAN)
-    .addConditionalEdges(N1_PLAN, routeAfterPlan, {
+    .addEdge(START, "plan_lesson")
+    .addConditionalEdges("plan_lesson", routeAfterPlan, {
       approval_gate: "approval_gate",
       [END]: END,
     })
     .addConditionalEdges("approval_gate", routeAfterApproval, {
-      [N1_PLAN]: N1_PLAN,
+      plan_lesson: "plan_lesson",
       generate_mcq: "generate_mcq",
     })
     .addConditionalEdges("generate_mcq", routeAfterGenerateMcq, {
@@ -108,13 +106,13 @@ function createEdPathWorkflow() {
     })
     .addEdge("assist", "await_input")
     .addConditionalEdges("grade", routeAfterGrade, {
-      [N7_FEEDBACK]: N7_FEEDBACK,
+      assemble_feedback: "assemble_feedback",
       await_input: "await_input",
     })
     // Feedback always pauses at await_input so green+explanation / red+hint is a
     // stable, readable resting state. Correct/exhausted advance only on the
     // user's explicit "advance" signal (routed from await_input above).
-    .addEdge(N7_FEEDBACK, "await_input")
+    .addEdge("assemble_feedback", "await_input")
     .addConditionalEdges("advance", routeAfterAdvance, {
       await_input: "await_input",
       generate_mcq: "generate_mcq",
@@ -126,6 +124,9 @@ function createEdPathWorkflow() {
 export function createEdPathGraph(): ReturnType<
   ReturnType<typeof createEdPathWorkflow>["compile"]
 > {
+  // Durable persistence is owned by the LangGraph deployment layer, which
+  // checkpoints threads server-side; MemorySaver is only the in-process default
+  // used when compiling the graph locally and in tests.
   return createEdPathWorkflow().compile({
     checkpointer: new MemorySaver(),
   });
@@ -133,4 +134,4 @@ export function createEdPathGraph(): ReturnType<
 
 export const graph = createEdPathGraph();
 
-export { createEdPathWorkflow, N1_PLAN, N7_FEEDBACK };
+export { createEdPathWorkflow };

@@ -1,3 +1,8 @@
+/**
+ * UI phase resolver — maps mirrored graph state to loader, error, and surface visibility.
+ * See inline docs below for the summarizing transition and usage in `LessonRunner`.
+ */
+
 import type { LastError, Phase } from "@repo/types";
 
 export const GENERATING_PHASES = ["planning", "quizzing"] as const satisfies readonly Phase[];

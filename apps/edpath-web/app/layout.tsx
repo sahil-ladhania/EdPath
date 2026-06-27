@@ -1,3 +1,7 @@
+/**
+ * Root layout — fonts, global CSS, and metadata for the EdPath marketing + lesson app.
+ */
+
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Bricolage_Grotesque, Geist_Mono, Inter } from "next/font/google";

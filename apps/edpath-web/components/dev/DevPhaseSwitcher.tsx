@@ -1,25 +1,14 @@
 "use client";
 
+/**
+ * Dev surface jumper — phase and objective controls for mock preview.
+ */
+
 import { useState } from "react";
-import type { Phase } from "@repo/types";
 
 import { Button } from "@/components/ui/button";
-import type { QuizPreviewOutcome } from "@/hooks/useLesson";
 import { cn } from "@/lib/utils";
-
-interface DevPhaseSwitcherProps {
-  phase: Phase;
-  objectiveCount: number;
-  currentObjectiveIndex: number;
-  onSetPhase: (phase: Phase) => void;
-  onJumpToObjective: (index: number) => void;
-  onSimulateOutcome: (outcome: QuizPreviewOutcome) => void;
-}
-
-interface PreviewSurfaceOption {
-  phase: Phase;
-  label: string;
-}
+import type { DevPhaseSwitcherProps, PreviewSurfaceOption } from "@/types/dev";
 
 const surfaceOptions: PreviewSurfaceOption[] = [
   { phase: "planning", label: "Building plan" },

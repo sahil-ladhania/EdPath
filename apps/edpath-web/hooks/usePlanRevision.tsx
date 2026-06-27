@@ -1,34 +1,19 @@
 "use client";
 
+/**
+ * Plan revision hook — tracks replan-in-flight via plan fingerprint and `isRunning`.
+ */
+
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { LessonPlan } from "@repo/types";
 
-interface UsePlanRevisionOptions {
-  plan: LessonPlan | null;
-  isRunning: boolean;
-  requestPlanRevision: (note: string) => void;
-  canRequestPlanRevision: boolean;
-}
+import { getPlanFingerprint } from "@/lib/plan";
+import type { UsePlanRevisionOptions, UsePlanRevisionReturn } from "@/types/plan";
 
-interface UsePlanRevisionReturn {
-  isReviseSubmitting: boolean;
-  canSubmitRevision: boolean;
-  submitRevision: (note: string) => void;
-}
-
-function getPlanFingerprint(plan: LessonPlan | null): string {
-  if (!plan) {
-    return "";
-  }
-
-  return JSON.stringify(
-    plan.objectives.map(
-      (objective) =>
-        `${objective.objectiveId}:${objective.title}:${objective.difficulty}`,
-    ),
-  );
-}
-
+/**
+ * Wraps `requestPlanRevision` with submit/idle detection — the agent is idle at
+ * the approval interrupt, so completion requires a fingerprint change or a run
+ * that started and then finished.
+ */
 export function usePlanRevision({
   plan,
   isRunning,

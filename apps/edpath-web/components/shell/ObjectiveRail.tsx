@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Sidebar objective progress — plan preview and in-quiz highlighting.
+ */
+
 import { CheckIcon, CircleDotIcon, CircleIcon, RouteIcon } from "lucide-react";
 import type { Objective, Phase } from "@repo/types";
 
@@ -7,19 +11,9 @@ import { GeneratingState } from "@/components/ui/GeneratingState";
 import { Icon } from "@/components/ui/Icon";
 import { Panel } from "@/components/ui/Panel";
 import { cn } from "@/lib/utils";
+import type { ObjectiveRailProps } from "@/types/shell";
 
-interface ObjectiveRailProps {
-  objectives: Objective[];
-  currentObjectiveIndex: number;
-  phase: Phase;
-  currentQuestionIndex?: number;
-  questionCount?: number;
-  isGenerating?: boolean;
-  hasGenerationError?: boolean;
-  generatingMessage?: string;
-  generatingSubtext?: string;
-}
-
+/** Renders objective list with generating, plan-review, and in-quiz progress modes. */
 export function ObjectiveRail({
   objectives,
   currentObjectiveIndex,

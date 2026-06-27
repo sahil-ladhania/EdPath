@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Plan revision chat — local transcript UX while a replan request runs.
+ */
+
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MessageSquareTextIcon, SendIcon, XIcon } from "lucide-react";
 
@@ -7,19 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/Icon";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-
-interface ChatMessage {
-  id: string;
-  role: "assistant" | "user";
-  content: string;
-}
-
-interface PlanReviseChatProps {
-  onClose: () => void;
-  canSubmitRevision: boolean;
-  isSubmitting: boolean;
-  onSubmitRevision: (text: string) => void;
-}
+import type { ChatMessage, PlanReviseChatProps } from "@/types/plan";
 
 const INITIAL_ASSISTANT_MESSAGE: ChatMessage = {
   id: "intro",
@@ -51,6 +43,7 @@ function PlanRevisingIndicator(): React.JSX.Element {
   );
 }
 
+/** Inline chat for plan revision notes — submits to the approval interrupt. */
 export function PlanReviseChat({
   onClose,
   canSubmitRevision,

@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Per-objective results table.
+ */
+
 import type { Summary } from "@repo/types";
 
 interface PerObjectiveTableProps {

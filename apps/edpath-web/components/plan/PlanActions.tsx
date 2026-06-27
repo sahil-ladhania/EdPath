@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Approve vs revise toggle and primary CTAs for the plan approval gate.
+ */
+
 import { useState } from "react";
 import { CircleCheckIcon, MessageSquareTextIcon } from "lucide-react";
 
@@ -7,14 +11,7 @@ import { PlanReviseChat } from "@/components/plan/PlanReviseChat";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/utils";
-
-interface PlanActionsProps {
-  objectiveCount: number;
-  onApprove: () => void;
-  canSubmitRevision: boolean;
-  isReviseSubmitting: boolean;
-  onSubmitRevision: (text: string) => void;
-}
+import type { PlanActionsProps } from "@/types/plan";
 
 export function PlanActions({
   objectiveCount,

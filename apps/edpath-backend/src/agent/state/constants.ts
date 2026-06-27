@@ -1,11 +1,10 @@
+// MAX_ATTEMPTS and MAX_HELP are shared quiz-loop contract values: defined once
+// in @repo/schemas and re-exported here so existing relative imports keep their
+// path while the web UI reads the same source.
+export { MAX_ATTEMPTS, MAX_HELP } from "@repo/schemas/constants";
+
 /** MCQs generated per objective (B1). */
 export const MCQS_PER_OBJECTIVE = 3;
-
-/** Max attempts per question: initial + 2 retries (B2). */
-export const MAX_ATTEMPTS = 3;
-
-/** Max help turns per question (B3). */
-export const MAX_HELP = 3;
 
 /** Max objectives in a plan (B4). */
 export const MAX_OBJECTIVES = 8;

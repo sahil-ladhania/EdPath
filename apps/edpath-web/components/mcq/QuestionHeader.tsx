@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Question metadata row — objective title, numbering, and attempt badge.
+ */
+
 import { Badge } from "@/components/ui/badge";
 
 interface QuestionHeaderProps {

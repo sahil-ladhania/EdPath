@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Generation loader panel — wraps `GeneratingState` in `Panel`.
+ */
+
 import { GeneratingState } from "@/components/ui/GeneratingState";
 import { Panel } from "@/components/ui/Panel";
 

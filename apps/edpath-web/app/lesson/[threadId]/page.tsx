@@ -1,3 +1,7 @@
+/**
+ * Lesson route — wires `EdPathCopilotProvider` and `LessonRunner` for a checkpointed thread.
+ */
+
 import { EdPathCopilotProvider } from "@/components/copilot/EdPathCopilotProvider";
 import { AppShell } from "@/components/shell/AppShell";
 import { LessonRunner } from "@/components/shell/LessonRunner";

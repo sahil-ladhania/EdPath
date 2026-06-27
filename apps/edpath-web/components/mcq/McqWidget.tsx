@@ -1,39 +1,28 @@
 "use client";
 
+/**
+ * Quiz card composition — question, options, feedback, help, and actions.
+ */
+
+// Shared types
 import type { Feedback, HelpThreadMessage, PublicMCQ } from "@repo/types";
 
-import { MAX_ATTEMPTS, MAX_HELP } from "@/lib/mock-lesson";
+// Constants
+import { MAX_ATTEMPTS, MAX_HELP } from "@repo/schemas/constants";
+
+// MCQ components
 import { FeedbackBanner } from "@/components/mcq/FeedbackBanner";
 import { HelpInput } from "@/components/mcq/HelpInput";
 import { OptionList } from "@/components/mcq/OptionList";
 import { QuestionHeader } from "@/components/mcq/QuestionHeader";
 import { WidgetActions } from "@/components/mcq/WidgetActions";
+
+// UI
 import { Panel } from "@/components/ui/Panel";
 import { Separator } from "@/components/ui/separator";
 
-interface McqWidgetProps {
-  objectiveTitle: string;
-  questionNumber: number;
-  questionCount: number;
-  currentAttempt: number;
-  question: PublicMCQ;
-  selectedIndex: number | null;
-  triedOptionIndices: number[];
-  feedback: Feedback | null;
-  isOptionLocked: boolean;
-  isSubmitting?: boolean;
-  isHelpSubmitting?: boolean;
-  canSubmit?: boolean;
-  isWaitingForAnswer?: boolean;
-  helpThread?: HelpThreadMessage[];
-  helpTurnsUsed?: number;
-  canSubmitHelp?: boolean;
-  onSelect: (index: number) => void;
-  onSubmit: () => void;
-  onSubmitHelp?: (text: string) => void;
-  onRetry: () => void;
-  onAdvance: () => void;
-}
+// Local types
+import type { McqWidgetProps } from "@/types/mcq";
 
 export function McqWidget({
   objectiveTitle,

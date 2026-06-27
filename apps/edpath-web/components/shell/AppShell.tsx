@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * App chrome — header, logo, and responsive shell wrapper.
+ */
+
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -10,27 +14,18 @@ import { cn } from "@/lib/utils";
 interface AppShellProps {
   children: ReactNode;
   headerVariant?: "default" | "landing";
-  backgroundVariant?: "default" | "landing";
   modeLabel?: string;
 }
 
 export function AppShell({
   children,
   headerVariant = "default",
-  backgroundVariant = "default",
   modeLabel,
 }: AppShellProps): ReactNode {
   const isLanding = headerVariant === "landing";
 
   return (
-    <div
-      className={cn(
-        "flex min-h-screen flex-col",
-        backgroundVariant === "landing"
-          ? "bg-paper-textured-landing"
-          : "bg-paper-textured",
-      )}
-    >
+    <div className="flex min-h-screen flex-col bg-paper">
       <header
         className="sticky top-0 z-50 border-b border-border/40 bg-surface/70 backdrop-blur-md backdrop-saturate-150 supports-backdrop-filter:bg-surface/55"
       >

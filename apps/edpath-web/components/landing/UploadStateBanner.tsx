@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Upload status banner — maps API outcomes to user-facing tone and icon.
+ */
+
 import {
   AlertCircleIcon,
   CheckCircle2Icon,

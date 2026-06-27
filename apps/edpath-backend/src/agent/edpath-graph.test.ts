@@ -218,7 +218,7 @@ describe("EdPath LangGraph agent", () => {
     expect(sawAwaitInput).toBe(true);
   });
 
-  test("grades correct answer and advances", async () => {
+  test("correct answer pauses with feedback, then advances on next signal", async () => {
     const graph = createEdPathGraph();
     const config = { configurable: { thread_id: `${EDPATH_TEST_THREAD_ID}-grade` } };
 
@@ -231,11 +231,22 @@ describe("EdPath LangGraph agent", () => {
       config,
     );
 
-    const state = await graph.getState(config);
+    // Holds the correct feedback for the user to read — does NOT auto-advance.
+    let state = await graph.getState(config);
+    expect(state.values.feedback?.verdict).toBe("correct");
+    expect(state.values.currentQuestionIndex).toBe(0);
     expect(state.values.results).toHaveLength(1);
     expect(state.values.results[0]?.correct).toBe(true);
-    expect(state.values.currentQuestionIndex).toBe(1);
     expect(state.values.coAgentSnapshot).toBeDefined();
+    // Firewall: correctIndex must never reach the mirror, even in correct feedback.
+    assertCoAgentFirewall(state.values.coAgentSnapshot);
+
+    // User clicks "Next question" → explicit advance signal moves forward.
+    await graph.invoke(new Command({ resume: { kind: "advance" } }), config);
+
+    state = await graph.getState(config);
+    expect(state.values.currentQuestionIndex).toBe(1);
+    expect(state.values.feedback).toBeNull();
     assertCoAgentFirewall(state.values.coAgentSnapshot);
   });
 
@@ -270,7 +281,7 @@ describe("EdPath LangGraph agent", () => {
     expect(state.values.score.correct).toBe(1);
   });
 
-  test("exhausted after max attempts advances without correctIndex in feedback", async () => {
+  test("exhausted after max attempts pauses with explanation, then advances on next signal", async () => {
     const graph = createEdPathGraph();
     const config = { configurable: { thread_id: `${EDPATH_TEST_THREAD_ID}-exhaust` } };
 
@@ -284,14 +295,23 @@ describe("EdPath LangGraph agent", () => {
       );
     }
 
-    const state = await graph.getState(config);
+    // At the attempt limit the explanation is revealed and held — no auto-advance.
+    let state = await graph.getState(config);
+    expect(state.values.feedback?.verdict).toBe("exhausted");
+    expect(state.values.currentQuestionIndex).toBe(0);
     expect(state.values.results).toHaveLength(1);
     expect(state.values.results[0]?.correct).toBe(false);
     expect(state.values.results[0]?.attempts).toBe(MAX_ATTEMPTS);
-    expect(state.values.currentQuestionIndex).toBe(1);
     expect(JSON.stringify(state.values.coAgentSnapshot)).not.toContain(
       '"correctIndex"',
     );
+
+    // User clicks "Next question" → explicit advance signal moves forward.
+    await graph.invoke(new Command({ resume: { kind: "advance" } }), config);
+
+    state = await graph.getState(config);
+    expect(state.values.currentQuestionIndex).toBe(1);
+    expect(state.values.feedback).toBeNull();
   });
 
   test("help turn routes through assist without leaking answer fields", async () => {
@@ -352,12 +372,14 @@ describe("EdPath LangGraph agent", () => {
       if (!mcq) {
         break;
       }
+      // Answer correctly → pauses on feedback; advance signal → next question.
       await graph.invoke(
         new Command({
           resume: { kind: "answer", selectedIndex: mcq.correctIndex },
         }),
         config,
       );
+      await graph.invoke(new Command({ resume: { kind: "advance" } }), config);
     }
 
     const finalState = await graph.getState(config);

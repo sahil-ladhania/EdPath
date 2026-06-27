@@ -27,13 +27,31 @@ export const HelpMessageSchema = z.object({
 export type HelpMessage = z.infer<typeof HelpMessageSchema>;
 
 /**
+ * N4 resume payload — an explicit "advance" signal (→ advance). Sent by the
+ * "Next question" button after correct/exhausted feedback is shown, so the user
+ * controls when the lesson moves on instead of the graph auto-advancing.
+ */
+export const AdvanceSignalSchema = z.object({});
+export type AdvanceSignal = z.infer<typeof AdvanceSignalSchema>;
+
+/**
+ * N4 resume payload — a "try again" signal (→ generate_mcq). Sent by the error
+ * card's "Try again" button when MCQ generation exhausted its repair budget, so
+ * the user can re-run generation instead of being stuck on a dead-end (G8).
+ */
+export const RetrySignalSchema = z.object({});
+export type RetrySignal = z.infer<typeof RetrySignalSchema>;
+
+/**
  * The tagged N4 resume payload. `await_input` branches on `kind` (widget answer
- * vs. free text) — a deterministic check on the payload's kind, not LLM routing
- * (§5.3 / §5.4). The `kind` tag is reused from the field shapes above so the
- * selectedIndex/text definitions stay single-sourced.
+ * vs. free text vs. advance vs. retry) — a deterministic check on the payload's
+ * kind, not LLM routing (§5.3 / §5.4). The `kind` tag is reused from the field
+ * shapes above so the selectedIndex/text definitions stay single-sourced.
  */
 export const ResumePayloadSchema = z.discriminatedUnion("kind", [
   AnswerSubmissionSchema.extend({ kind: z.literal("answer") }),
   HelpMessageSchema.extend({ kind: z.literal("help") }),
+  AdvanceSignalSchema.extend({ kind: z.literal("advance") }),
+  RetrySignalSchema.extend({ kind: z.literal("retry") }),
 ]);
 export type ResumePayload = z.infer<typeof ResumePayloadSchema>;

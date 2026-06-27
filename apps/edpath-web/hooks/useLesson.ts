@@ -90,7 +90,6 @@ function createCorrectFeedback(selectedIndex: number): Feedback {
   return {
     verdict: "correct",
     highlightIndex: selectedIndex,
-    correctIndex: selectedIndex,
     explanation:
       "Good work. The source supports this idea, so you can move to the next question.",
     canRetry: false,

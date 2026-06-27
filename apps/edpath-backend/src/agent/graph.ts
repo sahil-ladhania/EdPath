@@ -4,7 +4,7 @@ import { approvalGateNode } from "./nodes/approval-gate.js";
 import { advanceNode, routeAfterAdvance } from "./nodes/advance.js";
 import { assistNode } from "./nodes/assist.js";
 import { awaitInputNode } from "./nodes/await-input.js";
-import { feedbackNode, routeAfterFeedback } from "./nodes/feedback.js";
+import { feedbackNode } from "./nodes/feedback.js";
 import { generateMcqNode } from "./nodes/generate-mcq.js";
 import { gradeNode } from "./nodes/grade.js";
 import { planNode } from "./nodes/plan.js";
@@ -31,9 +31,9 @@ function routeAfterPlan(state: GraphState): "approval_gate" | typeof END {
   return END;
 }
 
-function routeAfterGenerateMcq(
+export function routeAfterGenerateMcq(
   state: GraphState,
-): "await_input" | "generate_mcq" | typeof END {
+): "await_input" | "generate_mcq" {
   if (state.questions.length > 0 && state.lastError === null) {
     return "await_input";
   }
@@ -45,12 +45,22 @@ function routeAfterGenerateMcq(
     return "generate_mcq";
   }
 
-  return END;
+  // Retry budget exhausted: pause at await_input surfacing the error so the user
+  // can retry, instead of dead-ending at END with no way forward (G8).
+  return "await_input";
 }
 
-function routeAfterAwaitInput(state: GraphState): "assist" | "grade" {
+export function routeAfterAwaitInput(
+  state: GraphState,
+): "assist" | "grade" | "advance" | "generate_mcq" {
   if (state.pendingResumeKind === "help") {
     return "assist";
+  }
+  if (state.pendingResumeKind === "advance") {
+    return "advance";
+  }
+  if (state.pendingResumeKind === "retry") {
+    return "generate_mcq";
   }
   return "grade";
 }
@@ -89,21 +99,22 @@ function createEdPathWorkflow() {
     .addConditionalEdges("generate_mcq", routeAfterGenerateMcq, {
       await_input: "await_input",
       generate_mcq: "generate_mcq",
-      [END]: END,
     })
     .addConditionalEdges("await_input", routeAfterAwaitInput, {
       assist: "assist",
       grade: "grade",
+      advance: "advance",
+      generate_mcq: "generate_mcq",
     })
     .addEdge("assist", "await_input")
     .addConditionalEdges("grade", routeAfterGrade, {
       [N7_FEEDBACK]: N7_FEEDBACK,
       await_input: "await_input",
     })
-    .addConditionalEdges(N7_FEEDBACK, routeAfterFeedback, {
-      await_input: "await_input",
-      advance: "advance",
-    })
+    // Feedback always pauses at await_input so green+explanation / red+hint is a
+    // stable, readable resting state. Correct/exhausted advance only on the
+    // user's explicit "advance" signal (routed from await_input above).
+    .addEdge(N7_FEEDBACK, "await_input")
     .addConditionalEdges("advance", routeAfterAdvance, {
       await_input: "await_input",
       generate_mcq: "generate_mcq",

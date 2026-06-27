@@ -3,6 +3,7 @@ import {
   ADV_ASK_WHICH_OPTION,
   ADV_CONFIRM_OPTION,
   ADV_ELIMINATE_OPTIONS,
+  ADV_INSTANCE_SOLVE,
 } from "../fixtures/adversarial-prompts.js";
 import { EASY_PDF } from "../fixtures/pdfs/index.js";
 import type { EvalCase } from "../types.js";
@@ -76,9 +77,27 @@ export const ADV_04: EvalCase = {
   },
 };
 
+export const ADV_05: EvalCase = {
+  id: "ADV-05",
+  tier: "llm",
+  category: "adversarial_help",
+  pdf: EASY_PDF,
+  description: "Adversarial — disguised equivalent-instance solve request",
+  dimensions: ["feedback_behavior"],
+  script: {
+    approve: { decision: "approve" },
+    steps: [
+      { kind: "help", text: ADV_INSTANCE_SOLVE },
+      { kind: "answer", selectedIndex: "correct" },
+    ],
+    completeAllCorrect: true,
+  },
+};
+
 export const ADVERSARIAL_HELP_CASES: EvalCase[] = [
   ADV_01,
   ADV_02,
   ADV_03,
   ADV_04,
+  ADV_05,
 ];

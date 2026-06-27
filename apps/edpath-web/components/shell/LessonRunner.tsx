@@ -41,6 +41,7 @@ export function LessonRunner({ threadId }: LessonRunnerProps) {
     plan: coAgentLesson.plan,
     submitAnswer: coAgentLesson.submitAnswer,
     submitHelp: coAgentLesson.submitHelp,
+    advance: coAgentLesson.advance,
     canSubmitAnswer: coAgentLesson.canSubmitAnswer,
     canSubmitHelp: coAgentLesson.canSubmitHelp,
     isRunning: coAgentLesson.isRunning,
@@ -110,6 +111,12 @@ export function LessonRunner({ threadId }: LessonRunnerProps) {
           <LessonErrorBanner
             lastError={generationError}
             title={getLessonErrorTitle(generationError)}
+            onRetry={
+              generationError.node === "generate_mcq"
+                ? coAgentLesson.retryGeneration
+                : undefined
+            }
+            isRetrying={coAgentLesson.isRunning}
           />
         ) : null}
         {isGenerating ? (

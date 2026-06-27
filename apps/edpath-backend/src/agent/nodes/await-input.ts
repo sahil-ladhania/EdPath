@@ -36,6 +36,28 @@ export function awaitInputNode(
     });
   }
 
+  if (resume.kind === "advance") {
+    // "Next question" after correct/exhausted feedback — hand off to advance.
+    // Feedback stays set here; advanceNode clears it as it moves forward.
+    return withCoAgentSnapshot(state, {
+      pendingResumeKind: "advance",
+      pendingHelpText: null,
+      phase: "awaiting_input",
+    });
+  }
+
+  if (resume.kind === "retry") {
+    // "Try again" after MCQ generation failed — reset the repair budget and the
+    // error, then route back to generate_mcq for a fresh attempt (G8 recovery).
+    return withCoAgentSnapshot(state, {
+      pendingResumeKind: "retry",
+      pendingHelpText: null,
+      mcqGenAttempts: 0,
+      lastError: null,
+      phase: "quizzing",
+    });
+  }
+
   return withCoAgentSnapshot(state, {
     pendingResumeKind: "help",
     pendingHelpText: resume.text,

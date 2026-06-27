@@ -45,6 +45,8 @@ interface UseCoAgentLessonReturn {
   requestPlanRevision: (note: string) => void;
   submitAnswer: (selectedIndex: number) => void;
   submitHelp: (text: string) => void;
+  advance: () => void;
+  retryGeneration: () => void;
   interruptElement: ReactNode;
 }
 
@@ -322,6 +324,32 @@ export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
     [answerResolver],
   );
 
+  const advance = useCallback((): void => {
+    if (!answerResolver) {
+      if (process.env.NODE_ENV === "development") {
+        console.warn(
+          "[EdPath] advance blocked: await_input interrupt resolver is not ready.",
+        );
+      }
+      return;
+    }
+
+    answerResolver({ kind: "advance" });
+  }, [answerResolver]);
+
+  const retryGeneration = useCallback((): void => {
+    if (!answerResolver) {
+      if (process.env.NODE_ENV === "development") {
+        console.warn(
+          "[EdPath] retryGeneration blocked: await_input interrupt resolver is not ready.",
+        );
+      }
+      return;
+    }
+
+    answerResolver({ kind: "retry" });
+  }, [answerResolver]);
+
   const canSubmitHelp =
     answerResolver !== null && normalizedState.phase === "awaiting_input";
 
@@ -339,6 +367,8 @@ export function useCoAgentLesson(threadId: string): UseCoAgentLessonReturn {
     requestPlanRevision,
     submitAnswer,
     submitHelp,
+    advance,
+    retryGeneration,
     interruptElement: interrupt,
   };
 }

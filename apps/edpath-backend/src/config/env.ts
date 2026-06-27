@@ -28,7 +28,14 @@ const envSchema = z.object({
   UPLOAD_MAX_PAGES: z.coerce.number().int().positive().default(50),
   UPLOAD_MIN_CLEAN_CHARS: z.coerce.number().int().nonnegative().default(200),
   UPLOAD_MIN_CHARS_PER_PAGE: z.coerce.number().int().nonnegative().default(30),
-  OPENAI_API_KEY: z.string().min(1).optional(),
+  // Treat an empty string as "not configured" so tests (and misconfigured envs)
+  // can disable live OpenAI calls by setting OPENAI_API_KEY="" — dotenv will not
+  // override an already-present key, unlike a delete which the .env reload
+  // re-fills.
+  OPENAI_API_KEY: z
+    .string()
+    .optional()
+    .transform((value) => (value && value.length > 0 ? value : undefined)),
   /** Workhorse model for N1/N3/N5/N9 generative nodes (B8). */
   OPENAI_MODEL: z.string().min(1).default("gpt-4o-mini"),
   /** N1 plan escape hatch when repair retries are exhausted (B8). */

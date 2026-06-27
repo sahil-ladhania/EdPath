@@ -10,6 +10,7 @@ interface UseCoAgentQuizOptions {
   plan: LessonPlan | null;
   submitAnswer: (selectedIndex: number) => void;
   submitHelp: (text: string) => void;
+  advance: () => void;
   canSubmitAnswer: boolean;
   canSubmitHelp: boolean;
   isRunning: boolean;
@@ -41,6 +42,7 @@ export function useCoAgentQuiz({
   plan,
   submitAnswer: submitAnswerToAgent,
   submitHelp: submitHelpToAgent,
+  advance: advanceToAgent,
   canSubmitAnswer,
   canSubmitHelp,
   isRunning,
@@ -230,13 +232,15 @@ export function useCoAgentQuiz({
   }, []);
 
   const advance = useCallback((): void => {
-    // Correct/exhausted answers auto-advance server-side (feedback → advance).
-    // Clear local retry state so the next mirrored question starts fresh.
+    // "Next question" after correct/exhausted feedback. The graph paused at the
+    // await_input interrupt holding the feedback; send the advance signal so it
+    // moves on, and clear local retry state for the next mirrored question.
     setRetryUnlocked(false);
     setLocalSelectedIndex(null);
     setIsSubmitting(false);
     pendingSelectionRef.current = null;
-  }, []);
+    advanceToAgent();
+  }, [advanceToAgent]);
 
   return {
     currentObjectiveTitle: currentObjective?.title ?? "Current objective",

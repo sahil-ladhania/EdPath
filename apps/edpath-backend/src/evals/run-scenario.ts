@@ -79,6 +79,26 @@ async function getCurrentMcq(
   return state.values.questions[idx] ?? null;
 }
 
+/**
+ * Mirrors the UI's "Next question" button: when feedback is resolved
+ * (correct/exhausted, i.e. not retryable), send the explicit advance signal so
+ * the lesson moves on. After an incorrect (retryable) answer it is a no-op — the
+ * next scripted answer retries the same question.
+ */
+async function advanceIfResolved(
+  graph: ReturnType<typeof createEdPathGraph>,
+  config: { configurable: { thread_id: string } },
+): Promise<void> {
+  const state = await graph.getState(config);
+  const feedback = state.values.feedback;
+  if (feedback && feedback.canRetry === false) {
+    await graph.invoke(
+      new Command({ resume: { kind: "advance" } }),
+      config,
+    );
+  }
+}
+
 async function runCompleteAllCorrect(
   graph: ReturnType<typeof createEdPathGraph>,
   config: { configurable: { thread_id: string } },
@@ -111,6 +131,7 @@ async function runCompleteAllCorrect(
       }),
       config,
     );
+    await advanceIfResolved(graph, config);
     answered += 1;
   }
 }
@@ -185,8 +206,12 @@ async function processStep(
     config,
   );
 
+  // Capture the feedback resting state before advancing (evaluators inspect it).
   const state = await graph.getState(config);
   context.snapshots.push(snapshotState(state.values));
+
+  // Resolved answer → emulate the user's "Next question" click to move on.
+  await advanceIfResolved(graph, config);
   return null;
 }
 

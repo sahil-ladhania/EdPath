@@ -9,4 +9,4 @@ export interface AwaitInputInterruptPayload {
   type: "await_input";
 }
 
-export type ResumeKind = "answer" | "help";
+export type ResumeKind = "answer" | "help" | "advance" | "retry";

@@ -28,7 +28,6 @@ export function feedbackNode(
     feedback = {
       verdict: "correct",
       highlightIndex: selectedIndex,
-      correctIndex: mcq.correctIndex,
       explanation: mcq.explanation,
       canRetry: false,
     };
@@ -55,15 +54,4 @@ export function feedbackNode(
     phase: "awaiting_input",
     gradeOutput: null,
   });
-}
-
-/** Routing helper after feedback node. */
-export function routeAfterFeedback(state: GraphState): "advance" | "await_input" {
-  if (!state.feedback) {
-    return "await_input";
-  }
-  if (state.feedback.verdict === "incorrect") {
-    return "await_input";
-  }
-  return "advance";
 }

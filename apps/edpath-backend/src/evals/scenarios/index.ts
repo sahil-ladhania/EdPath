@@ -1,3 +1,4 @@
+/** Eval case registry — aggregates all scenario suites and filter helpers. */
 import { ADVERSARIAL_HELP_CASES } from "./adversarial-help.js";
 import { EDGE_PDF_CASES } from "./edge-pdfs.js";
 import { HAPPY_PATH_CASES } from "./happy-path.js";

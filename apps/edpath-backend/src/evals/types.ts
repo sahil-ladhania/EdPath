@@ -1,3 +1,6 @@
+/**
+ * Eval harness type contracts — dimensions, cases, scripts, run results.
+ */
 import type { PdfMeta } from "@repo/types";
 
 import type { GraphState } from "../agent/state/annotation.js";

@@ -1,3 +1,8 @@
+/**
+ * Assist firewall input builder (D4/D20).
+ *
+ * Assembles firewalled context for N5 — never includes answer fields.
+ */
 import type { GraphState } from "../state/annotation.js";
 import { MAX_HELP } from "../state/constants.js";
 import type { AssistInput } from "../types/assist.types.js";

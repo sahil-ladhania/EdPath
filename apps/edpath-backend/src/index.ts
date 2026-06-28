@@ -1,3 +1,6 @@
+/**
+ * Express app bootstrap — validate env, enable LangSmith tracing, listen on PORT.
+ */
 import { createApp } from "./app.js";
 import { env, isLangSmithTracingEnabled } from "./config/env.js";
 

@@ -1,3 +1,9 @@
+/**
+ * Advance graph node (N8 / advance).
+ *
+ * Moves to the next question within an objective, or the next objective,
+ * resetting per-question state. Explicit user "advance" signal only.
+ */
 import { MCQS_PER_OBJECTIVE } from "../state/constants.js";
 import type { GraphState } from "../state/annotation.js";
 import { withCoAgentSnapshot } from "../state/graph-update.js";
@@ -56,7 +62,10 @@ export function advanceNode(
   });
 }
 
-/** Routing helper after advance node. */
+/**
+ * Routes after N8: more questions in objective → await_input; next
+ * objective with no MCQs yet → generate_mcq; all objectives done → summarize.
+ */
 export function routeAfterAdvance(
   state: GraphState,
 ): "await_input" | "generate_mcq" | "summarize" {

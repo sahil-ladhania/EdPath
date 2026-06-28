@@ -1,3 +1,4 @@
+/** System prompt templates for generative graph nodes (plan, MCQ, assist, summarize). */
 export const PLAN_SYSTEM_PROMPT = `You are an expert educator creating a lesson plan from a PDF document.
 Rules:
 - Use ONLY facts from the provided PDF text. Do not use outside knowledge.

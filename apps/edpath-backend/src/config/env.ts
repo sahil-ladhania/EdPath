@@ -1,3 +1,6 @@
+/**
+ * Zod-validated environment — fail-fast on boot; stub and tracing helpers.
+ */
 import { config as loadDotenv } from "dotenv";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";

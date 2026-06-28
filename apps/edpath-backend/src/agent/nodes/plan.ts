@@ -1,3 +1,9 @@
+/**
+ * Plan lesson graph node (N1 / plan_lesson).
+ *
+ * LLM drafts a PDF-grounded lesson plan via structured-generate; stub path
+ * when OpenAI is not configured. On success, routes to approval_gate.
+ */
 import { LessonPlanSchema } from "@repo/schemas";
 
 import { isOpenAiConfigured } from "../../config/env.js";

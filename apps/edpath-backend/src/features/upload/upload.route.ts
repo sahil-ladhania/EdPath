@@ -1,3 +1,6 @@
+/**
+ * POST /upload route — multer → processUpload → typed UploadResult response.
+ */
 import type { RequestHandler } from "express";
 
 import { processUpload } from "./upload.service.js";

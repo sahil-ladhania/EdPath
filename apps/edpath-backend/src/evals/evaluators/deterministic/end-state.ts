@@ -1,3 +1,4 @@
+/** Deterministic eval: loop_state dimension — end-state phase, score, summary schema. */
 import { SummarySchema } from "@repo/schemas";
 
 import { deriveScore } from "../../../agent/state/derive-score.js";

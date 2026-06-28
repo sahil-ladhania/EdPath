@@ -1,3 +1,6 @@
+/**
+ * LangGraph deployment client — seeds a lesson thread; idempotent create guard.
+ */
 import { Client } from "@langchain/langgraph-sdk";
 
 import { env } from "../../config/env.js";

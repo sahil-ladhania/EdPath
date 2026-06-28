@@ -1,3 +1,8 @@
+/**
+ * Source-anchor grounding (D4) — verifies MCQ sourceQuote against pdfText.
+ *
+ * Token-exact window matching; used by generate_mcq before accepting a batch.
+ */
 /** Normalizes text for deterministic source-anchor matching (D4). */
 export function normalizeForAnchor(text: string): string {
   return text

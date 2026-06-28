@@ -1,3 +1,4 @@
+/** HITL interrupt payload shapes (approval_gate, await_input). */
 import type { LessonPlan } from "@repo/types";
 
 export interface ApprovalInterruptPayload {

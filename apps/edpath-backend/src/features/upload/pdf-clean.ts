@@ -1,6 +1,7 @@
 /**
- * Normalizes extracted PDF text into cleaned full text for LLM grounding.
- * No chunking, no header/footer dedup — whole document as one string.
+ * PDF text normalization — de-hyphenation, whitespace collapse, token estimate.
+ *
+ * Whole document as one string; no chunking or header/footer dedup.
  */
 export function cleanPdfText(rawText: string): string {
   let text = rawText.replace(/\r\n/g, "\n").replace(/\r/g, "\n");

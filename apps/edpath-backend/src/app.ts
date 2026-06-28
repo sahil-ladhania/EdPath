@@ -1,3 +1,6 @@
+/**
+ * Express app factory — /health, /upload, /start, optional CopilotKit handler.
+ */
 import cors from "cors";
 import express, { type Express, type Request, type Response } from "express";
 

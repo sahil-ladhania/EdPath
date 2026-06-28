@@ -1,3 +1,4 @@
+/** Resume-integrity eval scenarios — checkpoint pause and resume. */
 import { EASY_PDF } from "../fixtures/pdfs/index.js";
 import type { EvalCase } from "../types.js";
 

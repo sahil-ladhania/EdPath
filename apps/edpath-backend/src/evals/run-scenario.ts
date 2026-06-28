@@ -1,3 +1,8 @@
+/**
+ * Eval scenario driver — replays a scripted EvalScript against a fresh graph.
+ *
+ * Captures state snapshots and assist transcripts step-by-step for evaluate-case.
+ */
 import { Command } from "@langchain/langgraph";
 
 import { buildInitialEdPathState } from "../features/upload/build-initial-state.js";

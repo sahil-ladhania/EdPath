@@ -1,3 +1,6 @@
+/**
+ * Eval suite runner — filters cases, runs scenario + evaluate-case, aggregates report.
+ */
 import { evaluateCase } from "./evaluate-case.js";
 import { runScenario } from "./run-scenario.js";
 import { filterEvalCases } from "./scenarios/index.js";

@@ -1,3 +1,10 @@
+/**
+ * Generate MCQ graph node (N3 / generate_mcq).
+ *
+ * LLM generates MCQs for the current objective; each sourceQuote must pass
+ * the source-anchor gate. Failed batches bump mcqGenAttempts against the
+ * repair budget before routing retries or surfaces error at await_input.
+ */
 import type { MCQ } from "@repo/types";
 
 import { isOpenAiConfigured } from "../../config/env.js";

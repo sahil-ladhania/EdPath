@@ -1,3 +1,8 @@
+/**
+ * OpenAI LLM client singleton (B8) — the only IO boundary in agent/lib.
+ *
+ * Provides invoke + model selection for structured-generate and assist.
+ */
 import { ChatOpenAI } from "@langchain/openai";
 
 import { env } from "../../../config/env.js";
@@ -83,6 +88,10 @@ export function getLlmClient(): LlmClient {
   return llmClientOverride ?? createDefaultLlmClient();
 }
 
+/**
+ * On the final repair attempt (MAX_REPAIR - 1), switches to the escape
+ * model to recover from repeated schema-drift failures.
+ */
 export function getPlanModel(repairAttempt: number): string {
   return repairAttempt >= MAX_REPAIR - 1
     ? env.OPENAI_PLAN_ESCAPE_MODEL

@@ -1,3 +1,6 @@
+/**
+ * Upload pipeline DTOs — HTTP input, limits, pipeline result, graph seed type.
+ */
 import type { EdPathState, PdfMeta, UploadResult } from "@repo/types";
 
 /** Input to the upload pipeline from the HTTP boundary. */
@@ -34,7 +37,7 @@ export type UploadPipelineResult =
       uploadResult: RejectedUploadResult;
     };
 
-/** Seeds graph state after a successful upload (consumed by a future start-lesson step). */
+/** Seeds graph state after upload — consumed by POST /start via start.service. */
 export type InitialEdPathStateSeed = Pick<EdPathState, "pdfText" | "pdfMeta"> &
   Omit<
     EdPathState,

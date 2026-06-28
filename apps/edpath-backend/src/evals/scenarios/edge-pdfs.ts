@@ -1,3 +1,4 @@
+/** Edge-case PDF eval scenarios — minimal and messy document handling. */
 import { MESSY_PDF, MINIMAL_PDF } from "../fixtures/pdfs/index.js";
 import type { EvalCase } from "../types.js";
 

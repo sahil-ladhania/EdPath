@@ -1,3 +1,6 @@
+/**
+ * pdf.js text extraction — raw text + page count from a PDF buffer.
+ */
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 
 export interface PdfExtractionResult {
@@ -17,6 +20,9 @@ export class PdfExtractionError extends Error {
   }
 }
 
+/**
+ * Maps opaque pdf.js errors to typed extraction kinds (encrypted, corrupt, unknown).
+ */
 function classifyPdfJsError(error: unknown): PdfExtractionErrorKind {
   if (error instanceof Error) {
     const name = error.name.toLowerCase();

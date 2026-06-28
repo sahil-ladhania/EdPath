@@ -1,3 +1,8 @@
+/**
+ * CoAgent mirror — redacts full checkpoint state for the browser wire.
+ *
+ * Strips firewalled MCQ fields; runs assertCoAgentFirewall before emit.
+ */
 import type { CoAgentState, EdPathState, MCQ, PublicMCQ } from "@repo/types";
 
 /** Strips firewalled MCQ fields for the browser mirror. */

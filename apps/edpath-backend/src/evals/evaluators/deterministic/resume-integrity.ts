@@ -1,3 +1,4 @@
+/** Deterministic eval: loop_state dimension — checkpoint resume preserves seeded state. */
 import type { GraphState } from "../../../agent/state/annotation.js";
 
 import type { EvalCheckResult, ScenarioRunResult } from "../../types.js";

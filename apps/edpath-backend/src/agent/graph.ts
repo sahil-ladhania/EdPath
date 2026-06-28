@@ -1,3 +1,9 @@
+/**
+ * Graph wiring — nodes + conditional edges; control flow is deterministic.
+ *
+ * Compiles the Plan → Approve → Quiz → Summarize workflow. Routing fns
+ * (routeAfter*) live here; the LLM never chooses the next step.
+ */
 import { END, MemorySaver, START, StateGraph } from "@langchain/langgraph";
 
 import { approvalGateNode } from "./nodes/approval-gate.js";

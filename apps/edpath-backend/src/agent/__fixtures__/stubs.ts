@@ -1,3 +1,4 @@
+/** Vitest stubs — placeholder plan/MCQ responses for stub generative paths. */
 import { LessonPlanSchema } from "@repo/schemas";
 import type { LessonPlan, MCQ } from "@repo/types";
 

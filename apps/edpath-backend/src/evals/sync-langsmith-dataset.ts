@@ -1,3 +1,6 @@
+/**
+ * Pushes eval cases to a LangSmith dataset for external tracking.
+ */
 import { Client } from "langsmith";
 
 import { isLangSmithTracingEnabled } from "../config/env.js";

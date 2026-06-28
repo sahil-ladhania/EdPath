@@ -39,5 +39,4 @@ Wiring and conditional edges live in `graph.ts` (`routeAfter*` functions).
 
 These exports have zero callers today but are kept intentionally for now:
 
-- `generatePlanFromPdf` (`nodes/plan.ts`) — exposed for tests, unused.
 - `getDefaultModel` / `getPlanEscapeModel` (`lib/llm/client.ts`) — superseded by `getPlanModel`.

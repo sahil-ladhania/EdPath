@@ -2,7 +2,6 @@
 
 /**
  * Production CoAgent bridge — state mirror, LangGraph interrupt resolution, and user intents.
- * Dev-only mock equivalent: `useLesson.ts`.
  */
 
 // React

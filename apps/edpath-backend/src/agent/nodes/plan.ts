@@ -67,19 +67,3 @@ export async function planNode(
     tokensUsed: result.tokensUsed - state.tokensUsed,
   });
 }
-
-/** Exposed for tests that need direct LLM plan generation. */
-export async function generatePlanFromPdf(pdfText: string, note?: string) {
-  const userPrompt = note
-    ? `PDF TEXT:\n${pdfText}\n\nUser requested changes: ${note}\n\nGenerate a revised lesson plan.`
-    : `PDF TEXT:\n${pdfText}\n\nGenerate a lesson plan from this PDF.`;
-
-  return structuredGenerate({
-    node: "plan",
-    systemPrompt: PLAN_SYSTEM_PROMPT,
-    userPrompt,
-    schema: LessonPlanSchema,
-    getModel: getPlanModel,
-    tokensUsed: 0,
-  });
-}

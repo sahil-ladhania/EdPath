@@ -4,7 +4,6 @@
  * Lesson orchestrator — phase resolution and surface switching (plan / quiz / summary / loaders).
  */
 
-import { DevPreviewControls } from "@/components/dev/DevPreviewControls";
 import { useCopilotTransportError } from "@/components/copilot/copilot-transport-error-context";
 import { McqWidget } from "@/components/mcq/McqWidget";
 import { PlanWidget } from "@/components/plan/PlanWidget";
@@ -28,10 +27,6 @@ import {
   resolveLessonPhase,
 } from "@/lib/phase-ui";
 import { useEffect } from "react";
-
-/** Dev-only: opt in with NEXT_PUBLIC_EDPATH_DEV_PREVIEW=true. Default OFF. */
-const DEV_PREVIEW_ENABLED =
-  process.env.NEXT_PUBLIC_EDPATH_DEV_PREVIEW === "true";
 
 interface LessonRunnerProps {
   threadId: string;
@@ -86,101 +81,91 @@ export function LessonRunner({ threadId }: LessonRunnerProps) {
   }, [clearTransportError, coAgentLesson.state.feedback]);
 
   return (
-    <>
-      <LessonShell
-        rail={
-          <ObjectiveRail
-            objectives={plan?.objectives ?? []}
-            currentObjectiveIndex={coAgentLesson.state.currentObjectiveIndex}
-            phase={phase}
-            currentQuestionIndex={coAgentLesson.state.currentQuestionIndex}
-            questionCount={coAgentLesson.state.questions.length}
-            isGenerating={isGenerating}
-            hasGenerationError={generationError !== null}
-            generatingMessage={generatingMessage}
-            generatingSubtext={generatingSubtext}
-          />
-        }
-      >
-        {transportError ? (
-          <LessonErrorBanner
-            lastError={{
-              node: "generate_mcq",
-              kind: "schema_drift",
-              detail: transportError.detail,
-            }}
-            title={transportError.message}
-          />
-        ) : null}
-        {generationError ? (
-          <LessonErrorBanner
-            lastError={generationError}
-            title={getLessonErrorTitle(generationError)}
-            onRetry={
-              generationError.node === "generate_mcq"
-                ? coAgentLesson.retryGeneration
-                : undefined
-            }
-            isRetrying={coAgentLesson.isRunning}
-          />
-        ) : null}
-        {isGenerating ? (
-          <GeneratingPanel
-            message={generatingMessage}
-            subtext={generatingSubtext}
-          />
-        ) : null}
-        {!isGenerating && phase === "awaiting_approval" && plan ? (
-          <PlanWidget
-            pdfTitle={pdfTitle}
-            plan={plan}
-            phase={phase}
-            onApprove={coAgentLesson.approvePlan}
-            canSubmitRevision={planRevision.canSubmitRevision}
-            isReviseSubmitting={planRevision.isReviseSubmitting}
-            onSubmitRevision={planRevision.submitRevision}
-          />
-        ) : null}
-        {showQuiz && coAgentQuiz.currentQuestion ? (
-          <McqWidget
-            objectiveTitle={coAgentQuiz.currentObjectiveTitle}
-            questionNumber={coAgentQuiz.questionNumber}
-            questionCount={coAgentQuiz.questionCount}
-            currentAttempt={coAgentQuiz.currentAttempt}
-            question={coAgentQuiz.currentQuestion}
-            selectedIndex={coAgentQuiz.selectedIndex}
-            triedOptionIndices={coAgentQuiz.triedOptionIndices}
-            feedback={coAgentQuiz.feedback}
-            isOptionLocked={coAgentQuiz.isOptionLocked}
-            isSubmitting={coAgentQuiz.isSubmitting}
-            isHelpSubmitting={coAgentQuiz.isHelpSubmitting}
-            canSubmit={coAgentQuiz.canSubmit}
-            isWaitingForAnswer={coAgentQuiz.isWaitingForAnswer}
-            helpThread={coAgentLesson.state.helpThread}
-            helpTurnsUsed={coAgentLesson.state.helpTurnsUsed}
-            canSubmitHelp={coAgentLesson.canSubmitHelp}
-            onSelect={coAgentQuiz.selectOption}
-            onSubmit={coAgentQuiz.submitAnswer}
-            onSubmitHelp={coAgentQuiz.submitHelp}
-            onRetry={coAgentQuiz.retryQuestion}
-            onAdvance={coAgentQuiz.advance}
-          />
-        ) : null}
-        {phase === "complete" && coAgentLesson.state.summary ? (
-          <SummaryView summary={coAgentLesson.state.summary} />
-        ) : null}
-        <div className="sr-only" aria-hidden="true">
-          {coAgentLesson.interruptElement}
-        </div>
-      </LessonShell>
-
-      {DEV_PREVIEW_ENABLED ? (
-        <DevPreviewControls
-          threadId={threadId}
-          phase={phase}
+    <LessonShell
+      rail={
+        <ObjectiveRail
+          objectives={plan?.objectives ?? []}
           currentObjectiveIndex={coAgentLesson.state.currentObjectiveIndex}
+          phase={phase}
+          currentQuestionIndex={coAgentLesson.state.currentQuestionIndex}
+          questionCount={coAgentLesson.state.questions.length}
+          isGenerating={isGenerating}
+          hasGenerationError={generationError !== null}
+          generatingMessage={generatingMessage}
+          generatingSubtext={generatingSubtext}
+        />
+      }
+    >
+      {transportError ? (
+        <LessonErrorBanner
+          lastError={{
+            node: "generate_mcq",
+            kind: "schema_drift",
+            detail: transportError.detail,
+          }}
+          title={transportError.message}
         />
       ) : null}
-    </>
+      {generationError ? (
+        <LessonErrorBanner
+          lastError={generationError}
+          title={getLessonErrorTitle(generationError)}
+          onRetry={
+            generationError.node === "generate_mcq"
+              ? coAgentLesson.retryGeneration
+              : undefined
+          }
+          isRetrying={coAgentLesson.isRunning}
+        />
+      ) : null}
+      {isGenerating ? (
+        <GeneratingPanel
+          message={generatingMessage}
+          subtext={generatingSubtext}
+        />
+      ) : null}
+      {!isGenerating && phase === "awaiting_approval" && plan ? (
+        <PlanWidget
+          pdfTitle={pdfTitle}
+          plan={plan}
+          phase={phase}
+          onApprove={coAgentLesson.approvePlan}
+          canSubmitRevision={planRevision.canSubmitRevision}
+          isReviseSubmitting={planRevision.isReviseSubmitting}
+          onSubmitRevision={planRevision.submitRevision}
+        />
+      ) : null}
+      {showQuiz && coAgentQuiz.currentQuestion ? (
+        <McqWidget
+          objectiveTitle={coAgentQuiz.currentObjectiveTitle}
+          questionNumber={coAgentQuiz.questionNumber}
+          questionCount={coAgentQuiz.questionCount}
+          currentAttempt={coAgentQuiz.currentAttempt}
+          question={coAgentQuiz.currentQuestion}
+          selectedIndex={coAgentQuiz.selectedIndex}
+          triedOptionIndices={coAgentQuiz.triedOptionIndices}
+          feedback={coAgentQuiz.feedback}
+          isOptionLocked={coAgentQuiz.isOptionLocked}
+          isSubmitting={coAgentQuiz.isSubmitting}
+          isHelpSubmitting={coAgentQuiz.isHelpSubmitting}
+          canSubmit={coAgentQuiz.canSubmit}
+          isWaitingForAnswer={coAgentQuiz.isWaitingForAnswer}
+          helpThread={coAgentLesson.state.helpThread}
+          helpTurnsUsed={coAgentLesson.state.helpTurnsUsed}
+          canSubmitHelp={coAgentLesson.canSubmitHelp}
+          onSelect={coAgentQuiz.selectOption}
+          onSubmit={coAgentQuiz.submitAnswer}
+          onSubmitHelp={coAgentQuiz.submitHelp}
+          onRetry={coAgentQuiz.retryQuestion}
+          onAdvance={coAgentQuiz.advance}
+        />
+      ) : null}
+      {phase === "complete" && coAgentLesson.state.summary ? (
+        <SummaryView summary={coAgentLesson.state.summary} />
+      ) : null}
+      <div className="sr-only" aria-hidden="true">
+        {coAgentLesson.interruptElement}
+      </div>
+    </LessonShell>
   );
 }

@@ -1,52 +1,15 @@
 /**
- * Lesson and interrupt hook contracts — CoAgent bridge and dev mock return shapes.
+ * Lesson and interrupt hook contracts — CoAgent bridge return shapes.
  */
 
 import type { ResumePayload } from "@repo/schemas";
 import type {
   ApprovalDecision,
   CoAgentState,
-  Feedback,
   LessonPlan,
-  Objective,
   Phase,
-  PublicMCQ,
-  Summary,
 } from "@repo/types";
 import type { ReactNode } from "react";
-
-export type QuizPreviewOutcome = "correct" | "incorrect" | "exhausted";
-
-interface QuizMemory {
-  triedOptionIndices: number[];
-}
-
-interface UseLessonReturn {
-  threadId: string;
-  state: CoAgentState;
-  phase: Phase;
-  plan: LessonPlan;
-  pdfTitle: string;
-  currentObjectiveIndex: number;
-  currentQuestionIndex: number;
-  currentObjective: Objective;
-  currentQuestions: PublicMCQ[];
-  currentQuestion: PublicMCQ;
-  currentAttempt: number;
-  selectedIndex: number | null;
-  triedOptionIndices: number[];
-  feedback: Feedback | null;
-  summary: Summary;
-  isOptionLocked: boolean;
-  setPhase: (phase: Phase) => void;
-  selectOption: (index: number) => void;
-  submitAnswer: () => void;
-  retryQuestion: () => void;
-  advance: () => void;
-  approvePlan: () => void;
-  jumpToObjective: (index: number) => void;
-  simulateOutcome: (outcome: QuizPreviewOutcome) => void;
-}
 
 interface ApprovalInterruptValue {
   type?: string;
@@ -93,7 +56,5 @@ export type {
   ApprovalInterruptValue,
   AwaitInputInterruptBridgeProps,
   AwaitInputInterruptValue,
-  QuizMemory,
   UseCoAgentLessonReturn,
-  UseLessonReturn,
 };

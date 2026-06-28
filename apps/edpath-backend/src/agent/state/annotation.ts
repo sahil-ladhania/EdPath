@@ -1,3 +1,8 @@
+/**
+ * Graph state schema — EdPathStateAnnotation (single source of state shape).
+ *
+ * Defines internal channels plus routing fields; CoAgent mirror is separate.
+ */
 import { Annotation } from "@langchain/langgraph";
 import type {
   ApprovalDecision,

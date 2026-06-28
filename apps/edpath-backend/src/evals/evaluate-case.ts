@@ -1,3 +1,6 @@
+/**
+ * Per-case evaluator — runs deterministic checks + optional LLM judge per dimension.
+ */
 import type {
   DimensionEvalResult,
   EvalCase,

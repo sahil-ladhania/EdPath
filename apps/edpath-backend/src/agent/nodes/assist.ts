@@ -1,3 +1,9 @@
+/**
+ * Assist graph node (N5 / assist).
+ *
+ * Help side-channel — firewalled input never includes correctIndex or hint.
+ * Bounded by MAX_HELP turns; always returns to await_input.
+ */
 import { isOpenAiConfigured } from "../../config/env.js";
 import { getLlmClient } from "../lib/llm/client.js";
 import {

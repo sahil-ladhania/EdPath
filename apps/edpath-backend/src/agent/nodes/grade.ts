@@ -1,3 +1,10 @@
+/**
+ * Grade graph node (N6 / grade).
+ *
+ * Deterministic answer grader — compares selectedIndex to correctIndex with
+ * no LLM involvement. Updates results[] and score; routes to feedback or
+ * back to await_input on grading errors.
+ */
 import { deriveScore } from "../state/derive-score.js";
 import { MAX_ATTEMPTS } from "../state/constants.js";
 import type { GraphState } from "../state/annotation.js";

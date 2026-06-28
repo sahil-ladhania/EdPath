@@ -1,3 +1,8 @@
+/**
+ * Deterministic answer grader (N6) — pure function + GradingError.
+ *
+ * Compares selectedIndex to correctIndex; graph node wraps for state plumbing.
+ */
 import type {
   GradeAnswerInput,
   GradeAnswerOutput,

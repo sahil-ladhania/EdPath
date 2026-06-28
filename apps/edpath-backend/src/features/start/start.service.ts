@@ -1,3 +1,8 @@
+/**
+ * Start-lesson service — upload PDF, build seed, seed LangGraph thread.
+ *
+ * Validates threadId (UUID v4); maps deployment errors to typed throws.
+ */
 import type { UploadResult } from "@repo/types";
 
 import { buildInitialEdPathState } from "../upload/build-initial-state.js";

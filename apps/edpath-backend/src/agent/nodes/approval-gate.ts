@@ -1,3 +1,9 @@
+/**
+ * Approval gate graph node (N2 / approval_gate).
+ *
+ * HITL interrupt — presents the lesson plan for approve or request-changes.
+ * On approve, routes to generate_mcq; on changes, back to plan_lesson.
+ */
 import { ApprovalDecisionSchema } from "@repo/schemas";
 import { interrupt } from "@langchain/langgraph";
 

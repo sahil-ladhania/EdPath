@@ -1,3 +1,6 @@
+/**
+ * Score derivation from canonical results[] (D5/D10).
+ */
 import type { ObjectiveResult, Score } from "@repo/types";
 
 /** Derives retry-aware score from canonical results[] (D5/D10). */

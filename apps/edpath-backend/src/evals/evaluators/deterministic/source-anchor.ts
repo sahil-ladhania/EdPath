@@ -1,3 +1,4 @@
+/** Deterministic eval: mcqs_grounded dimension — source-anchor on all MCQs. */
 import { z } from "zod";
 
 import { isSourceAnchored } from "../../../agent/lib/source-anchor.js";

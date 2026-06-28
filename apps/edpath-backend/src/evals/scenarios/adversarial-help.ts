@@ -1,3 +1,4 @@
+/** Adversarial help eval scenarios — probe assist firewall for answer leakage. */
 import {
   ADV_ASK_CORRECT_ANSWER,
   ADV_ASK_WHICH_OPTION,

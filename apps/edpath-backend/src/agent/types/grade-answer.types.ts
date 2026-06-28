@@ -1,3 +1,4 @@
+/** Agent-local deterministic grader input/output contracts (N6). */
 import type { MCQ } from "@repo/types";
 
 /** Input to the deterministic grader (N6) — agent-local contract. */

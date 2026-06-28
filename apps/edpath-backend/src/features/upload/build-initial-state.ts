@@ -1,8 +1,11 @@
+/**
+ * Builds the graph initial-state seed from a successful upload.
+ *
+ * Consumed by POST /start (start.service) before seedLessonThread.
+ */
 import type { PdfMeta } from "@repo/types";
-
 import type { InitialEdPathStateSeed } from "./upload.types.js";
 
-/** Builds the graph initial-state seed from a successful upload (future start-lesson step). */
 export function buildInitialEdPathState(input: {
   pdfText: string;
   pdfMeta: PdfMeta;

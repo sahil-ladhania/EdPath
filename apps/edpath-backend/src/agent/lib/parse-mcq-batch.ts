@@ -1,3 +1,6 @@
+/**
+ * MCQ batch normalizer — coerces common LLM JSON shapes before Zod validation.
+ */
 import { McqBatchSchema } from "@repo/schemas";
 import type { MCQ } from "@repo/types";
 

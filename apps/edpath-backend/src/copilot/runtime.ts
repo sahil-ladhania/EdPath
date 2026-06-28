@@ -1,3 +1,6 @@
+/**
+ * CopilotKit runtime registration — mounts the LangGraph agent Express endpoint.
+ */
 import {
   CopilotRuntime,
   copilotRuntimeNodeExpressEndpoint,

@@ -1,3 +1,4 @@
+/** Deterministic eval: plan_grounded dimension — schema and PDF grounding checks. */
 import { LessonPlanSchema } from "@repo/schemas";
 
 import { MAX_OBJECTIVES } from "../../../agent/state/constants.js";

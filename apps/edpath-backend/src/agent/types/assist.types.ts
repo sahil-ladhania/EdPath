@@ -1,4 +1,4 @@
-/** Firewalled context for N5 assist — no answer fields (D4/D20). */
+/** Agent-local assist side-channel contracts (N5) — no answer fields. */
 export interface AssistInput {
   question: string;
   options: string[];

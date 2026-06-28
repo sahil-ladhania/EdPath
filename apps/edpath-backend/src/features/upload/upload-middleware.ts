@@ -1,3 +1,6 @@
+/**
+ * Multer upload middleware and shared upload HTTP helpers.
+ */
 import type { ErrorRequestHandler, RequestHandler } from "express";
 import multer from "multer";
 import { UploadResultSchema } from "@repo/schemas";

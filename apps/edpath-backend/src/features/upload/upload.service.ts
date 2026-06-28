@@ -1,3 +1,8 @@
+/**
+ * PDF upload pipeline — magic-byte check → extract → clean → gate by limits → typed result.
+ *
+ * Linear validation gauntlet upstream of the graph; pdfText never crosses HTTP.
+ */
 import type { PdfMeta, UploadRejectReason } from "@repo/types";
 
 import { extractPdfText, PdfExtractionError } from "./pdf-extract.js";
@@ -59,6 +64,7 @@ export async function processUpload(
 ): Promise<UploadPipelineResult> {
   const filename = sanitizeFilename(input.originalname);
 
+  // Gate: binary size ceiling
   if (input.size > limits.maxBinaryBytes) {
     return reject(
       "over_ceiling",
@@ -66,6 +72,7 @@ export async function processUpload(
     );
   }
 
+  // Gate: PDF magic bytes (mimetype not trusted)
   if (!isPdfBuffer(input.buffer)) {
     return reject(
       "unparseable",
@@ -73,6 +80,7 @@ export async function processUpload(
     );
   }
 
+  // Gate: pdf.js extraction (encrypted / corrupt → typed reject)
   let extraction: Awaited<ReturnType<typeof extractPdfText>>;
 
   try {
@@ -104,6 +112,7 @@ export async function processUpload(
   const charCount = cleanedText.length;
   const pageCount = extraction.pageCount;
 
+  // Gate: page, character, and token ceilings
   if (pageCount > limits.maxPages) {
     return reject(
       "over_ceiling",
@@ -125,6 +134,7 @@ export async function processUpload(
     );
   }
 
+  // Gate: minimum usable text (empty / scanned PDF detection)
   if (charCount < limits.minCleanChars) {
     const charsPerPage = charCount / Math.max(pageCount, 1);
 

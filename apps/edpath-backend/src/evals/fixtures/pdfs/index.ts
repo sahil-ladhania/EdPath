@@ -1,3 +1,4 @@
+/** Eval PDF fixtures — easy, dense, minimal, and messy document variants. */
 import type { PdfMeta } from "@repo/types";
 
 import {

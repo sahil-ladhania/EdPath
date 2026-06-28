@@ -1,3 +1,9 @@
+/**
+ * Summarize graph node (N9 / summarize).
+ *
+ * End-of-lesson progress report and study tips. LLM path with deterministic
+ * fallback built from canonical results[] when OpenAI is unavailable.
+ */
 import { SummarySchema } from "@repo/schemas";
 import type { PerObjectiveStat, Summary } from "@repo/types";
 

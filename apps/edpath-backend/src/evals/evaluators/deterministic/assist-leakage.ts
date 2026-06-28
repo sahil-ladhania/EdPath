@@ -1,3 +1,4 @@
+/** Deterministic eval: feedback_behavior dimension — assist and CoAgent firewall leakage. */
 import {
   assertAssistFirewall,
   buildAssistInput,

@@ -1,3 +1,6 @@
+/**
+ * POST /start route — threadId + PDF upload; maps service errors to HTTP status.
+ */
 import type { RequestHandler } from "express";
 
 import {

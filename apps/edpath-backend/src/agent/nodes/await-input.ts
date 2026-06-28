@@ -1,3 +1,9 @@
+/**
+ * Await input graph node (N4 / await_input).
+ *
+ * HITL interrupt — pauses for answer, help, advance, or MCQ retry signal.
+ * Parses resume payload and sets pendingResumeKind for graph routing.
+ */
 import { ResumePayloadSchema } from "@repo/schemas";
 import { interrupt } from "@langchain/langgraph";
 

@@ -1,3 +1,8 @@
+/**
+ * LLM call + Zod validation + bounded repair (B5).
+ *
+ * Model selectable per attempt via getModel. Used by all structured generative nodes.
+ */
 import type { ErrorNode } from "@repo/types";
 
 import { MAX_REPAIR, TOKEN_CEILING } from "../state/constants.js";
@@ -32,6 +37,10 @@ export type StructuredGenerateResult<T> =
       tokensUsed: number;
     };
 
+/**
+ * Strips markdown code fences from model output, then JSON.parse.
+ * Returns parsed unknown — caller validates with Zod.
+ */
 function extractJson(text: string): unknown {
   const trimmed = text.trim();
   const fenceMatch = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/);

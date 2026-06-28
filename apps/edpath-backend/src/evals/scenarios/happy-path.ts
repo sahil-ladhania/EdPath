@@ -1,3 +1,4 @@
+/** Happy-path eval scenarios — full lesson flow with correct and wrong answers. */
 import type { EvalCase } from "../types.js";
 import { EASY_PDF, DENSE_PDF } from "../fixtures/pdfs/index.js";
 

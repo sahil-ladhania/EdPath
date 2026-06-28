@@ -1,3 +1,9 @@
+/**
+ * Assemble feedback graph node (N7 / assemble_feedback).
+ *
+ * Builds the green/red feedback payload (hint or explanation) from grading
+ * results. Always routes back to await_input for a stable resting state.
+ */
 import { FeedbackSchema } from "@repo/schemas";
 import type { Feedback } from "@repo/types";
 

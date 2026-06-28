@@ -1,6 +1,6 @@
+/** Grounded PDF text fixture for agent unit tests. */
 import type { PdfMeta } from "@repo/types";
 
-/** Short grounded PDF text for agent tests. */
 export const FIXTURE_PDF_TEXT = `
 Photosynthesis is the process by which green plants convert light energy into chemical energy.
 Chlorophyll in chloroplasts absorbs sunlight and drives the synthesis of glucose from carbon dioxide and water.

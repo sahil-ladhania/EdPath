@@ -1,3 +1,6 @@
+/**
+ * LLM-as-judge evaluators — soft 0.8 threshold; no-op without OPENAI_API_KEY.
+ */
 import { z } from "zod";
 
 import { getLlmClient } from "../../../agent/lib/llm/client.js";

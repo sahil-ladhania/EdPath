@@ -1,3 +1,6 @@
+/**
+ * Graph update plumbing — merges node patches and refreshes coAgentSnapshot.
+ */
 import type { EdPathState } from "@repo/types";
 
 import type { AgentMessage } from "../types/message.types.js";

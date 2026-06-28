@@ -1,3 +1,6 @@
+/**
+ * Eval CLI entry — EVAL_LLM and EVAL_FILTER env knobs; exits 1 on failures.
+ */
 import { runEvalSuite, formatSuiteReport } from "./run-suite.js";
 
 const useLlm = process.env.EVAL_LLM === "1" || process.env.EVAL_LLM === "true";

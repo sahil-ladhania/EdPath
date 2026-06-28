@@ -17,7 +17,7 @@ export function toPublicMcq(mcq: MCQ): PublicMCQ {
 
 /** Maps full checkpoint state to the redacted CoAgent mirror (Flag 2). */
 export function toCoAgentState(state: EdPathState): CoAgentState {
-  return {
+  const mirror: CoAgentState = {
     pdfMeta: state.pdfMeta,
     plan: state.plan,
     approval: state.approval,
@@ -35,6 +35,16 @@ export function toCoAgentState(state: EdPathState): CoAgentState {
     phase: state.phase,
     lastError: state.lastError,
   };
+
+  // Defense-in-depth: the mirror is already redacted by construction
+  // (toPublicMcq strips the firewalled fields), so this guard always passes
+  // today. It runs on every emit — toCoAgentState is the single chokepoint for
+  // withCoAgentSnapshot, seedGraphState, and the initial state — so a future
+  // change that reintroduces a firewalled key fails loud here instead of
+  // silently reaching the browser.
+  assertCoAgentFirewall(mirror);
+
+  return mirror;
 }
 
 /** Asserts the CoAgent mirror JSON contains no firewalled keys. */

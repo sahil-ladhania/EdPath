@@ -64,7 +64,15 @@ export async function generateMcqNode(
     });
   }
 
-  const userPrompt = `PDF TEXT:\n${state.pdfText}\n\nOBJECTIVE:\n${JSON.stringify(objective, null, 2)}\n\nGenerate exactly ${MCQS_PER_OBJECTIVE} MCQs for this objective. Set objectiveId to "${objective.objectiveId}". Return JSON: { "questions": [ ... ] }.`;
+  const userPrompt = `PDF TEXT:
+<pdf_content>
+${state.pdfText}
+</pdf_content>
+
+OBJECTIVE:
+${JSON.stringify(objective, null, 2)}
+
+Generate exactly ${MCQS_PER_OBJECTIVE} MCQs for this objective. Set objectiveId to "${objective.objectiveId}". Return JSON: { "questions": [ ... ] }.`;
 
   const result = await structuredGenerate<MCQ[]>({
     node: "generate_mcq",

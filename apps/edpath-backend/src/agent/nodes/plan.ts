@@ -40,8 +40,20 @@ export async function planNode(
     state.approval?.decision === "changes" ? state.approval.note : undefined;
 
   const userPrompt = replanNote
-    ? `PDF TEXT:\n${state.pdfText}\n\nUser requested changes: ${replanNote}\n\nGenerate a revised lesson plan.`
-    : `PDF TEXT:\n${state.pdfText}\n\nGenerate a lesson plan from this PDF.`;
+    ? `PDF TEXT:
+<pdf_content>
+${state.pdfText}
+</pdf_content>
+
+User requested changes: ${replanNote}
+
+Generate a revised lesson plan.`
+    : `PDF TEXT:
+<pdf_content>
+${state.pdfText}
+</pdf_content>
+
+Generate a lesson plan from this PDF.`;
 
   const result = await structuredGenerate({
     node: "plan",

@@ -22,7 +22,7 @@ export type AnswerSubmission = z.infer<typeof AnswerSubmissionSchema>;
 
 /** N4 resume payload — a free-text help request (→ assist) (Part C #7; F8.1). */
 export const HelpMessageSchema = z.object({
-  text: z.string().min(1),
+  text: z.string().min(1).max(2000),
 });
 export type HelpMessage = z.infer<typeof HelpMessageSchema>;
 

@@ -72,7 +72,20 @@ export async function summarizeNode(
     .filter((o) => o.firstTryRate < 1)
     .map((o) => o.title);
 
-  const userPrompt = `PDF TEXT:\n${state.pdfText}\n\nRESULTS:\n${JSON.stringify(state.results, null, 2)}\n\nPER OBJECTIVE STATS:\n${JSON.stringify(deterministic.perObjective, null, 2)}\n\nWeak objectives: ${weakObjectives.join(", ") || "none"}\n\nGenerate a Summary JSON with grounded study tips for weak areas.`;
+  const userPrompt = `PDF TEXT:
+<pdf_content>
+${state.pdfText}
+</pdf_content>
+
+RESULTS:
+${JSON.stringify(state.results, null, 2)}
+
+PER OBJECTIVE STATS:
+${JSON.stringify(deterministic.perObjective, null, 2)}
+
+Weak objectives: ${weakObjectives.join(", ") || "none"}
+
+Generate a Summary JSON with grounded study tips for weak areas.`;
 
   const result = await structuredGenerate({
     node: "summarize",

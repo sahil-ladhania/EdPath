@@ -11,7 +11,7 @@ import {
   buildAssistInput,
 } from "../lib/assist-input.js";
 import { ASSIST_SYSTEM_PROMPT } from "../prompts/index.js";
-import { MAX_HELP } from "../state/constants.js";
+import { MAX_HELP, TOKEN_CEILING } from "../state/constants.js";
 import type { GraphState } from "../state/annotation.js";
 import { withCoAgentSnapshot } from "../state/graph-update.js";
 import type { AgentMessage } from "../types/message.types.js";
@@ -24,11 +24,12 @@ export async function assistNode(
 ): Promise<ReturnType<typeof withCoAgentSnapshot>> {
   const helpText = state.pendingHelpText ?? "";
   const atCap = state.helpTurnsUsed >= MAX_HELP;
+  const atTokenCeiling = state.tokensUsed >= TOKEN_CEILING;
 
   let assistantContent: string;
   let tokenDelta = 0;
 
-  if (atCap) {
+  if (atCap || atTokenCeiling) {
     assistantContent = DECLINE_MESSAGE;
   } else if (!isOpenAiConfigured()) {
     assistantContent =
@@ -38,7 +39,21 @@ export async function assistNode(
     const input = buildAssistInput(state, helpText);
     assertAssistFirewall(input);
 
-    const userPrompt = `PDF TEXT:\n${input.pdfText}\n\nOBJECTIVE: ${input.objectiveTitle}\n\nQUESTION: ${input.question}\n\nOPTIONS:\n${input.options.map((o, i) => `${i}. ${o}`).join("\n")}\n\nSTUDENT MESSAGE: ${input.userMessage}`;
+    const userPrompt = `PDF TEXT:
+<pdf_content>
+${input.pdfText}
+</pdf_content>
+
+OBJECTIVE: ${input.objectiveTitle}
+
+QUESTION: ${input.question}
+
+OPTIONS:
+${input.options.map((o, i) => `${i}. ${o}`).join("\n")}
+
+<student_message>
+${input.userMessage}
+</student_message>`;
 
     const client = getLlmClient();
     const result = await client.invoke(ASSIST_SYSTEM_PROMPT, userPrompt);
@@ -55,7 +70,10 @@ export async function assistNode(
   // expects LangChain message types there and throws INCOMPLETE_STREAM otherwise.
   return withCoAgentSnapshot(state, {
     helpThread: [...state.helpThread, ...newMessages],
-    helpTurnsUsed: atCap ? state.helpTurnsUsed : state.helpTurnsUsed + 1,
+    helpTurnsUsed:
+      atCap || atTokenCeiling
+        ? state.helpTurnsUsed
+        : state.helpTurnsUsed + 1,
     pendingResumeKind: null,
     pendingHelpText: null,
     phase: "awaiting_input",

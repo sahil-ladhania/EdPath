@@ -5,7 +5,6 @@
  */
 
 import { CheckCircle2Icon, XCircleIcon } from "lucide-react";
-import type { Feedback, PublicMCQ } from "@repo/types";
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";

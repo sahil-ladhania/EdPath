@@ -5,7 +5,6 @@
  */
 
 import { ArrowRightIcon, SendIcon } from "lucide-react";
-import type { Feedback } from "@repo/types";
 
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/Icon";

@@ -4,9 +4,6 @@
  * Quiz card composition — question, options, feedback, help, and actions.
  */
 
-// Shared types
-import type { Feedback, HelpThreadMessage, PublicMCQ } from "@repo/types";
-
 // Constants
 import { MAX_ATTEMPTS, MAX_HELP } from "@repo/schemas/constants";
 

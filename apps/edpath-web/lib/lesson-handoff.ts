@@ -1,5 +1,3 @@
-import type { PdfMeta } from "@repo/types";
-
 /**
  * Client-side lesson thread helpers.
  *

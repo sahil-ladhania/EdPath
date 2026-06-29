@@ -5,7 +5,7 @@
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { CoAgentState, Feedback, LessonPlan, PublicMCQ } from "@repo/types";
+import type { Feedback } from "@repo/types";
 
 import { MAX_ATTEMPTS } from "@repo/schemas/constants";
 

@@ -11,7 +11,6 @@ import {
   useMemo,
   useRef,
   useState,
-  type ReactNode,
 } from "react";
 
 // CopilotKit
@@ -24,7 +23,7 @@ import { Role, TextMessage } from "@copilotkit/runtime-client-gql";
 
 // Shared types
 import type { ResumePayload } from "@repo/schemas";
-import type { ApprovalDecision, CoAgentState, LessonPlan, Phase } from "@repo/types";
+import type { ApprovalDecision, CoAgentState } from "@repo/types";
 
 // Internal lib
 import { getEmptyCoAgentState } from "@/lib/empty-co-agent-state";
@@ -52,7 +51,11 @@ function ApprovalInterruptBridge({
   resolve,
 }: ApprovalInterruptBridgeProps): null {
   const resolveRef = useRef(resolve);
-  resolveRef.current = resolve;
+  // Keep the ref current via a committed effect (not a render-phase write) so
+  // the registered resolver always calls the latest interrupt resolve().
+  useEffect(() => {
+    resolveRef.current = resolve;
+  });
 
   useEffect(() => {
     onResolverReady((decision: ApprovalDecision) => {
@@ -71,7 +74,11 @@ function AwaitInputInterruptBridge({
   resolve,
 }: AwaitInputInterruptBridgeProps): null {
   const resolveRef = useRef(resolve);
-  resolveRef.current = resolve;
+  // Keep the ref current via a committed effect (not a render-phase write) so
+  // the registered resolver always calls the latest interrupt resolve().
+  useEffect(() => {
+    resolveRef.current = resolve;
+  });
 
   useEffect(() => {
     onResolverReady((payload: ResumePayload) => {

@@ -4,9 +4,6 @@
  * Plan approval surface — objectives list, approve/revise actions, and replan overlay.
  */
 
-// Shared types
-import type { LessonPlan, Phase } from "@repo/types";
-
 // Plan components
 import { PlanActions } from "@/components/plan/PlanActions";
 import { PlanHeader } from "@/components/plan/PlanHeader";

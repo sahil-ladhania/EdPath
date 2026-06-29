@@ -5,7 +5,6 @@
  */
 
 import { CheckIcon, CircleDotIcon, CircleIcon, RouteIcon } from "lucide-react";
-import type { Objective, Phase } from "@repo/types";
 
 import { GeneratingState } from "@/components/ui/GeneratingState";
 import { Icon } from "@/components/ui/Icon";

@@ -120,7 +120,7 @@ Node **[4a] ASSIST** (the "hint / learn more" turn, Challenge #2) is the only fr
 └──────────┬───────────────────────────────────────────────┬───────────────┘
            ▼                                                 ▼
 ┌────────────────────────────────┐         ┌──────────────────────────────┐
-│  LangGraph agent (TS)           │ ──────► │  LLM (Claude)                 │
+│  LangGraph agent (TS)           │ ──────► │  LLM (OpenAI)                 │
 │  nodes N1–N9, 2 interrupts      │ ◄────── │  generative nodes only        │
 │  state = single source of truth │         └──────────────────────────────┘
 │  checkpointer (durable/resume)  │
@@ -181,7 +181,7 @@ The only durable surface is the **LangGraph checkpoint** (the state object per `
 | **Frontend (`edpath-web`)**    | Rendering: upload UI, plan-approval widget, MCQ widget (radios/submit, green/red), summary; mirroring agent state via CopilotKit; sending intents (approve, answer index, help text). | No business logic, no grading, **no progress/score state** (no ad-hoc client state), no LLM calls. |
 | **Backend (`edpath-backend`)** | PDF extraction + cleaning; starting/owning graph runs (`threadId`); hosting the CopilotKit Runtime; **Zod-validating every artifact** at the boundary; wiring tracing + checkpointer. | No pedagogical decisions; no UI rendering.                                                         |
 | **Agent (LangGraph)**          | The whole control flow (N1–N9, branches, interrupts), the **single-source-of-truth state**, deterministic grading, bounded loops.                                                     | No transport/protocol; no extraction; no rendering.                                                |
-| **LLM (Claude)**               | Filling content at generative nodes only; returning schema-valid artifacts.                                                                                                           | **Never** chooses control flow, grades, or sees `correctIndex` in assist.                          |
+| **LLM (OpenAI)**               | Filling content at generative nodes only; returning schema-valid artifacts.                                                                                                           | **Never** chooses control flow, grades, or sees `correctIndex` in assist.                          |
 | **Shared packages**            | `schemas` (Zod contracts, one source of truth both ends), `ui` (shared widgets), `tokens` (green/red functional feedback).                                                            | —                                                                                                  |
 
 

@@ -53,7 +53,7 @@ Choosing an autonomous agent would trade latency, cost, and a large failure surf
 
 One augmented LLM, invoked at four generative nodes (plan, MCQ, assist, summarize). Same backbone, tailored context per node.
 
-- **Model (locked — B8):** Claude, current generation. **`claude-sonnet-4-6`** is the workhorse for all four generative nodes (N1 plan, N3 MCQ, N5 assist, N9 summarize); **`claude-opus-4-8`** is an **N1-plan escape hatch only** if plan-quality evals demand it. N6/N7/N8 call no model. Model-per-node and cost routing remain tuning, not architecture — the architectural requirement is only "a capable, structured-output-reliable Claude model."
+- **Model (locked — B8):** OpenAI, current generation. **`gpt-4o-mini`** (`OPENAI_MODEL`) is the workhorse for all four generative nodes (N1 plan, N3 MCQ, N5 assist, N9 summarize); **`gpt-4o`** (`OPENAI_PLAN_ESCAPE_MODEL`) is an **N1-plan escape hatch only** if plan-quality evals demand it. N6/N7/N8 call no model. Model-per-node and cost routing remain tuning, not architecture — the architectural requirement is only "a capable, structured-output-reliable model."
 - **Context per call (high-signal only):** a node-specific **system prompt** (role + job + guardrails, at the right altitude); **`pdfText`** (grounding — this is our "retrieval" minus a vector store); and a **minimal slice of state** (e.g. MCQ node → current objective; assist → current question *without* `correctIndex`; summary → results).
 - **Memory:** lives in the **LangGraph state object (checkpointed)**, not in the model and not in a bespoke store. The state *is* the memory — this is what makes refresh-survival (Challenge #1) and state-as-source-of-truth (Challenge #5) solvable.
 - **Tools:** the **LLM calls essentially none.** The only deterministic operation — grading — is plain code the graph calls (N6), never a model-chosen tool. The atomic unit is *"LLM + grounding context + state-as-memory + structured output"* with the tools dimension deliberately empty. Simplest possible unit, and enough.
@@ -265,7 +265,7 @@ The items this gate walk previously left `PROVISIONAL` are now locked:
 - Scoring rule for "retry without penalty" → **D5 / D10 / D13**.
 - Difficulty representation → **D17** (`"easy" | "medium" | "hard"`).
 - Retry cap, help-turn cap, max objectives, per-run cost ceiling → **B2 / B3 / B4 / B7** (3, 3, ≤ 8, ≈1.5M tokens), plus repair retries ≤ 2 (**B5**).
-- Model-per-node / cost routing → **B8** (`claude-sonnet-4-6` for N1/N3/N5/N9; `claude-opus-4-8` N1 escape hatch).
+- Model-per-node / cost routing → **B8** (`gpt-4o-mini` for N1/N3/N5/N9; `gpt-4o` N1 escape hatch).
 - MCQ-grounding self-check → **D4** (deterministic source-anchor check locked; inline LLM self-check deferred as an escape hatch).
 
 **Still open (optional, latency-only — not required for v1):**

@@ -5,7 +5,6 @@
  */
 
 import { AlertCircleIcon, RefreshCwIcon } from "lucide-react";
-import type { LastError } from "@repo/types";
 
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/Icon";

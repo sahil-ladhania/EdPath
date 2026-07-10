@@ -39,3 +39,9 @@ yarn-error.log*
 
 # LangGraph API
 .langgraph_api
+
+# Local-only reference docs (kept on disk, not pushed to GitHub)
+docs/reference/assignment.md
+docs/reference/challenges.md
+docs/reference/db-schema.md
+docs/reference/feature-flow.md

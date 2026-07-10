@@ -6,6 +6,31 @@
 >
 > `PROVISIONAL:` tags marked simplest-default positions pending the decisions session. That session is complete: the locked outcomes live in `design-decisions.md` and have been reconciled into this document (see the closing "Resolved" section). A remaining `PROVISIONAL` tag marks a still-open *optional* item, not an unmade decision.
 
+## Table of Contents
+
+- [Gate 0 — The contract (agent level)](#gate-0--the-contract-agent-level)
+  - [Input](#input)
+  - [Output](#output-contract-level-full-zod-in-gate-5)
+  - [Success criteria](#success-criteria-end-state-not-per-step)
+  - [Non-goals](#non-goals)
+- [Gate 1 — Workflow vs. agent](#gate-1--workflow-vs-agent)
+- [Gate 2 — The atomic unit (augmented LLM)](#gate-2--the-atomic-unit-augmented-llm)
+- [Gate 3 — Lowest pattern on the ladder](#gate-3--lowest-pattern-on-the-ladder)
+- [Gate 4 — Single vs. multi-agent (cost gate)](#gate-4--single-vs-multi-agent-cost-gate)
+- [Gate 5 — The graph design + ACI](#gate-5--the-graph-design--aci)
+  - [5.1 State object](#51-state-object-single-source-of-truth-the-agents-memory)
+  - [5.2 Nodes](#52-nodes)
+  - [5.3 Edges & branches](#53-edges--branches)
+  - [5.4 Interrupts & resume](#54-interrupts--resume)
+  - [5.5 ACI contracts](#55-gate-5--aci-structured-output-contracts-full-zod-at-build-in-packagesschemas)
+- [Gate 6 — Reliability spine](#gate-6--reliability-spine)
+  - [Bounded loops](#bounded-loops)
+  - [Failure points → recovery](#failure-points--recovery)
+  - [Tracing](#tracing)
+  - [Human checkpoint](#human-checkpoint)
+  - [Evals](#evals-20-real-cases-end-state--not-per-step)
+- [Resolved in `design-decisions.md`](#resolved-in-design-decisionsmd)
+
 ---
 
 ## Gate 0 — The contract (agent level)
@@ -13,11 +38,16 @@
 The agent is the **LangGraph workflow**. (The system-level contract is in `architecture.md §2`.)
 
 ### Input
+
 - **`pdfText`** — cleaned full text of the PDF (extraction happens upstream of the graph). The graph's grounding source.
 - **`threadId`** — the checkpointer thread that makes the run durable/resumable.
-- **Resume values** delivered into a paused graph: the approval decision; the selected answer index; free-text help messages.
+- **Resume values** delivered into a paused graph:
+  - the approval decision
+  - the selected answer index
+  - free-text help messages
 
 ### Output (contract level; full Zod in §Gate 5)
+
 Four validated structured artifacts, each conforming to a shared schema in `packages/schemas`, plus a terminal end-state:
 
 | Artifact | Shape (high level) | Purpose |
@@ -30,6 +60,7 @@ Four validated structured artifacts, each conforming to a shared schema in `pack
 The **end-state** holds completed objectives, per-question attempts, retry-aware score, and the summary — the thing evals assert on.
 
 ### Success criteria (end-state, not per-step)
+
 - **Grounding:** plan + every MCQ derivable from `pdfText` (no invented facts).
 - **Branch correctness:** correct → explanation + advance; incorrect → hint + retry, attempts incremented, **score not penalized for retries**.
 - **No leakage:** across all help turns, `correctIndex` is never revealed; the model returns to the active question.
@@ -37,15 +68,26 @@ The **end-state** holds completed objectives, per-question attempts, retry-aware
 - **Schema validity:** every artifact passes its Zod schema before leaving the backend.
 
 ### Non-goals
+
 Not an autonomous agent (the LLM does not choose control flow); no multi-PDF, no RAG, no multi-user, no bespoke persistence schema (checkpointer first).
 
 ---
 
 ## Gate 1 — Workflow vs. agent
 
-**EdPath is a workflow** — deterministic, engineer-controlled, with one bounded dynamic pocket. The whole path is drawable up front (the assignment's numbered flow); only content and (bounded) iteration count vary. The LLM never decides the next step.
+**Decision**
 
-Choosing an autonomous agent would trade latency, cost, and a large failure surface for flexibility the task does not want, and would fight every item in `challenges.md`. See the end-to-end control-flow diagram and the bounded-assist analysis in `architecture.md §3`; the node/edge detail is in **Gate 5** below.
+**EdPath is a workflow** — deterministic, engineer-controlled, with one bounded dynamic pocket.
+
+**Rationale**
+
+The whole path is drawable up front (the assignment's numbered flow); only content and (bounded) iteration count vary. The LLM never decides the next step.
+
+Choosing an autonomous agent would trade latency, cost, and a large failure surface for flexibility the task does not want, and would fight every item in `challenges.md`.
+
+**See also**
+
+See the end-to-end control-flow diagram and the bounded-assist analysis in `architecture.md §3`; the node/edge detail is in **Gate 5** below.
 
 ---
 
@@ -53,16 +95,45 @@ Choosing an autonomous agent would trade latency, cost, and a large failure surf
 
 One augmented LLM, invoked at four generative nodes (plan, MCQ, assist, summarize). Same backbone, tailored context per node.
 
+<<<<<<< HEAD
 - **Model (locked — B8):** OpenAI, current generation. **`gpt-4o-mini`** (`OPENAI_MODEL`) is the workhorse for all four generative nodes (N1 plan, N3 MCQ, N5 assist, N9 summarize); **`gpt-4o`** (`OPENAI_PLAN_ESCAPE_MODEL`) is an **N1-plan escape hatch only** if plan-quality evals demand it. N6/N7/N8 call no model. Model-per-node and cost routing remain tuning, not architecture — the architectural requirement is only "a capable, structured-output-reliable model."
 - **Context per call (high-signal only):** a node-specific **system prompt** (role + job + guardrails, at the right altitude); **`pdfText`** (grounding — this is our "retrieval" minus a vector store); and a **minimal slice of state** (e.g. MCQ node → current objective; assist → current question *without* `correctIndex`; summary → results).
 - **Memory:** lives in the **LangGraph state object (checkpointed)**, not in the model and not in a bespoke store. The state *is* the memory — this is what makes refresh-survival (Challenge #1) and state-as-source-of-truth (Challenge #5) solvable.
 - **Tools:** the **LLM calls essentially none.** The only deterministic operation — grading — is plain code the graph calls (N6), never a model-chosen tool. The atomic unit is *"LLM + grounding context + state-as-memory + structured output"* with the tools dimension deliberately empty. Simplest possible unit, and enough.
+=======
+**Model (locked — B8)**
+
+Claude, current generation.
+
+- **`claude-sonnet-4-6`** is the workhorse for all four generative nodes (N1 plan, N3 MCQ, N5 assist, N9 summarize)
+- **`claude-opus-4-8`** is an **N1-plan escape hatch only** if plan-quality evals demand it
+- N6/N7/N8 call no model
+- Model-per-node and cost routing remain tuning, not architecture — the architectural requirement is only "a capable, structured-output-reliable Claude model."
+
+**Context per call (high-signal only)**
+
+- a node-specific **system prompt** (role + job + guardrails, at the right altitude)
+- **`pdfText`** (grounding — this is our "retrieval" minus a vector store)
+- and a **minimal slice of state** (e.g. MCQ node → current objective; assist → current question *without* `correctIndex`; summary → results)
+
+**Memory**
+
+lives in the **LangGraph state object (checkpointed)**, not in the model and not in a bespoke store. The state *is* the memory — this is what makes refresh-survival (Challenge #1) and state-as-source-of-truth (Challenge #5) solvable.
+
+**Tools**
+
+the **LLM calls essentially none.**
+
+- The only deterministic operation — grading — is plain code the graph calls (N6), never a model-chosen tool.
+- The atomic unit is *"LLM + grounding context + state-as-memory + structured output"* with the tools dimension deliberately empty.
+- Simplest possible unit, and enough.
+>>>>>>> 89f8c55 (refactor: improve documentation readability)
 
 ---
 
 ## Gate 3 — Lowest pattern on the ladder
 
-**Chosen: prompt chaining (rung 2)** — fixed sequential steps with programmatic gates between them — **plus two non-ladder workflow constructs:** a **bounded loop** (per-objective / retry) and a **human interrupt** (approval). Assist is a single LLM call (rung 1) hung off the loop.
+> **Chosen: prompt chaining (rung 2)** — fixed sequential steps with programmatic gates between them — **plus two non-ladder workflow constructs:** a **bounded loop** (per-objective / retry) and a **human interrupt** (approval). Assist is a single LLM call (rung 1) hung off the loop.
 
 | Rung | Pattern | Used? | Why / why not |
 |---|---|---|---|
@@ -80,7 +151,13 @@ The **bounded loop** (objectives + retries) is required by AC7/AC8; the **human 
 
 ## Gate 4 — Single vs. multi-agent (cost gate)
 
-**Single agent — one workflow, one shared state.** Multi-agent must clear both bars (independent parallel threads AND value justifying ~15× tokens); EdPath clears neither: the flow is sequential and shares one state across all nodes, and it's a single-user session over one bounded PDF. The four generative nodes are the *same* augmented LLM at different steps, not four agents. Multi-agent here is over-engineering.
+**Decision**
+
+**Single agent — one workflow, one shared state.**
+
+**Rationale**
+
+Multi-agent must clear both bars (independent parallel threads AND value justifying ~15× tokens); EdPath clears neither: the flow is sequential and shares one state across all nodes, and it's a single-user session over one bounded PDF. The four generative nodes are the *same* augmented LLM at different steps, not four agents. Multi-agent here is over-engineering.
 
 ---
 
@@ -108,9 +185,12 @@ The **bounded loop** (objectives + retries) is required by AC7/AC8; the **human 
 | `lastError` | `{ node, kind, detail } \| null` | reliability/recovery |
 
 **Locked field notes (from `design-decisions.md`):**
+
 - **`questions` (list) + `currentQuestionIndex`** — confirmed (D2 / B1): a fixed **`N = 3`** MCQs per objective, generated lazily in one batched N3 call and presented one at a time; `questions[]` is durable once generated and **never regenerated on resume** (D5). The inner loop stays.
 - **`score` / `firstTryCorrect`** encode the "retry without penalty" rule (D5 / D10): `results[]` is canonical, `score` is derived from it, retries never reduce score; `firstTry` is tracked for the summary.
 - **`difficulty`** in `LessonPlan` is locked to `"easy" | "medium" | "hard"` (D17).
+
+---
 
 ### 5.2 Nodes
 
@@ -126,7 +206,11 @@ The **bounded loop** (objectives + retries) is required by AC7/AC8; the **human 
 | N8 | `advance` | move pointers (next question → next objective), reset per-question counters | ❌ |
 | N9 | `summarize` | from `results`/`score`, produce `Summary` | ✅ |
 
+**Why code, not LLM**
+
 N6/N7 are code, not LLM: grading never touches a model, and feedback text was generated *with* the question (one validated artifact). This is why leakage in N5 cannot corrupt scoring, and hints/explanations stay grounded.
+
+---
 
 ### 5.3 Edges & branches
 
@@ -143,21 +227,49 @@ START ─► N1 plan ─► N2 approval_gate ⏸
         N8 ─[all done]─► N9 summarize ─► END
 ```
 
-Every branch is a **deterministic conditional over state**: `approval_gate` reads `approval.decision`; `await_input` split is a deterministic check on the resume payload's *kind* (widget answer vs. free text), not LLM routing; `feedback` reads the grade verdict; `advance` compares indices against lengths. The `incorrect → await_input` edge delivers AC7 (same question, `attempts++`, score untouched). The `N2 ─[changes]─► N1` edge re-runs planning with `pdfText` + `approval.note` (full re-plan, no diff/patch — D7). **No skip/back edges in v1 (D24)** — progression is linear.
+Every branch is a **deterministic conditional over state**:
+
+- `approval_gate` reads `approval.decision`
+- `await_input` split is a deterministic check on the resume payload's *kind* (widget answer vs. free text), not LLM routing
+- `feedback` reads the grade verdict
+- `advance` compares indices against lengths
+
+The `incorrect → await_input` edge delivers AC7 (same question, `attempts++`, score untouched).
+
+The `N2 ─[changes]─► N1` edge re-runs planning with `pdfText` + `approval.note` (full re-plan, no diff/patch — D7).
+
+**No skip/back edges in v1 (D24)** — progression is linear.
+
+---
 
 ### 5.4 Interrupts & resume
 
 **Two interrupts, both checkpointer-backed** so state is durable at every pause (Challenge #1):
+
 1. **`approval_gate` (N2)** — the mandatory HITL (AC3). `interrupt(plan)` persists state keyed by `threadId` and halts; nothing downstream runs until resumed.
 2. **`await_input` (N4)** — the per-question pause; same mechanism, so a mid-quiz reload holds.
 
-**Resume (conceptual):** the client sends a resume command (`Command(resume = payload)`) for the thread; LangGraph reloads the checkpoint for `threadId`, injects `payload` as the `interrupt()` return value, and continues *from that node* (not a restart). Approval payload → `approval`; await_input payload → either `selectedIndex` (→ grade) or a help message (→ assist). **On refresh:** the frontend re-attaches to `threadId`, the checkpointer rehydrates state, and `phase` tells the UI which surface to re-render. No client-held progress — graph state is authoritative.
+**Resume (conceptual)**
+
+- the client sends a resume command (`Command(resume = payload)`) for the thread
+- LangGraph reloads the checkpoint for `threadId`, injects `payload` as the `interrupt()` return value, and continues *from that node* (not a restart)
+- Approval payload → `approval`
+- await_input payload → either `selectedIndex` (→ grade) or a help message (→ assist)
+
+**On refresh**
+
+- the frontend re-attaches to `threadId`
+- the checkpointer rehydrates state, and `phase` tells the UI which surface to re-render
+- No client-held progress — graph state is authoritative
+
+---
 
 ### 5.5 Gate 5 — ACI: structured-output contracts (full Zod at build, in `packages/schemas`)
 
 The ACI is **almost entirely these four contracts** — the model's action space is *"return a valid artifact of shape X,"* validated on the backend **before** it reaches state or the widget (Challenge #4).
 
 **A. LessonPlan**
+
 ```
 LessonPlan { objectives: Objective[] }                       // ordered todo list
 Objective  { objectiveId: string
@@ -167,6 +279,7 @@ Objective  { objectiveId: string
 ```
 
 **B. MCQ**
+
 ```
 MCQ { questionId: string
       objectiveId: string                                    // trace back to plan
@@ -179,6 +292,7 @@ MCQ { questionId: string
 ```
 
 **C. Feedback** (assembled in N7 from MCQ + grade — not a fresh LLM artifact)
+
 ```
 Feedback { verdict: "correct"|"incorrect"
            highlightIndex: number                            // submitted option, for green/red
@@ -189,20 +303,27 @@ Feedback { verdict: "correct"|"incorrect"
 ```
 
 **D. Summary**
+
 ```
 Summary { perObjective: { objectiveId, title, correct, total, firstTryRate }[]
           overall: { correct, total, firstTryRate }
           studyTips: string[] }                              // personalized, grounded in weak objectives
 ```
 
-**Assist (N5)** returns a plain chat message — no structured artifact — so it stays a single bounded call and can't drive UI state.
+**Assist (N5)**
 
-**ACI rules (poka-yoke):**
-- `correctIndex` is **structurally firewalled** — present in `MCQ` for the grader, never in assist context, omitted from `Feedback` until correct. The assist firewall likewise excludes `explanation`, `hint`, and `sourceQuote` (D4 / D20) — assist sees only the question + options. Leakage is prevented by *what each call can see*, not by hoping the prompt holds.
+returns a plain chat message — no structured artifact — so it stays a single bounded call and can't drive UI state.
+
+**ACI rules (poka-yoke)**
+
+- `correctIndex` is **structurally firewalled** — present in `MCQ` for the grader, never in assist context, omitted from `Feedback` until correct.
+- The assist firewall likewise excludes `explanation`, `hint`, and `sourceQuote` (D4 / D20) — assist sees only the question + options.
+- Leakage is prevented by *what each call can see*, not by hoping the prompt holds.
 - Answers are **integer indices, not free text** — grading can't misparse.
 - Stable IDs (`objectiveId`, `questionId`) thread plan → questions → results → summary.
 
 **The one genuine function** (called by the graph in N6, not the model):
+
 ```
 name:    gradeAnswer
 when:    invoked by N6 after an answer submit (never by the LLM)
@@ -213,6 +334,7 @@ output:  { verdict: "correct"|"incorrect",
 failure: selectedIndex out of range → throw GradingError
          → N6 re-surfaces the same question; no state mutation, no score change
 ```
+
 No other tools. No retrieval tool (PDF is in-context), no web/DB tool. An empty model-facing tool set removes the #1 failure mode (ambiguous tool choice) entirely.
 
 ---
@@ -220,6 +342,7 @@ No other tools. No retrieval tool (PDF is in-context), no web/DB tool. An empty 
 ## Gate 6 — Reliability spine
 
 ### Bounded loops
+
 | Bound | Limit | Behavior at limit |
 |---|---|---|
 | Max attempts / question | `MAX_ATTEMPTS = 3` (locked — B2; initial + 2 retries) | reveal explanation, mark not-first-try, advance |
@@ -228,7 +351,10 @@ No other tools. No retrieval tool (PDF is in-context), no web/DB tool. An empty 
 | Repair retries / node | ≤ 2 (locked — B5), then node error, no advance | bounds schema-drift recovery |
 | Per-run token ceiling | ≈ 1.5M aggregate tokens / thread (locked — B7; ~100K in / 8K out per node) | circuit-break → graceful error surface |
 
+---
+
 ### Failure points → recovery
+
 | Failure | Where | Recovery |
 |---|---|---|
 | PDF parse fails (scanned/empty) | upstream extraction | reject at upload with a clear message; graph never starts on empty `pdfText` (Challenge #3) |
@@ -238,28 +364,53 @@ No other tools. No retrieval tool (PDF is in-context), no web/DB tool. An empty 
 | Interrupt/resume desync (refresh) | N2, N4 | checkpointer authoritative; rehydrate from `threadId`, re-render from `phase` (Challenge #1) |
 | One step derails trajectory | general | durable execution + resume-from-checkpoint (not restart) |
 
+---
+
 ### Tracing
+
 **LangSmith from day one** — every node, LLM call, and interrupt/resume traced, tied to `threadId`. Non-determinism at generative nodes makes tracing the only reliable root-cause path.
 
+---
+
 ### Human checkpoint
-**One mandatory checkpoint: `approval_gate` (N2)** — the plan is reviewed before any teaching (AC3), placed exactly where the session's commitment begins. The per-question `await_input` pauses are interaction points, not approval gates.
+
+**Mandatory checkpoint**
+
+**One mandatory checkpoint: `approval_gate` (N2)** — the plan is reviewed before any teaching (AC3), placed exactly where the session's commitment begins.
+
+**Interaction pauses**
+
+The per-question `await_input` pauses are interaction points, not approval gates.
+
+---
 
 ### Evals (~20 real cases, end-state — not per-step)
+
 Use a handful of real PDFs (easy / dense / messy). Evaluate the **final state**, since agents reach goals by different valid paths.
 
-**Four dimensions (LLM-as-judge + deterministic checks):**
+**Four dimensions (LLM-as-judge + deterministic checks)**
+
 1. **Plan grounded** — every objective supported by `pdfText`. *(judge 0–1)*
 2. **MCQs grounded** — content traces to the PDF, not general knowledge (AC4). *(judge)*
 3. **Feedback behaves** — correct→explanation, incorrect→hint+retry; **no help turn leaked `correctIndex`** (Challenge #2). *(deterministic + judge on assist transcripts)*
 4. **Loop completes & state correct** — reaches `summarize` for every objective; `score` retry-aware and consistent with `results`; summary reflects true progress (Challenge #5). *(deterministic on end-state)*
 
-**~20 cases (`PROVISIONAL` mix):** ~12 happy-path across PDFs; ~4 adversarial help turns probing leakage; ~2 messy/edge PDFs; ~2 resume-after-refresh integrity checks. Plus a judge rubric (factual accuracy, grounding, completeness, no-leakage) and **human spot-eval** for subtle leakage / weird-PDF hallucination.
+**~20 cases (`PROVISIONAL` mix)**
+
+- ~12 happy-path across PDFs
+- ~4 adversarial help turns probing leakage
+- ~2 messy/edge PDFs
+- ~2 resume-after-refresh integrity checks
+
+Plus a judge rubric (factual accuracy, grounding, completeness, no-leakage) and **human spot-eval** for subtle leakage / weird-PDF hallucination.
 
 ---
 
 ## Resolved in `design-decisions.md`
 
 The items this gate walk previously left `PROVISIONAL` are now locked:
+
+**Locked (resolved in `design-decisions.md`)**
 
 - Quiz shape: N MCQs per objective vs. one → **D2 / B1** (fixed `N = 3`; `questions[]` list retained).
 - Scoring rule for "retry without penalty" → **D5 / D10 / D13**.
@@ -268,5 +419,6 @@ The items this gate walk previously left `PROVISIONAL` are now locked:
 - Model-per-node / cost routing → **B8** (`gpt-4o-mini` for N1/N3/N5/N9; `gpt-4o` N1 escape hatch).
 - MCQ-grounding self-check → **D4** (deterministic source-anchor check locked; inline LLM self-check deferred as an escape hatch).
 
-**Still open (optional, latency-only — not required for v1):**
+**Still open (optional, latency-only — not required for v1)**
+
 - Parallel MCQ pre-generation across objectives (Gate 3, rung 4).

@@ -5,11 +5,36 @@
 >
 > `PROVISIONAL:` tags marked simplest-default positions pending the decisions session. That session is complete: the locked outcomes live in `design-decisions.md` and have been reconciled into this document (see §9). A remaining `PROVISIONAL` tag marks a still-open *optional* item, not an unmade decision.
 
+## Table of Contents
+
+- [1. What EdPath is](#1-what-edpath-is)
+- [2. The contract (Gate 0)](#2-the-contract-gate-0)
+  - [System input](#system-input)
+  - [System output](#system-output)
+  - [Success criteria](#success-criteria-traced-to-acceptance-criteria)
+- [3. Workflow, not agent (Gate 1)](#3-workflow-not-agent-gate-1)
+  - [End-to-end control flow](#end-to-end-control-flow)
+  - [The one dynamic part, kept bounded](#the-one-dynamic-part-kept-bounded)
+- [4. System components & data flow](#4-system-components--data-flow)
+- [5. The CopilotKit bridge](#5-the-copilotkit-bridge--verify-against-current-copilotkit-docs)
+- [6. Storage — pressure-tested](#6-storage--pressure-tested)
+- [7. Responsibility boundaries](#7-responsibility-boundaries)
+- [8. Stack (locked)](#8-stack-locked)
+- [9. Resolved in `design-decisions.md`](#9-resolved-in-design-decisionsmd)
+
 ---
 
 ## 1. What EdPath is
 
-EdPath turns **one uploaded PDF into a guided, interactive lesson**. It walks a learner through a fixed pedagogical arc: parse the PDF → draft a learning plan → get human approval → run a quiz loop (MCQs with green/red feedback, hints, no-penalty retries, and a bounded "help me" side-channel) → produce a final report with study tips.
+EdPath turns **one uploaded PDF into a guided, interactive lesson**.
+
+It walks a learner through a fixed pedagogical arc:
+
+- parse the PDF →
+- draft a learning plan →
+- get human approval →
+- run a quiz loop (MCQs with green/red feedback, hints, no-penalty retries, and a bounded "help me" side-channel) →
+- produce a final report with study tips
 
 It is a **deterministic teaching system powered by an LLM**: a structured LangGraph **workflow**, not an open-ended autonomous agent. Engineering owns the control flow; the LLM fills content at each step.
 
@@ -25,8 +50,21 @@ It is a **deterministic teaching system powered by an LLM**: a structured LangGr
 
 ### System input
 
-- **Primary:** one **PDF file**, uploaded by a single user. **Ingestion ceiling (locked — D3 / B6):** about 50 pages, 50K tokens, or 200K cleaned characters — token/character count is the real gate, page count a soft signal. Reject empty, scanned/image-only (no text layer), oversized, or otherwise unparseable PDFs at upload with a clear error; **no OCR in v1.** The cleaned text rides in context (no RAG).
-- **Runtime inputs (arrive during the run):** the plan **approval decision**; an **MCQ answer** (selected option) per question; optional **free-text help turns** ("hint" / "explain this topic").
+**Primary**
+
+- one **PDF file**, uploaded by a single user
+- **Ingestion ceiling (locked — D3 / B6):** about 50 pages, 50K tokens, or 200K cleaned characters — token/character count is the real gate, page count a soft signal
+- Reject empty, scanned/image-only (no text layer), oversized, or otherwise unparseable PDFs at upload with a clear error
+- **no OCR in v1.**
+- The cleaned text rides in context (no RAG)
+
+**Runtime inputs (arrive during the run)**
+
+- the plan **approval decision**
+- an **MCQ answer** (selected option) per question
+- optional **free-text help turns** ("hint" / "explain this topic")
+
+---
 
 ### System output
 
@@ -39,8 +77,9 @@ A **completed, resumable lesson session**, surfaced as four observable artifacts
 
 Backing all four: **checkpointed session state** that is the single source of truth and survives refresh / tab-kill.
 
-### Success criteria (traced to acceptance criteria)
+---
 
+### Success criteria (traced to acceptance criteria)
 
 | #   | Measurable "done"                                                                                                                                       | AC                |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
@@ -56,12 +95,17 @@ Backing all four: **checkpointed session state** that is the single source of tr
 | S10 | A help turn **never leaks the correct option** and **steers back** to the question.                                                                     | Desired-flow §3   |
 | S11 | Session state is **resumable and consistent**; the report reflects true progress.                                                                       | Challenges #1, #5 |
 
-
 ---
 
 ## 3. Workflow, not agent (Gate 1)
 
-EdPath is a **workflow** — a deterministic, engineer-controlled LangGraph with one bounded dynamic pocket. The full path is drawable up front (the assignment's numbered "Desired Flow"); only *content* and *iteration count* vary at runtime, both bounded. The LLM never decides what step comes next.
+**Decision**
+
+EdPath is a **workflow** — a deterministic, engineer-controlled LangGraph with one bounded dynamic pocket.
+
+**What varies**
+
+The full path is drawable up front (the assignment's numbered "Desired Flow"); only *content* and *iteration count* vary at runtime, both bounded. The LLM never decides what step comes next.
 
 ### End-to-end control flow
 
@@ -89,13 +133,18 @@ EdPath is a **workflow** — a deterministic, engineer-controlled LangGraph with
                           └─ done → [8] SUMMARIZE → END
 ```
 
+---
+
 ### The one dynamic part, kept bounded
 
 Node **[4a] ASSIST** (the "hint / learn more" turn, Challenge #2) is the only free-form pocket. It stays boxed in:
 
 1. **Structurally contained** — a side edge off [4] whose *only* exit is back to [4]; it cannot advance, grade, re-plan, or end.
+
 2. **Counted** — per-question help ceiling **`MAX_HELP = 3`** (locked — B3), then steers back.
+
 3. **Guardrailed** — never receives `correctIndex`; must help *and* steer back (S10).
+
 4. **No tools, no exploration** — a single LLM call, so it is not an agent loop.
 
 ---
@@ -131,16 +180,24 @@ Node **[4a] ASSIST** (the "hint / learn more" turn, Challenge #2) is the only fr
 └────────────────────────────────┘         └──────────────────────────────┘
 ```
 
-**Happy path:**
+**Happy path**
 
 1. Upload PDF → `edpath-web` POSTs to `edpath-backend /upload`.
+
 2. Backend **extracts + cleans** text → `pdfText`; **rejects empty/unparseable PDFs here** (fail fast — Challenge #3). Extraction lives outside the graph, so the graph only starts on good text.
+
 3. Backend starts the graph with a `threadId`, seeding `pdfText`.
+
 4. `plan` runs → `approval_gate` **interrupt** → state checkpointed → halt.
+
 5. State mirrors to the UI via CopilotKit; plan renders for approval.
+
 6. Approve → resume → quiz loop; each MCQ mirrors to the widget; `await_input` interrupt pauses for answer/help.
+
 7. Submit → deterministic grade → green/red feedback → retry or advance.
+
 8. All objectives done → `summarize` → report renders → END.
+
 9. Every step traced to LangSmith; every artifact Zod-validated at the backend boundary.
 
 ---
@@ -149,10 +206,21 @@ Node **[4a] ASSIST** (the "hint / learn more" turn, Challenge #2) is the only fr
 
 CopilotKit **CoAgents** is the LangGraph integration layer:
 
-- **Backend:** the **CopilotKit Runtime** is hosted as an endpoint in `edpath-backend` (Express), wired to the LangGraph agent as a CoAgent; it brokers messages, state sync, and interrupt/resume.
-- **Frontend:** `<CopilotKit>` provider + a CoAgent hook (e.g. `useCoAgent`) **mirrors LangGraph state into React**, driving the plan, current MCQ, and `phase`.
-- **Generative UI:** the MCQ widget and plan-approval surface render via CopilotKit's generative-UI mechanism, bound to mirrored state.
-- **HITL approval:** CopilotKit surfaces the LangGraph `interrupt` and sends the resume (Challenge #1 — the most-probed piece).
+**Backend**
+
+the **CopilotKit Runtime** is hosted as an endpoint in `edpath-backend` (Express), wired to the LangGraph agent as a CoAgent; it brokers messages, state sync, and interrupt/resume.
+
+**Frontend**
+
+`<CopilotKit>` provider + a CoAgent hook (e.g. `useCoAgent`) **mirrors LangGraph state into React**, driving the plan, current MCQ, and `phase`.
+
+**Generative UI**
+
+the MCQ widget and plan-approval surface render via CopilotKit's generative-UI mechanism, bound to mirrored state.
+
+**HITL approval**
+
+CopilotKit surfaces the LangGraph `interrupt` and sends the resume (Challenge #1 — the most-probed piece).
 
 > 🚩 **Verify before building (API drifts between CopilotKit versions):**
 >
@@ -175,7 +243,6 @@ The only durable surface is the **LangGraph checkpoint** (the state object per `
 
 ## 7. Responsibility boundaries
 
-
 | Layer                          | Owns                                                                                                                                                                                  | Does **not** own                                                                                   |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | **Frontend (`edpath-web`)**    | Rendering: upload UI, plan-approval widget, MCQ widget (radios/submit, green/red), summary; mirroring agent state via CopilotKit; sending intents (approve, answer index, help text). | No business logic, no grading, **no progress/score state** (no ad-hoc client state), no LLM calls. |
@@ -184,12 +251,19 @@ The only durable surface is the **LangGraph checkpoint** (the state object per `
 | **LLM (OpenAI)**               | Filling content at generative nodes only; returning schema-valid artifacts.                                                                                                           | **Never** chooses control flow, grades, or sees `correctIndex` in assist.                          |
 | **Shared packages**            | `schemas` (Zod contracts, one source of truth both ends), `ui` (shared widgets), `tokens` (green/red functional feedback).                                                            | —                                                                                                  |
 
-
 ---
 
 ## 8. Stack (locked)
 
-TypeScript (strict) everywhere · **LangGraph** (agent) · **CopilotKit / CoAgents** (UI bridge, generative UI, HITL) · **Next.js** (`apps/edpath-web`) · **Express** (`apps/edpath-backend`, hosts CopilotKit Runtime) · **PostgreSQL** (checkpointer backend) · **Redis** (deferred, not in v1) · **LangSmith** (tracing) · monorepo with shared `packages/` (`schemas`, `ui`, `tokens`, configs).
+- TypeScript (strict) everywhere
+- **LangGraph** (agent)
+- **CopilotKit / CoAgents** (UI bridge, generative UI, HITL)
+- **Next.js** (`apps/edpath-web`)
+- **Express** (`apps/edpath-backend`, hosts CopilotKit Runtime)
+- **PostgreSQL** (checkpointer backend)
+- **Redis** (deferred, not in v1)
+- **LangSmith** (tracing)
+- monorepo with shared `packages/` (`schemas`, `ui`, `tokens`, configs)
 
 ---
 
@@ -197,10 +271,11 @@ TypeScript (strict) everywhere · **LangGraph** (agent) · **CopilotKit / CoAgen
 
 The items this document previously left `PROVISIONAL` are now locked in `design-decisions.md` and reconciled above:
 
+**Locked (resolved in `design-decisions.md`)**
+
 - PDF size/page ceiling and extraction strategy for messy/scanned PDFs → **D3 / B6** (≈50 pages / 50K tokens / 200K chars; whole cleaned text in context; reject scanned/oversized; no OCR).
 - Quiz shape: N MCQs per objective vs. one → **D2 / B1** (fixed `N = 3`, generated lazily per objective, presented one at a time).
 - Scoring rule for "retry without penalty" → **D5 / D10 / D13** (`results[]` canonical; `score` derived; retries never reduce score).
 - Difficulty representation in the plan → **D17** (`difficulty: "easy" | "medium" | "hard"`).
 - Per-question retry cap, help-turn cap, max objectives, per-run cost ceiling → **B2 / B3 / B4 / B7** (`MAX_ATTEMPTS = 3`, `MAX_HELP = 3`, ≤ 8 objectives, ≈1.5M tokens/thread).
 - Final state-storage lock → **C5 / D5** (Postgres-only checkpointer; Redis deferred).
-

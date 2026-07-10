@@ -14,19 +14,23 @@ Build an AI learning agent that transforms a PDF into an interactive lesson. The
 - **Feedback:** Provide visual (green/red highlights) and textual feedback (hints/explanations).
 - **Summarize:** Conclude with a progress report and study tips.
 
+
+
 ## Desired Flow
 
 1. **Setup:** User uploads PDF. Agent extracts content and drafts a lesson plan (objectives & difficulty).
 2. **Approval:** Agent presents the plan. User reviews and confirms (HITL).
 3. **Learning Loop:**
-   - Agent: Generates MCQs for the current objective.
-   - Widget: Renders question, choices, and submit button.
-   - Interaction:
-     - Correct: Highlight green, show explanation, move to next.
-     - Incorrect: Highlight red, show hint, allow retry.
-     - User can ask to learn more about the topic and for hints, but the agent must not give away the answer. Ultimately, the agent should steer the user to continue with completing the lesson.
-   - Repeat until learning objectives are exhausted.
+  - Agent: Generates MCQs for the current objective.
+  - Widget: Renders question, choices, and submit button.
+  - Interaction:
+    - Correct: Highlight green, show explanation, move to next.
+    - Incorrect: Highlight red, show hint, allow retry.
+    - User can ask to learn more about the topic and for hints, but the agent must not give away the answer. Ultimately, the agent should steer the user to continue with completing the lesson.
+  - Repeat until learning objectives are exhausted.
 4. **Conclusion:** Agent summarizes performance and provides personalized study tips.
+
+
 
 ## Acceptance Criteria
 
@@ -40,6 +44,8 @@ Build an AI learning agent that transforms a PDF into an interactive lesson. The
 - [ ] Users can proceed through all generated MCQs until completion
 - [ ] Agent provides summary of results and study tips at the end
 
+
+
 ## Tools of the Trade
 
 The following are recommended libraries that may help expedite your build:
@@ -49,6 +55,8 @@ The following are recommended libraries that may help expedite your build:
 - **UI:** CopilotKit
 - **Backend:** PostgreSQL or Redis
 
+
+
 ## Deliverables
 
 Send an email with:
@@ -56,12 +64,17 @@ Send an email with:
 - 🔗 **GitHub Repo:** Public repository with README instructions.
 - 📹 **Loom:** Walkthrough of the flow and your process end-to-end (< 5 mins).
 
+
+
 ## Resources
 
 - [LangGraph Documentation](https://langchain-ai.github.io/langgraph/)
 - [CopilotKit Documentation](https://docs.copilotkit.ai/getting-started)
 
+
+
 ## Next Steps
 
 1. **Submission:** Send completed assignment via email
 2. **Review:** We will meet to review the submission and ask questions
+

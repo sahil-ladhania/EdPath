@@ -9,7 +9,7 @@ Code-level architecture notes that fill in **as the build progresses**. This fol
 
 **What lives here:**
 
-- [`repo-map.md`](./repo-map.md) — where things actually live in the code (entrypoints, env handling, checkpointer wiring, external APIs, build/test scripts). A map of the implementation, filled in as it's built.
+- [`repo-map.md`](./repo-map.md) — where things actually live in the code (entrypoints, env handling, checkpointer wiring, external APIs, build/test scripts). The end-to-end codebase map.
 - [`system-overview.md`](./system-overview.md) — pointer only; the real overview is `../../architecture.md`.
 
 Keep entries here as pointers and code-level maps — never copies of the root design docs.

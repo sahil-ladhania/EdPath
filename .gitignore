@@ -46,7 +46,8 @@ docs/reference/challenges.md
 docs/reference/db-schema.md
 docs/reference/feature-flow.md
 docs/reference/design-decisions.md
-.ua
+# Understand Anything local analysis cache (never commit)
+.ua/
 
 # Private Files
 private/

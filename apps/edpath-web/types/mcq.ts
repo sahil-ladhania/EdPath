@@ -1,15 +1,7 @@
-/**
- * MCQ widget and `useCoAgentQuiz` prop/return contracts.
- */
+// Types for the MCQ widget and `useCoAgentQuiz` prop/return contracts
+import type { CoAgentState, Feedback, HelpThreadMessage, LessonPlan, PublicMCQ } from "@repo/types";
 
-import type {
-  CoAgentState,
-  Feedback,
-  HelpThreadMessage,
-  LessonPlan,
-  PublicMCQ,
-} from "@repo/types";
-
+// Interface for the use CoAgent quiz options
 interface UseCoAgentQuizOptions {
   state: CoAgentState;
   plan: LessonPlan | null;
@@ -19,8 +11,9 @@ interface UseCoAgentQuizOptions {
   canSubmitAnswer: boolean;
   canSubmitHelp: boolean;
   isRunning: boolean;
-}
+};
 
+// Interface for the use CoAgent quiz return
 interface UseCoAgentQuizReturn {
   currentObjectiveTitle: string;
   currentQuestion: PublicMCQ | null;
@@ -40,8 +33,9 @@ interface UseCoAgentQuizReturn {
   submitHelp: (text: string) => void;
   retryQuestion: () => void;
   advance: () => void;
-}
+};
 
+// Interface for the MCQ widget props
 interface McqWidgetProps {
   objectiveTitle: string;
   questionNumber: number;
@@ -64,8 +58,9 @@ interface McqWidgetProps {
   onSubmitHelp?: (text: string) => void;
   onRetry: () => void;
   onAdvance: () => void;
-}
+};
 
+// Interface for the help input props
 interface HelpInputProps {
   thread: HelpThreadMessage[];
   helpTurnsUsed: number;
@@ -73,13 +68,15 @@ interface HelpInputProps {
   canSubmitHelp: boolean;
   isSubmitting: boolean;
   onSubmitHelp: (text: string) => void;
-}
+};  
 
+// Interface for the display message
 interface DisplayMessage extends HelpThreadMessage {
   key: string;
   animate?: boolean;
-}
+};
 
+// Interface for the widget actions props
 interface WidgetActionsProps {
   hasSelection: boolean;
   feedback: Feedback | null;
@@ -89,8 +86,9 @@ interface WidgetActionsProps {
   onSubmit: () => void;
   onRetry: () => void;
   onAdvance: () => void;
-}
+};
 
+// Interface for the option list props
 interface OptionListProps {
   question: PublicMCQ;
   selectedIndex: number | null;
@@ -98,8 +96,9 @@ interface OptionListProps {
   feedback: Feedback | null;
   disabled: boolean;
   onSelect: (index: number) => void;
-}
+};
 
+// Export the types
 export type {
   DisplayMessage,
   HelpInputProps,

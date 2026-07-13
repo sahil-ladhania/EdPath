@@ -1,11 +1,8 @@
-/**
- * Empty CoAgent seed — mirrors backend `build-initial-state` before the first graph run.
- */
-
 import type { CoAgentState } from "@repo/types";
 
-/** Mirrors backend seed ([build-initial-state.ts]) — no mock plan or questions. */
+// Function to get the empty CoAgent state
 export function getEmptyCoAgentState(): CoAgentState {
+  // Return the empty CoAgent state
   return {
     pdfMeta: {
       filename: "",
@@ -32,4 +29,4 @@ export function getEmptyCoAgentState(): CoAgentState {
     phase: "planning",
     lastError: null,
   };
-}
+};

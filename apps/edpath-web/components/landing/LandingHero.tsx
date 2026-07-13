@@ -1,19 +1,11 @@
 "use client";
 
-/**
- * Landing hero copy and step-by-step value proposition.
- */
-
-import {
-  CircleHelpIcon,
-  FileUpIcon,
-  GraduationCapIcon,
-  ListChecksIcon,
-} from "lucide-react";
+// Import components
+import { CircleHelpIcon, FileUpIcon, GraduationCapIcon, ListChecksIcon } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-
 import { Icon } from "@/components/ui/Icon";
 
+// Constant for the steps
 const STEPS: { label: string; icon: LucideIcon }[] = [
   { label: "Upload one PDF with selectable text", icon: FileUpIcon },
   { label: "Review and approve your lesson plan", icon: ListChecksIcon },
@@ -21,6 +13,7 @@ const STEPS: { label: string; icon: LucideIcon }[] = [
   { label: "Finish with a personalized study summary", icon: GraduationCapIcon },
 ];
 
+// Function to render the landing hero
 export function LandingHero() {
   return (
     <section className="flex w-full flex-col gap-4 text-left">
@@ -38,4 +31,4 @@ export function LandingHero() {
       </ol>
     </section>
   );
-}
+};

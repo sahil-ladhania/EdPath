@@ -1,0 +1,277 @@
+{
+  "nodes": [
+    {
+      "id": "document:.cursor/rules/backend.mdc",
+      "type": "document",
+      "name": "backend.mdc",
+      "filePath": ".cursor/rules/backend.mdc",
+      "summary": "Cursor rule file scoping backend-specific agent guidance for the edpath-backend Express + LangGraph app.",
+      "tags": ["documentation", "cursor-rules", "backend", "agent-guidance"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.cursor/rules/core.mdc",
+      "type": "document",
+      "name": "core.mdc",
+      "filePath": ".cursor/rules/core.mdc",
+      "summary": "Always-on Cursor core rules that route to AGENTS.md and enforce docs-first, deterministic-workflow, no-scope-creep working style.",
+      "tags": ["documentation", "cursor-rules", "always-on", "workflow-discipline"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.cursor/rules/schemas.mdc",
+      "type": "document",
+      "name": "schemas.mdc",
+      "filePath": ".cursor/rules/schemas.mdc",
+      "summary": "Cursor rule file guiding work on the shared packages/schemas Zod contracts used by both backend and web.",
+      "tags": ["documentation", "cursor-rules", "schemas", "agent-guidance"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.cursor/rules/web.mdc",
+      "type": "document",
+      "name": "web.mdc",
+      "filePath": ".cursor/rules/web.mdc",
+      "summary": "Cursor rule file scoping frontend-specific agent guidance for the Next.js edpath-web app.",
+      "tags": ["documentation", "cursor-rules", "frontend", "agent-guidance"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.ua/.understandignore",
+      "type": "config",
+      "name": ".understandignore",
+      "filePath": ".ua/.understandignore",
+      "summary": "Ignore-pattern configuration for the Understand-Anything analyzer, excluding build artifacts and vendored paths from the knowledge-graph scan.",
+      "tags": ["configuration", "ignore-file", "tooling", "build-system"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:apps/edpath-backend/src/agent/lib/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-backend/src/agent/lib/README.md",
+      "summary": "Explains the agent/lib directory of shared helper utilities used across the LangGraph teaching-workflow nodes.",
+      "tags": ["documentation", "backend", "agent", "library"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-backend/src/agent/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-backend/src/agent/README.md",
+      "summary": "Overview of the LangGraph agent package documenting the node map, subfolders, and control-flow invariants of the deterministic teaching workflow.",
+      "tags": ["documentation", "backend", "agent", "langgraph"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-backend/src/agent/state/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-backend/src/agent/state/README.md",
+      "summary": "Documents the agent/state directory that defines the checkpointed EdPath graph state object serving as the single source of truth.",
+      "tags": ["documentation", "backend", "agent", "state"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-backend/src/agent/types/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-backend/src/agent/types/README.md",
+      "summary": "Documents the agent/types directory holding TypeScript type definitions internal to the agent package.",
+      "tags": ["documentation", "backend", "agent", "type-definition"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-backend/src/config/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-backend/src/config/README.md",
+      "summary": "Explains the config directory that centralizes environment variable loading and runtime configuration for the backend.",
+      "tags": ["documentation", "backend", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-backend/src/copilot/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-backend/src/copilot/README.md",
+      "summary": "Documents the copilot directory that wires the CopilotKit Runtime bridging the LangGraph agent to the web UI.",
+      "tags": ["documentation", "backend", "copilotkit", "runtime"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-backend/src/evals/evaluators/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-backend/src/evals/evaluators/README.md",
+      "summary": "Describes the evaluators directory split into deterministic checks and llm-judge scorers used by the evaluation harness.",
+      "tags": ["documentation", "backend", "evals", "evaluators"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-backend/src/evals/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-backend/src/evals/README.md",
+      "summary": "Overview of the evals package covering how to run the evaluation pipeline, its stages, and subfolder layout.",
+      "tags": ["documentation", "backend", "evals", "pipeline"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-backend/src/features/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-backend/src/features/README.md",
+      "summary": "Documents the features directory that groups vertical backend feature slices such as start and upload.",
+      "tags": ["documentation", "backend", "features"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-backend/src/features/start/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "apps/edpath-backend/src/features/start/index.ts",
+      "summary": "Barrel file for the start feature, re-exporting the route handlers, middleware, and service functions that begin a lesson thread.",
+      "tags": ["barrel", "entry-point", "backend", "feature"],
+      "complexity": "simple",
+      "languageNotes": "Pure TypeScript re-export barrel aggregating start.route and start.service."
+    },
+    {
+      "id": "document:apps/edpath-backend/src/features/start/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-backend/src/features/start/README.md",
+      "summary": "Documents the start feature flow and behavior for beginning a lesson from an approved plan via a validated thread id.",
+      "tags": ["documentation", "backend", "feature", "start"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-backend/src/features/upload/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "apps/edpath-backend/src/features/upload/index.ts",
+      "summary": "Barrel file for the upload feature, re-exporting the PDF extraction, cleaning, token estimation, route, and service pipeline plus their types.",
+      "tags": ["barrel", "entry-point", "backend", "feature"],
+      "complexity": "simple",
+      "languageNotes": "Re-export barrel that separates runtime exports from `export type` declarations for upload pipeline types."
+    },
+    {
+      "id": "document:apps/edpath-backend/src/features/upload/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-backend/src/features/upload/README.md",
+      "summary": "Documents the upload feature flow, key files, and boundaries for extracting and cleaning PDF text into the initial graph state.",
+      "tags": ["documentation", "backend", "feature", "upload"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-backend/src/lib/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-backend/src/lib/README.md",
+      "summary": "Documents the src/lib directory of app-wide backend helper utilities.",
+      "tags": ["documentation", "backend", "library"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-backend/src/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-backend/src/README.md",
+      "summary": "Top-level backend source overview mapping the folder layout, entry points, and core invariants of the EdPath backend.",
+      "tags": ["documentation", "backend", "overview", "entry-point"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:apps/edpath-backend/vitest.config.ts",
+      "type": "config",
+      "name": "vitest.config.ts",
+      "filePath": "apps/edpath-backend/vitest.config.ts",
+      "summary": "Vitest configuration for the backend test suite, registering the setup file and excluding dist and node_modules from test runs.",
+      "tags": ["configuration", "testing", "vitest", "backend"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:apps/edpath-backend/vitest.setup.ts",
+      "type": "config",
+      "name": "vitest.setup.ts",
+      "filePath": "apps/edpath-backend/vitest.setup.ts",
+      "summary": "Vitest global setup that loads .env and forces deterministic test defaults by disabling LangSmith tracing and blanking the OpenAI key unless EVAL_LLM is set.",
+      "tags": ["configuration", "testing", "vitest", "backend", "environment"],
+      "complexity": "simple",
+      "languageNotes": "Sets OPENAI_API_KEY to \"\" rather than deleting it so dotenv's no-overwrite behavior keeps live-LLM calls off during tests."
+    },
+    {
+      "id": "document:apps/edpath-web/api/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-web/api/README.md",
+      "summary": "Documents the web api directory purpose, contents, and how it fits into the CopilotKit-driven frontend.",
+      "tags": ["documentation", "frontend", "api", "nextjs"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/app/globals.css",
+      "type": "file",
+      "name": "globals.css",
+      "filePath": "apps/edpath-web/app/globals.css",
+      "summary": "Global stylesheet importing Tailwind and shared design tokens, and mapping CSS variables into theme colors, fonts, and radius scales for the web app.",
+      "tags": ["styling", "css", "theme", "design-tokens", "tailwind"],
+      "complexity": "moderate",
+      "languageNotes": "Tailwind v4 CSS-first config using @theme inline and @custom-variant to bind repo design tokens to utility color scales."
+    },
+    {
+      "id": "document:apps/edpath-web/app/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-web/app/README.md",
+      "summary": "Documents the Next.js app directory purpose, contents, and how the route layout and styling fit into the frontend.",
+      "tags": ["documentation", "frontend", "nextjs", "app-router"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:apps/edpath-backend/src/features/start/README.md",
+      "target": "file:apps/edpath-backend/src/features/start/index.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:apps/edpath-backend/src/features/upload/README.md",
+      "target": "file:apps/edpath-backend/src/features/upload/index.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:apps/edpath-web/app/README.md",
+      "target": "file:apps/edpath-web/app/globals.css",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:apps/edpath-backend/vitest.config.ts",
+      "target": "config:apps/edpath-backend/vitest.setup.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:apps/edpath-backend/vitest.config.ts",
+      "target": "file:apps/edpath-backend/src/features/upload/index.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:apps/edpath-backend/vitest.config.ts",
+      "target": "file:apps/edpath-backend/src/features/start/index.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

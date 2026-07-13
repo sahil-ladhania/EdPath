@@ -1,0 +1,207 @@
+{
+  "nodes": [
+    {
+      "id": "file:packages/schemas/src/resume.ts",
+      "type": "file",
+      "name": "resume.ts",
+      "filePath": "packages/schemas/src/resume.ts",
+      "summary": "Zod contracts for the HITL resume side-channel: approval decisions, answer submissions, help messages, advance/retry signals, and the discriminated ResumePayload union that drives graph interrupts.",
+      "tags": ["schema-definition", "validation", "data-model", "type-definition"],
+      "complexity": "moderate",
+      "languageNotes": "Uses Zod discriminated unions to model the distinct resume payload variants the LangGraph interrupts accept."
+    },
+    {
+      "id": "file:packages/schemas/src/scoring.ts",
+      "type": "file",
+      "name": "scoring.ts",
+      "filePath": "packages/schemas/src/scoring.ts",
+      "summary": "Zod contracts for deterministic grading output: ObjectiveResult per learning objective and the aggregate Score artifact.",
+      "tags": ["schema-definition", "validation", "data-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/schemas/src/summary.ts",
+      "type": "file",
+      "name": "summary.ts",
+      "filePath": "packages/schemas/src/summary.ts",
+      "summary": "Zod contracts for the end-of-lesson summary: per-objective stats, overall stats, and the composed Summary artifact returned by the summarize node.",
+      "tags": ["schema-definition", "validation", "data-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/schemas/src/upload.ts",
+      "type": "file",
+      "name": "upload.ts",
+      "filePath": "packages/schemas/src/upload.ts",
+      "summary": "Zod contracts for the PDF upload boundary: PdfMeta, the upload-reject reason enum, and the UploadResult returned when a document is accepted or refused.",
+      "tags": ["schema-definition", "validation", "data-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:packages/schemas/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "packages/schemas/tsconfig.json",
+      "summary": "TypeScript compiler configuration for the shared schemas package, extending the monorepo base config and scoping compilation to its src directory.",
+      "tags": ["configuration", "typescript", "build-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:packages/tokens/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "packages/tokens/package.json",
+      "summary": "Package manifest for the design-tokens package, marking it private and exporting the tokens.css stylesheet for consumers.",
+      "tags": ["configuration", "build-system", "package-manifest"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/tokens/tokens.css",
+      "type": "file",
+      "name": "tokens.css",
+      "filePath": "packages/tokens/tokens.css",
+      "summary": "Design-token stylesheet defining shared CSS custom properties (colors, spacing, typography) consumed across the EdPath UI, including green/red functional feedback tokens.",
+      "tags": ["design-tokens", "styling", "css", "theme"],
+      "complexity": "moderate",
+      "languageNotes": "Centralizes theme values as CSS custom properties on :root so the web app and UI package stay visually consistent."
+    },
+    {
+      "id": "config:packages/types/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "packages/types/package.json",
+      "summary": "Package manifest for the shared types package, declaring its export surface, build script, and the @repo/schemas dependency that its inferred contract types re-export.",
+      "tags": ["configuration", "build-system", "package-manifest"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/types/src/feedback-state.contract-test.ts",
+      "type": "file",
+      "name": "feedback-state.contract-test.ts",
+      "filePath": "packages/types/src/feedback-state.contract-test.ts",
+      "summary": "Compile-time contract test asserting the assist firewall at the type level: exhausted Feedback exposes no correctIndex, and both CoAgentState and EdPathState carry the shared Feedback shape.",
+      "tags": ["test", "type-definition", "validation", "contract-test"],
+      "complexity": "simple",
+      "languageNotes": "Relies on @ts-expect-error and Extract<> to encode the firewall guarantee as a type-check that fails the build if the redaction ever regresses."
+    },
+    {
+      "id": "file:packages/types/src/ids.ts",
+      "type": "file",
+      "name": "ids.ts",
+      "filePath": "packages/types/src/ids.ts",
+      "summary": "Defines the shared branded identifier types (ObjectiveId, QuestionId) used to keep objective and question ids type-distinct across the workflow.",
+      "tags": ["type-definition", "data-model", "identifiers"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/types/src/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "packages/types/src/index.ts",
+      "summary": "Barrel that forms the single type-import surface for both web and backend: re-exports Zod-inferred runtime contract types from @repo/schemas plus this package's pure compile-time types (Phase, branded ids, state).",
+      "tags": ["barrel", "entry-point", "type-definition", "exports"],
+      "complexity": "moderate",
+      "languageNotes": "Uses type-only re-exports to keep the types → schemas → zod dependency DAG one-directional and avoid pulling runtime validators into consumers."
+    },
+    {
+      "id": "file:packages/types/src/phase.ts",
+      "type": "file",
+      "name": "phase.ts",
+      "filePath": "packages/types/src/phase.ts",
+      "summary": "Defines the Phase union enumerating the deterministic lesson lifecycle stages (plan, approve, quiz loop, summarize) that drive the LangGraph control flow.",
+      "tags": ["type-definition", "data-model", "state-machine"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/types/src/state.ts",
+      "type": "file",
+      "name": "state.ts",
+      "filePath": "packages/types/src/state.ts",
+      "summary": "Defines the composed CoAgent state types: the full server-side EdPathState (holds pdfText and full MCQs) and the structurally firewalled CoAgentState mirrored to the browser with redacted PublicMCQs.",
+      "tags": ["type-definition", "data-model", "state-machine", "security"],
+      "complexity": "moderate",
+      "languageNotes": "The two interfaces encode the assist firewall structurally — the web-facing CoAgentState has no pdfText and no field for the answer to travel through."
+    },
+    {
+      "id": "config:packages/types/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "packages/types/tsconfig.json",
+      "summary": "TypeScript compiler configuration for the shared types package, extending the monorepo base config and scoping compilation to its src directory.",
+      "tags": ["configuration", "typescript", "build-system"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:packages/types/src/feedback-state.contract-test.ts",
+      "target": "file:packages/types/src/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/types/src/state.ts",
+      "target": "file:packages/types/src/phase.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/types/src/index.ts",
+      "target": "file:packages/types/src/feedback-state.contract-test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:packages/schemas/tsconfig.json",
+      "target": "file:packages/schemas/src/resume.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/schemas/tsconfig.json",
+      "target": "file:packages/schemas/src/scoring.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/schemas/tsconfig.json",
+      "target": "file:packages/schemas/src/summary.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/schemas/tsconfig.json",
+      "target": "file:packages/schemas/src/upload.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/types/tsconfig.json",
+      "target": "file:packages/types/src/index.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/types/package.json",
+      "target": "file:packages/types/src/index.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/tokens/package.json",
+      "target": "file:packages/tokens/tokens.css",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

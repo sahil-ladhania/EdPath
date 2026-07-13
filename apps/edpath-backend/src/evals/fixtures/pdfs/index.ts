@@ -1,20 +1,17 @@
-/** Eval PDF fixtures — easy, dense, minimal, and messy document variants. */
+/** 
+ * Eval PDF fixtures — easy, dense, minimal, and messy document variants. 
+**/
 import type { PdfMeta } from "@repo/types";
-
-import {
-  FIXTURE_PDF_META,
-  FIXTURE_PDF_TEXT,
-} from "../../../agent/__fixtures__/pdf-text.js";
-
+import { FIXTURE_PDF_META, FIXTURE_PDF_TEXT } from "../../../agent/__fixtures__/pdf-text.js";
 import type { EvalPdfFixture } from "../../types.js";
 
-/** Easy fixture — photosynthesis basics (existing test PDF). */
+// Define the easy PDF
 export const EASY_PDF: EvalPdfFixture = {
   text: FIXTURE_PDF_TEXT,
   meta: FIXTURE_PDF_META,
 };
 
-/** Dense multi-topic academic excerpt. */
+// Define the dense PDF text
 export const DENSE_PDF_TEXT = `
 The Krebs cycle, also known as the citric acid cycle, occurs in the mitochondrial matrix.
 Acetyl-CoA combines with oxaloacetate to form citrate, which is then oxidized to regenerate oxaloacetate.
@@ -28,6 +25,7 @@ Photosynthesis converts light energy into chemical energy in chloroplasts using 
 Cellular respiration releases stored glucose energy through glycolysis, the Krebs cycle, and oxidative phosphorylation.
 `.trim();
 
+// Define the dense PDF
 export const DENSE_PDF: EvalPdfFixture = {
   text: DENSE_PDF_TEXT,
   meta: {
@@ -37,7 +35,7 @@ export const DENSE_PDF: EvalPdfFixture = {
   },
 };
 
-/** Messy PDF — abbreviated bullets and noisy whitespace. */
+// Define the messy PDF text
 export const MESSY_PDF_TEXT = `
   PHOTOSYNTHESIS   basics
 
@@ -54,6 +52,7 @@ mitochondria... releases energy from glucose
 CELL MEMBRANE - selective permeability
 `.trim();
 
+// Define the messy PDF
 export const MESSY_PDF: EvalPdfFixture = {
   text: MESSY_PDF_TEXT,
   meta: {
@@ -63,13 +62,14 @@ export const MESSY_PDF: EvalPdfFixture = {
   },
 };
 
-/** Minimal PDF — three sentences only. */
+// Define the minimal PDF text
 export const MINIMAL_PDF_TEXT = `
 Water freezes at zero degrees Celsius under standard pressure.
 Ice expands because hydrogen bonds create an open crystal lattice.
 Salt lowers the freezing point of water through freezing point depression.
 `.trim();
 
+// Define the minimal PDF
 export const MINIMAL_PDF: EvalPdfFixture = {
   text: MINIMAL_PDF_TEXT,
   meta: {
@@ -79,10 +79,11 @@ export const MINIMAL_PDF: EvalPdfFixture = {
   },
 };
 
+// Define the function to create the PDF meta
 export function createPdfMeta(filename: string, text: string): PdfMeta {
   return {
     filename,
     charCount: text.length,
     pageCount: 1,
   };
-}
+};

@@ -1,6 +1,6 @@
 # EdPath — Design Decisions
 
-> Source of truth: [`assignment.md`](./assignment.md), [`architecture.md`](./architecture.md), [`agent-architecture.md`](./agent-architecture.md), and [`challenges.md`](./challenges.md).
+> Source of truth: `[assignment.md](./assignment.md)`, `[architecture.md](./architecture.md)`, `[agent-architecture.md](./agent-architecture.md)`, and `[challenges.md](./challenges.md)`.
 >
 > This document records the product design decisions locked for EdPath. It does not reopen the committed architecture. Decisions already settled in the architecture files are recorded as `LOCKED (from architecture)` with pointers.
 
@@ -55,6 +55,8 @@
 
 ---
 
+
+
 ## 0. Session Scope
 
 **Assignment restated**
@@ -79,6 +81,8 @@ The system must produce
 This session locks design decisions only. It produces this document. It does not implement application code and does not reopen `architecture.md` or `agent-architecture.md`.
 
 ---
+
+
 
 ## 1. Closed Decisions
 
@@ -218,6 +222,8 @@ The architecture already commits to the stack needed for HITL, generative UI, ch
 
 ---
 
+
+
 ## 2. Load-Bearing Decisions
 
 These five decisions determine whether EdPath feels like a real teaching system or a chatbot/quiz wrapper.
@@ -252,6 +258,8 @@ The desired flow is explicitly a per-question teaching loop with hints and retri
 - The state keeps `questions: MCQ[]` and `currentQuestionIndex`; the UI presents one active question from that list.
 
 ---
+
+
 
 ### D2. Quiz Generation Granularity
 
@@ -289,6 +297,8 @@ It gives meaningful performance data while preserving deterministic, bounded exe
 
 ---
 
+
+
 ### D3. PDF Ingestion Strategy
 
 **Question**
@@ -322,6 +332,8 @@ It honors "in-context, no RAG" while failing fast on inputs that would otherwise
 - Extraction quality is gated upstream and does not need to live in graph state.
 
 ---
+
+
 
 ### D4. Quiz Generation Reliability
 
@@ -365,6 +377,8 @@ It makes grounding checkable in code instead of relying on a prompt or a second 
 
 ---
 
+
+
 ### D5. Lesson State Management
 
 **Question**
@@ -407,6 +421,8 @@ Reviewers will stress-test refresh/tab-kill behavior and final report correctnes
 No new phase is needed. Clarify `score` as derived from `results[]`, and clarify that `questions[]` is durable once generated.
 
 ---
+
+
 
 ## 3. Remaining Decisions
 
@@ -843,6 +859,8 @@ Confirms no skip/back edges in `agent-architecture.md §5.3`.
 
 ---
 
+
+
 ## 4. Numeric Bounds
 
 All numeric bounds are locked defaults and tunable after evals.
@@ -913,7 +931,7 @@ More help supports learning but increases cost and leakage/tangent risk.
 
 **Why this, for this assignment**
 
-Three help turns are enough for assistance while bounding the dynamic pocket.
+Three help turns are enough **for assistance** while bounding the dynamic pocket.
 
 ### B4. Max Objectives Per Plan
 
@@ -1059,6 +1077,8 @@ It can materially reduce repeated PDF-prefix cost without changing the state mod
 
 ---
 
+
+
 ## 5. Architecture Edits Flagged By These Locks
 
 These are not application-code changes. They are documentation follow-ups implied by the locked decisions.
@@ -1069,6 +1089,8 @@ These are not application-code changes. They are documentation follow-ups implie
 - `§3` dynamic assist pocket: replace provisional help ceiling with `MAX_HELP = 3`.
 - `§6` storage: mark Postgres-only checkpointer as locked and keep Redis trigger conditions.
 - `§9` open provisional list: mark the PDF ceiling, quiz shape, scoring rule, difficulty representation, retry/help/objective/cost bounds, and state-storage lock as resolved.
+
+
 
 ### `agent-architecture.md`
 
@@ -1086,6 +1108,8 @@ These are not application-code changes. They are documentation follow-ups implie
 - Open provisional list: mark quiz shape, retry scoring, difficulty, numeric bounds, model routing, and grounding self-check as resolved.
 
 ---
+
+
 
 ## 6. Final Lock Summary
 

@@ -1,0 +1,1581 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 23,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "apps/edpath-backend/src/agent/initial-coagent-state.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 12,
+      "functions": [
+        {
+          "name": "createInitialCoAgentState",
+          "startLine": 7,
+          "endLine": 14,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "createInitialCoAgentState",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createInitialCoAgentState",
+          "callee": "toCoAgentState",
+          "lineNumber": 8
+        },
+        {
+          "caller": "createInitialCoAgentState",
+          "callee": "buildInitialEdPathState",
+          "lineNumber": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/app.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 45,
+      "functions": [
+        {
+          "name": "createApp",
+          "startLine": 29,
+          "endLine": 55,
+          "params": [
+            "options"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "createApp",
+          "line": 29,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createApp",
+          "callee": "express",
+          "lineNumber": 30
+        },
+        {
+          "caller": "createApp",
+          "callee": "app.use",
+          "lineNumber": 33
+        },
+        {
+          "caller": "createApp",
+          "callee": "cors",
+          "lineNumber": 34
+        },
+        {
+          "caller": "createApp",
+          "callee": "app.use",
+          "lineNumber": 40
+        },
+        {
+          "caller": "createApp",
+          "callee": "express.json",
+          "lineNumber": 40
+        },
+        {
+          "caller": "createApp",
+          "callee": "app.get",
+          "lineNumber": 42
+        },
+        {
+          "caller": "createApp",
+          "callee": "res.json",
+          "lineNumber": 43
+        },
+        {
+          "caller": "createApp",
+          "callee": "app.post",
+          "lineNumber": 46
+        },
+        {
+          "caller": "createApp",
+          "callee": "app.post",
+          "lineNumber": 47
+        },
+        {
+          "caller": "createApp",
+          "callee": "createEdPathCopilotKitRuntime",
+          "lineNumber": 50
+        },
+        {
+          "caller": "createApp",
+          "callee": "app.use",
+          "lineNumber": 51
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/config/env.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 78,
+      "nonEmptyLines": 71,
+      "functions": [
+        {
+          "name": "isOpenAiConfigured",
+          "startLine": 71,
+          "endLine": 73,
+          "params": []
+        },
+        {
+          "name": "isLangSmithTracingEnabled",
+          "startLine": 76,
+          "endLine": 78,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "env",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "isOpenAiConfigured",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "isLangSmithTracingEnabled",
+          "line": 76,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "isOpenAiConfigured",
+          "callee": "Boolean",
+          "lineNumber": 72
+        },
+        {
+          "caller": "isLangSmithTracingEnabled",
+          "callee": "Boolean",
+          "lineNumber": 77
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/copilot/edpath-langgraph-agent.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 54,
+      "nonEmptyLines": 49,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/copilot/edpath-langgraph-agent.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 52,
+      "nonEmptyLines": 44,
+      "classes": [
+        {
+          "name": "EdPathLangGraphAgent",
+          "startLine": 13,
+          "endLine": 52,
+          "methods": [
+            "prepareStream",
+            "getStateSnapshot"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "EdPathLangGraphAgent",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "prepareStream",
+          "callee": "this.client.threads.getState",
+          "lineNumber": 22
+        },
+        {
+          "caller": "prepareStream",
+          "callee": "super.prepareStream",
+          "lineNumber": 39
+        },
+        {
+          "caller": "getStateSnapshot",
+          "callee": "Array.isArray",
+          "lineNumber": 46
+        },
+        {
+          "caller": "getStateSnapshot",
+          "callee": "super.getStateSnapshot",
+          "lineNumber": 50
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/copilot/runtime.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 36,
+      "nonEmptyLines": 31,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/copilot/runtime.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 57,
+      "nonEmptyLines": 50,
+      "functions": [
+        {
+          "name": "createEdPathCopilotKitRuntime",
+          "startLine": 30,
+          "endLine": 57,
+          "params": [
+            "options"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "COPILOTKIT_ENDPOINT",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "EDPATH_AGENT_ID",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "EDPATH_AGENT_GRAPH_ID",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "createEdPathCopilotKitRuntime",
+          "line": 30,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createEdPathCopilotKitRuntime",
+          "callee": "createInitialCoAgentState",
+          "lineNumber": 41
+        },
+        {
+          "caller": "createEdPathCopilotKitRuntime",
+          "callee": "copilotRuntimeNodeExpressEndpoint",
+          "lineNumber": 46
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 4,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/sync-langsmith-dataset.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 61,
+      "nonEmptyLines": 53,
+      "functions": [
+        {
+          "name": "findOrCreateDataset",
+          "startLine": 9,
+          "endLine": 20,
+          "params": [
+            "client",
+            "datasetName"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 22,
+          "endLine": 56,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "findOrCreateDataset",
+          "callee": "client.listDatasets",
+          "lineNumber": 13
+        },
+        {
+          "caller": "findOrCreateDataset",
+          "callee": "client.createDataset",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "isLangSmithTracingEnabled",
+          "lineNumber": 23
+        },
+        {
+          "caller": "main",
+          "callee": "console.error",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "process.exit",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "findOrCreateDataset",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "client.createExample",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 55
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/features/start/start.route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 89,
+      "nonEmptyLines": 77,
+      "functions": [
+        {
+          "name": "startHandler",
+          "startLine": 24,
+          "endLine": 87,
+          "params": [
+            "req",
+            "res"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "START_THREAD_ID_FIELD",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "startMiddleware",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "startHandler",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "startErrorHandler",
+          "line": 89,
+          "isDefault": false
+        },
+        {
+          "name": "UPLOAD_FIELD_NAME",
+          "line": 89,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "startHandler",
+          "callee": "res.status(400).json",
+          "lineNumber": 26
+        },
+        {
+          "caller": "startHandler",
+          "callee": "res.status",
+          "lineNumber": 26
+        },
+        {
+          "caller": "startHandler",
+          "callee": "req.body[START_THREAD_ID_FIELD].trim",
+          "lineNumber": 32
+        },
+        {
+          "caller": "startHandler",
+          "callee": "res.status(400).json",
+          "lineNumber": 36
+        },
+        {
+          "caller": "startHandler",
+          "callee": "res.status",
+          "lineNumber": 36
+        },
+        {
+          "caller": "startHandler",
+          "callee": "startLesson",
+          "lineNumber": 41
+        },
+        {
+          "caller": "startHandler",
+          "callee": "buildUploadLimits",
+          "lineNumber": 49
+        },
+        {
+          "caller": "startHandler",
+          "callee": "sendUploadResult",
+          "lineNumber": 52
+        },
+        {
+          "caller": "startHandler",
+          "callee": "res.status(400).json",
+          "lineNumber": 55
+        },
+        {
+          "caller": "startHandler",
+          "callee": "res.status",
+          "lineNumber": 55
+        },
+        {
+          "caller": "startHandler",
+          "callee": "res.status(409).json",
+          "lineNumber": 60
+        },
+        {
+          "caller": "startHandler",
+          "callee": "res.status",
+          "lineNumber": 60
+        },
+        {
+          "caller": "startHandler",
+          "callee": "console.error",
+          "lineNumber": 65
+        },
+        {
+          "caller": "startHandler",
+          "callee": "res.status(503).json",
+          "lineNumber": 70
+        },
+        {
+          "caller": "startHandler",
+          "callee": "res.status",
+          "lineNumber": 70
+        },
+        {
+          "caller": "startHandler",
+          "callee": "console.error",
+          "lineNumber": 77
+        },
+        {
+          "caller": "startHandler",
+          "callee": "sendUploadResult",
+          "lineNumber": 81
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 5,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/features/start/start.service.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 209,
+      "nonEmptyLines": 185,
+      "callGraph": [
+        {
+          "caller": "constructor",
+          "callee": "super",
+          "lineNumber": 25
+        },
+        {
+          "caller": "constructor",
+          "callee": "super",
+          "lineNumber": 31
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/features/start/start.service.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 70,
+      "nonEmptyLines": 56,
+      "functions": [
+        {
+          "name": "isValidThreadId",
+          "startLine": 30,
+          "endLine": 32,
+          "params": [
+            "threadId"
+          ]
+        },
+        {
+          "name": "startLesson",
+          "startLine": 44,
+          "endLine": 68,
+          "params": [
+            "input"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "InvalidThreadIdError",
+          "startLine": 20,
+          "endLine": 25,
+          "methods": [
+            "constructor"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ThreadAlreadyStartedError",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "InvalidThreadIdError",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "isValidThreadId",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "startLesson",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "LangGraphDeploymentError",
+          "line": 70,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "constructor",
+          "callee": "super",
+          "lineNumber": 22
+        },
+        {
+          "caller": "isValidThreadId",
+          "callee": "THREAD_ID_PATTERN.test",
+          "lineNumber": 31
+        },
+        {
+          "caller": "startLesson",
+          "callee": "isValidThreadId",
+          "lineNumber": 45
+        },
+        {
+          "caller": "startLesson",
+          "callee": "processUpload",
+          "lineNumber": 49
+        },
+        {
+          "caller": "startLesson",
+          "callee": "seedGraphState",
+          "lineNumber": 55
+        },
+        {
+          "caller": "startLesson",
+          "callee": "buildInitialEdPathState",
+          "lineNumber": 56
+        },
+        {
+          "caller": "startLesson",
+          "callee": "seedLessonThread",
+          "lineNumber": 62
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 5,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/build-initial-state.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 37,
+      "nonEmptyLines": 36,
+      "functions": [
+        {
+          "name": "buildInitialEdPathState",
+          "startLine": 9,
+          "endLine": 37,
+          "params": [
+            "input"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "buildInitialEdPathState",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/pdf-clean.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 20,
+      "functions": [
+        {
+          "name": "cleanPdfText",
+          "startLine": 6,
+          "endLine": 20,
+          "params": [
+            "rawText"
+          ]
+        },
+        {
+          "name": "estimateTokens",
+          "startLine": 23,
+          "endLine": 25,
+          "params": [
+            "charCount"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "cleanPdfText",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "estimateTokens",
+          "line": 23,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "cleanPdfText",
+          "callee": "rawText.replace(/\\r\\n/g, \"\\n\").replace",
+          "lineNumber": 7
+        },
+        {
+          "caller": "cleanPdfText",
+          "callee": "rawText.replace",
+          "lineNumber": 7
+        },
+        {
+          "caller": "cleanPdfText",
+          "callee": "text.replace",
+          "lineNumber": 10
+        },
+        {
+          "caller": "cleanPdfText",
+          "callee": "text.split(\"\\n\").map",
+          "lineNumber": 12
+        },
+        {
+          "caller": "cleanPdfText",
+          "callee": "text.split",
+          "lineNumber": 12
+        },
+        {
+          "caller": "cleanPdfText",
+          "callee": "line.replace(/[\\t\\f\\v]+/g, \" \").replace(/ +/g, \" \").trimEnd",
+          "lineNumber": 13
+        },
+        {
+          "caller": "cleanPdfText",
+          "callee": "line.replace(/[\\t\\f\\v]+/g, \" \").replace",
+          "lineNumber": 13
+        },
+        {
+          "caller": "cleanPdfText",
+          "callee": "line.replace",
+          "lineNumber": 13
+        },
+        {
+          "caller": "cleanPdfText",
+          "callee": "lines.join",
+          "lineNumber": 16
+        },
+        {
+          "caller": "cleanPdfText",
+          "callee": "text.replace",
+          "lineNumber": 17
+        },
+        {
+          "caller": "cleanPdfText",
+          "callee": "text.trim",
+          "lineNumber": 19
+        },
+        {
+          "caller": "estimateTokens",
+          "callee": "Math.ceil",
+          "lineNumber": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/pdf-extract.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 87,
+      "nonEmptyLines": 74,
+      "functions": [
+        {
+          "name": "classifyPdfJsError",
+          "startLine": 26,
+          "endLine": 49,
+          "params": [
+            "error"
+          ]
+        },
+        {
+          "name": "extractPdfText",
+          "startLine": 51,
+          "endLine": 87,
+          "params": [
+            "buffer"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "PdfExtractionError",
+          "startLine": 13,
+          "endLine": 21,
+          "methods": [
+            "constructor"
+          ],
+          "properties": [
+            "kind"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "PdfExtractionError",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "extractPdfText",
+          "line": 51,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "constructor",
+          "callee": "super",
+          "lineNumber": 17
+        },
+        {
+          "caller": "classifyPdfJsError",
+          "callee": "error.name.toLowerCase",
+          "lineNumber": 28
+        },
+        {
+          "caller": "classifyPdfJsError",
+          "callee": "error.message.toLowerCase",
+          "lineNumber": 29
+        },
+        {
+          "caller": "classifyPdfJsError",
+          "callee": "name.includes",
+          "lineNumber": 32
+        },
+        {
+          "caller": "classifyPdfJsError",
+          "callee": "message.includes",
+          "lineNumber": 33
+        },
+        {
+          "caller": "classifyPdfJsError",
+          "callee": "message.includes",
+          "lineNumber": 34
+        },
+        {
+          "caller": "classifyPdfJsError",
+          "callee": "name.includes",
+          "lineNumber": 40
+        },
+        {
+          "caller": "classifyPdfJsError",
+          "callee": "message.includes",
+          "lineNumber": 41
+        },
+        {
+          "caller": "classifyPdfJsError",
+          "callee": "message.includes",
+          "lineNumber": 42
+        },
+        {
+          "caller": "extractPdfText",
+          "callee": "getDocument",
+          "lineNumber": 53
+        },
+        {
+          "caller": "extractPdfText",
+          "callee": "pdf.getPage",
+          "lineNumber": 64
+        },
+        {
+          "caller": "extractPdfText",
+          "callee": "page.getTextContent",
+          "lineNumber": 65
+        },
+        {
+          "caller": "extractPdfText",
+          "callee": "textContent.items\n        .map((item) => {\n          if (\"str\" in item && typeof item.str === \"string\") {\n            return item.str;\n          }\n          return \"\";\n        })\n        .join(\" \")\n        .trim",
+          "lineNumber": 66
+        },
+        {
+          "caller": "extractPdfText",
+          "callee": "textContent.items\n        .map((item) => {\n          if (\"str\" in item && typeof item.str === \"string\") {\n            return item.str;\n          }\n          return \"\";\n        })\n        .join",
+          "lineNumber": 66
+        },
+        {
+          "caller": "extractPdfText",
+          "callee": "textContent.items\n        .map",
+          "lineNumber": 66
+        },
+        {
+          "caller": "extractPdfText",
+          "callee": "pageTexts.push",
+          "lineNumber": 76
+        },
+        {
+          "caller": "extractPdfText",
+          "callee": "pageTexts.join",
+          "lineNumber": 80
+        },
+        {
+          "caller": "extractPdfText",
+          "callee": "classifyPdfJsError",
+          "lineNumber": 84
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/test-fixtures.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 62,
+      "nonEmptyLines": 59,
+      "exports": [
+        {
+          "name": "VALID_TEXT_PDF",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "NO_TEXT_LAYER_PDF",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "CORRUPT_PDF",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "NOT_PDF",
+          "line": 62,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/upload-middleware.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 62,
+      "nonEmptyLines": 54,
+      "functions": [
+        {
+          "name": "buildUploadLimits",
+          "startLine": 13,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "createUploadMiddleware",
+          "startLine": 24,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "sendUploadResult",
+          "startLine": 34,
+          "endLine": 40,
+          "params": [
+            "res",
+            "uploadResult"
+          ]
+        },
+        {
+          "name": "uploadErrorHandler",
+          "startLine": 43,
+          "endLine": 62,
+          "params": [
+            "err",
+            "_req",
+            "res",
+            "next"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "UPLOAD_FIELD_NAME",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "buildUploadLimits",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "createUploadMiddleware",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "sendUploadResult",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "uploadErrorHandler",
+          "line": 43,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createUploadMiddleware",
+          "callee": "multer({\n    storage: multer.memoryStorage(),\n    limits: {\n      fileSize: env.UPLOAD_MAX_BINARY_BYTES,\n      files: 1,\n    },\n  }).single",
+          "lineNumber": 25
+        },
+        {
+          "caller": "createUploadMiddleware",
+          "callee": "multer",
+          "lineNumber": 25
+        },
+        {
+          "caller": "createUploadMiddleware",
+          "callee": "multer.memoryStorage",
+          "lineNumber": 26
+        },
+        {
+          "caller": "sendUploadResult",
+          "callee": "UploadResultSchema.parse",
+          "lineNumber": 38
+        },
+        {
+          "caller": "sendUploadResult",
+          "callee": "res.status(200).json",
+          "lineNumber": 39
+        },
+        {
+          "caller": "sendUploadResult",
+          "callee": "res.status",
+          "lineNumber": 39
+        },
+        {
+          "caller": "uploadErrorHandler",
+          "callee": "Math.round",
+          "lineNumber": 46
+        },
+        {
+          "caller": "uploadErrorHandler",
+          "callee": "sendUploadResult",
+          "lineNumber": 47
+        },
+        {
+          "caller": "uploadErrorHandler",
+          "callee": "res.status(400).json",
+          "lineNumber": 56
+        },
+        {
+          "caller": "uploadErrorHandler",
+          "callee": "res.status",
+          "lineNumber": 56
+        },
+        {
+          "caller": "uploadErrorHandler",
+          "callee": "next",
+          "lineNumber": 61
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 5,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/upload.route.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 79,
+      "nonEmptyLines": 68,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/upload.route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 54,
+      "nonEmptyLines": 48,
+      "functions": [
+        {
+          "name": "uploadHandler",
+          "startLine": 25,
+          "endLine": 54,
+          "params": [
+            "req",
+            "res"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "buildUploadLimits",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "createUploadMiddleware",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "sendUploadResult",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "uploadErrorHandler",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "UPLOAD_FIELD_NAME",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "uploadMiddleware",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "uploadHandler",
+          "line": 25,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "uploadHandler",
+          "callee": "res.status(400).json",
+          "lineNumber": 27
+        },
+        {
+          "caller": "uploadHandler",
+          "callee": "res.status",
+          "lineNumber": 27
+        },
+        {
+          "caller": "uploadHandler",
+          "callee": "processUpload",
+          "lineNumber": 32
+        },
+        {
+          "caller": "uploadHandler",
+          "callee": "buildUploadLimits",
+          "lineNumber": 39
+        },
+        {
+          "caller": "uploadHandler",
+          "callee": "sendUploadResult",
+          "lineNumber": 42
+        },
+        {
+          "caller": "uploadHandler",
+          "callee": "console.error",
+          "lineNumber": 44
+        },
+        {
+          "caller": "uploadHandler",
+          "callee": "sendUploadResult",
+          "lineNumber": 48
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 7,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/upload.service.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 251,
+      "nonEmptyLines": 224,
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/upload.service.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 165,
+      "nonEmptyLines": 140,
+      "functions": [
+        {
+          "name": "sanitizeFilename",
+          "startLine": 19,
+          "endLine": 22,
+          "params": [
+            "originalname"
+          ]
+        },
+        {
+          "name": "reject",
+          "startLine": 24,
+          "endLine": 35,
+          "params": [
+            "reason",
+            "message"
+          ]
+        },
+        {
+          "name": "formatMegabytes",
+          "startLine": 37,
+          "endLine": 39,
+          "params": [
+            "bytes"
+          ]
+        },
+        {
+          "name": "isPdfBuffer",
+          "startLine": 41,
+          "endLine": 47,
+          "params": [
+            "buffer"
+          ]
+        },
+        {
+          "name": "buildPdfMeta",
+          "startLine": 49,
+          "endLine": 59,
+          "params": [
+            "filename",
+            "pageCount",
+            "charCount"
+          ]
+        },
+        {
+          "name": "processUpload",
+          "startLine": 61,
+          "endLine": 165,
+          "params": [
+            "input",
+            "limits"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "processUpload",
+          "line": 61,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "sanitizeFilename",
+          "callee": "originalname.split(/[/\\\\]/).pop",
+          "lineNumber": 20
+        },
+        {
+          "caller": "sanitizeFilename",
+          "callee": "originalname.split",
+          "lineNumber": 20
+        },
+        {
+          "caller": "sanitizeFilename",
+          "callee": "basename.trim",
+          "lineNumber": 21
+        },
+        {
+          "caller": "formatMegabytes",
+          "callee": "String",
+          "lineNumber": 38
+        },
+        {
+          "caller": "formatMegabytes",
+          "callee": "Math.round",
+          "lineNumber": 38
+        },
+        {
+          "caller": "isPdfBuffer",
+          "callee": "buffer.subarray(0, PDF_MAGIC.length).toString",
+          "lineNumber": 46
+        },
+        {
+          "caller": "isPdfBuffer",
+          "callee": "buffer.subarray",
+          "lineNumber": 46
+        },
+        {
+          "caller": "processUpload",
+          "callee": "sanitizeFilename",
+          "lineNumber": 65
+        },
+        {
+          "caller": "processUpload",
+          "callee": "reject",
+          "lineNumber": 69
+        },
+        {
+          "caller": "processUpload",
+          "callee": "formatMegabytes",
+          "lineNumber": 71
+        },
+        {
+          "caller": "processUpload",
+          "callee": "isPdfBuffer",
+          "lineNumber": 76
+        },
+        {
+          "caller": "processUpload",
+          "callee": "reject",
+          "lineNumber": 77
+        },
+        {
+          "caller": "processUpload",
+          "callee": "extractPdfText",
+          "lineNumber": 87
+        },
+        {
+          "caller": "processUpload",
+          "callee": "reject",
+          "lineNumber": 91
+        },
+        {
+          "caller": "processUpload",
+          "callee": "reject",
+          "lineNumber": 98
+        },
+        {
+          "caller": "processUpload",
+          "callee": "reject",
+          "lineNumber": 105
+        },
+        {
+          "caller": "processUpload",
+          "callee": "cleanPdfText",
+          "lineNumber": 111
+        },
+        {
+          "caller": "processUpload",
+          "callee": "reject",
+          "lineNumber": 117
+        },
+        {
+          "caller": "processUpload",
+          "callee": "reject",
+          "lineNumber": 124
+        },
+        {
+          "caller": "processUpload",
+          "callee": "estimateTokens",
+          "lineNumber": 130
+        },
+        {
+          "caller": "processUpload",
+          "callee": "reject",
+          "lineNumber": 131
+        },
+        {
+          "caller": "processUpload",
+          "callee": "Math.max",
+          "lineNumber": 139
+        },
+        {
+          "caller": "processUpload",
+          "callee": "reject",
+          "lineNumber": 142
+        },
+        {
+          "caller": "processUpload",
+          "callee": "reject",
+          "lineNumber": 148
+        },
+        {
+          "caller": "processUpload",
+          "callee": "buildPdfMeta",
+          "lineNumber": 154
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/upload.types.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 42,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 25,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/lib/langgraph/deployment-client.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 65,
+      "nonEmptyLines": 54,
+      "functions": [
+        {
+          "name": "createLangGraphDeploymentClient",
+          "startLine": 24,
+          "endLine": 26,
+          "params": []
+        },
+        {
+          "name": "seedLessonThread",
+          "startLine": 34,
+          "endLine": 65,
+          "params": [
+            "input"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ThreadAlreadyStartedError",
+          "startLine": 9,
+          "endLine": 14,
+          "methods": [
+            "constructor"
+          ],
+          "properties": []
+        },
+        {
+          "name": "LangGraphDeploymentError",
+          "startLine": 16,
+          "endLine": 22,
+          "methods": [
+            "constructor"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ThreadAlreadyStartedError",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "LangGraphDeploymentError",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "createLangGraphDeploymentClient",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "seedLessonThread",
+          "line": 34,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "constructor",
+          "callee": "super",
+          "lineNumber": 11
+        },
+        {
+          "caller": "constructor",
+          "callee": "super",
+          "lineNumber": 18
+        },
+        {
+          "caller": "seedLessonThread",
+          "callee": "createLangGraphDeploymentClient",
+          "lineNumber": 35
+        },
+        {
+          "caller": "seedLessonThread",
+          "callee": "client.threads.create",
+          "lineNumber": 38
+        },
+        {
+          "caller": "seedLessonThread",
+          "callee": "client.threads.getState",
+          "lineNumber": 44
+        },
+        {
+          "caller": "seedLessonThread",
+          "callee": "client.threads.updateState",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 4,
+        "functionCount": 2,
+        "classCount": 2
+      }
+    }
+  ]
+}

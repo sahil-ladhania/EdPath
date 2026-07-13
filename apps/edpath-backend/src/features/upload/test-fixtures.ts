@@ -1,7 +1,9 @@
 /**
  * Minimal single-page PDF with selectable text for upload pipeline tests.
  * Text content exceeds MIN_CLEAN_CHARS (200) when repeated in the stream.
- */
+**/
+
+// Define the valid text pdf buffer
 export const VALID_TEXT_PDF = Buffer.from(
   `%PDF-1.4
 1 0 obj<< /Type /Catalog /Pages 2 0 R >>endobj
@@ -33,7 +35,7 @@ startxref
   "binary",
 );
 
-/** Same structure but with no visible text operators (simulates image-only). */
+// Define the no text layer pdf buffer
 export const NO_TEXT_LAYER_PDF = Buffer.from(
   `%PDF-1.4
 1 0 obj<< /Type /Catalog /Pages 2 0 R >>endobj
@@ -57,6 +59,8 @@ startxref
   "binary",
 );
 
+// Define the corrupt pdf buffer
 export const CORRUPT_PDF = Buffer.from("%PDF-1.4\nthis is not a valid pdf structure", "utf8");
 
+// Define the not pdf buffer
 export const NOT_PDF = Buffer.from("plain text file content", "utf8");

@@ -1,10 +1,10 @@
+/*
+  * CoAgent output annotation for the backend graph.
+*/
 import { Annotation } from "@langchain/langgraph";
 import type { CoAgentState } from "@repo/types";
 
-/**
- * CopilotKit / AG-UI output schema — only the redacted mirror crosses the wire.
- * Full EdPathState (pdfText, MCQ[], routing) stays internal to EdPathStateAnnotation.
- */
+// Define the co agent state output annotation schema
 export const CoAgentStateOutputAnnotation = Annotation.Root({
   coAgentSnapshot: Annotation<CoAgentState>(),
 });

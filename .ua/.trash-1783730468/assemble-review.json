@@ -1,0 +1,18 @@
+{
+  "fixedSectionOk": true,
+  "nodesRecovered": 1,
+  "edgesRestored": 1,
+  "crossBatchEdgesAdded": 4,
+  "typesRemapped": 0,
+  "complexityRemapped": 0,
+  "notes": [
+    "Fixed section is sane: 3 tested_by drops and 21 'tested' tags are proportionate; no complexity/type skew. All 401 merged nodes had valid types (file/function/config/class/document) and valid complexity values (simple/moderate/complex).",
+    "Pre-fix graph was already clean: 0 dangling edges, 0 duplicate node ids, 0 duplicate (source,target,type) edges.",
+    "Recovered the dropped cross-batch calls edge: getLlmClient IS a real exported function in apps/edpath-backend/src/agent/lib/llm/client.ts (lines 87-89), not renamed — the file-analyzer simply omitted a node for it (only createOpenAiClient/createDefaultLlmClient were extracted). Recreated the function node with a source-derived summary and wired it structurally (file->getLlmClient contains + exports, getLlmClient->createDefaultLlmClient calls) plus restored invokeJudge->getLlmClient calls. These 3 structural edges are counted separately from the 1 restored cross-batch edge.",
+    "Added 4 documents edges from docs/design/design-system.md to files it explicitly references in backticks (packages/tokens/tokens.css, components/ui/Panel.tsx, components/ui/Icon.tsx, app/globals.css); all 4 targets exist as file nodes. Batch 15 omitted these because those file nodes lived in other batches.",
+    "Deliberately did NOT add documents edges from the docs/reference/*.md set (agent-architecture, architecture, design-decisions) — scanned their content and they name zero concrete file paths that map to existing nodes; they describe architecture conceptually. Batch 12's omission was correct.",
+    "Deliberately did NOT bulk-add directory-README -> sibling-file documents edges (~140 candidates). That would be mechanical over-generation, not conservative recovery; the analyzers linked a README to a single representative entry file at most, and I preserved that convention.",
+    "Import-map recovery by the merge script (recovered 0, 12 targets skipped for missing file: nodes) is consistent with a graph where all real intra-repo imports were already captured; the 12 skips are import targets with no analyzed file node (external/unanalyzed) and are not recoverable.",
+    "No upstream ID-correction red flags to escalate; nothing approached the >30% threshold."
+  ]
+}

@@ -1,11 +1,14 @@
+/**
+ * CopilotKit runtime mount test suite.
+ */
 import type { AddressInfo } from "node:net";
-
 import { describe, expect, test } from "vitest";
-
 import { createApp } from "../app.js";
 import { COPILOTKIT_ENDPOINT } from "./runtime.js";
 
+// Define the describe block for the CopilotKit runtime mount test suite
 describe("CopilotKit runtime mount", () => {
+  // Define the test for when the CopilotKit runtime is mounted
   test("mounts the classic runtime endpoint in Express", async () => {
     const app = createApp({
       copilotKit: {
@@ -21,7 +24,8 @@ describe("CopilotKit runtime mount", () => {
       );
 
       expect(response.status).not.toBe(404);
-    } finally {
+    } 
+    finally {
       await new Promise<void>((resolve, reject) => {
         server.close((error) => {
           if (error) {

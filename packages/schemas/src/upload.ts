@@ -1,33 +1,38 @@
+/*
+  * Upload schemas for the backend graph.
+*/
 import { z } from "zod";
 
-/** PDF provenance captured at /upload (§5.1 `pdfMeta`; D3). */
+// Define the pdf meta schema
 export const PdfMetaSchema = z.object({
   filename: z.string().min(1),
   charCount: z.number().int().nonnegative(),
   pageCount: z.number().int().nonnegative(),
 });
+
+// Define the pdf meta type
 export type PdfMeta = z.infer<typeof PdfMetaSchema>;
 
-/** Why an upload was rejected at the fail-fast gate (F1.3). */
+// Define the upload reject reason schema
 export const UploadRejectReasonSchema = z.enum([
   "empty",
-  "no_text_layer", // scanned / image-only, no extractable text layer
-  "over_ceiling", // exceeds the token / char ceiling
+  "no_text_layer",
+  "over_ceiling",
   "unparseable",
 ]);
+
+// Define the upload reject reason type
 export type UploadRejectReason = z.infer<typeof UploadRejectReasonSchema>;
 
-/**
- * /upload boundary result (Part C #9). No `threadId` — the client generates and
- * holds it in URL / localStorage (Flag 3; architecture §5.4, db-schema). The
- * graph starts only on an accepted result.
- */
+// Define the upload result schema
 export const UploadResultSchema = z.discriminatedUnion("status", [
   z.object({ status: z.literal("accepted"), pdfMeta: PdfMetaSchema }),
   z.object({
     status: z.literal("rejected"),
     reason: UploadRejectReasonSchema,
-    message: z.string().min(1), // human-readable reason for the upload surface
+    message: z.string().min(1),
   }),
 ]);
+
+// Define the upload result type
 export type UploadResult = z.infer<typeof UploadResultSchema>;

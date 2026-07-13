@@ -1,8 +1,9 @@
+/**
+  * Edpath graph tests for the edpath agent.
+**/
 import { Command, INTERRUPT } from "@langchain/langgraph";
 import { describe, expect, test, beforeEach, afterEach } from "vitest";
-
 import { buildInitialEdPathState } from "../features/upload/build-initial-state.js";
-
 import { FIXTURE_PDF_META, FIXTURE_PDF_TEXT } from "./__fixtures__/pdf-text.js";
 import { createStubMcqs } from "./__fixtures__/stubs.js";
 import { createEdPathGraph } from "./graph.js";
@@ -18,7 +19,9 @@ import { createTestGraphInput, EDPATH_TEST_THREAD_ID } from "./test-helpers.js";
 import { seedGraphState } from "./state/graph-update.js";
 import type { GraphState } from "./state/annotation.js";
 
+// Define the describe block for the to co agent state firewall
 describe("toCoAgentState firewall", () => {
+  // Test that strips firewalled MCQ fields from mirror
   test("strips firewalled MCQ fields from mirror", () => {
     const seed = buildInitialEdPathState({
       pdfText: FIXTURE_PDF_TEXT,
@@ -48,9 +51,11 @@ describe("toCoAgentState firewall", () => {
   });
 });
 
+// Define the describe block for the grade answer
 describe("gradeAnswer", () => {
   const mcq = createStubMcqs("obj-1")[0]!;
 
+  // Test that returns correct on matching index
   test("returns correct on matching index", () => {
     const result = gradeAnswer({
       selectedIndex: mcq.correctIndex,
@@ -62,6 +67,7 @@ describe("gradeAnswer", () => {
     expect(result.attempts).toBe(1);
   });
 
+  // Test that returns incorrect and tracks attempts
   test("returns incorrect and tracks attempts", () => {
     const result = gradeAnswer({
       selectedIndex: 1,
@@ -73,6 +79,7 @@ describe("gradeAnswer", () => {
     expect(result.attempts).toBe(2);
   });
 
+  // Test that throws GradingError on out-of-range index
   test("throws GradingError on out-of-range index", () => {
     expect(() =>
       gradeAnswer({ selectedIndex: 99, mcq, priorAttempts: 0 }),
@@ -80,7 +87,9 @@ describe("gradeAnswer", () => {
   });
 });
 
+// Define the describe block for the derive score
 describe("deriveScore", () => {
+  // Test that derives retry-aware score from results
   test("derives retry-aware score from results", () => {
     const score = deriveScore([
       {
@@ -102,7 +111,9 @@ describe("deriveScore", () => {
   });
 });
 
+// Define the describe block for the source anchor
 describe("source-anchor", () => {
+  // Test that matches normalized quote in pdfText
   test("matches normalized quote in pdfText", () => {
     expect(
       isSourceAnchored(
@@ -112,6 +123,7 @@ describe("source-anchor", () => {
     ).toBe(true);
   });
 
+  // Test that rejects quote not in pdfText
   test("rejects quote not in pdfText", () => {
     expect(isSourceAnchored("Quantum entanglement in black holes", FIXTURE_PDF_TEXT)).toBe(
       false,
@@ -119,7 +131,9 @@ describe("source-anchor", () => {
   });
 });
 
+// Define the describe block for the assist firewall
 describe("assist firewall", () => {
+  // Test that buildAssistInput excludes answer fields
   test("buildAssistInput excludes answer fields", () => {
     const input = buildAssistInput(
       {
@@ -151,6 +165,7 @@ describe("assist firewall", () => {
   });
 });
 
+// Define the describe block for the edpath langgraph agent
 describe("EdPath LangGraph agent", () => {
   beforeEach(() => {
     setUseStubPlan(true);
@@ -162,6 +177,7 @@ describe("EdPath LangGraph agent", () => {
     setUseStubMcqs(false);
   });
 
+  // Test that compiles and pauses at approval interrupt
   test("compiles and pauses at approval interrupt", async () => {
     const graph = createEdPathGraph();
     const config = { configurable: { thread_id: EDPATH_TEST_THREAD_ID } };
@@ -188,6 +204,7 @@ describe("EdPath LangGraph agent", () => {
     );
   });
 
+  // Test that resumes approval and reaches await_input interrupt
   test("resumes approval and reaches await_input interrupt", async () => {
     const graph = createEdPathGraph();
     const config = { configurable: { thread_id: `${EDPATH_TEST_THREAD_ID}-approve` } };
@@ -213,11 +230,12 @@ describe("EdPath LangGraph agent", () => {
           sawAwaitInput = true;
         }
       }
-    }
+    };
 
     expect(sawAwaitInput).toBe(true);
   });
 
+  // Test that correct answer pauses with feedback, then advances on next signal
   test("correct answer pauses with feedback, then advances on next signal", async () => {
     const graph = createEdPathGraph();
     const config = { configurable: { thread_id: `${EDPATH_TEST_THREAD_ID}-grade` } };
@@ -231,17 +249,15 @@ describe("EdPath LangGraph agent", () => {
       config,
     );
 
-    // Holds the correct feedback for the user to read — does NOT auto-advance.
     let state = await graph.getState(config);
     expect(state.values.feedback?.verdict).toBe("correct");
     expect(state.values.currentQuestionIndex).toBe(0);
     expect(state.values.results).toHaveLength(1);
     expect(state.values.results[0]?.correct).toBe(true);
     expect(state.values.coAgentSnapshot).toBeDefined();
-    // Firewall: correctIndex must never reach the mirror, even in correct feedback.
+  
     assertCoAgentFirewall(state.values.coAgentSnapshot);
 
-    // User clicks "Next question" → explicit advance signal moves forward.
     await graph.invoke(new Command({ resume: { kind: "advance" } }), config);
 
     state = await graph.getState(config);
@@ -250,6 +266,7 @@ describe("EdPath LangGraph agent", () => {
     assertCoAgentFirewall(state.values.coAgentSnapshot);
   });
 
+  // Test that incorrect answer allows retry without score penalty until resolved
   test("incorrect answer allows retry without score penalty until resolved", async () => {
     const graph = createEdPathGraph();
     const config = { configurable: { thread_id: `${EDPATH_TEST_THREAD_ID}-retry` } };
@@ -281,6 +298,7 @@ describe("EdPath LangGraph agent", () => {
     expect(state.values.score.correct).toBe(1);
   });
 
+  // Test that exhausted after max attempts pauses with explanation, then advances on next signal
   test("exhausted after max attempts pauses with explanation, then advances on next signal", async () => {
     const graph = createEdPathGraph();
     const config = { configurable: { thread_id: `${EDPATH_TEST_THREAD_ID}-exhaust` } };
@@ -293,9 +311,8 @@ describe("EdPath LangGraph agent", () => {
         new Command({ resume: { kind: "answer", selectedIndex: 1 } }),
         config,
       );
-    }
+    };
 
-    // At the attempt limit the explanation is revealed and held — no auto-advance.
     let state = await graph.getState(config);
     expect(state.values.feedback?.verdict).toBe("exhausted");
     expect(state.values.currentQuestionIndex).toBe(0);
@@ -306,7 +323,6 @@ describe("EdPath LangGraph agent", () => {
       '"correctIndex"',
     );
 
-    // User clicks "Next question" → explicit advance signal moves forward.
     await graph.invoke(new Command({ resume: { kind: "advance" } }), config);
 
     state = await graph.getState(config);
@@ -314,6 +330,7 @@ describe("EdPath LangGraph agent", () => {
     expect(state.values.feedback).toBeNull();
   });
 
+  // Test that help turn routes through assist without leaking answer fields
   test("help turn routes through assist without leaking answer fields", async () => {
     const graph = createEdPathGraph();
     const config = {
@@ -335,6 +352,7 @@ describe("EdPath LangGraph agent", () => {
     expect(state.values.coAgentSnapshot.helpThread).toHaveLength(2);
   });
 
+  // Test that approval changes routes back through replan
   test("approval changes routes back through replan", async () => {
     const graph = createEdPathGraph();
     const config = {
@@ -354,6 +372,7 @@ describe("EdPath LangGraph agent", () => {
     expect(state.values.approval?.decision).toBe("changes");
   });
 
+  // Test that runs end-to-end to summary with stub content
   test("runs end-to-end to summary with stub content", async () => {
     const graph = createEdPathGraph();
     const config = { configurable: { thread_id: `${EDPATH_TEST_THREAD_ID}-e2e` } };
@@ -371,8 +390,8 @@ describe("EdPath LangGraph agent", () => {
       const mcq = state.values.questions[state.values.currentQuestionIndex];
       if (!mcq) {
         break;
-      }
-      // Answer correctly → pauses on feedback; advance signal → next question.
+      };
+
       await graph.invoke(
         new Command({
           resume: { kind: "answer", selectedIndex: mcq.correctIndex },
@@ -380,7 +399,7 @@ describe("EdPath LangGraph agent", () => {
         config,
       );
       await graph.invoke(new Command({ resume: { kind: "advance" } }), config);
-    }
+    };
 
     const finalState = await graph.getState(config);
     expect(finalState.values.phase).toBe("complete");

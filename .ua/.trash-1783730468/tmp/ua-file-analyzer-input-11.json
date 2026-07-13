@@ -1,0 +1,9 @@
+{
+  "projectRoot": "/Users/sahilladhania/Desktop/Memorang Assignment/edpath",
+  "batchFiles": [
+    {"path": "docs/architecture/README.md", "language": "markdown", "sizeLines": 15, "fileCategory": "docs"},
+    {"path": "docs/architecture/repo-map.md", "language": "markdown", "sizeLines": 463, "fileCategory": "docs"},
+    {"path": "docs/architecture/system-overview.md", "language": "markdown", "sizeLines": 5, "fileCategory": "docs"}
+  ],
+  "batchImportData": {"docs/architecture/README.md":[],"docs/architecture/repo-map.md":[],"docs/architecture/system-overview.md":[]}
+}

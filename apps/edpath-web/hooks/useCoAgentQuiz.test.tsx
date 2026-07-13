@@ -1,20 +1,12 @@
-/**
- * Interaction-invariant tests for useCoAgentQuiz.
- *
- * Scope: the local quiz UX state the hook owns (selection, submit locking,
- * help-turn isolation, retry reset). Grading, feedback content, and control
- * flow live on the graph and are NOT exercised here — these tests assert only
- * that the widget cannot drive an illegal interaction.
- */
+// Import testing library and types
 import { afterEach, describe, expect, test, vi } from "vitest";
 import { act, cleanup, renderHook } from "@testing-library/react";
-
 import type { CoAgentState, Feedback, PublicMCQ } from "@repo/types";
-
 import { getEmptyCoAgentState } from "@/lib/empty-co-agent-state";
 import { useCoAgentQuiz } from "@/hooks/useCoAgentQuiz";
 import type { UseCoAgentQuizOptions } from "@/types/mcq";
 
+// Constant for the question
 const QUESTION: PublicMCQ = {
   questionId: "obj-1-q1",
   objectiveId: "obj-1",
@@ -22,6 +14,7 @@ const QUESTION: PublicMCQ = {
   options: ["Paris", "London", "Berlin", "Madrid"],
 };
 
+// Function to make the state
 function makeState(overrides: Partial<CoAgentState> = {}): CoAgentState {
   return {
     ...getEmptyCoAgentState(),
@@ -30,8 +23,9 @@ function makeState(overrides: Partial<CoAgentState> = {}): CoAgentState {
     phase: "awaiting_input",
     ...overrides,
   };
-}
+};
 
+// Function to make the options
 function makeOptions(
   overrides: Partial<UseCoAgentQuizOptions> = {},
 ): UseCoAgentQuizOptions {
@@ -46,8 +40,9 @@ function makeOptions(
     isRunning: false,
     ...overrides,
   };
-}
+};
 
+// Constant for the correct feedback
 const CORRECT_FEEDBACK: Feedback = {
   verdict: "correct",
   highlightIndex: 0,
@@ -55,6 +50,7 @@ const CORRECT_FEEDBACK: Feedback = {
   canRetry: false,
 };
 
+// Constant for the incorrect feedback
 const INCORRECT_FEEDBACK: Feedback = {
   verdict: "incorrect",
   highlightIndex: 1,
@@ -62,17 +58,18 @@ const INCORRECT_FEEDBACK: Feedback = {
   canRetry: true,
 };
 
+// After each test
 afterEach(() => {
   cleanup();
   vi.clearAllMocks();
 });
 
+// Describe the useCoAgentQuiz hook
 describe("useCoAgentQuiz", () => {
+  // Test to check if the submit locks the widget and the correct feedback keeps it locked until advance
   test("submit locks the widget, and correct feedback keeps it locked until advance", () => {
     const submitAnswer = vi.fn();
     const advance = vi.fn();
-    // isRunning: true models the in-flight graph run a submit kicks off — the
-    // hook clears isSubmitting as a safety fallback when no run is active.
     const initialProps = makeOptions({ submitAnswer, advance, isRunning: true });
 
     const { result, rerender } = renderHook(
@@ -80,14 +77,11 @@ describe("useCoAgentQuiz", () => {
       { initialProps },
     );
 
-    // Pick an option → submittable.
     act(() => result.current.selectOption(0));
     expect(result.current.selectedIndex).toBe(0);
     expect(result.current.canSubmit).toBe(true);
     expect(result.current.isOptionLocked).toBe(false);
 
-    // Submit → exactly one intent sent, and the widget locks so the UI cannot
-    // fire a second submit (canSubmit/isOptionLocked are the double-submit guard).
     act(() => result.current.submitAnswer());
     expect(submitAnswer).toHaveBeenCalledTimes(1);
     expect(submitAnswer).toHaveBeenCalledWith(0);
@@ -95,9 +89,6 @@ describe("useCoAgentQuiz", () => {
     expect(result.current.isOptionLocked).toBe(true);
     expect(result.current.canSubmit).toBe(false);
 
-    // Correct feedback mirrors back from the graph and the run ends. Submitting
-    // clears, the widget stays locked (no retry), and the only path forward is
-    // advance.
     rerender(makeOptions({
       submitAnswer,
       advance,
@@ -114,6 +105,7 @@ describe("useCoAgentQuiz", () => {
     expect(advance).toHaveBeenCalledTimes(1);
   });
 
+  // Test to check if a help turn does not corrupt answer-submit state and re-enables on reply
   test("a help turn does not corrupt answer-submit state and re-enables on reply", () => {
     const submitHelp = vi.fn();
     const submitAnswer = vi.fn();
@@ -130,21 +122,18 @@ describe("useCoAgentQuiz", () => {
       { initialProps },
     );
 
-    // Select an option first; a help turn must not disturb the selection.
     act(() => result.current.selectOption(2));
     expect(result.current.selectedIndex).toBe(2);
 
     act(() => result.current.submitHelp("I'm stuck"));
     expect(submitHelp).toHaveBeenCalledTimes(1);
     expect(result.current.isHelpSubmitting).toBe(true);
-    // Help turns never grade an answer: answer-submit state is untouched and
-    // radios are not locked.
+
     expect(result.current.isSubmitting).toBe(false);
     expect(result.current.selectedIndex).toBe(2);
     expect(result.current.isOptionLocked).toBe(false);
     expect(submitAnswer).not.toHaveBeenCalled();
 
-    // Assistant reply lands in the mirrored thread → help input re-enables.
     rerender(makeOptions({
       submitHelp,
       submitAnswer,
@@ -164,6 +153,7 @@ describe("useCoAgentQuiz", () => {
     expect(result.current.isSubmitting).toBe(false);
   });
 
+  // Test to check if retry after incorrect returns the widget to a submittable state
   test("retry after incorrect returns the widget to a submittable state", () => {
     const submitAnswer = vi.fn();
     const initialProps = makeOptions({

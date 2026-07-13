@@ -1,9 +1,13 @@
+/**
+ * EdPath LangGraph agent test suite.
+ */
 import { describe, expect, test, vi } from "vitest";
 import type { CoAgentState } from "@repo/types";
-
 import { EdPathLangGraphAgent } from "./edpath-langgraph-agent.js";
 
+// Define the describe block for the EdPath LangGraph agent test suite
 describe("EdPathLangGraphAgent.getStateSnapshot", () => {
+  // Define the test for when the state snapshot is returned
   test("returns coAgentSnapshot mirror instead of full graph values", () => {
     const mirror: CoAgentState = {
       pdfMeta: { filename: "lesson.pdf", charCount: 100, pageCount: 1 },

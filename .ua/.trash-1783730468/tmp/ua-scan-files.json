@@ -1,0 +1,1432 @@
+{
+  "scriptCompleted": true,
+  "files": [
+    {
+      "path": ".cursor/rules/backend.mdc",
+      "language": "mdc",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".cursor/rules/core.mdc",
+      "language": "mdc",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".cursor/rules/schemas.mdc",
+      "language": "mdc",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".cursor/rules/web.mdc",
+      "language": "mdc",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".ua/.understandignore",
+      "language": "unknown",
+      "sizeLines": 64,
+      "fileCategory": "code"
+    },
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "sizeLines": 41,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-backend/.env.example",
+      "language": "config",
+      "sizeLines": 28,
+      "fileCategory": "config"
+    },
+    {
+      "path": "apps/edpath-backend/package.json",
+      "language": "json",
+      "sizeLines": 41,
+      "fileCategory": "config"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/__fixtures__/pdf-text.ts",
+      "language": "typescript",
+      "sizeLines": 20,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/__fixtures__/stubs.ts",
+      "language": "typescript",
+      "sizeLines": 86,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/edpath-graph.test.ts",
+      "language": "typescript",
+      "sizeLines": 391,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/graph-routing.test.ts",
+      "language": "typescript",
+      "sizeLines": 84,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/graph.ts",
+      "language": "typescript",
+      "sizeLines": 143,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/initial-coagent-state.ts",
+      "language": "typescript",
+      "sizeLines": 14,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/assist-input.ts",
+      "language": "typescript",
+      "sizeLines": 50,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/grade-answer.test.ts",
+      "language": "typescript",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/grade-answer.ts",
+      "language": "typescript",
+      "sizeLines": 40,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/llm/client.ts",
+      "language": "typescript",
+      "sizeLines": 107,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/parse-mcq-batch.ts",
+      "language": "typescript",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/README.md",
+      "language": "markdown",
+      "sizeLines": 12,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/source-anchor.test.ts",
+      "language": "typescript",
+      "sizeLines": 66,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/source-anchor.ts",
+      "language": "typescript",
+      "sizeLines": 76,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/structured-generate.test.ts",
+      "language": "typescript",
+      "sizeLines": 216,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/structured-generate.ts",
+      "language": "typescript",
+      "sizeLines": 122,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/nodes/advance.ts",
+      "language": "typescript",
+      "sizeLines": 87,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/nodes/approval-gate.ts",
+      "language": "typescript",
+      "sizeLines": 54,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/nodes/assist.ts",
+      "language": "typescript",
+      "sizeLines": 82,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/nodes/await-input.ts",
+      "language": "typescript",
+      "sizeLines": 72,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/nodes/feedback.ts",
+      "language": "typescript",
+      "sizeLines": 63,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/nodes/generate-mcq.test.ts",
+      "language": "typescript",
+      "sizeLines": 74,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/nodes/generate-mcq.ts",
+      "language": "typescript",
+      "sizeLines": 122,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/nodes/grade.ts",
+      "language": "typescript",
+      "sizeLines": 79,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/nodes/plan.ts",
+      "language": "typescript",
+      "sizeLines": 81,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/nodes/summarize.ts",
+      "language": "typescript",
+      "sizeLines": 113,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/prompts/index.ts",
+      "language": "typescript",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/README.md",
+      "language": "markdown",
+      "sizeLines": 42,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/state/annotation.ts",
+      "language": "typescript",
+      "sizeLines": 81,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/state/co-agent-output-annotation.ts",
+      "language": "typescript",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/state/constants.ts",
+      "language": "typescript",
+      "sizeLines": 20,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/state/derive-score.ts",
+      "language": "typescript",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/state/graph-update.ts",
+      "language": "typescript",
+      "sizeLines": 33,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/state/README.md",
+      "language": "markdown",
+      "sizeLines": 12,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/state/to-co-agent-state.ts",
+      "language": "typescript",
+      "sizeLines": 59,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/test-helpers.ts",
+      "language": "typescript",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/types/assist.types.ts",
+      "language": "typescript",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/types/grade-answer.types.ts",
+      "language": "typescript",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/types/interrupt.types.ts",
+      "language": "typescript",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/types/message.types.ts",
+      "language": "typescript",
+      "sizeLines": 5,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/types/README.md",
+      "language": "markdown",
+      "sizeLines": 10,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-backend/src/app.ts",
+      "language": "typescript",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/config/env.ts",
+      "language": "typescript",
+      "sizeLines": 78,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/config/README.md",
+      "language": "markdown",
+      "sizeLines": 9,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-backend/src/copilot/edpath-langgraph-agent.test.ts",
+      "language": "typescript",
+      "sizeLines": 54,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/copilot/edpath-langgraph-agent.ts",
+      "language": "typescript",
+      "sizeLines": 52,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/copilot/README.md",
+      "language": "markdown",
+      "sizeLines": 10,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-backend/src/copilot/runtime.test.ts",
+      "language": "typescript",
+      "sizeLines": 36,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/copilot/runtime.ts",
+      "language": "typescript",
+      "sizeLines": 57,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/evals.integration.test.ts",
+      "language": "typescript",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/evals.test.ts",
+      "language": "typescript",
+      "sizeLines": 63,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/evaluate-case.ts",
+      "language": "typescript",
+      "sizeLines": 132,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/evaluators/deterministic/assist-leakage.ts",
+      "language": "typescript",
+      "sizeLines": 157,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/evaluators/deterministic/end-state.ts",
+      "language": "typescript",
+      "sizeLines": 104,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/evaluators/deterministic/plan-grounding.ts",
+      "language": "typescript",
+      "sizeLines": 49,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/evaluators/deterministic/resume-integrity.ts",
+      "language": "typescript",
+      "sizeLines": 83,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/evaluators/deterministic/source-anchor.ts",
+      "language": "typescript",
+      "sizeLines": 95,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/evaluators/llm-judge/index.ts",
+      "language": "typescript",
+      "sizeLines": 156,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/evaluators/README.md",
+      "language": "markdown",
+      "sizeLines": 24,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/fixtures/adversarial-prompts.ts",
+      "language": "typescript",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/fixtures/pdfs/index.ts",
+      "language": "typescript",
+      "sizeLines": 88,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/README.md",
+      "language": "markdown",
+      "sizeLines": 46,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/run-scenario.ts",
+      "language": "typescript",
+      "sizeLines": 319,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/run-suite.ts",
+      "language": "typescript",
+      "sizeLines": 82,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/run.ts",
+      "language": "typescript",
+      "sizeLines": 35,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/scenarios/adversarial-help.ts",
+      "language": "typescript",
+      "sizeLines": 104,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/scenarios/edge-pdfs.ts",
+      "language": "typescript",
+      "sizeLines": 33,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/scenarios/happy-path.ts",
+      "language": "typescript",
+      "sizeLines": 223,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/scenarios/index.ts",
+      "language": "typescript",
+      "sizeLines": 45,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/scenarios/resume-integrity.ts",
+      "language": "typescript",
+      "sizeLines": 41,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/sync-langsmith-dataset.ts",
+      "language": "typescript",
+      "sizeLines": 61,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/types.ts",
+      "language": "typescript",
+      "sizeLines": 109,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/features/README.md",
+      "language": "markdown",
+      "sizeLines": 10,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-backend/src/features/start/index.ts",
+      "language": "typescript",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/features/start/README.md",
+      "language": "markdown",
+      "sizeLines": 22,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-backend/src/features/start/start.route.ts",
+      "language": "typescript",
+      "sizeLines": 89,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/features/start/start.service.test.ts",
+      "language": "typescript",
+      "sizeLines": 209,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/features/start/start.service.ts",
+      "language": "typescript",
+      "sizeLines": 70,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/build-initial-state.ts",
+      "language": "typescript",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/index.ts",
+      "language": "typescript",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/pdf-clean.ts",
+      "language": "typescript",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/pdf-extract.ts",
+      "language": "typescript",
+      "sizeLines": 87,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/README.md",
+      "language": "markdown",
+      "sizeLines": 31,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/test-fixtures.ts",
+      "language": "typescript",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/upload-middleware.ts",
+      "language": "typescript",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/upload.route.test.ts",
+      "language": "typescript",
+      "sizeLines": 79,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/upload.route.ts",
+      "language": "typescript",
+      "sizeLines": 54,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/upload.service.test.ts",
+      "language": "typescript",
+      "sizeLines": 251,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/upload.service.ts",
+      "language": "typescript",
+      "sizeLines": 165,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/features/upload/upload.types.ts",
+      "language": "typescript",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/index.ts",
+      "language": "typescript",
+      "sizeLines": 29,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/lib/langgraph/deployment-client.ts",
+      "language": "typescript",
+      "sizeLines": 65,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/src/lib/README.md",
+      "language": "markdown",
+      "sizeLines": 9,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-backend/src/README.md",
+      "language": "markdown",
+      "sizeLines": 25,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-backend/tsconfig.json",
+      "language": "json",
+      "sizeLines": 11,
+      "fileCategory": "config"
+    },
+    {
+      "path": "apps/edpath-backend/vitest.config.ts",
+      "language": "typescript",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-backend/vitest.setup.ts",
+      "language": "typescript",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/AGENTS.md",
+      "language": "markdown",
+      "sizeLines": 5,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-web/api/README.md",
+      "language": "markdown",
+      "sizeLines": 23,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-web/api/start-api.ts",
+      "language": "typescript",
+      "sizeLines": 91,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/api/upload-api.ts",
+      "language": "typescript",
+      "sizeLines": 69,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/app/globals.css",
+      "language": "css",
+      "sizeLines": 53,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "apps/edpath-web/app/layout.tsx",
+      "language": "typescript",
+      "sizeLines": 57,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/app/lesson/[threadId]/page.tsx",
+      "language": "typescript",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/app/page.tsx",
+      "language": "typescript",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/app/README.md",
+      "language": "markdown",
+      "sizeLines": 24,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-web/CLAUDE.md",
+      "language": "markdown",
+      "sizeLines": 1,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-web/components.json",
+      "language": "json",
+      "sizeLines": 25,
+      "fileCategory": "config"
+    },
+    {
+      "path": "apps/edpath-web/components/copilot/copilot-transport-error-context.tsx",
+      "language": "typescript",
+      "sizeLines": 92,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/copilot/EdPathCopilotProvider.tsx",
+      "language": "typescript",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/copilot/README.md",
+      "language": "markdown",
+      "sizeLines": 21,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-web/components/landing/LandingHero.tsx",
+      "language": "typescript",
+      "sizeLines": 41,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/landing/README.md",
+      "language": "markdown",
+      "sizeLines": 23,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-web/components/landing/UploadCard.tsx",
+      "language": "typescript",
+      "sizeLines": 267,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/landing/UploadGuidelines.tsx",
+      "language": "typescript",
+      "sizeLines": 106,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/landing/UploadStateBanner.tsx",
+      "language": "typescript",
+      "sizeLines": 57,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/mcq/FeedbackBanner.tsx",
+      "language": "typescript",
+      "sizeLines": 51,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/mcq/HelpInput.tsx",
+      "language": "typescript",
+      "sizeLines": 308,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/mcq/McqWidget.tsx",
+      "language": "typescript",
+      "sizeLines": 95,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/mcq/OptionList.tsx",
+      "language": "typescript",
+      "sizeLines": 114,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/mcq/QuestionHeader.tsx",
+      "language": "typescript",
+      "sizeLines": 44,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/mcq/quiz-firewall.contract-test.tsx",
+      "language": "typescript",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/mcq/README.md",
+      "language": "markdown",
+      "sizeLines": 26,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-web/components/mcq/WidgetActions.tsx",
+      "language": "typescript",
+      "sizeLines": 75,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/plan/PlanActions.tsx",
+      "language": "typescript",
+      "sizeLines": 66,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/plan/PlanHeader.tsx",
+      "language": "typescript",
+      "sizeLines": 45,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/plan/PlanObjectiveItem.tsx",
+      "language": "typescript",
+      "sizeLines": 41,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/plan/PlanReviseChat.tsx",
+      "language": "typescript",
+      "sizeLines": 208,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/plan/PlanWidget.tsx",
+      "language": "typescript",
+      "sizeLines": 65,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/plan/README.md",
+      "language": "markdown",
+      "sizeLines": 24,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-web/components/README.md",
+      "language": "markdown",
+      "sizeLines": 33,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-web/components/shell/AppShell.tsx",
+      "language": "typescript",
+      "sizeLines": 71,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/shell/coagent-lesson.contract-test.tsx",
+      "language": "typescript",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/shell/LessonErrorBanner.tsx",
+      "language": "typescript",
+      "sizeLines": 44,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/shell/LessonRunner.tsx",
+      "language": "typescript",
+      "sizeLines": 171,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/shell/LessonShell.tsx",
+      "language": "typescript",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/shell/ObjectiveRail.tsx",
+      "language": "typescript",
+      "sizeLines": 110,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/shell/README.md",
+      "language": "markdown",
+      "sizeLines": 26,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-web/components/shell/useCoAgentLesson.tsx",
+      "language": "typescript",
+      "sizeLines": 333,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/summary/OverallScore.tsx",
+      "language": "typescript",
+      "sizeLines": 36,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/summary/PerObjectiveTable.tsx",
+      "language": "typescript",
+      "sizeLines": 39,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/summary/README.md",
+      "language": "markdown",
+      "sizeLines": 24,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-web/components/summary/RestartCta.tsx",
+      "language": "typescript",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/summary/StudyTipsList.tsx",
+      "language": "typescript",
+      "sizeLines": 36,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/summary/SummaryView.tsx",
+      "language": "typescript",
+      "sizeLines": 49,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/ui/badge.tsx",
+      "language": "typescript",
+      "sizeLines": 49,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/ui/button.tsx",
+      "language": "typescript",
+      "sizeLines": 67,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/ui/card.tsx",
+      "language": "typescript",
+      "sizeLines": 103,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/ui/dialog.tsx",
+      "language": "typescript",
+      "sizeLines": 168,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/ui/GeneratingPanel.tsx",
+      "language": "typescript",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/ui/GeneratingState.tsx",
+      "language": "typescript",
+      "sizeLines": 48,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/ui/Icon.tsx",
+      "language": "typescript",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/ui/input.tsx",
+      "language": "typescript",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/ui/Panel.tsx",
+      "language": "typescript",
+      "sizeLines": 53,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/ui/radio-group.tsx",
+      "language": "typescript",
+      "sizeLines": 44,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/ui/README.md",
+      "language": "markdown",
+      "sizeLines": 29,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-web/components/ui/separator.tsx",
+      "language": "typescript",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/components/ui/textarea.tsx",
+      "language": "typescript",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/eslint.config.mjs",
+      "language": "javascript",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/hooks/README.md",
+      "language": "markdown",
+      "sizeLines": 22,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-web/hooks/useCoAgentQuiz.test.tsx",
+      "language": "typescript",
+      "sizeLines": 195,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/hooks/useCoAgentQuiz.tsx",
+      "language": "typescript",
+      "sizeLines": 245,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/hooks/usePlanRevision.tsx",
+      "language": "typescript",
+      "sizeLines": 87,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/hooks/useTypewriter.ts",
+      "language": "typescript",
+      "sizeLines": 43,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/lib/copilot.ts",
+      "language": "typescript",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/lib/empty-co-agent-state.ts",
+      "language": "typescript",
+      "sizeLines": 35,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/lib/lesson-handoff.ts",
+      "language": "typescript",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/lib/lesson-in-progress.ts",
+      "language": "typescript",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/lib/lesson.ts",
+      "language": "typescript",
+      "sizeLines": 50,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/lib/phase-ui.ts",
+      "language": "typescript",
+      "sizeLines": 174,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/lib/plan.ts",
+      "language": "typescript",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/lib/README.md",
+      "language": "markdown",
+      "sizeLines": 26,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-web/lib/utils.ts",
+      "language": "typescript",
+      "sizeLines": 6,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/next.config.ts",
+      "language": "typescript",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/package.json",
+      "language": "json",
+      "sizeLines": 44,
+      "fileCategory": "config"
+    },
+    {
+      "path": "apps/edpath-web/postcss.config.mjs",
+      "language": "javascript",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/README.md",
+      "language": "markdown",
+      "sizeLines": 30,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-web/tsconfig.json",
+      "language": "json",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "apps/edpath-web/types/api.ts",
+      "language": "typescript",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/types/copilot.ts",
+      "language": "typescript",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/types/landing.ts",
+      "language": "typescript",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/types/lesson.ts",
+      "language": "typescript",
+      "sizeLines": 60,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/types/mcq.ts",
+      "language": "typescript",
+      "sizeLines": 111,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/types/plan.ts",
+      "language": "typescript",
+      "sizeLines": 58,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/types/README.md",
+      "language": "markdown",
+      "sizeLines": 26,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "apps/edpath-web/types/shell.ts",
+      "language": "typescript",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/edpath-web/vitest.config.mts",
+      "language": "mts",
+      "sizeLines": 45,
+      "fileCategory": "code"
+    },
+    {
+      "path": "CLAUDE.md",
+      "language": "markdown",
+      "sizeLines": 7,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/architecture/README.md",
+      "language": "markdown",
+      "sizeLines": 15,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/architecture/repo-map.md",
+      "language": "markdown",
+      "sizeLines": 463,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/architecture/system-overview.md",
+      "language": "markdown",
+      "sizeLines": 5,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/assets/README.md",
+      "language": "markdown",
+      "sizeLines": 3,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/design/design-system.md",
+      "language": "markdown",
+      "sizeLines": 134,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/reference/agent-architecture.md",
+      "language": "markdown",
+      "sizeLines": 424,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/reference/architecture.md",
+      "language": "markdown",
+      "sizeLines": 281,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/reference/design-decisions.md",
+      "language": "markdown",
+      "sizeLines": 1101,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "langgraph.json",
+      "language": "json",
+      "sizeLines": 8,
+      "fileCategory": "config"
+    },
+    {
+      "path": "package.json",
+      "language": "json",
+      "sizeLines": 27,
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/schemas/package.json",
+      "language": "json",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/schemas/src/constants.ts",
+      "language": "typescript",
+      "sizeLines": 9,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/schemas/src/error.ts",
+      "language": "typescript",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/schemas/src/feedback.ts",
+      "language": "typescript",
+      "sizeLines": 38,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/schemas/src/index.ts",
+      "language": "typescript",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/schemas/src/lesson-plan.ts",
+      "language": "typescript",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/schemas/src/mcq.ts",
+      "language": "typescript",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/schemas/src/primitives.ts",
+      "language": "typescript",
+      "sizeLines": 9,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/schemas/src/resume.ts",
+      "language": "typescript",
+      "sizeLines": 57,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/schemas/src/scoring.ts",
+      "language": "typescript",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/schemas/src/summary.ts",
+      "language": "typescript",
+      "sizeLines": 29,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/schemas/src/upload.ts",
+      "language": "typescript",
+      "sizeLines": 33,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/schemas/tsconfig.json",
+      "language": "json",
+      "sizeLines": 9,
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/tokens/package.json",
+      "language": "json",
+      "sizeLines": 8,
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/tokens/tokens.css",
+      "language": "css",
+      "sizeLines": 126,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "packages/types/package.json",
+      "language": "json",
+      "sizeLines": 19,
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/types/src/feedback-state.contract-test.ts",
+      "language": "typescript",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/types/src/ids.ts",
+      "language": "typescript",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/types/src/index.ts",
+      "language": "typescript",
+      "sizeLines": 54,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/types/src/phase.ts",
+      "language": "typescript",
+      "sizeLines": 11,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/types/src/state.ts",
+      "language": "typescript",
+      "sizeLines": 80,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/types/tsconfig.json",
+      "language": "json",
+      "sizeLines": 5,
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/typescript-config/base.json",
+      "language": "json",
+      "sizeLines": 19,
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/typescript-config/nextjs.json",
+      "language": "json",
+      "sizeLines": 12,
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/typescript-config/package.json",
+      "language": "json",
+      "sizeLines": 9,
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/typescript-config/react-library.json",
+      "language": "json",
+      "sizeLines": 7,
+      "fileCategory": "config"
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "sizeLines": 232,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "turbo.json",
+      "language": "json",
+      "sizeLines": 24,
+      "fileCategory": "config"
+    }
+  ],
+  "totalFiles": 234,
+  "filteredByIgnore": 0,
+  "estimatedComplexity": "large",
+  "stats": {
+    "filesScanned": 234,
+    "byCategory": {
+      "code": 174,
+      "docs": 40,
+      "config": 18,
+      "markup": 2
+    },
+    "byLanguage": {
+      "mdc": 4,
+      "unknown": 1,
+      "markdown": 40,
+      "config": 1,
+      "json": 17,
+      "typescript": 166,
+      "css": 2,
+      "javascript": 2,
+      "mts": 1
+    }
+  }
+}

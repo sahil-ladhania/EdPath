@@ -1,18 +1,11 @@
 "use client";
 
-/**
- * Static PDF upload DO/DON'T guidelines.
- */
-
-import {
-  ArrowRightIcon,
-  CircleCheckIcon,
-  CircleXIcon,
-} from "lucide-react";
-
+// Import components
+import { ArrowRightIcon, CircleCheckIcon, CircleXIcon } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/utils";
 
+// Constant for the do guidelines
 const DOS = [
   "One PDF file, under 15 MB",
   "Text you can select or copy (not a scan)",
@@ -20,6 +13,7 @@ const DOS = [
   "Focused length (roughly under 50 pages)",
 ] as const;
 
+// Constant for the don't guidelines
 const DONTS = [
   "Word docs, images, or other file types",
   "Scanned or image-only PDFs",
@@ -27,21 +21,20 @@ const DONTS = [
   "Empty or extremely short PDFs",
 ] as const;
 
+// Interface for the guideline column props
 interface GuidelineColumnProps {
   title: string;
   items: readonly string[];
   tone: "do" | "dont";
   headingIcon: typeof CircleCheckIcon;
-}
+};
 
-function GuidelineColumn({
-  title,
-  items,
-  tone,
-  headingIcon,
-}: GuidelineColumnProps) {
+// Function to render the guideline column
+function GuidelineColumn({ title, items, tone, headingIcon }: GuidelineColumnProps) {
+  // Check if the tone is do
   const isDo = tone === "do";
-
+  
+  // Return the guideline column
   return (
     <div
       className={cn(
@@ -86,7 +79,9 @@ function GuidelineColumn({
   );
 }
 
+// Function to render the upload guidelines
 export function UploadGuidelines() {
+  // Return the upload guidelines
   return (
     <div className="grid gap-2 sm:grid-cols-2">
       <GuidelineColumn
@@ -103,4 +98,4 @@ export function UploadGuidelines() {
       />
     </div>
   );
-}
+};

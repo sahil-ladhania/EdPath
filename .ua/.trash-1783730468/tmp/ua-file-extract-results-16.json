@@ -1,0 +1,535 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 14,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "packages/schemas/src/resume.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 57,
+      "nonEmptyLines": 51,
+      "exports": [
+        {
+          "name": "ApprovalDecisionSchema",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "AnswerSubmissionSchema",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "HelpMessageSchema",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "AdvanceSignalSchema",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "RetrySignalSchema",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "ResumePayloadSchema",
+          "line": 51,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/schemas/src/scoring.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "exports": [
+        {
+          "name": "ObjectiveResultSchema",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "ScoreSchema",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/schemas/src/summary.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 25,
+      "exports": [
+        {
+          "name": "PerObjectiveStatSchema",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "OverallStatSchema",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "SummarySchema",
+          "line": 24,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/schemas/src/upload.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 33,
+      "nonEmptyLines": 30,
+      "exports": [
+        {
+          "name": "PdfMetaSchema",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "UploadRejectReasonSchema",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "UploadResultSchema",
+          "line": 25,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/schemas/tsconfig.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 9,
+      "nonEmptyLines": 9,
+      "sections": [
+        {
+          "heading": "extends",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "compilerOptions",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "include",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "exclude",
+          "level": 1,
+          "line": 8
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "packages/tokens/package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 8,
+      "nonEmptyLines": 8,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "private",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "exports",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "packages/tokens/tokens.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 126,
+      "nonEmptyLines": 112,
+      "metrics": {}
+    },
+    {
+      "path": "packages/types/package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 19,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "private",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "type",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "exports",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "dependencies",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "devDependencies",
+          "level": 1,
+          "line": 15
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "packages/types/src/feedback-state.contract-test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 24,
+      "functions": [
+        {
+          "name": "assertExhaustedFeedbackDoesNotRevealCorrectIndex",
+          "startLine": 12,
+          "endLine": 17,
+          "params": [
+            "feedback"
+          ]
+        },
+        {
+          "name": "assertStateCarriesFeedback",
+          "startLine": 19,
+          "endLine": 28,
+          "params": [
+            "coAgentState",
+            "edPathState"
+          ]
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/types/src/ids.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 7,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/types/src/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 54,
+      "nonEmptyLines": 52,
+      "exports": [
+        {
+          "name": "Difficulty",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "Verdict",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "Objective",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "LessonPlan",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "MCQ",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "McqBatch",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "PublicMCQ",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "Feedback",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "PerObjectiveStat",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "OverallStat",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "Summary",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "ApprovalDecision",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "AnswerSubmission",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "HelpMessage",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "ResumePayload",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "PdfMeta",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "UploadRejectReason",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "UploadResult",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "ErrorNode",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "ErrorKind",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "LastError",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "ObjectiveResult",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "Score",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "Phase",
+          "line": 52,
+          "isDefault": false
+        },
+        {
+          "name": "ObjectiveId",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "QuestionId",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "EdPathState",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "CoAgentState",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "HelpThreadMessage",
+          "line": 54,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 29,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/types/src/phase.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 11,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/types/src/state.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 80,
+      "nonEmptyLines": 77,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/types/tsconfig.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 5,
+      "nonEmptyLines": 5,
+      "sections": [
+        {
+          "heading": "extends",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "include",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "exclude",
+          "level": 1,
+          "line": 4
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    }
+  ]
+}

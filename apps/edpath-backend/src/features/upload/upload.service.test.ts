@@ -1,17 +1,15 @@
+/**
+ * Upload service tests.
+**/
 import { describe, expect, test } from "vitest";
-
 import { buildInitialEdPathState } from "./build-initial-state.js";
 import { cleanPdfText, estimateTokens } from "./pdf-clean.js";
 import { extractPdfText } from "./pdf-extract.js";
 import { processUpload } from "./upload.service.js";
 import type { UploadLimits } from "./upload.types.js";
-import {
-  CORRUPT_PDF,
-  NO_TEXT_LAYER_PDF,
-  NOT_PDF,
-  VALID_TEXT_PDF,
-} from "./test-fixtures.js";
+import { CORRUPT_PDF, NO_TEXT_LAYER_PDF, NOT_PDF, VALID_TEXT_PDF } from "./test-fixtures.js";
 
+// Define the default upload limits
 const DEFAULT_LIMITS: UploadLimits = {
   maxBinaryBytes: 15 * 1024 * 1024,
   maxCleanChars: 200_000,
@@ -21,14 +19,18 @@ const DEFAULT_LIMITS: UploadLimits = {
   minCharsPerPage: 30,
 };
 
+// Define the clean pdf text tests
 describe("cleanPdfText", () => {
+  // Define the normalizes whitespace and de-hyphenates soft breaks tests
   test("normalizes whitespace and de-hyphenates soft breaks", () => {
     const raw = "Hello   world\r\n\r\n\r\nFoo-\nbar\t\tbaz";
     expect(cleanPdfText(raw)).toBe("Hello world\n\nFoobar baz");
   });
 });
 
+// Define the estimate tokens tests
 describe("estimateTokens", () => {
+  // Define the uses chars / 4 ceiling tests
   test("uses chars / 4 ceiling", () => {
     expect(estimateTokens(0)).toBe(0);
     expect(estimateTokens(5)).toBe(2);
@@ -36,7 +38,9 @@ describe("estimateTokens", () => {
   });
 });
 
+// Define the extract pdf text tests
 describe("extractPdfText", () => {
+  // Define the extracts text from a valid fixture pdf tests
   test("extracts text from a valid fixture PDF", async () => {
     const result = await extractPdfText(VALID_TEXT_PDF);
 
@@ -46,7 +50,9 @@ describe("extractPdfText", () => {
   });
 });
 
+// Define the process upload tests
 describe("processUpload", () => {
+  // Define the accept valid text layer pdf tests
   test("accepts a valid text-layer PDF", async () => {
     const result = await processUpload(
       {
@@ -70,6 +76,7 @@ describe("processUpload", () => {
     expect(result.pdfText.length).toBe(result.pdfMeta.charCount);
   });
 
+  // Define the reject non pdf files tests
   test("rejects non-PDF files as unparseable", async () => {
     const result = await processUpload(
       {
@@ -91,6 +98,7 @@ describe("processUpload", () => {
     });
   });
 
+  // Define the reject corrupt pdfs tests
   test("rejects corrupt PDFs as unparseable", async () => {
     const result = await processUpload(
       {
@@ -111,6 +119,7 @@ describe("processUpload", () => {
     expect(result.uploadResult.reason).toBe("unparseable");
   });
 
+  // Define the reject image only pdfs tests
   test("rejects image-only PDFs as no_text_layer", async () => {
     const result = await processUpload(
       {
@@ -133,6 +142,7 @@ describe("processUpload", () => {
     });
   });
 
+  // Define the reject oversize binary tests
   test("rejects oversize binary as over_ceiling", async () => {
     const result = await processUpload(
       {
@@ -158,6 +168,7 @@ describe("processUpload", () => {
     });
   });
 
+  // Define the reject extracted text above clean char ceiling tests
   test("rejects extracted text above clean char ceiling", async () => {
     const result = await processUpload(
       {
@@ -175,7 +186,7 @@ describe("processUpload", () => {
     expect(result.ok).toBe(false);
     if (result.ok) {
       return;
-    }
+    };
 
     expect(result.uploadResult.reason).toBe("over_ceiling");
     expect(result.uploadResult.message).toBe(
@@ -183,6 +194,7 @@ describe("processUpload", () => {
     );
   });
 
+  // Define the reject near empty text tests
   test("rejects near-empty text as empty when per-page density is sufficient", async () => {
     const shortTextPdf = Buffer.from(
       `%PDF-1.4
@@ -231,7 +243,9 @@ startxref
   });
 });
 
+// Define the build initial ed path state tests
 describe("buildInitialEdPathState", () => {
+  // Define the seeds graph state from accepted upload output tests
   test("seeds graph state from accepted upload output", () => {
     const seed = buildInitialEdPathState({
       pdfText: "Grounding text",

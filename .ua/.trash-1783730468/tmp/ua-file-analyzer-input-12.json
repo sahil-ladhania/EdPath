@@ -1,0 +1,13 @@
+{
+  "projectRoot": "/Users/sahilladhania/Desktop/Memorang Assignment/edpath",
+  "batchFiles": [
+    {"path": "docs/reference/agent-architecture.md", "language": "markdown", "sizeLines": 424, "fileCategory": "docs"},
+    {"path": "docs/reference/architecture.md", "language": "markdown", "sizeLines": 281, "fileCategory": "docs"},
+    {"path": "docs/reference/design-decisions.md", "language": "markdown", "sizeLines": 1101, "fileCategory": "docs"}
+  ],
+  "batchImportData": {
+    "docs/reference/agent-architecture.md": [],
+    "docs/reference/architecture.md": [],
+    "docs/reference/design-decisions.md": []
+  }
+}

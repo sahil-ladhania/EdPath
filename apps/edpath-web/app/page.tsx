@@ -1,11 +1,9 @@
-/**
- * Landing page — PDF upload entry point before lesson navigation.
- */
-
+// Import components
 import { LandingHero } from "@/components/landing/LandingHero";
 import { UploadCard } from "@/components/landing/UploadCard";
 import { AppShell } from "@/components/shell/AppShell";
 
+// Function to render the home page
 export default function Home() {
   return (
     <AppShell headerVariant="landing">
@@ -21,4 +19,4 @@ export default function Home() {
       </div>
     </AppShell>
   );
-}
+};

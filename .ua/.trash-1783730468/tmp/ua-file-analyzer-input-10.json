@@ -1,0 +1,12 @@
+{
+  "projectRoot": "/Users/sahilladhania/Desktop/Memorang Assignment/edpath",
+  "batchFiles": [
+    {"path": "apps/edpath-web/AGENTS.md", "language": "markdown", "sizeLines": 5, "fileCategory": "docs"},
+    {"path": "apps/edpath-web/CLAUDE.md", "language": "markdown", "sizeLines": 1, "fileCategory": "docs"},
+    {"path": "apps/edpath-web/README.md", "language": "markdown", "sizeLines": 30, "fileCategory": "docs"},
+    {"path": "apps/edpath-web/components.json", "language": "json", "sizeLines": 25, "fileCategory": "config"},
+    {"path": "apps/edpath-web/package.json", "language": "json", "sizeLines": 44, "fileCategory": "config"},
+    {"path": "apps/edpath-web/tsconfig.json", "language": "json", "sizeLines": 35, "fileCategory": "config"}
+  ],
+  "batchImportData": {"apps/edpath-web/AGENTS.md":[],"apps/edpath-web/CLAUDE.md":[],"apps/edpath-web/README.md":[],"apps/edpath-web/components.json":[],"apps/edpath-web/package.json":[],"apps/edpath-web/tsconfig.json":[]}
+}

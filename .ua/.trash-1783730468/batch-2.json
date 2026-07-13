@@ -1,0 +1,520 @@
+{
+  "nodes": [
+    {
+      "id": "file:apps/edpath-web/components/summary/StudyTipsList.tsx",
+      "type": "file",
+      "name": "StudyTipsList.tsx",
+      "filePath": "apps/edpath-web/components/summary/StudyTipsList.tsx",
+      "summary": "Renders the list of study tips from the lesson summary, mapping each tip into a styled bullet item in the end-of-lesson summary view.",
+      "tags": ["component", "summary", "presentational", "list"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/edpath-web/components/summary/StudyTipsList.tsx:StudyTipsList",
+      "type": "function",
+      "name": "StudyTipsList",
+      "filePath": "apps/edpath-web/components/summary/StudyTipsList.tsx",
+      "lineRange": [13, 36],
+      "summary": "React component that iterates over summary.studyTips and renders each as a formatted study-tip item.",
+      "tags": ["component", "summary", "list"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/components/summary/SummaryView.tsx",
+      "type": "file",
+      "name": "SummaryView.tsx",
+      "filePath": "apps/edpath-web/components/summary/SummaryView.tsx",
+      "summary": "Composes the end-of-lesson summary screen from the overall score, per-objective table, study tips, and restart CTA sub-components.",
+      "tags": ["component", "summary", "composition", "entry-point"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/edpath-web/components/summary/SummaryView.tsx:SummaryView",
+      "type": "function",
+      "name": "SummaryView",
+      "filePath": "apps/edpath-web/components/summary/SummaryView.tsx",
+      "lineRange": [27, 49],
+      "summary": "React component that assembles the lesson summary layout from score, objective breakdown, study tips, and restart action.",
+      "tags": ["component", "summary", "composition"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/components/ui/GeneratingPanel.tsx",
+      "type": "file",
+      "name": "GeneratingPanel.tsx",
+      "filePath": "apps/edpath-web/components/ui/GeneratingPanel.tsx",
+      "summary": "Wraps GeneratingState inside a Panel to present an in-panel loading indicator while the agent generates content.",
+      "tags": ["component", "ui", "loading", "wrapper"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/edpath-web/components/ui/GeneratingPanel.tsx:GeneratingPanel",
+      "type": "function",
+      "name": "GeneratingPanel",
+      "filePath": "apps/edpath-web/components/ui/GeneratingPanel.tsx",
+      "lineRange": [15, 24],
+      "summary": "React component composing a Panel around GeneratingState with a message and subtext.",
+      "tags": ["component", "ui", "loading"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/components/ui/GeneratingState.tsx",
+      "type": "file",
+      "name": "GeneratingState.tsx",
+      "filePath": "apps/edpath-web/components/ui/GeneratingState.tsx",
+      "summary": "Animated loading-state component showing a spinner icon plus message and subtext, used across widgets while the LangGraph agent produces content.",
+      "tags": ["component", "ui", "loading", "presentational"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/edpath-web/components/ui/GeneratingState.tsx:GeneratingState",
+      "type": "function",
+      "name": "GeneratingState",
+      "filePath": "apps/edpath-web/components/ui/GeneratingState.tsx",
+      "lineRange": [18, 48],
+      "summary": "React component rendering an animated icon with message and subtext for a generating/loading state.",
+      "tags": ["component", "ui", "loading"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/components/ui/Icon.tsx",
+      "type": "file",
+      "name": "Icon.tsx",
+      "filePath": "apps/edpath-web/components/ui/Icon.tsx",
+      "summary": "Design-system icon wrapper around Lucide components with size and variant styling via class-variance-authority, used throughout the web UI.",
+      "tags": ["component", "ui", "design-system", "icon"],
+      "complexity": "simple",
+      "languageNotes": "Uses class-variance-authority (cva) to expose iconVariants for consistent size/color tokens."
+    },
+    {
+      "id": "function:apps/edpath-web/components/ui/Icon.tsx:Icon",
+      "type": "function",
+      "name": "Icon",
+      "filePath": "apps/edpath-web/components/ui/Icon.tsx",
+      "lineRange": [39, 53],
+      "summary": "React component rendering a Lucide icon with variant-driven size, color, and accessibility label.",
+      "tags": ["component", "ui", "icon"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/components/ui/Panel.tsx",
+      "type": "file",
+      "name": "Panel.tsx",
+      "filePath": "apps/edpath-web/components/ui/Panel.tsx",
+      "summary": "Reusable surface container primitive with size and variant styling, providing the framed panel used by widgets and the summary view.",
+      "tags": ["component", "ui", "design-system", "container"],
+      "complexity": "simple",
+      "languageNotes": "Exposes panelVariants via cva for consistent surface styling."
+    },
+    {
+      "id": "function:apps/edpath-web/components/ui/Panel.tsx:Panel",
+      "type": "function",
+      "name": "Panel",
+      "filePath": "apps/edpath-web/components/ui/Panel.tsx",
+      "lineRange": [32, 51],
+      "summary": "React component rendering a styled container div with size/variant classes and forwarded props.",
+      "tags": ["component", "ui", "container"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/components/ui/badge.tsx",
+      "type": "file",
+      "name": "badge.tsx",
+      "filePath": "apps/edpath-web/components/ui/badge.tsx",
+      "summary": "Design-system badge primitive with variant styling, used for status labels and objective indicators across the UI.",
+      "tags": ["component", "ui", "design-system", "badge"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/edpath-web/components/ui/badge.tsx:Badge",
+      "type": "function",
+      "name": "Badge",
+      "filePath": "apps/edpath-web/components/ui/badge.tsx",
+      "lineRange": [30, 47],
+      "summary": "React component rendering a variant-styled badge, optionally as a Radix Slot child.",
+      "tags": ["component", "ui", "badge"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/components/ui/button.tsx",
+      "type": "file",
+      "name": "button.tsx",
+      "filePath": "apps/edpath-web/components/ui/button.tsx",
+      "summary": "Design-system button primitive with size and variant styling via cva, the shared action control used across landing, plan, and MCQ widgets.",
+      "tags": ["component", "ui", "design-system", "button"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:apps/edpath-web/components/ui/button.tsx:Button",
+      "type": "function",
+      "name": "Button",
+      "filePath": "apps/edpath-web/components/ui/button.tsx",
+      "lineRange": [44, 65],
+      "summary": "React component rendering a variant/size-styled button, optionally as a Radix Slot child.",
+      "tags": ["component", "ui", "button"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/components/ui/card.tsx",
+      "type": "file",
+      "name": "card.tsx",
+      "filePath": "apps/edpath-web/components/ui/card.tsx",
+      "summary": "Design-system card family (Card, CardHeader, CardTitle, CardDescription, CardAction, CardContent, CardFooter) providing composable surface primitives.",
+      "tags": ["component", "ui", "design-system", "card"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:apps/edpath-web/components/ui/card.tsx:Card",
+      "type": "function",
+      "name": "Card",
+      "filePath": "apps/edpath-web/components/ui/card.tsx",
+      "lineRange": [5, 21],
+      "summary": "Root card container component with size styling and forwarded props.",
+      "tags": ["component", "ui", "card"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/components/ui/dialog.tsx",
+      "type": "file",
+      "name": "dialog.tsx",
+      "filePath": "apps/edpath-web/components/ui/dialog.tsx",
+      "summary": "Radix-based dialog primitive family (overlay, content, header, footer, title, description) with styling and a close button, powering modal interactions.",
+      "tags": ["component", "ui", "design-system", "dialog"],
+      "complexity": "moderate",
+      "languageNotes": "Thin styled wrappers over @radix-ui/react-dialog primitives."
+    },
+    {
+      "id": "function:apps/edpath-web/components/ui/dialog.tsx:DialogContent",
+      "type": "function",
+      "name": "DialogContent",
+      "filePath": "apps/edpath-web/components/ui/dialog.tsx",
+      "lineRange": [50, 86],
+      "summary": "Renders the dialog portal, overlay, and styled content surface with an optional close button.",
+      "tags": ["component", "ui", "dialog"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/components/ui/input.tsx",
+      "type": "file",
+      "name": "input.tsx",
+      "filePath": "apps/edpath-web/components/ui/input.tsx",
+      "summary": "Design-system text input primitive with shared styling and forwarded native input props.",
+      "tags": ["component", "ui", "design-system", "form"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/edpath-web/components/ui/input.tsx:Input",
+      "type": "function",
+      "name": "Input",
+      "filePath": "apps/edpath-web/components/ui/input.tsx",
+      "lineRange": [5, 17],
+      "summary": "Styled native input component forwarding className and type.",
+      "tags": ["component", "ui", "form"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/components/ui/radio-group.tsx",
+      "type": "file",
+      "name": "radio-group.tsx",
+      "filePath": "apps/edpath-web/components/ui/radio-group.tsx",
+      "summary": "Radix-based radio group primitives (RadioGroup, RadioGroupItem) used to render selectable MCQ answer options.",
+      "tags": ["component", "ui", "design-system", "form"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/edpath-web/components/ui/radio-group.tsx:RadioGroup",
+      "type": "function",
+      "name": "RadioGroup",
+      "filePath": "apps/edpath-web/components/ui/radio-group.tsx",
+      "lineRange": [8, 19],
+      "summary": "Styled Radix RadioGroup root container component.",
+      "tags": ["component", "ui", "form"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/edpath-web/components/ui/radio-group.tsx:RadioGroupItem",
+      "type": "function",
+      "name": "RadioGroupItem",
+      "filePath": "apps/edpath-web/components/ui/radio-group.tsx",
+      "lineRange": [21, 42],
+      "summary": "Styled Radix radio item with an indicator, representing a single selectable option.",
+      "tags": ["component", "ui", "form"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/components/ui/separator.tsx",
+      "type": "file",
+      "name": "separator.tsx",
+      "filePath": "apps/edpath-web/components/ui/separator.tsx",
+      "summary": "Radix-based separator primitive rendering horizontal or vertical dividers between UI sections.",
+      "tags": ["component", "ui", "design-system", "layout"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/edpath-web/components/ui/separator.tsx:Separator",
+      "type": "function",
+      "name": "Separator",
+      "filePath": "apps/edpath-web/components/ui/separator.tsx",
+      "lineRange": [8, 26],
+      "summary": "Styled Radix separator component supporting orientation and decorative modes.",
+      "tags": ["component", "ui", "layout"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/components/ui/textarea.tsx",
+      "type": "file",
+      "name": "textarea.tsx",
+      "filePath": "apps/edpath-web/components/ui/textarea.tsx",
+      "summary": "Design-system multiline textarea primitive with shared styling, used for the plan revision and help side-channel inputs.",
+      "tags": ["component", "ui", "design-system", "form"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/edpath-web/components/ui/textarea.tsx:Textarea",
+      "type": "function",
+      "name": "Textarea",
+      "filePath": "apps/edpath-web/components/ui/textarea.tsx",
+      "lineRange": [5, 16],
+      "summary": "Styled native textarea component forwarding className and props.",
+      "tags": ["component", "ui", "form"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/hooks/useCoAgentQuiz.test.tsx",
+      "type": "file",
+      "name": "useCoAgentQuiz.test.tsx",
+      "filePath": "apps/edpath-web/hooks/useCoAgentQuiz.test.tsx",
+      "summary": "Vitest suite for the useCoAgentQuiz hook, exercising answer selection, submission, retry unlocking, and help side-channel behavior with mocked agent state.",
+      "tags": ["test", "hook", "quiz", "unit-test"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:apps/edpath-web/hooks/useCoAgentQuiz.tsx",
+      "type": "file",
+      "name": "useCoAgentQuiz.tsx",
+      "filePath": "apps/edpath-web/hooks/useCoAgentQuiz.tsx",
+      "summary": "Core quiz-loop hook that derives view state from CoAgent state, manages local selection/retry/submission flags, and exposes deterministic actions to submit answers, request help, and advance.",
+      "tags": ["hook", "quiz", "state-management", "co-agent"],
+      "complexity": "complex",
+      "languageNotes": "Heavy use of useState/useRef/useMemo/useCallback and useEffect syncs to reconcile local UI state with checkpointed agent state."
+    },
+    {
+      "id": "function:apps/edpath-web/hooks/useCoAgentQuiz.tsx:useCoAgentQuiz",
+      "type": "function",
+      "name": "useCoAgentQuiz",
+      "filePath": "apps/edpath-web/hooks/useCoAgentQuiz.tsx",
+      "lineRange": [18, 245],
+      "summary": "React hook orchestrating MCQ selection, deterministic submission gating, no-penalty retry unlocking, and the bounded help side-channel against CoAgent state.",
+      "tags": ["hook", "quiz", "state-management"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:apps/edpath-web/hooks/useTypewriter.ts",
+      "type": "file",
+      "name": "useTypewriter.ts",
+      "filePath": "apps/edpath-web/hooks/useTypewriter.ts",
+      "summary": "Hook that progressively reveals text with a typewriter animation via an interval, invoking a completion callback, used for streamed help responses.",
+      "tags": ["hook", "animation", "ui"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/edpath-web/hooks/useTypewriter.ts:useTypewriter",
+      "type": "function",
+      "name": "useTypewriter",
+      "filePath": "apps/edpath-web/hooks/useTypewriter.ts",
+      "lineRange": [14, 43],
+      "summary": "React hook that reveals a string character-by-character on an interval and fires onComplete when done.",
+      "tags": ["hook", "animation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/lib/empty-co-agent-state.ts",
+      "type": "file",
+      "name": "empty-co-agent-state.ts",
+      "filePath": "apps/edpath-web/lib/empty-co-agent-state.ts",
+      "summary": "Factory producing the initial empty CoAgent state object, providing a stable default shape for the lesson graph state on the web side.",
+      "tags": ["utility", "co-agent", "state", "factory"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/edpath-web/lib/empty-co-agent-state.ts:getEmptyCoAgentState",
+      "type": "function",
+      "name": "getEmptyCoAgentState",
+      "filePath": "apps/edpath-web/lib/empty-co-agent-state.ts",
+      "lineRange": [8, 35],
+      "summary": "Returns a fresh empty CoAgent lesson state with default fields for plan, quiz, and help thread.",
+      "tags": ["utility", "state", "factory"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/lib/lesson-handoff.ts",
+      "type": "file",
+      "name": "lesson-handoff.ts",
+      "filePath": "apps/edpath-web/lib/lesson-handoff.ts",
+      "summary": "Helpers for creating and persisting the LangGraph thread id in localStorage, enabling handoff of a lesson session between landing and runner.",
+      "tags": ["utility", "session", "persistence", "handoff"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/edpath-web/lib/lesson-handoff.ts:rememberThreadId",
+      "type": "function",
+      "name": "rememberThreadId",
+      "filePath": "apps/edpath-web/lib/lesson-handoff.ts",
+      "lineRange": [15, 21],
+      "summary": "Persists the given lesson thread id to localStorage under the shared key.",
+      "tags": ["utility", "persistence", "session"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/lib/utils.ts",
+      "type": "file",
+      "name": "utils.ts",
+      "filePath": "apps/edpath-web/lib/utils.ts",
+      "summary": "Provides the cn class-name merge helper (clsx + tailwind-merge) used by every design-system component for conditional styling.",
+      "tags": ["utility", "styling", "helper"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/edpath-web/lib/utils.ts:cn",
+      "type": "function",
+      "name": "cn",
+      "filePath": "apps/edpath-web/lib/utils.ts",
+      "lineRange": [4, 6],
+      "summary": "Merges conditional class names using clsx and resolves Tailwind conflicts via twMerge.",
+      "tags": ["utility", "styling"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/types/api.ts",
+      "type": "file",
+      "name": "api.ts",
+      "filePath": "apps/edpath-web/types/api.ts",
+      "summary": "Type definitions for the web API layer covering upload and lesson-start request/response shapes.",
+      "tags": ["type-definition", "api", "types"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/types/landing.ts",
+      "type": "file",
+      "name": "landing.ts",
+      "filePath": "apps/edpath-web/types/landing.ts",
+      "summary": "Type definitions for the landing page, including the UploadBannerState used to drive upload status feedback.",
+      "tags": ["type-definition", "landing", "types"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/edpath-web/types/mcq.ts",
+      "type": "file",
+      "name": "mcq.ts",
+      "filePath": "apps/edpath-web/types/mcq.ts",
+      "summary": "Prop and view-model type definitions for the MCQ quiz UI, including widget, option list, help input, and useCoAgentQuiz hook option/return contracts.",
+      "tags": ["type-definition", "mcq", "quiz", "types"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:apps/edpath-web/types/plan.ts",
+      "type": "file",
+      "name": "plan.ts",
+      "filePath": "apps/edpath-web/types/plan.ts",
+      "summary": "Prop and view-model type definitions for the plan HITL UI, including chat message, plan widget/actions, and usePlanRevision hook contracts.",
+      "tags": ["type-definition", "plan", "hitl", "types"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:apps/edpath-web/types/shell.ts",
+      "type": "file",
+      "name": "shell.ts",
+      "filePath": "apps/edpath-web/types/shell.ts",
+      "summary": "Prop type definitions for shell-level components such as the lesson error banner and objective rail.",
+      "tags": ["type-definition", "shell", "types"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {"source": "file:apps/edpath-web/components/summary/StudyTipsList.tsx", "target": "function:apps/edpath-web/components/summary/StudyTipsList.tsx:StudyTipsList", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/components/summary/StudyTipsList.tsx", "target": "function:apps/edpath-web/components/summary/StudyTipsList.tsx:StudyTipsList", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:apps/edpath-web/components/summary/SummaryView.tsx", "target": "function:apps/edpath-web/components/summary/SummaryView.tsx:SummaryView", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/components/summary/SummaryView.tsx", "target": "function:apps/edpath-web/components/summary/SummaryView.tsx:SummaryView", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:apps/edpath-web/components/summary/SummaryView.tsx", "target": "file:apps/edpath-web/components/summary/OverallScore.tsx", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:apps/edpath-web/components/summary/SummaryView.tsx", "target": "file:apps/edpath-web/components/summary/PerObjectiveTable.tsx", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:apps/edpath-web/components/summary/SummaryView.tsx", "target": "file:apps/edpath-web/components/summary/RestartCta.tsx", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:apps/edpath-web/components/summary/SummaryView.tsx", "target": "file:apps/edpath-web/components/summary/StudyTipsList.tsx", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:apps/edpath-web/components/summary/SummaryView.tsx", "target": "file:apps/edpath-web/components/ui/Icon.tsx", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:apps/edpath-web/components/summary/SummaryView.tsx", "target": "file:apps/edpath-web/components/ui/Panel.tsx", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:apps/edpath-web/components/ui/GeneratingPanel.tsx", "target": "function:apps/edpath-web/components/ui/GeneratingPanel.tsx:GeneratingPanel", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/components/ui/GeneratingPanel.tsx", "target": "function:apps/edpath-web/components/ui/GeneratingPanel.tsx:GeneratingPanel", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:apps/edpath-web/components/ui/GeneratingPanel.tsx", "target": "file:apps/edpath-web/components/ui/GeneratingState.tsx", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:apps/edpath-web/components/ui/GeneratingPanel.tsx", "target": "file:apps/edpath-web/components/ui/Panel.tsx", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:apps/edpath-web/components/ui/GeneratingState.tsx", "target": "function:apps/edpath-web/components/ui/GeneratingState.tsx:GeneratingState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/components/ui/GeneratingState.tsx", "target": "function:apps/edpath-web/components/ui/GeneratingState.tsx:GeneratingState", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:apps/edpath-web/components/ui/GeneratingState.tsx", "target": "file:apps/edpath-web/components/ui/Icon.tsx", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:apps/edpath-web/components/ui/GeneratingState.tsx", "target": "file:apps/edpath-web/lib/utils.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:apps/edpath-web/components/ui/Icon.tsx", "target": "function:apps/edpath-web/components/ui/Icon.tsx:Icon", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/components/ui/Icon.tsx", "target": "function:apps/edpath-web/components/ui/Icon.tsx:Icon", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:apps/edpath-web/components/ui/Icon.tsx", "target": "file:apps/edpath-web/lib/utils.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:apps/edpath-web/components/ui/Panel.tsx", "target": "function:apps/edpath-web/components/ui/Panel.tsx:Panel", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/components/ui/Panel.tsx", "target": "function:apps/edpath-web/components/ui/Panel.tsx:Panel", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:apps/edpath-web/components/ui/Panel.tsx", "target": "file:apps/edpath-web/lib/utils.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:apps/edpath-web/components/ui/badge.tsx", "target": "function:apps/edpath-web/components/ui/badge.tsx:Badge", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/components/ui/badge.tsx", "target": "function:apps/edpath-web/components/ui/badge.tsx:Badge", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:apps/edpath-web/components/ui/badge.tsx", "target": "file:apps/edpath-web/lib/utils.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:apps/edpath-web/components/ui/button.tsx", "target": "function:apps/edpath-web/components/ui/button.tsx:Button", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/components/ui/button.tsx", "target": "function:apps/edpath-web/components/ui/button.tsx:Button", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:apps/edpath-web/components/ui/button.tsx", "target": "file:apps/edpath-web/lib/utils.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:apps/edpath-web/components/ui/card.tsx", "target": "function:apps/edpath-web/components/ui/card.tsx:Card", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/components/ui/card.tsx", "target": "function:apps/edpath-web/components/ui/card.tsx:Card", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:apps/edpath-web/components/ui/card.tsx", "target": "file:apps/edpath-web/lib/utils.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:apps/edpath-web/components/ui/dialog.tsx", "target": "function:apps/edpath-web/components/ui/dialog.tsx:DialogContent", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/components/ui/dialog.tsx", "target": "function:apps/edpath-web/components/ui/dialog.tsx:DialogContent", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:apps/edpath-web/components/ui/dialog.tsx", "target": "file:apps/edpath-web/components/ui/button.tsx", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:apps/edpath-web/components/ui/dialog.tsx", "target": "file:apps/edpath-web/lib/utils.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:apps/edpath-web/components/ui/input.tsx", "target": "function:apps/edpath-web/components/ui/input.tsx:Input", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/components/ui/input.tsx", "target": "function:apps/edpath-web/components/ui/input.tsx:Input", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:apps/edpath-web/components/ui/input.tsx", "target": "file:apps/edpath-web/lib/utils.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:apps/edpath-web/components/ui/radio-group.tsx", "target": "function:apps/edpath-web/components/ui/radio-group.tsx:RadioGroup", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/components/ui/radio-group.tsx", "target": "function:apps/edpath-web/components/ui/radio-group.tsx:RadioGroupItem", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/components/ui/radio-group.tsx", "target": "function:apps/edpath-web/components/ui/radio-group.tsx:RadioGroup", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:apps/edpath-web/components/ui/radio-group.tsx", "target": "function:apps/edpath-web/components/ui/radio-group.tsx:RadioGroupItem", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:apps/edpath-web/components/ui/radio-group.tsx", "target": "file:apps/edpath-web/lib/utils.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:apps/edpath-web/components/ui/separator.tsx", "target": "function:apps/edpath-web/components/ui/separator.tsx:Separator", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/components/ui/separator.tsx", "target": "function:apps/edpath-web/components/ui/separator.tsx:Separator", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:apps/edpath-web/components/ui/separator.tsx", "target": "file:apps/edpath-web/lib/utils.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:apps/edpath-web/components/ui/textarea.tsx", "target": "function:apps/edpath-web/components/ui/textarea.tsx:Textarea", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/components/ui/textarea.tsx", "target": "function:apps/edpath-web/components/ui/textarea.tsx:Textarea", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:apps/edpath-web/components/ui/textarea.tsx", "target": "file:apps/edpath-web/lib/utils.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:apps/edpath-web/hooks/useCoAgentQuiz.test.tsx", "target": "file:apps/edpath-web/hooks/useCoAgentQuiz.tsx", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:apps/edpath-web/hooks/useCoAgentQuiz.test.tsx", "target": "file:apps/edpath-web/lib/empty-co-agent-state.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:apps/edpath-web/hooks/useCoAgentQuiz.test.tsx", "target": "file:apps/edpath-web/types/mcq.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:apps/edpath-web/hooks/useCoAgentQuiz.tsx", "target": "file:apps/edpath-web/hooks/useCoAgentQuiz.test.tsx", "type": "tested_by", "direction": "forward", "weight": 0.5},
+
+    {"source": "file:apps/edpath-web/hooks/useCoAgentQuiz.tsx", "target": "function:apps/edpath-web/hooks/useCoAgentQuiz.tsx:useCoAgentQuiz", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/hooks/useCoAgentQuiz.tsx", "target": "function:apps/edpath-web/hooks/useCoAgentQuiz.tsx:useCoAgentQuiz", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:apps/edpath-web/hooks/useCoAgentQuiz.tsx", "target": "file:apps/edpath-web/types/mcq.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:apps/edpath-web/hooks/useTypewriter.ts", "target": "function:apps/edpath-web/hooks/useTypewriter.ts:useTypewriter", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/hooks/useTypewriter.ts", "target": "function:apps/edpath-web/hooks/useTypewriter.ts:useTypewriter", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:apps/edpath-web/lib/empty-co-agent-state.ts", "target": "function:apps/edpath-web/lib/empty-co-agent-state.ts:getEmptyCoAgentState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/lib/empty-co-agent-state.ts", "target": "function:apps/edpath-web/lib/empty-co-agent-state.ts:getEmptyCoAgentState", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:apps/edpath-web/lib/lesson-handoff.ts", "target": "function:apps/edpath-web/lib/lesson-handoff.ts:rememberThreadId", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/lib/lesson-handoff.ts", "target": "function:apps/edpath-web/lib/lesson-handoff.ts:rememberThreadId", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:apps/edpath-web/lib/utils.ts", "target": "function:apps/edpath-web/lib/utils.ts:cn", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:apps/edpath-web/lib/utils.ts", "target": "function:apps/edpath-web/lib/utils.ts:cn", "type": "exports", "direction": "forward", "weight": 0.8}
+  ]
+}

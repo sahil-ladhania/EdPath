@@ -1,0 +1,235 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "docs/architecture/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 15,
+      "nonEmptyLines": 9,
+      "sections": [
+        {
+          "heading": "docs/architecture",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "docs/architecture/repo-map.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 463,
+      "nonEmptyLines": 358,
+      "sections": [
+        {
+          "heading": "Repo Map",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Table of Contents",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "Monorepo at a glance",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "End-to-end flow",
+          "level": 2,
+          "line": 73
+        },
+        {
+          "heading": "Step-by-step file touchpoints",
+          "level": 3,
+          "line": 100
+        },
+        {
+          "heading": "apps/edpath-backend",
+          "level": 2,
+          "line": 116
+        },
+        {
+          "heading": "HTTP routes",
+          "level": 3,
+          "line": 120
+        },
+        {
+          "heading": "Directory map",
+          "level": 3,
+          "line": 129
+        },
+        {
+          "heading": "Key agent lib files",
+          "level": 3,
+          "line": 146
+        },
+        {
+          "heading": "Checkpointer",
+          "level": 3,
+          "line": 157
+        },
+        {
+          "heading": "Graph node IDs",
+          "level": 2,
+          "line": 163
+        },
+        {
+          "heading": "apps/edpath-web",
+          "level": 2,
+          "line": 183
+        },
+        {
+          "heading": "Routes",
+          "level": 3,
+          "line": 187
+        },
+        {
+          "heading": "Directory map",
+          "level": 3,
+          "line": 196
+        },
+        {
+          "heading": "CopilotKit wiring",
+          "level": 3,
+          "line": 212
+        },
+        {
+          "heading": "packages/",
+          "level": 2,
+          "line": 225
+        },
+        {
+          "heading": "`@repo/schemas` — [`packages/schemas/`](../../packages/schemas/)",
+          "level": 3,
+          "line": 229
+        },
+        {
+          "heading": "`@repo/types` — [`packages/types/`](../../packages/types/)",
+          "level": 3,
+          "line": 249
+        },
+        {
+          "heading": "`@repo/tokens` — [`packages/tokens/`](../../packages/tokens/)",
+          "level": 3,
+          "line": 260
+        },
+        {
+          "heading": "`@repo/typescript-config` — [`packages/typescript-config/`](../../packages/typescript-config/)",
+          "level": 3,
+          "line": 266
+        },
+        {
+          "heading": "Root config and scripts",
+          "level": 2,
+          "line": 276
+        },
+        {
+          "heading": "Root scripts ([`package.json`](../../package.json))",
+          "level": 3,
+          "line": 285
+        },
+        {
+          "heading": "`apps/edpath-backend` scripts",
+          "level": 3,
+          "line": 296
+        },
+        {
+          "heading": "`apps/edpath-web` scripts",
+          "level": 3,
+          "line": 308
+        },
+        {
+          "heading": "Environment variables",
+          "level": 2,
+          "line": 321
+        },
+        {
+          "heading": "Backend — [`apps/edpath-backend/.env.example`](../../apps/edpath-backend/.env.example)",
+          "level": 3,
+          "line": 323
+        },
+        {
+          "heading": "Web — [`apps/edpath-web/.env.example`](../../apps/edpath-web/.env.example)",
+          "level": 3,
+          "line": 355
+        },
+        {
+          "heading": "Tests and evals",
+          "level": 2,
+          "line": 366
+        },
+        {
+          "heading": "Backend Vitest — [`apps/edpath-backend/vitest.config.ts`](../../apps/edpath-backend/vitest.config.ts)",
+          "level": 3,
+          "line": 368
+        },
+        {
+          "heading": "Web Vitest — [`apps/edpath-web/vitest.config.mts`](../../apps/edpath-web/vitest.config.mts)",
+          "level": 3,
+          "line": 386
+        },
+        {
+          "heading": "Eval suite entrypoints",
+          "level": 3,
+          "line": 394
+        },
+        {
+          "heading": "Not in this repo",
+          "level": 2,
+          "line": 405
+        },
+        {
+          "heading": "Quick lookup",
+          "level": 2,
+          "line": 420
+        },
+        {
+          "heading": "Run locally",
+          "level": 2,
+          "line": 444
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 34
+      }
+    },
+    {
+      "path": "docs/architecture/system-overview.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 5,
+      "nonEmptyLines": 3,
+      "sections": [
+        {
+          "heading": "System Overview",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    }
+  ]
+}

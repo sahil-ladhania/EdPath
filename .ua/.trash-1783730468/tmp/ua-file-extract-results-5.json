@@ -1,0 +1,1829 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 19,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "apps/edpath-backend/src/evals/evals.integration.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 26,
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/evals.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 63,
+      "nonEmptyLines": 55,
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/evaluate-case.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 132,
+      "nonEmptyLines": 120,
+      "functions": [
+        {
+          "name": "dimensionPassed",
+          "startLine": 30,
+          "endLine": 32,
+          "params": [
+            "checks"
+          ]
+        },
+        {
+          "name": "runDeterministicDimension",
+          "startLine": 34,
+          "endLine": 72,
+          "params": [
+            "dimension",
+            "evalCase",
+            "runResult"
+          ]
+        },
+        {
+          "name": "runLlmDimension",
+          "startLine": 74,
+          "endLine": 112,
+          "params": [
+            "dimension",
+            "evalCase",
+            "runResult",
+            "useLlm"
+          ]
+        },
+        {
+          "name": "evaluateCase",
+          "startLine": 114,
+          "endLine": 132,
+          "params": [
+            "evalCase",
+            "runResult",
+            "options"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "evaluateCase",
+          "line": 114,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "dimensionPassed",
+          "callee": "checks.every",
+          "lineNumber": 31
+        },
+        {
+          "caller": "runDeterministicDimension",
+          "callee": "evaluatePlanGrounded",
+          "lineNumber": 44
+        },
+        {
+          "caller": "runDeterministicDimension",
+          "callee": "evaluateMcqsGrounded",
+          "lineNumber": 47
+        },
+        {
+          "caller": "runDeterministicDimension",
+          "callee": "evaluateFeedbackBehavior",
+          "lineNumber": 51
+        },
+        {
+          "caller": "runDeterministicDimension",
+          "callee": "evaluateAssistLeakage",
+          "lineNumber": 52
+        },
+        {
+          "caller": "runDeterministicDimension",
+          "callee": "evaluateCoAgentFirewall",
+          "lineNumber": 53
+        },
+        {
+          "caller": "runDeterministicDimension",
+          "callee": "evaluateEndState",
+          "lineNumber": 58
+        },
+        {
+          "caller": "runDeterministicDimension",
+          "callee": "evaluateScoreConsistency",
+          "lineNumber": 59
+        },
+        {
+          "caller": "runDeterministicDimension",
+          "callee": "evaluateResumeIntegrity",
+          "lineNumber": 61
+        },
+        {
+          "caller": "runDeterministicDimension",
+          "callee": "dimensionPassed",
+          "lineNumber": 69
+        },
+        {
+          "caller": "runLlmDimension",
+          "callee": "runDeterministicDimension",
+          "lineNumber": 80
+        },
+        {
+          "caller": "runLlmDimension",
+          "callee": "llmChecks.push",
+          "lineNumber": 91
+        },
+        {
+          "caller": "runLlmDimension",
+          "callee": "evaluatePlanGroundingJudge",
+          "lineNumber": 91
+        },
+        {
+          "caller": "runLlmDimension",
+          "callee": "llmChecks.push",
+          "lineNumber": 94
+        },
+        {
+          "caller": "runLlmDimension",
+          "callee": "evaluateMcqGroundingJudge",
+          "lineNumber": 94
+        },
+        {
+          "caller": "runLlmDimension",
+          "callee": "llmChecks.push",
+          "lineNumber": 98
+        },
+        {
+          "caller": "runLlmDimension",
+          "callee": "evaluateAssistLeakageJudge",
+          "lineNumber": 98
+        },
+        {
+          "caller": "runLlmDimension",
+          "callee": "llmChecks.push",
+          "lineNumber": 102
+        },
+        {
+          "caller": "runLlmDimension",
+          "callee": "evaluateSummaryQualityJudge",
+          "lineNumber": 102
+        },
+        {
+          "caller": "runLlmDimension",
+          "callee": "dimensionPassed",
+          "lineNumber": 109
+        },
+        {
+          "caller": "evaluateCase",
+          "callee": "dimensions.push",
+          "lineNumber": 123
+        },
+        {
+          "caller": "evaluateCase",
+          "callee": "runLlmDimension",
+          "lineNumber": 124
+        },
+        {
+          "caller": "evaluateCase",
+          "callee": "dimensions.every",
+          "lineNumber": 129
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/evaluators/deterministic/end-state.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 104,
+      "nonEmptyLines": 90,
+      "functions": [
+        {
+          "name": "buildExpectedSummaryStats",
+          "startLine": 10,
+          "endLine": 19,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "evaluateEndState",
+          "startLine": 21,
+          "endLine": 68,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "evaluateScoreConsistency",
+          "startLine": 70,
+          "endLine": 104,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "evaluateEndState",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "evaluateScoreConsistency",
+          "line": 70,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "buildExpectedSummaryStats",
+          "callee": "state.results.filter",
+          "lineNumber": 15
+        },
+        {
+          "caller": "buildExpectedSummaryStats",
+          "callee": "state.results.filter",
+          "lineNumber": 17
+        },
+        {
+          "caller": "evaluateEndState",
+          "callee": "checks.push",
+          "lineNumber": 24
+        },
+        {
+          "caller": "evaluateEndState",
+          "callee": "SummarySchema.safeParse",
+          "lineNumber": 31
+        },
+        {
+          "caller": "evaluateEndState",
+          "callee": "checks.push",
+          "lineNumber": 32
+        },
+        {
+          "caller": "evaluateEndState",
+          "callee": "checks.push",
+          "lineNumber": 40
+        },
+        {
+          "caller": "evaluateEndState",
+          "callee": "checks.push",
+          "lineNumber": 49
+        },
+        {
+          "caller": "evaluateEndState",
+          "callee": "state.results.filter",
+          "lineNumber": 56
+        },
+        {
+          "caller": "evaluateEndState",
+          "callee": "checks.push",
+          "lineNumber": 59
+        },
+        {
+          "caller": "evaluateScoreConsistency",
+          "callee": "deriveScore",
+          "lineNumber": 72
+        },
+        {
+          "caller": "evaluateScoreConsistency",
+          "callee": "checks.push",
+          "lineNumber": 74
+        },
+        {
+          "caller": "evaluateScoreConsistency",
+          "callee": "JSON.stringify",
+          "lineNumber": 80
+        },
+        {
+          "caller": "evaluateScoreConsistency",
+          "callee": "JSON.stringify",
+          "lineNumber": 80
+        },
+        {
+          "caller": "evaluateScoreConsistency",
+          "callee": "buildExpectedSummaryStats",
+          "lineNumber": 84
+        },
+        {
+          "caller": "evaluateScoreConsistency",
+          "callee": "checks.push",
+          "lineNumber": 86
+        },
+        {
+          "caller": "evaluateScoreConsistency",
+          "callee": "JSON.stringify",
+          "lineNumber": 91
+        },
+        {
+          "caller": "evaluateScoreConsistency",
+          "callee": "JSON.stringify",
+          "lineNumber": 91
+        },
+        {
+          "caller": "evaluateScoreConsistency",
+          "callee": "checks.push",
+          "lineNumber": 96
+        },
+        {
+          "caller": "evaluateScoreConsistency",
+          "callee": "Math.abs",
+          "lineNumber": 98
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 2,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/evaluators/deterministic/plan-grounding.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 41,
+      "functions": [
+        {
+          "name": "evaluatePlanGrounded",
+          "startLine": 9,
+          "endLine": 49,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "evaluatePlanGrounded",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "evaluatePlanGrounded",
+          "callee": "checks.push",
+          "lineNumber": 13
+        },
+        {
+          "caller": "evaluatePlanGrounded",
+          "callee": "LessonPlanSchema.safeParse",
+          "lineNumber": 21
+        },
+        {
+          "caller": "evaluatePlanGrounded",
+          "callee": "checks.push",
+          "lineNumber": 22
+        },
+        {
+          "caller": "evaluatePlanGrounded",
+          "callee": "checks.push",
+          "lineNumber": 29
+        },
+        {
+          "caller": "evaluatePlanGrounded",
+          "callee": "objective.title.trim",
+          "lineNumber": 37
+        },
+        {
+          "caller": "evaluatePlanGrounded",
+          "callee": "objective.description.trim",
+          "lineNumber": 38
+        },
+        {
+          "caller": "evaluatePlanGrounded",
+          "callee": "checks.push",
+          "lineNumber": 39
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/evaluators/deterministic/resume-integrity.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 83,
+      "nonEmptyLines": 70,
+      "functions": [
+        {
+          "name": "evaluateResumeIntegrity",
+          "startLine": 6,
+          "endLine": 60,
+          "params": [
+            "runResult"
+          ]
+        },
+        {
+          "name": "evaluateMidQuizCheckpoint",
+          "startLine": 62,
+          "endLine": 83,
+          "params": [
+            "checkpoint",
+            "afterResume"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "evaluateResumeIntegrity",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "evaluateMidQuizCheckpoint",
+          "line": 62,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "evaluateResumeIntegrity",
+          "callee": "checks.push",
+          "lineNumber": 13
+        },
+        {
+          "caller": "evaluateResumeIntegrity",
+          "callee": "checks.push",
+          "lineNumber": 21
+        },
+        {
+          "caller": "evaluateResumeIntegrity",
+          "callee": "checks.push",
+          "lineNumber": 29
+        },
+        {
+          "caller": "evaluateResumeIntegrity",
+          "callee": "checks.push",
+          "lineNumber": 35
+        },
+        {
+          "caller": "evaluateResumeIntegrity",
+          "callee": "checks.push",
+          "lineNumber": 42
+        },
+        {
+          "caller": "evaluateResumeIntegrity",
+          "callee": "checks.push",
+          "lineNumber": 50
+        },
+        {
+          "caller": "evaluateMidQuizCheckpoint",
+          "callee": "checks.push",
+          "lineNumber": 68
+        },
+        {
+          "caller": "evaluateMidQuizCheckpoint",
+          "callee": "checks.push",
+          "lineNumber": 76
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/evaluators/deterministic/source-anchor.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 95,
+      "nonEmptyLines": 84,
+      "functions": [
+        {
+          "name": "evaluateMcqsGrounded",
+          "startLine": 23,
+          "endLine": 95,
+          "params": [
+            "state",
+            "allMcqs"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "evaluateMcqsGrounded",
+          "line": 23,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "evaluateMcqsGrounded",
+          "callee": "checks.push",
+          "lineNumber": 30
+        },
+        {
+          "caller": "evaluateMcqsGrounded",
+          "callee": "McqBatchSchema.safeParse",
+          "lineNumber": 38
+        },
+        {
+          "caller": "evaluateMcqsGrounded",
+          "callee": "checks.push",
+          "lineNumber": 39
+        },
+        {
+          "caller": "evaluateMcqsGrounded",
+          "callee": "isSourceAnchored",
+          "lineNumber": 48
+        },
+        {
+          "caller": "evaluateMcqsGrounded",
+          "callee": "checks.push",
+          "lineNumber": 49
+        },
+        {
+          "caller": "evaluateMcqsGrounded",
+          "callee": "checks.push",
+          "lineNumber": 58
+        },
+        {
+          "caller": "evaluateMcqsGrounded",
+          "callee": "checks.push",
+          "lineNumber": 68
+        },
+        {
+          "caller": "evaluateMcqsGrounded",
+          "callee": "byObjective.set",
+          "lineNumber": 80
+        },
+        {
+          "caller": "evaluateMcqsGrounded",
+          "callee": "byObjective.get",
+          "lineNumber": 82
+        },
+        {
+          "caller": "evaluateMcqsGrounded",
+          "callee": "checks.push",
+          "lineNumber": 87
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/evaluators/llm-judge/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 156,
+      "nonEmptyLines": 132,
+      "functions": [
+        {
+          "name": "invokeJudge",
+          "startLine": 23,
+          "endLine": 62,
+          "params": [
+            "userPrompt",
+            "checkName"
+          ]
+        },
+        {
+          "name": "evaluatePlanGroundingJudge",
+          "startLine": 64,
+          "endLine": 83,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "evaluateMcqGroundingJudge",
+          "startLine": 85,
+          "endLine": 99,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "evaluateAssistLeakageJudge",
+          "startLine": 101,
+          "endLine": 133,
+          "params": [
+            "state",
+            "runResult"
+          ]
+        },
+        {
+          "name": "evaluateSummaryQualityJudge",
+          "startLine": 135,
+          "endLine": 154,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "evaluatePlanGroundingJudge",
+          "line": 64,
+          "isDefault": false
+        },
+        {
+          "name": "evaluateMcqGroundingJudge",
+          "line": 85,
+          "isDefault": false
+        },
+        {
+          "name": "evaluateAssistLeakageJudge",
+          "line": 101,
+          "isDefault": false
+        },
+        {
+          "name": "evaluateSummaryQualityJudge",
+          "line": 135,
+          "isDefault": false
+        },
+        {
+          "name": "JUDGE_PASS_THRESHOLD",
+          "line": 156,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "invokeJudge",
+          "callee": "isOpenAiConfigured",
+          "lineNumber": 27
+        },
+        {
+          "caller": "invokeJudge",
+          "callee": "getLlmClient",
+          "lineNumber": 36
+        },
+        {
+          "caller": "invokeJudge",
+          "callee": "client.invoke",
+          "lineNumber": 37
+        },
+        {
+          "caller": "invokeJudge",
+          "callee": "JudgeScoreSchema.safeParse",
+          "lineNumber": 40
+        },
+        {
+          "caller": "invokeJudge",
+          "callee": "JSON.parse",
+          "lineNumber": 40
+        },
+        {
+          "caller": "evaluatePlanGroundingJudge",
+          "callee": "state.plan.objectives\n    .map((o) => `- ${o.title}: ${o.description}`)\n    .join",
+          "lineNumber": 75
+        },
+        {
+          "caller": "evaluatePlanGroundingJudge",
+          "callee": "state.plan.objectives\n    .map",
+          "lineNumber": 75
+        },
+        {
+          "caller": "evaluatePlanGroundingJudge",
+          "callee": "invokeJudge",
+          "lineNumber": 79
+        },
+        {
+          "caller": "evaluateMcqGroundingJudge",
+          "callee": "invokeJudge",
+          "lineNumber": 91
+        },
+        {
+          "caller": "evaluateMcqGroundingJudge",
+          "callee": "mcq.options.map((o, i) => `${i}. ${o}`).join",
+          "lineNumber": 92
+        },
+        {
+          "caller": "evaluateMcqGroundingJudge",
+          "callee": "mcq.options.map",
+          "lineNumber": 92
+        },
+        {
+          "caller": "evaluateMcqGroundingJudge",
+          "callee": "checks.push",
+          "lineNumber": 95
+        },
+        {
+          "caller": "evaluateAssistLeakageJudge",
+          "callee": "turns\n          .map(\n            (t) =>\n              `user: ${t.userMessage}\\nassistant: ${t.assistantMessage}\\nQUESTION: ${t.mcq.question}`,\n          )\n          .join",
+          "lineNumber": 110
+        },
+        {
+          "caller": "evaluateAssistLeakageJudge",
+          "callee": "turns\n          .map",
+          "lineNumber": 110
+        },
+        {
+          "caller": "evaluateAssistLeakageJudge",
+          "callee": "state.helpThread.map((m) => `${m.role}: ${m.content}`).join",
+          "lineNumber": 116
+        },
+        {
+          "caller": "evaluateAssistLeakageJudge",
+          "callee": "state.helpThread.map",
+          "lineNumber": 116
+        },
+        {
+          "caller": "evaluateAssistLeakageJudge",
+          "callee": "invokeJudge",
+          "lineNumber": 129
+        },
+        {
+          "caller": "evaluateAssistLeakageJudge",
+          "callee": "questionMcq.options.map((o, i) => `${i}. ${o}`).join",
+          "lineNumber": 130
+        },
+        {
+          "caller": "evaluateAssistLeakageJudge",
+          "callee": "questionMcq.options.map",
+          "lineNumber": 130
+        },
+        {
+          "caller": "evaluateSummaryQualityJudge",
+          "callee": "state.summary.perObjective\n    .filter((o) => o.firstTryRate < 1)\n    .map",
+          "lineNumber": 146
+        },
+        {
+          "caller": "evaluateSummaryQualityJudge",
+          "callee": "state.summary.perObjective\n    .filter",
+          "lineNumber": 146
+        },
+        {
+          "caller": "evaluateSummaryQualityJudge",
+          "callee": "invokeJudge",
+          "lineNumber": 150
+        },
+        {
+          "caller": "evaluateSummaryQualityJudge",
+          "callee": "state.pdfText.slice",
+          "lineNumber": 151
+        },
+        {
+          "caller": "evaluateSummaryQualityJudge",
+          "callee": "weakObjectives.join",
+          "lineNumber": 151
+        },
+        {
+          "caller": "evaluateSummaryQualityJudge",
+          "callee": "state.summary.studyTips.join",
+          "lineNumber": 151
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 5,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/fixtures/adversarial-prompts.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 20,
+      "functions": [
+        {
+          "name": "ADV_CONFIRM_OPTION",
+          "startLine": 8,
+          "endLine": 9,
+          "params": [
+            "optionIndex"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ADV_ASK_CORRECT_ANSWER",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "ADV_ASK_WHICH_OPTION",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "ADV_CONFIRM_OPTION",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "ADV_ELIMINATE_OPTIONS",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "ADV_HINT_REVEAL",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "ADV_LEARN_MORE_STEER",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "ADV_INSTANCE_SOLVE",
+          "line": 26,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 7,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/fixtures/pdfs/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 88,
+      "nonEmptyLines": 72,
+      "functions": [
+        {
+          "name": "createPdfMeta",
+          "startLine": 82,
+          "endLine": 88,
+          "params": [
+            "filename",
+            "text"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "EASY_PDF",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "DENSE_PDF_TEXT",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "DENSE_PDF",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "MESSY_PDF_TEXT",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "MESSY_PDF",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "MINIMAL_PDF_TEXT",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "MINIMAL_PDF",
+          "line": 73,
+          "isDefault": false
+        },
+        {
+          "name": "createPdfMeta",
+          "line": 82,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 8,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/run-scenario.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 319,
+      "nonEmptyLines": 283,
+      "functions": [
+        {
+          "name": "snapshotState",
+          "startLine": 23,
+          "endLine": 32,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "resolveWrongIndex",
+          "startLine": 34,
+          "endLine": 41,
+          "params": [
+            "mcq"
+          ]
+        },
+        {
+          "name": "resolveAnswerIndex",
+          "startLine": 43,
+          "endLine": 54,
+          "params": [
+            "step",
+            "mcq"
+          ]
+        },
+        {
+          "name": "toApprovalResume",
+          "startLine": 56,
+          "endLine": 61,
+          "params": [
+            "approve"
+          ]
+        },
+        {
+          "name": "collectMcqs",
+          "startLine": 63,
+          "endLine": 76,
+          "params": [
+            "collected",
+            "questions"
+          ]
+        },
+        {
+          "name": "getCurrentMcq",
+          "startLine": 78,
+          "endLine": 85,
+          "params": [
+            "graph",
+            "config"
+          ]
+        },
+        {
+          "name": "advanceIfResolved",
+          "startLine": 93,
+          "endLine": 105,
+          "params": [
+            "graph",
+            "config"
+          ]
+        },
+        {
+          "name": "runCompleteAllCorrect",
+          "startLine": 107,
+          "endLine": 142,
+          "params": [
+            "graph",
+            "config",
+            "onQuestions"
+          ]
+        },
+        {
+          "name": "processStep",
+          "startLine": 144,
+          "endLine": 221,
+          "params": [
+            "graph",
+            "config",
+            "step",
+            "context"
+          ]
+        },
+        {
+          "name": "runScenario",
+          "startLine": 223,
+          "endLine": 319,
+          "params": [
+            "evalCase",
+            "threadIdPrefix"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "runScenario",
+          "line": 223,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "resolveAnswerIndex",
+          "callee": "resolveWrongIndex",
+          "lineNumber": 51
+        },
+        {
+          "caller": "collectMcqs",
+          "callee": "collected.map",
+          "lineNumber": 67
+        },
+        {
+          "caller": "collectMcqs",
+          "callee": "seen.has",
+          "lineNumber": 70
+        },
+        {
+          "caller": "collectMcqs",
+          "callee": "seen.add",
+          "lineNumber": 71
+        },
+        {
+          "caller": "collectMcqs",
+          "callee": "merged.push",
+          "lineNumber": 72
+        },
+        {
+          "caller": "getCurrentMcq",
+          "callee": "graph.getState",
+          "lineNumber": 82
+        },
+        {
+          "caller": "advanceIfResolved",
+          "callee": "graph.getState",
+          "lineNumber": 97
+        },
+        {
+          "caller": "advanceIfResolved",
+          "callee": "graph.invoke",
+          "lineNumber": 100
+        },
+        {
+          "caller": "runCompleteAllCorrect",
+          "callee": "graph.getState",
+          "lineNumber": 112
+        },
+        {
+          "caller": "runCompleteAllCorrect",
+          "callee": "graph.getState",
+          "lineNumber": 121
+        },
+        {
+          "caller": "runCompleteAllCorrect",
+          "callee": "onQuestions",
+          "lineNumber": 131
+        },
+        {
+          "caller": "runCompleteAllCorrect",
+          "callee": "graph.invoke",
+          "lineNumber": 133
+        },
+        {
+          "caller": "runCompleteAllCorrect",
+          "callee": "advanceIfResolved",
+          "lineNumber": 139
+        },
+        {
+          "caller": "processStep",
+          "callee": "graph.getState",
+          "lineNumber": 157
+        },
+        {
+          "caller": "processStep",
+          "callee": "graph.invoke",
+          "lineNumber": 168
+        },
+        {
+          "caller": "processStep",
+          "callee": "graph.getState",
+          "lineNumber": 169
+        },
+        {
+          "caller": "processStep",
+          "callee": "context.snapshots.push",
+          "lineNumber": 170
+        },
+        {
+          "caller": "processStep",
+          "callee": "snapshotState",
+          "lineNumber": 170
+        },
+        {
+          "caller": "processStep",
+          "callee": "graph.getState",
+          "lineNumber": 175
+        },
+        {
+          "caller": "processStep",
+          "callee": "context.helpTranscripts.push",
+          "lineNumber": 178
+        },
+        {
+          "caller": "processStep",
+          "callee": "graph.invoke",
+          "lineNumber": 180
+        },
+        {
+          "caller": "processStep",
+          "callee": "graph.getState",
+          "lineNumber": 185
+        },
+        {
+          "caller": "processStep",
+          "callee": "context.helpTranscripts.push",
+          "lineNumber": 186
+        },
+        {
+          "caller": "processStep",
+          "callee": "context.snapshots.push",
+          "lineNumber": 187
+        },
+        {
+          "caller": "processStep",
+          "callee": "snapshotState",
+          "lineNumber": 187
+        },
+        {
+          "caller": "processStep",
+          "callee": "afterHelp.values.helpThread\n      .filter((m: { role: string; content: string }) => m.role === \"assistant\")\n      .at",
+          "lineNumber": 189
+        },
+        {
+          "caller": "processStep",
+          "callee": "afterHelp.values.helpThread\n      .filter",
+          "lineNumber": 189
+        },
+        {
+          "caller": "processStep",
+          "callee": "context.assistTurns.push",
+          "lineNumber": 193
+        },
+        {
+          "caller": "processStep",
+          "callee": "getCurrentMcq",
+          "lineNumber": 203
+        },
+        {
+          "caller": "processStep",
+          "callee": "resolveAnswerIndex",
+          "lineNumber": 208
+        },
+        {
+          "caller": "processStep",
+          "callee": "graph.invoke",
+          "lineNumber": 209
+        },
+        {
+          "caller": "processStep",
+          "callee": "graph.getState",
+          "lineNumber": 215
+        },
+        {
+          "caller": "processStep",
+          "callee": "context.snapshots.push",
+          "lineNumber": 216
+        },
+        {
+          "caller": "processStep",
+          "callee": "snapshotState",
+          "lineNumber": 216
+        },
+        {
+          "caller": "processStep",
+          "callee": "advanceIfResolved",
+          "lineNumber": 219
+        },
+        {
+          "caller": "runScenario",
+          "callee": "createEdPathGraph",
+          "lineNumber": 227
+        },
+        {
+          "caller": "runScenario",
+          "callee": "Date.now",
+          "lineNumber": 228
+        },
+        {
+          "caller": "runScenario",
+          "callee": "graph.invoke",
+          "lineNumber": 237
+        },
+        {
+          "caller": "runScenario",
+          "callee": "seedGraphState",
+          "lineNumber": 238
+        },
+        {
+          "caller": "runScenario",
+          "callee": "buildInitialEdPathState",
+          "lineNumber": 239
+        },
+        {
+          "caller": "runScenario",
+          "callee": "graph.getState",
+          "lineNumber": 247
+        },
+        {
+          "caller": "runScenario",
+          "callee": "collectMcqs",
+          "lineNumber": 248
+        },
+        {
+          "caller": "runScenario",
+          "callee": "snapshots.push",
+          "lineNumber": 249
+        },
+        {
+          "caller": "runScenario",
+          "callee": "snapshotState",
+          "lineNumber": 249
+        },
+        {
+          "caller": "runScenario",
+          "callee": "steps.shift",
+          "lineNumber": 256
+        },
+        {
+          "caller": "runScenario",
+          "callee": "steps.findIndex",
+          "lineNumber": 259
+        },
+        {
+          "caller": "runScenario",
+          "callee": "steps.splice",
+          "lineNumber": 261
+        },
+        {
+          "caller": "runScenario",
+          "callee": "graph.invoke",
+          "lineNumber": 267
+        },
+        {
+          "caller": "runScenario",
+          "callee": "graph.getState",
+          "lineNumber": 269
+        },
+        {
+          "caller": "runScenario",
+          "callee": "collectMcqs",
+          "lineNumber": 270
+        },
+        {
+          "caller": "runScenario",
+          "callee": "snapshots.push",
+          "lineNumber": 271
+        },
+        {
+          "caller": "runScenario",
+          "callee": "snapshotState",
+          "lineNumber": 271
+        },
+        {
+          "caller": "runScenario",
+          "callee": "graph.invoke",
+          "lineNumber": 276
+        },
+        {
+          "caller": "runScenario",
+          "callee": "toApprovalResume",
+          "lineNumber": 277
+        },
+        {
+          "caller": "runScenario",
+          "callee": "graph.getState",
+          "lineNumber": 280
+        },
+        {
+          "caller": "runScenario",
+          "callee": "collectMcqs",
+          "lineNumber": 281
+        },
+        {
+          "caller": "runScenario",
+          "callee": "snapshots.push",
+          "lineNumber": 282
+        },
+        {
+          "caller": "runScenario",
+          "callee": "snapshotState",
+          "lineNumber": 282
+        },
+        {
+          "caller": "runScenario",
+          "callee": "processStep",
+          "lineNumber": 286
+        },
+        {
+          "caller": "runScenario",
+          "callee": "graph.getState",
+          "lineNumber": 295
+        },
+        {
+          "caller": "runScenario",
+          "callee": "collectMcqs",
+          "lineNumber": 296
+        },
+        {
+          "caller": "runScenario",
+          "callee": "runCompleteAllCorrect",
+          "lineNumber": 300
+        },
+        {
+          "caller": "runScenario",
+          "callee": "collectMcqs",
+          "lineNumber": 301
+        },
+        {
+          "caller": "runScenario",
+          "callee": "graph.getState",
+          "lineNumber": 305
+        },
+        {
+          "caller": "runScenario",
+          "callee": "collectMcqs",
+          "lineNumber": 306
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/run-suite.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 82,
+      "nonEmptyLines": 72,
+      "functions": [
+        {
+          "name": "runEvalSuite",
+          "startLine": 16,
+          "endLine": 57,
+          "params": [
+            "options"
+          ]
+        },
+        {
+          "name": "formatSuiteReport",
+          "startLine": 59,
+          "endLine": 82,
+          "params": [
+            "suite"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "runEvalSuite",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "formatSuiteReport",
+          "line": 59,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "runEvalSuite",
+          "callee": "filterEvalCases",
+          "lineNumber": 19
+        },
+        {
+          "caller": "runEvalSuite",
+          "callee": "runScenario",
+          "lineNumber": 29
+        },
+        {
+          "caller": "runEvalSuite",
+          "callee": "evaluateCase",
+          "lineNumber": 30
+        },
+        {
+          "caller": "runEvalSuite",
+          "callee": "results.push",
+          "lineNumber": 34
+        },
+        {
+          "caller": "runEvalSuite",
+          "callee": "results.push",
+          "lineNumber": 40
+        },
+        {
+          "caller": "runEvalSuite",
+          "callee": "results.filter",
+          "lineNumber": 49
+        },
+        {
+          "caller": "formatSuiteReport",
+          "callee": "lines.push",
+          "lineNumber": 67
+        },
+        {
+          "caller": "formatSuiteReport",
+          "callee": "lines.push",
+          "lineNumber": 69
+        },
+        {
+          "caller": "formatSuiteReport",
+          "callee": "lines.push",
+          "lineNumber": 73
+        },
+        {
+          "caller": "formatSuiteReport",
+          "callee": "dimension.checks.filter",
+          "lineNumber": 74
+        },
+        {
+          "caller": "formatSuiteReport",
+          "callee": "lines.push",
+          "lineNumber": 75
+        },
+        {
+          "caller": "formatSuiteReport",
+          "callee": "lines.join",
+          "lineNumber": 81
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/run.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 28,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 9,
+          "endLine": 30,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "runEvalSuite",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "formatSuiteReport",
+          "lineNumber": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/scenarios/adversarial-help.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 104,
+      "nonEmptyLines": 98,
+      "exports": [
+        {
+          "name": "ADV_01",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "ADV_02",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "ADV_03",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "ADV_04",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "ADV_05",
+          "line": 81,
+          "isDefault": false
+        },
+        {
+          "name": "ADVERSARIAL_HELP_CASES",
+          "line": 98,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 6,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/scenarios/edge-pdfs.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 33,
+      "nonEmptyLines": 30,
+      "exports": [
+        {
+          "name": "EDGE_01",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "EDGE_02",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "EDGE_PDF_CASES",
+          "line": 33,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/scenarios/happy-path.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 223,
+      "nonEmptyLines": 208,
+      "functions": [
+        {
+          "name": "allCorrectSteps",
+          "startLine": 12,
+          "endLine": 17,
+          "params": [
+            "count"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "HP_01",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "HP_02",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "HP_03",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "HP_04",
+          "line": 65,
+          "isDefault": false
+        },
+        {
+          "name": "HP_05",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "HP_06",
+          "line": 93,
+          "isDefault": false
+        },
+        {
+          "name": "HP_07",
+          "line": 110,
+          "isDefault": false
+        },
+        {
+          "name": "HP_08",
+          "line": 124,
+          "isDefault": false
+        },
+        {
+          "name": "HP_09",
+          "line": 141,
+          "isDefault": false
+        },
+        {
+          "name": "HP_10",
+          "line": 159,
+          "isDefault": false
+        },
+        {
+          "name": "HP_11",
+          "line": 177,
+          "isDefault": false
+        },
+        {
+          "name": "HP_12",
+          "line": 191,
+          "isDefault": false
+        },
+        {
+          "name": "HAPPY_PATH_CASES",
+          "line": 210,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "allCorrectSteps",
+          "callee": "Array.from",
+          "lineNumber": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 13,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/scenarios/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 37,
+      "functions": [
+        {
+          "name": "filterEvalCases",
+          "startLine": 19,
+          "endLine": 41,
+          "params": [
+            "options"
+          ]
+        },
+        {
+          "name": "getEvalCaseById",
+          "startLine": 43,
+          "endLine": 45,
+          "params": [
+            "id"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ALL_EVAL_CASES",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "STUB_TIER_CASES",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "filterEvalCases",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "getEvalCaseById",
+          "line": 43,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "filterEvalCases",
+          "callee": "cases.filter",
+          "lineNumber": 27
+        },
+        {
+          "caller": "filterEvalCases",
+          "callee": "cases.filter",
+          "lineNumber": 31
+        },
+        {
+          "caller": "filterEvalCases",
+          "callee": "options.ids!.includes",
+          "lineNumber": 31
+        },
+        {
+          "caller": "filterEvalCases",
+          "callee": "options.filter.replace",
+          "lineNumber": 35
+        },
+        {
+          "caller": "filterEvalCases",
+          "callee": "cases.filter",
+          "lineNumber": 37
+        },
+        {
+          "caller": "filterEvalCases",
+          "callee": "regex.test",
+          "lineNumber": 37
+        },
+        {
+          "caller": "getEvalCaseById",
+          "callee": "ALL_EVAL_CASES.find",
+          "lineNumber": 44
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 4,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/scenarios/resume-integrity.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 41,
+      "nonEmptyLines": 38,
+      "exports": [
+        {
+          "name": "RES_01",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "RES_02",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "RESUME_CASES",
+          "line": 41,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/evals/types.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 109,
+      "nonEmptyLines": 93,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

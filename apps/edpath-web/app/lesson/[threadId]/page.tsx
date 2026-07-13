@@ -1,22 +1,20 @@
-/**
- * Lesson route — wires `EdPathCopilotProvider` and `LessonRunner` for a checkpointed thread.
- */
-
+// Import components
 import { EdPathCopilotProvider } from "@/components/copilot/EdPathCopilotProvider";
 import { AppShell } from "@/components/shell/AppShell";
 import { LessonRunner } from "@/components/shell/LessonRunner";
 
+// Interface for the lesson page props
 interface LessonPageProps {
   params: Promise<{
     threadId: string;
   }>;
-}
+};
 
-export default async function LessonPage({
-  params,
-}: LessonPageProps) {
+// Function to render the lesson page
+export default async function LessonPage({ params }: LessonPageProps) {
+  // Destructure the threadId from the params
   const { threadId } = await params;
-
+  
   return (
     <EdPathCopilotProvider threadId={threadId}>
       <AppShell headerVariant="landing">
@@ -24,4 +22,4 @@ export default async function LessonPage({
       </AppShell>
     </EdPathCopilotProvider>
   );
-}
+};

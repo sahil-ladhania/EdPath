@@ -1,30 +1,14 @@
 /**
  * Graph state schema — EdPathStateAnnotation (single source of state shape).
- *
  * Defines internal channels plus routing fields; CoAgent mirror is separate.
  */
 import { Annotation } from "@langchain/langgraph";
-import type {
-  ApprovalDecision,
-  CoAgentState,
-  Feedback,
-  LastError,
-  LessonPlan,
-  MCQ,
-  ObjectiveResult,
-  PdfMeta,
-  Score,
-  Summary,
-} from "@repo/types";
-
+import type { ApprovalDecision, CoAgentState, Feedback, LastError, LessonPlan, MCQ, ObjectiveResult, PdfMeta, Score, Summary } from "@repo/types";
 import type { AgentMessage } from "../types/message.types.js";
 import type { GradeAnswerOutput } from "../types/grade-answer.types.js";
 import type { ResumeKind } from "../types/interrupt.types.js";
 
-/**
- * Full EdPathState channels plus internal routing fields (not in CoAgent mirror).
- * Internal fields are graph-only and stripped by toCoAgentState().
- */
+// Define the ed path state annotation schema
 export const EdPathStateAnnotation = Annotation.Root({
   pdfText: Annotation<string>(),
   pdfMeta: Annotation<PdfMeta>(),
@@ -56,26 +40,22 @@ export const EdPathStateAnnotation = Annotation.Root({
   }),
   phase: Annotation<CoAgentState["phase"]>(),
   lastError: Annotation<LastError | null>(),
-  /** Redacted mirror refreshed after each node (CopilotKit boundary). */
   coAgentSnapshot: Annotation<CoAgentState>(),
-  /** Internal: last N4 resume kind for conditional routing. */
   pendingResumeKind: Annotation<ResumeKind | null>(),
-  /** Internal: help text from N4 resume for N5. */
   pendingHelpText: Annotation<string | null>(),
-  /** Internal: N6 output consumed by N7. */
   gradeOutput: Annotation<GradeAnswerOutput | null>(),
-  /** Internal: aggregate tokens used this thread (B7). */
   tokensUsed: Annotation<number>({
     reducer: (current, update) => current + update,
     default: () => 0,
   }),
-  /** Internal: bounded generate_mcq retries after validation/grounding failure. */
   mcqGenAttempts: Annotation<number>({
     reducer: (_, update) => update,
     default: () => 0,
   }),
 });
 
+// Define the graph state type
 export type GraphState = typeof EdPathStateAnnotation.State;
 
+// Define the graph update type
 export type GraphUpdate = Partial<GraphState>;

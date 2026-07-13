@@ -1,8 +1,9 @@
 /**
  * PDF text normalization — de-hyphenation, whitespace collapse, token estimate.
- *
  * Whole document as one string; no chunking or header/footer dedup.
- */
+**/
+
+// Define the clean pdf text function
 export function cleanPdfText(rawText: string): string {
   let text = rawText.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
 
@@ -17,9 +18,9 @@ export function cleanPdfText(rawText: string): string {
   text = text.replace(/\n{3,}/g, "\n\n");
 
   return text.trim();
-}
+};
 
-/** PROVISIONAL token estimate for upload ceiling checks (chars / 4). */
+// Define the estimate tokens function
 export function estimateTokens(charCount: number): number {
   return Math.ceil(charCount / 4);
-}
+};

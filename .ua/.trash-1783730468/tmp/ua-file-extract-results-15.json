@@ -1,0 +1,829 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "apps/edpath-web/components/copilot/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 21,
+      "nonEmptyLines": 13,
+      "sections": [
+        {
+          "heading": "components/copilot/",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Purpose",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Contents",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "How it fits",
+          "level": 2,
+          "line": 12
+        },
+        {
+          "heading": "Reading tips",
+          "level": 2,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "apps/edpath-web/components/landing/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 23,
+      "nonEmptyLines": 15,
+      "sections": [
+        {
+          "heading": "components/landing/",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Purpose",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Contents",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "How it fits",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "Reading tips",
+          "level": 2,
+          "line": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "apps/edpath-web/components/mcq/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 26,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "components/mcq/",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Purpose",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Contents",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "How it fits",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "Reading tips",
+          "level": 2,
+          "line": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "apps/edpath-web/components/plan/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 24,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "components/plan/",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Purpose",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Contents",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "How it fits",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "Reading tips",
+          "level": 2,
+          "line": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "apps/edpath-web/components/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 33,
+      "nonEmptyLines": 25,
+      "sections": [
+        {
+          "heading": "components/",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Purpose",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Contents",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "How it fits",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "Reading tips",
+          "level": 2,
+          "line": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "apps/edpath-web/components/shell/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 26,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "components/shell/",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Purpose",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Contents",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "How it fits",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "Reading tips",
+          "level": 2,
+          "line": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "apps/edpath-web/components/summary/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 24,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "components/summary/",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Purpose",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Contents",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "How it fits",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "Reading tips",
+          "level": 2,
+          "line": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "apps/edpath-web/components/ui/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 29,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "components/ui/",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Purpose",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Contents",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "How it fits",
+          "level": 2,
+          "line": 20
+        },
+        {
+          "heading": "Reading tips",
+          "level": 2,
+          "line": 26
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "apps/edpath-web/eslint.config.mjs",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 16,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-web/hooks/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 22,
+      "nonEmptyLines": 14,
+      "sections": [
+        {
+          "heading": "hooks/",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Purpose",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Contents",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "How it fits",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Reading tips",
+          "level": 2,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "apps/edpath-web/lib/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 26,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "lib/",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Purpose",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Contents",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "How it fits",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "Reading tips",
+          "level": 2,
+          "line": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "apps/edpath-web/next.config.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 5,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-web/postcss.config.mjs",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-web/types/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 26,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "types/",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Purpose",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Contents",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "How it fits",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "Reading tips",
+          "level": 2,
+          "line": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "apps/edpath-web/vitest.config.mts",
+      "language": "mts",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 41,
+      "metrics": {}
+    },
+    {
+      "path": "docs/assets/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 3,
+      "nonEmptyLines": 2,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": "docs/design/design-system.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 134,
+      "nonEmptyLines": 91,
+      "sections": [
+        {
+          "heading": "EdPath — Design System",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "The brief, pinned",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Core thesis (the decision that shapes everything)",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Color palette",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "Semantic — reserved, functional",
+          "level": 3,
+          "line": 38
+        },
+        {
+          "heading": "Elevation",
+          "level": 3,
+          "line": 49
+        },
+        {
+          "heading": "Typography",
+          "level": 2,
+          "line": 57
+        },
+        {
+          "heading": "Spacing & radius",
+          "level": 2,
+          "line": 69
+        },
+        {
+          "heading": "Panel sizes",
+          "level": 2,
+          "line": 83
+        },
+        {
+          "heading": "Icon system",
+          "level": 2,
+          "line": 94
+        },
+        {
+          "heading": "Background texture",
+          "level": 2,
+          "line": 111
+        },
+        {
+          "heading": "Image slots",
+          "level": 2,
+          "line": 115
+        },
+        {
+          "heading": "Signature element",
+          "level": 2,
+          "line": 119
+        },
+        {
+          "heading": "How tokens live and how web consumes them",
+          "level": 2,
+          "line": 127
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 14
+      }
+    },
+    {
+      "path": "packages/schemas/package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 21,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "private",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "type",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "exports",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "dependencies",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "devDependencies",
+          "level": 1,
+          "line": 17
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "packages/schemas/src/constants.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 9,
+      "nonEmptyLines": 7,
+      "exports": [
+        {
+          "name": "MAX_ATTEMPTS",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "MAX_HELP",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/schemas/src/error.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 29,
+      "exports": [
+        {
+          "name": "ErrorNodeSchema",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "ErrorKindSchema",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "LastErrorSchema",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/schemas/src/feedback.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 34,
+      "exports": [
+        {
+          "name": "FeedbackSchema",
+          "line": 33,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/schemas/src/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 17,
+      "nonEmptyLines": 17,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/schemas/src/lesson-plan.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 17,
+      "nonEmptyLines": 15,
+      "exports": [
+        {
+          "name": "ObjectiveSchema",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "LessonPlanSchema",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/schemas/src/mcq.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 46,
+      "nonEmptyLines": 42,
+      "exports": [
+        {
+          "name": "MCQSchema",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "McqBatchSchema",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "PublicMCQSchema",
+          "line": 40,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/schemas/src/primitives.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 9,
+      "nonEmptyLines": 7,
+      "exports": [
+        {
+          "name": "DifficultySchema",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "VerdictSchema",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

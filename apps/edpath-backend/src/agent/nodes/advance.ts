@@ -1,17 +1,17 @@
 /**
  * Advance graph node (N8 / advance).
- *
- * Moves to the next question within an objective, or the next objective,
- * resetting per-question state. Explicit user "advance" signal only.
- */
+ * Moves to the next question within an objective, or the next objective, resetting per-question state. Explicit user "advance" signal only.
+**/
 import { MCQS_PER_OBJECTIVE } from "../state/constants.js";
 import type { GraphState } from "../state/annotation.js";
 import { withCoAgentSnapshot } from "../state/graph-update.js";
 
-export function advanceNode(
-  state: GraphState,
-): ReturnType<typeof withCoAgentSnapshot> {
+// Define the function to advance the node
+export function advanceNode( state: GraphState ): ReturnType<typeof withCoAgentSnapshot> {
+  // Get the plan
   const plan = state.plan;
+
+  // Check if the plan is missing
   if (!plan) {
     return withCoAgentSnapshot(state, {
       lastError: {
@@ -20,10 +20,12 @@ export function advanceNode(
         detail: "Plan required for advance",
       },
     });
-  }
+  };
 
+  // Get the next question index
   const nextQuestionIndex = state.currentQuestionIndex + 1;
 
+  // Check if the next question index is less than the number of questions per objective
   if (nextQuestionIndex < MCQS_PER_OBJECTIVE) {
     return withCoAgentSnapshot(state, {
       currentQuestionIndex: nextQuestionIndex,
@@ -34,10 +36,12 @@ export function advanceNode(
       feedback: null,
       phase: "awaiting_input",
     });
-  }
+  };
 
+  // Get the next objective index
   const nextObjectiveIndex = state.currentObjectiveIndex + 1;
 
+  // Check if the next objective index is less than the number of objectives
   if (nextObjectiveIndex < plan.objectives.length) {
     return withCoAgentSnapshot(state, {
       currentObjectiveIndex: nextObjectiveIndex,
@@ -50,8 +54,9 @@ export function advanceNode(
       feedback: null,
       phase: "quizzing",
     });
-  }
+  };
 
+  // Return the co-agent snapshot
   return withCoAgentSnapshot(state, {
     selectedIndex: null,
     attempts: 0,
@@ -60,28 +65,31 @@ export function advanceNode(
     feedback: null,
     phase: "quizzing",
   });
-}
+};
 
-/**
- * Routes after N8: more questions in objective → await_input; next
- * objective with no MCQs yet → generate_mcq; all objectives done → summarize.
- */
-export function routeAfterAdvance(
-  state: GraphState,
-): "await_input" | "generate_mcq" | "summarize" {
+// Define the function to route after advance
+export function routeAfterAdvance( state: GraphState ): "await_input" | "generate_mcq" | "summarize" {
+  // Get the plan
   const plan = state.plan;
+
+  // Check if the plan is missing
   if (!plan) {
     return "summarize";
-  }
+  };
 
+  // Get the total number of questions
   const totalQuestions = plan.objectives.length * MCQS_PER_OBJECTIVE;
+
+  // Check if the number of results is greater than or equal to the total number of questions
   if (state.results.length >= totalQuestions) {
     return "summarize";
-  }
+  };
 
+  // Check if the number of questions is zero
   if (state.questions.length === 0) {
     return "generate_mcq";
-  }
+  };
 
+  // Return the await input
   return "await_input";
-}
+};

@@ -1,0 +1,1245 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 15,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "apps/edpath-web/app/lesson/[threadId]/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 23,
+      "functions": [
+        {
+          "name": "LessonPage",
+          "startLine": 15,
+          "endLine": 27,
+          "params": [
+            "{\n  params,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "LessonPage",
+          "line": 15,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-web/components/copilot/EdPathCopilotProvider.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 62,
+      "nonEmptyLines": 53,
+      "functions": [
+        {
+          "name": "CopilotKitWithErrorHandling",
+          "startLine": 21,
+          "endLine": 42,
+          "params": [
+            "{\n  children,\n  runtimeUrl,\n  threadId,\n}"
+          ]
+        },
+        {
+          "name": "EdPathCopilotProvider",
+          "startLine": 45,
+          "endLine": 62,
+          "params": [
+            "{\n  children,\n  threadId,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "EdPathCopilotProvider",
+          "line": 45,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "CopilotKitWithErrorHandling",
+          "callee": "useCopilotTransportError",
+          "lineNumber": 30
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-web/components/copilot/copilot-transport-error-context.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 92,
+      "nonEmptyLines": 77,
+      "functions": [
+        {
+          "name": "CopilotTransportErrorProvider",
+          "startLine": 27,
+          "endLine": 79,
+          "params": [
+            "{\n  children,\n}"
+          ]
+        },
+        {
+          "name": "useCopilotTransportError",
+          "startLine": 82,
+          "endLine": 92,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CopilotTransportErrorProvider",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "useCopilotTransportError",
+          "line": 82,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "CopilotTransportErrorProvider",
+          "callee": "useState",
+          "lineNumber": 33
+        },
+        {
+          "caller": "CopilotTransportErrorProvider",
+          "callee": "useCallback",
+          "lineNumber": 35
+        },
+        {
+          "caller": "CopilotTransportErrorProvider",
+          "callee": "String",
+          "lineNumber": 48
+        },
+        {
+          "caller": "CopilotTransportErrorProvider",
+          "callee": "isAgentTransportFailure",
+          "lineNumber": 50
+        },
+        {
+          "caller": "CopilotTransportErrorProvider",
+          "callee": "setTransportError",
+          "lineNumber": 54
+        },
+        {
+          "caller": "CopilotTransportErrorProvider",
+          "callee": "useCallback",
+          "lineNumber": 61
+        },
+        {
+          "caller": "CopilotTransportErrorProvider",
+          "callee": "setTransportError",
+          "lineNumber": 62
+        },
+        {
+          "caller": "CopilotTransportErrorProvider",
+          "callee": "useMemo",
+          "lineNumber": 65
+        },
+        {
+          "caller": "useCopilotTransportError",
+          "callee": "useContext",
+          "lineNumber": 83
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-web/components/shell/LessonRunner.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 171,
+      "nonEmptyLines": 165,
+      "functions": [
+        {
+          "name": "LessonRunner",
+          "startLine": 36,
+          "endLine": 171,
+          "params": [
+            "{ threadId }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "LessonRunner",
+          "line": 36,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "LessonRunner",
+          "callee": "useCoAgentLesson",
+          "lineNumber": 37
+        },
+        {
+          "caller": "LessonRunner",
+          "callee": "useCopilotTransportError",
+          "lineNumber": 38
+        },
+        {
+          "caller": "LessonRunner",
+          "callee": "useCoAgentQuiz",
+          "lineNumber": 39
+        },
+        {
+          "caller": "LessonRunner",
+          "callee": "usePlanRevision",
+          "lineNumber": 49
+        },
+        {
+          "caller": "LessonRunner",
+          "callee": "resolveLessonPhase",
+          "lineNumber": 55
+        },
+        {
+          "caller": "LessonRunner",
+          "callee": "isLessonGenerationError",
+          "lineNumber": 58
+        },
+        {
+          "caller": "LessonRunner",
+          "callee": "isGeneratingPhase",
+          "lineNumber": 61
+        },
+        {
+          "caller": "LessonRunner",
+          "callee": "isSummarizingTransition",
+          "lineNumber": 62
+        },
+        {
+          "caller": "LessonRunner",
+          "callee": "getSummarizingMessage",
+          "lineNumber": 64
+        },
+        {
+          "caller": "LessonRunner",
+          "callee": "getGeneratingPhaseMessage",
+          "lineNumber": 65
+        },
+        {
+          "caller": "LessonRunner",
+          "callee": "getSummarizingSubtext",
+          "lineNumber": 67
+        },
+        {
+          "caller": "LessonRunner",
+          "callee": "getGeneratingPhaseSubtext",
+          "lineNumber": 68
+        },
+        {
+          "caller": "LessonRunner",
+          "callee": "useEffect",
+          "lineNumber": 77
+        },
+        {
+          "caller": "LessonRunner",
+          "callee": "clearTransportError",
+          "lineNumber": 79
+        },
+        {
+          "caller": "LessonRunner",
+          "callee": "getLessonErrorTitle",
+          "lineNumber": 112
+        }
+      ],
+      "metrics": {
+        "importCount": 12,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-web/components/shell/LessonShell.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 17,
+      "functions": [
+        {
+          "name": "LessonShell",
+          "startLine": 14,
+          "endLine": 21,
+          "params": [
+            "{ rail, children }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "LessonShell",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-web/components/shell/coagent-lesson.contract-test.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 22,
+      "functions": [
+        {
+          "name": "CoAgentLessonContract",
+          "startLine": 8,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "acceptsOnlyPublicState",
+          "startLine": 23,
+          "endLine": 26,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CoAgentLessonContract",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "CoAgentLessonContract",
+          "callee": "useCoAgentLesson",
+          "lineNumber": 9
+        },
+        {
+          "caller": "CoAgentLessonContract",
+          "callee": "acceptsOnlyPublicState",
+          "lineNumber": 11
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-web/components/shell/useCoAgentLesson.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 333,
+      "nonEmptyLines": 289,
+      "functions": [
+        {
+          "name": "ApprovalInterruptBridge",
+          "startLine": 49,
+          "endLine": 69,
+          "params": [
+            "{\n  onResolverReady,\n  resolve,\n}"
+          ]
+        },
+        {
+          "name": "AwaitInputInterruptBridge",
+          "startLine": 72,
+          "endLine": 92,
+          "params": [
+            "{\n  onResolverReady,\n  resolve,\n}"
+          ]
+        },
+        {
+          "name": "useCoAgentLesson",
+          "startLine": 98,
+          "endLine": 333,
+          "params": [
+            "threadId"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "EDPATH_AGENT_ID",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "useCoAgentLesson",
+          "line": 98,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ApprovalInterruptBridge",
+          "callee": "useRef",
+          "lineNumber": 53
+        },
+        {
+          "caller": "ApprovalInterruptBridge",
+          "callee": "useEffect",
+          "lineNumber": 56
+        },
+        {
+          "caller": "ApprovalInterruptBridge",
+          "callee": "useEffect",
+          "lineNumber": 60
+        },
+        {
+          "caller": "ApprovalInterruptBridge",
+          "callee": "onResolverReady",
+          "lineNumber": 61
+        },
+        {
+          "caller": "ApprovalInterruptBridge",
+          "callee": "resolveRef.current",
+          "lineNumber": 62
+        },
+        {
+          "caller": "ApprovalInterruptBridge",
+          "callee": "onResolverReady",
+          "lineNumber": 65
+        },
+        {
+          "caller": "AwaitInputInterruptBridge",
+          "callee": "useRef",
+          "lineNumber": 76
+        },
+        {
+          "caller": "AwaitInputInterruptBridge",
+          "callee": "useEffect",
+          "lineNumber": 79
+        },
+        {
+          "caller": "AwaitInputInterruptBridge",
+          "callee": "useEffect",
+          "lineNumber": 83
+        },
+        {
+          "caller": "AwaitInputInterruptBridge",
+          "callee": "onResolverReady",
+          "lineNumber": 84
+        },
+        {
+          "caller": "AwaitInputInterruptBridge",
+          "callee": "resolveRef.current",
+          "lineNumber": 85
+        },
+        {
+          "caller": "AwaitInputInterruptBridge",
+          "callee": "onResolverReady",
+          "lineNumber": 88
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "useMemo",
+          "lineNumber": 99
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "getEmptyCoAgentState",
+          "lineNumber": 99
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "useCoAgent",
+          "lineNumber": 100
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "useCopilotChatInternal",
+          "lineNumber": 104
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "useRef",
+          "lineNumber": 105
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "useMemo",
+          "lineNumber": 106
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "useState",
+          "lineNumber": 123
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "useState",
+          "lineNumber": 126
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "useCallback",
+          "lineNumber": 135
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "setApprovalResolver",
+          "lineNumber": 137
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "useCallback",
+          "lineNumber": 141
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "setAnswerResolver",
+          "lineNumber": 143
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "useLangGraphInterrupt",
+          "lineNumber": 151
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "isApprovalInterrupt",
+          "lineNumber": 154
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "isAwaitInputInterrupt",
+          "lineNumber": 154
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "parseApprovalInterruptValue",
+          "lineNumber": 156
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "isApprovalInterrupt",
+          "lineNumber": 158
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "isAwaitInputInterrupt",
+          "lineNumber": 167
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "useEffect",
+          "lineNumber": 180
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "isLessonAlreadyInProgress",
+          "lineNumber": 187
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "window.setTimeout",
+          "lineNumber": 193
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "appendMessage",
+          "lineNumber": 194
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "crypto.randomUUID",
+          "lineNumber": 195
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "window.clearTimeout",
+          "lineNumber": 201
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "useCallback",
+          "lineNumber": 204
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "console.warn",
+          "lineNumber": 207
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "approvalResolver",
+          "lineNumber": 214
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "useCallback",
+          "lineNumber": 217
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "note.trim",
+          "lineNumber": 219
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "console.warn",
+          "lineNumber": 227
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "approvalResolver",
+          "lineNumber": 234
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "useCallback",
+          "lineNumber": 242
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "console.warn",
+          "lineNumber": 246
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "answerResolver",
+          "lineNumber": 253
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "useCallback",
+          "lineNumber": 261
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "text.trim",
+          "lineNumber": 263
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "console.warn",
+          "lineNumber": 271
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "answerResolver",
+          "lineNumber": 278
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "useCallback",
+          "lineNumber": 286
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "console.warn",
+          "lineNumber": 289
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "answerResolver",
+          "lineNumber": 296
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "useCallback",
+          "lineNumber": 299
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "console.warn",
+          "lineNumber": 302
+        },
+        {
+          "caller": "useCoAgentLesson",
+          "callee": "answerResolver",
+          "lineNumber": 309
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 2,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-web/hooks/usePlanRevision.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 87,
+      "nonEmptyLines": 73,
+      "functions": [
+        {
+          "name": "usePlanRevision",
+          "startLine": 17,
+          "endLine": 87,
+          "params": [
+            "{\n  plan,\n  isRunning,\n  requestPlanRevision,\n  canRequestPlanRevision,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "usePlanRevision",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "usePlanRevision",
+          "callee": "useState",
+          "lineNumber": 23
+        },
+        {
+          "caller": "usePlanRevision",
+          "callee": "useRef",
+          "lineNumber": 24
+        },
+        {
+          "caller": "usePlanRevision",
+          "callee": "useRef",
+          "lineNumber": 25
+        },
+        {
+          "caller": "usePlanRevision",
+          "callee": "useEffect",
+          "lineNumber": 27
+        },
+        {
+          "caller": "usePlanRevision",
+          "callee": "useEffect",
+          "lineNumber": 33
+        },
+        {
+          "caller": "usePlanRevision",
+          "callee": "getPlanFingerprint",
+          "lineNumber": 38
+        },
+        {
+          "caller": "usePlanRevision",
+          "callee": "setIsReviseSubmitting",
+          "lineNumber": 44
+        },
+        {
+          "caller": "usePlanRevision",
+          "callee": "setIsReviseSubmitting",
+          "lineNumber": 52
+        },
+        {
+          "caller": "usePlanRevision",
+          "callee": "useCallback",
+          "lineNumber": 57
+        },
+        {
+          "caller": "usePlanRevision",
+          "callee": "note.trim",
+          "lineNumber": 59
+        },
+        {
+          "caller": "usePlanRevision",
+          "callee": "console.warn",
+          "lineNumber": 67
+        },
+        {
+          "caller": "usePlanRevision",
+          "callee": "getPlanFingerprint",
+          "lineNumber": 75
+        },
+        {
+          "caller": "usePlanRevision",
+          "callee": "setIsReviseSubmitting",
+          "lineNumber": 76
+        },
+        {
+          "caller": "usePlanRevision",
+          "callee": "requestPlanRevision",
+          "lineNumber": 77
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-web/lib/copilot.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 16,
+      "functions": [
+        {
+          "name": "isAgentTransportFailure",
+          "startLine": 9,
+          "endLine": 18,
+          "params": [
+            "message"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "isAgentTransportFailure",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "isAgentTransportFailure",
+          "callee": "message.toLowerCase",
+          "lineNumber": 10
+        },
+        {
+          "caller": "isAgentTransportFailure",
+          "callee": "normalized.includes",
+          "lineNumber": 13
+        },
+        {
+          "caller": "isAgentTransportFailure",
+          "callee": "normalized.includes",
+          "lineNumber": 14
+        },
+        {
+          "caller": "isAgentTransportFailure",
+          "callee": "normalized.includes",
+          "lineNumber": 15
+        },
+        {
+          "caller": "isAgentTransportFailure",
+          "callee": "normalized.includes",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-web/lib/lesson-in-progress.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 22,
+      "nonEmptyLines": 18,
+      "functions": [
+        {
+          "name": "isLessonAlreadyInProgress",
+          "startLine": 8,
+          "endLine": 22,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "isLessonAlreadyInProgress",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-web/lib/lesson.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 50,
+      "nonEmptyLines": 43,
+      "functions": [
+        {
+          "name": "parseApprovalInterruptValue",
+          "startLine": 11,
+          "endLine": 23,
+          "params": [
+            "eventValue"
+          ]
+        },
+        {
+          "name": "parseAwaitInputInterruptValue",
+          "startLine": 26,
+          "endLine": 38,
+          "params": [
+            "eventValue"
+          ]
+        },
+        {
+          "name": "isApprovalInterrupt",
+          "startLine": 41,
+          "endLine": 43,
+          "params": [
+            "eventValue"
+          ]
+        },
+        {
+          "name": "isAwaitInputInterrupt",
+          "startLine": 46,
+          "endLine": 50,
+          "params": [
+            "eventValue"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "parseApprovalInterruptValue",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "parseAwaitInputInterruptValue",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "isApprovalInterrupt",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "isAwaitInputInterrupt",
+          "line": 46,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parseApprovalInterruptValue",
+          "callee": "JSON.parse",
+          "lineNumber": 19
+        },
+        {
+          "caller": "parseAwaitInputInterruptValue",
+          "callee": "JSON.parse",
+          "lineNumber": 34
+        },
+        {
+          "caller": "isApprovalInterrupt",
+          "callee": "parseApprovalInterruptValue",
+          "lineNumber": 42
+        },
+        {
+          "caller": "isAwaitInputInterrupt",
+          "callee": "parseAwaitInputInterruptValue",
+          "lineNumber": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-web/lib/phase-ui.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 174,
+      "nonEmptyLines": 150,
+      "functions": [
+        {
+          "name": "isGeneratingPhaseValue",
+          "startLine": 41,
+          "endLine": 45,
+          "params": [
+            "phase"
+          ]
+        },
+        {
+          "name": "isSummarizingTransition",
+          "startLine": 48,
+          "endLine": 62,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "getSummarizingMessage",
+          "startLine": 64,
+          "endLine": 66,
+          "params": []
+        },
+        {
+          "name": "getSummarizingSubtext",
+          "startLine": 68,
+          "endLine": 70,
+          "params": []
+        },
+        {
+          "name": "isGeneratingPhase",
+          "startLine": 72,
+          "endLine": 74,
+          "params": [
+            "phase"
+          ]
+        },
+        {
+          "name": "getGeneratingPhaseMessage",
+          "startLine": 76,
+          "endLine": 82,
+          "params": [
+            "phase"
+          ]
+        },
+        {
+          "name": "getGeneratingPhaseSubtext",
+          "startLine": 84,
+          "endLine": 90,
+          "params": [
+            "phase"
+          ]
+        },
+        {
+          "name": "isLessonGenerationError",
+          "startLine": 93,
+          "endLine": 105,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "resolveLessonPhase",
+          "startLine": 108,
+          "endLine": 134,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "getLessonErrorTitle",
+          "startLine": 136,
+          "endLine": 146,
+          "params": [
+            "lastError"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "GENERATING_PHASES",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "isSummarizingTransition",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "getSummarizingMessage",
+          "line": 64,
+          "isDefault": false
+        },
+        {
+          "name": "getSummarizingSubtext",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "isGeneratingPhase",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "getGeneratingPhaseMessage",
+          "line": 76,
+          "isDefault": false
+        },
+        {
+          "name": "getGeneratingPhaseSubtext",
+          "line": 84,
+          "isDefault": false
+        },
+        {
+          "name": "isLessonGenerationError",
+          "line": 93,
+          "isDefault": false
+        },
+        {
+          "name": "resolveLessonPhase",
+          "line": 108,
+          "isDefault": false
+        },
+        {
+          "name": "getLessonErrorTitle",
+          "line": 136,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "isGeneratingPhaseValue",
+          "callee": "(GENERATING_PHASES as readonly Phase[]).includes",
+          "lineNumber": 44
+        },
+        {
+          "caller": "isGeneratingPhase",
+          "callee": "isGeneratingPhaseValue",
+          "lineNumber": 73
+        },
+        {
+          "caller": "getGeneratingPhaseMessage",
+          "callee": "isGeneratingPhaseValue",
+          "lineNumber": 77
+        },
+        {
+          "caller": "getGeneratingPhaseSubtext",
+          "callee": "isGeneratingPhaseValue",
+          "lineNumber": 85
+        },
+        {
+          "caller": "resolveLessonPhase",
+          "callee": "isLessonGenerationError",
+          "lineNumber": 114
+        },
+        {
+          "caller": "resolveLessonPhase",
+          "callee": "isGeneratingPhase",
+          "lineNumber": 118
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-web/lib/plan.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 16,
+      "functions": [
+        {
+          "name": "getPlanFingerprint",
+          "startLine": 8,
+          "endLine": 19,
+          "params": [
+            "plan"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "getPlanFingerprint",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getPlanFingerprint",
+          "callee": "JSON.stringify",
+          "lineNumber": 13
+        },
+        {
+          "caller": "getPlanFingerprint",
+          "callee": "plan.objectives.map",
+          "lineNumber": 14
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-web/types/copilot.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 14,
+      "exports": [
+        {
+          "name": "CopilotTransportErrorContextValue",
+          "line": 18,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-web/types/lesson.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 60,
+      "nonEmptyLines": 53,
+      "exports": [
+        {
+          "name": "ApprovalInterruptBridgeProps",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "ApprovalInterruptValue",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "AwaitInputInterruptBridgeProps",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "AwaitInputInterruptValue",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "UseCoAgentLessonReturn",
+          "line": 54,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

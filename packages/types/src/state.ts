@@ -1,37 +1,16 @@
-import type {
-  PdfMeta,
-  LessonPlan,
-  ApprovalDecision,
-  Feedback,
-  MCQ,
-  PublicMCQ,
-  ObjectiveResult,
-  Score,
-  Summary,
-  LastError,
-} from "@repo/schemas";
+/*
+  * State types for the backend graph.
+*/
+import type { PdfMeta, LessonPlan, ApprovalDecision, Feedback, MCQ, PublicMCQ, ObjectiveResult, Score, Summary, LastError } from "@repo/schemas";
 import type { Phase } from "./phase.js";
 
-/** Per-question assist side-channel thread mirrored to the MCQ widget (F8). */
+// Define the help thread message interface
 export interface HelpThreadMessage {
   role: "user" | "assistant";
   content: string;
-}
+};
 
-/**
- * The full checkpointed graph state (§5.1) — the single source of truth and the
- * agent's memory. A composed TS type (Flag 1): there is no runtime
- * `EdPathStateSchema`; its constituent artifacts are each Zod-validated at the
- * backend boundary, and the checkpointer owns durability.
- *
- * AGENT / SERVER-SIDE: holds `pdfText` (grounding source) and the full `MCQ`s.
- * The browser never receives this — it mirrors `CoAgentState` instead.
- *
- * `messages` is owned by CopilotKit / LangGraph (excluded from our contracts),
- * so it stays generic: the agent specializes it with the runtime message type
- * (e.g. `EdPathState<BaseMessage>`) without pulling that dependency into
- * @repo/types and breaking the types → schemas → zod DAG.
- */
+// Define the ed path state interface
 export interface EdPathState<TMessage = unknown> {
   pdfText: string;
   pdfMeta: PdfMeta;
@@ -51,15 +30,9 @@ export interface EdPathState<TMessage = unknown> {
   messages: TMessage[];
   phase: Phase;
   lastError: LastError | null;
-}
+};
 
-/**
- * The redacted state mirrored to the browser via the CoAgent hook (Flag 2).
- * Structurally firewalled: there is NO `pdfText`, and `questions` are
- * `PublicMCQ` — the type literally has no `correctIndex` / `explanation` /
- * `hint` / `sourceQuote` field for the answer to travel through. `messages`
- * flow over CopilotKit's own channel, not this state mirror.
- */
+// Define the co agent state interface
 export interface CoAgentState {
   pdfMeta: PdfMeta;
   plan: LessonPlan | null;
@@ -77,4 +50,4 @@ export interface CoAgentState {
   summary: Summary | null;
   phase: Phase;
   lastError: LastError | null;
-}
+};

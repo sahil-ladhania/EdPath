@@ -1,18 +1,14 @@
-/**
- * CopilotKit transport failure heuristics — filters noise from user-facing errors.
- */
 
-/**
- * Returns true when a CopilotKit error message indicates an agent/runtime
- * connection failure (LangGraph unreachable, fetch failed, run_error, etc.).
- */
+// Function to check if the message is an agent transport failure
 export function isAgentTransportFailure(message: string): boolean {
+  // Normalize the message to lowercase
   const normalized = message.toLowerCase();
 
+  // Return true if the message includes "langgraph", "fetch failed", "retrieve assistant", or "run_error"
   return (
     normalized.includes("langgraph") ||
     normalized.includes("fetch failed") ||
     normalized.includes("retrieve assistant") ||
     normalized.includes("run_error")
   );
-}
+};

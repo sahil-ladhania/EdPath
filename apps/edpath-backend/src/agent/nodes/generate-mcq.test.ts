@@ -1,14 +1,15 @@
+/**
+ * Test suite for the McqBatchResponseParser.
+**/
 import { describe, expect, test } from "vitest";
-
 import { createStubMcqs } from "../__fixtures__/stubs.js";
-import {
-  McqBatchResponseParser,
-  normalizeMcqBatch,
-} from "../lib/parse-mcq-batch.js";
+import { McqBatchResponseParser, normalizeMcqBatch } from "../lib/parse-mcq-batch.js";
 
+// Define the describe block
 describe("McqBatchResponseParser", () => {
   const validMcqs = createStubMcqs("obj-1");
 
+  // Define the test for accepting wrapped object with questions key
   test("accepts wrapped object with questions key", () => {
     const result = McqBatchResponseParser.safeParse({ questions: validMcqs });
 
@@ -19,6 +20,7 @@ describe("McqBatchResponseParser", () => {
     }
   });
 
+  // Define the test for accepting bare array via normalizer
   test("accepts bare array via normalizer", () => {
     const normalized = normalizeMcqBatch(validMcqs);
     const result = McqBatchResponseParser.safeParse(normalized);
@@ -29,6 +31,7 @@ describe("McqBatchResponseParser", () => {
     }
   });
 
+  // Define the test for accepting mcqs alias via normalizer
   test("accepts mcqs alias via normalizer", () => {
     const result = McqBatchResponseParser.safeParse({ mcqs: validMcqs });
 
@@ -38,6 +41,7 @@ describe("McqBatchResponseParser", () => {
     }
   });
 
+  // Define the test for rejecting wrong count with descriptive Zod message
   test("rejects wrong count with descriptive Zod message", () => {
     const result = McqBatchResponseParser.safeParse({
       questions: validMcqs.slice(0, 2),
@@ -49,6 +53,7 @@ describe("McqBatchResponseParser", () => {
     }
   });
 
+  // Define the test for rejecting invalid MCQ fields with path detail
   test("rejects invalid MCQ fields with path detail", () => {
     const invalid = [
       ...validMcqs.slice(0, 2),
@@ -66,6 +71,7 @@ describe("McqBatchResponseParser", () => {
     }
   });
 
+  // Define the test for rejecting non-array object root
   test("rejects non-array object root", () => {
     const result = McqBatchResponseParser.safeParse({ foo: validMcqs });
 

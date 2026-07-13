@@ -1,15 +1,13 @@
 /**
  * Builds the graph initial-state seed from a successful upload.
- *
  * Consumed by POST /start (start.service) before seedLessonThread.
- */
+**/
 import type { PdfMeta } from "@repo/types";
 import type { InitialEdPathStateSeed } from "./upload.types.js";
 
-export function buildInitialEdPathState(input: {
-  pdfText: string;
-  pdfMeta: PdfMeta;
-}): InitialEdPathStateSeed {
+// Define the build initial ed path state function
+export function buildInitialEdPathState(input: { pdfText: string; pdfMeta: PdfMeta; }): InitialEdPathStateSeed {
+  // Return the initial ed path state seed
   return {
     pdfText: input.pdfText,
     pdfMeta: input.pdfMeta,
@@ -34,4 +32,4 @@ export function buildInitialEdPathState(input: {
     phase: "planning",
     lastError: null,
   };
-}
+};

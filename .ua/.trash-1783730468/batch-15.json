@@ -1,0 +1,296 @@
+{
+  "nodes": [
+    {
+      "id": "document:apps/edpath-web/components/copilot/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-web/components/copilot/README.md",
+      "summary": "Directory guide for the copilot components folder, explaining the CopilotKit sidebar/chat bridge components and how they fit the web UI.",
+      "tags": ["documentation", "components", "copilotkit", "frontend"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-web/components/landing/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-web/components/landing/README.md",
+      "summary": "Directory guide for the landing components folder, describing the upload/entry landing screen components and their role in the app flow.",
+      "tags": ["documentation", "components", "landing", "frontend"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-web/components/mcq/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-web/components/mcq/README.md",
+      "summary": "Directory guide for the MCQ components folder, covering the one-card-at-a-time quiz widget with green/red feedback and retry behavior.",
+      "tags": ["documentation", "components", "mcq", "quiz"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-web/components/plan/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-web/components/plan/README.md",
+      "summary": "Directory guide for the plan components folder, describing the lesson-plan approval (HITL) UI components.",
+      "tags": ["documentation", "components", "lesson-plan", "hitl"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-web/components/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-web/components/README.md",
+      "summary": "Overview of the web components tree, mapping each subfolder (copilot, landing, mcq, plan, shell, summary, ui) to its role in the lesson UI.",
+      "tags": ["documentation", "components", "overview", "frontend"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-web/components/shell/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-web/components/shell/README.md",
+      "summary": "Directory guide for the shell components folder, describing the app layout/frame components that host the lesson experience.",
+      "tags": ["documentation", "components", "layout", "shell"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-web/components/summary/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-web/components/summary/README.md",
+      "summary": "Directory guide for the summary components folder, covering the end-of-lesson summarize/recap UI components.",
+      "tags": ["documentation", "components", "summary", "frontend"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-web/components/ui/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-web/components/ui/README.md",
+      "summary": "Directory guide for the shared UI primitives folder, describing the reusable design-system components consumed across features.",
+      "tags": ["documentation", "components", "ui", "design-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-web/hooks/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-web/hooks/README.md",
+      "summary": "Directory guide for the web hooks folder, describing custom React hooks that bridge CoAgent state and the lesson UI.",
+      "tags": ["documentation", "hooks", "react", "frontend"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-web/lib/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-web/lib/README.md",
+      "summary": "Directory guide for the web lib folder, describing shared client-side utilities and helpers for the Next.js app.",
+      "tags": ["documentation", "lib", "utility", "frontend"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:apps/edpath-web/types/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "apps/edpath-web/types/README.md",
+      "summary": "Directory guide for the web types folder, describing app-local TypeScript type declarations layered atop the shared schema contracts.",
+      "tags": ["documentation", "types", "typescript", "frontend"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/assets/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "docs/assets/README.md",
+      "summary": "Minimal placeholder note for the docs assets folder that stores images and diagrams referenced by the documentation.",
+      "tags": ["documentation", "assets", "placeholder"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/design/design-system.md",
+      "type": "document",
+      "name": "design-system.md",
+      "filePath": "docs/design/design-system.md",
+      "summary": "Canonical EdPath design-system reference defining color palette, typography, spacing, elevation, iconography, and how design tokens flow into the web app.",
+      "tags": ["documentation", "design-system", "design-tokens", "styling"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:apps/edpath-web/eslint.config.mjs",
+      "type": "config",
+      "name": "eslint.config.mjs",
+      "filePath": "apps/edpath-web/eslint.config.mjs",
+      "summary": "ESLint flat config for the Next.js web app, wiring the lint ruleset that governs the frontend codebase.",
+      "tags": ["configuration", "eslint", "linting", "build-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:apps/edpath-web/next.config.ts",
+      "type": "config",
+      "name": "next.config.ts",
+      "filePath": "apps/edpath-web/next.config.ts",
+      "summary": "Next.js framework configuration for the edpath-web app controlling build and runtime behavior.",
+      "tags": ["configuration", "nextjs", "build-system", "frontend"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:apps/edpath-web/postcss.config.mjs",
+      "type": "config",
+      "name": "postcss.config.mjs",
+      "filePath": "apps/edpath-web/postcss.config.mjs",
+      "summary": "PostCSS configuration enabling the Tailwind/CSS processing pipeline for the web app's styles.",
+      "tags": ["configuration", "postcss", "styling", "build-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:apps/edpath-web/vitest.config.mts",
+      "type": "config",
+      "name": "vitest.config.mts",
+      "filePath": "apps/edpath-web/vitest.config.mts",
+      "summary": "Vitest test-runner configuration for the web app, defining the test environment, aliases, and coverage setup.",
+      "tags": ["configuration", "vitest", "testing", "build-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:packages/schemas/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "packages/schemas/package.json",
+      "summary": "Package manifest for the shared @repo/schemas workspace package, declaring the Zod dependency and the exports surface consumed by web and backend.",
+      "tags": ["configuration", "package-manifest", "monorepo", "schemas"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/schemas/src/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "packages/schemas/src/index.ts",
+      "summary": "Barrel entry point for @repo/schemas that re-exports every Zod contract (primitives, lesson-plan, mcq, feedback, summary, resume, upload, error, scoring, constants) as the single source of truth for both ends.",
+      "tags": ["barrel", "entry-point", "schema-definition", "zod"],
+      "complexity": "simple",
+      "languageNotes": "Barrel re-exports using .js extension specifiers for ESM/NodeNext resolution over TypeScript sources."
+    },
+    {
+      "id": "file:packages/schemas/src/primitives.ts",
+      "type": "file",
+      "name": "primitives.ts",
+      "filePath": "packages/schemas/src/primitives.ts",
+      "summary": "Defines the foundational Zod primitives DifficultySchema and VerdictSchema reused across the higher-level lesson and grading contracts.",
+      "tags": ["schema-definition", "zod", "type-definition", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/schemas/src/lesson-plan.ts",
+      "type": "file",
+      "name": "lesson-plan.ts",
+      "filePath": "packages/schemas/src/lesson-plan.ts",
+      "summary": "Zod contract for the lesson plan, defining ObjectiveSchema and LessonPlanSchema that gate the HITL approval step of the teaching workflow.",
+      "tags": ["schema-definition", "zod", "lesson-plan", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/schemas/src/mcq.ts",
+      "type": "file",
+      "name": "mcq.ts",
+      "filePath": "packages/schemas/src/mcq.ts",
+      "summary": "Zod contracts for quiz cards: the full MCQSchema, McqBatchSchema, and the PublicMCQSchema that strips correctIndex/explanation/hint for the assist firewall.",
+      "tags": ["schema-definition", "zod", "mcq", "validation"],
+      "complexity": "simple",
+      "languageNotes": "PublicMCQSchema encodes the structural assist firewall by omitting answer-revealing fields from the client-facing shape."
+    },
+    {
+      "id": "file:packages/schemas/src/feedback.ts",
+      "type": "file",
+      "name": "feedback.ts",
+      "filePath": "packages/schemas/src/feedback.ts",
+      "summary": "Zod contract for grading feedback (FeedbackSchema) returned after each MCQ attempt, carrying verdict and conceptual guidance shapes.",
+      "tags": ["schema-definition", "zod", "feedback", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/schemas/src/error.ts",
+      "type": "file",
+      "name": "error.ts",
+      "filePath": "packages/schemas/src/error.ts",
+      "summary": "Zod contracts for error handling (ErrorNodeSchema, ErrorKindSchema, LastErrorSchema) that model recoverable failure state in the graph.",
+      "tags": ["schema-definition", "zod", "error-handling", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/schemas/src/constants.ts",
+      "type": "file",
+      "name": "constants.ts",
+      "filePath": "packages/schemas/src/constants.ts",
+      "summary": "Shared workflow constants MAX_ATTEMPTS and MAX_HELP that bound the no-penalty retry loop and the help side-channel.",
+      "tags": ["constants", "configuration", "workflow", "shared"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:packages/schemas/src/lesson-plan.ts",
+      "target": "file:packages/schemas/src/primitives.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/schemas/src/index.ts",
+      "target": "file:packages/schemas/src/primitives.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/schemas/src/index.ts",
+      "target": "file:packages/schemas/src/lesson-plan.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/schemas/src/index.ts",
+      "target": "file:packages/schemas/src/mcq.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/schemas/src/index.ts",
+      "target": "file:packages/schemas/src/feedback.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/schemas/src/index.ts",
+      "target": "file:packages/schemas/src/error.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/schemas/src/index.ts",
+      "target": "file:packages/schemas/src/constants.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "config:packages/schemas/package.json",
+      "target": "file:packages/schemas/src/index.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:apps/edpath-web/components/README.md",
+      "target": "document:apps/edpath-web/components/mcq/README.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

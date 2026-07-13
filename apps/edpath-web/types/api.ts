@@ -1,13 +1,8 @@
-/**
- * Frontend API outcome unions for upload and start HTTP calls.
- */
-
+// Types for the API outcomes
 import type { UploadResult } from "@repo/types";
 
-export type StartApiOutcome =
-  | { kind: "success"; result: UploadResult }
-  | { kind: "transport_error"; message: string };
+// Type for the start API outcome
+export type StartApiOutcome = | { kind: "success"; result: UploadResult } | { kind: "transport_error"; message: string };
 
-export type UploadApiOutcome =
-  | { kind: "success"; result: UploadResult }
-  | { kind: "transport_error"; message: string };
+// Type for the upload API outcome
+export type UploadApiOutcome = | { kind: "success"; result: UploadResult } | { kind: "transport_error"; message: string };

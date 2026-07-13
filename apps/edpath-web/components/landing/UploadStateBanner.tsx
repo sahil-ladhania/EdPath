@@ -1,41 +1,32 @@
 "use client";
 
-/**
- * Upload status banner — maps API outcomes to user-facing tone and icon.
- */
-
-import {
-  AlertCircleIcon,
-  CheckCircle2Icon,
-  LoaderCircleIcon,
-} from "lucide-react";
+// Import components
+import { AlertCircleIcon, CheckCircle2Icon, LoaderCircleIcon } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-
 import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/utils";
 
+// Interface for the upload state banner props
 interface UploadStateBannerProps {
   tone: "idle" | "error" | "success" | "loading";
   message: string;
-}
+};
 
-const TONE_ICONS: Record<
-  Exclude<UploadStateBannerProps["tone"], "idle">,
-  LucideIcon
-> = {
+// Constant for the tone icons
+const TONE_ICONS: Record<Exclude<UploadStateBannerProps["tone"], "idle">, LucideIcon> = {
   error: AlertCircleIcon,
   success: CheckCircle2Icon,
   loading: LoaderCircleIcon,
 };
 
-export function UploadStateBanner({
-  tone,
-  message,
-}: UploadStateBannerProps) {
+// Function to render the upload state banner
+export function UploadStateBanner({ tone, message }: UploadStateBannerProps) {
+  // Check if the tone is idle
   if (tone === "idle") {
     return null;
-  }
+  };
 
+  // Return the upload state banner
   return (
     <div
       className={cn(
@@ -54,4 +45,4 @@ export function UploadStateBanner({
       <p>{message}</p>
     </div>
   );
-}
+};

@@ -1,0 +1,1226 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 19,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "apps/edpath-backend/src/agent/__fixtures__/pdf-text.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 17,
+      "exports": [
+        {
+          "name": "FIXTURE_PDF_TEXT",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "FIXTURE_PDF_META",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "FIXTURE_SOURCE_QUOTE",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/__fixtures__/stubs.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 86,
+      "nonEmptyLines": 80,
+      "functions": [
+        {
+          "name": "createStubLessonPlan",
+          "startLine": 8,
+          "endLine": 27,
+          "params": []
+        },
+        {
+          "name": "assertStubLessonPlan",
+          "startLine": 30,
+          "endLine": 32,
+          "params": [
+            "plan"
+          ]
+        },
+        {
+          "name": "createStubMcqs",
+          "startLine": 35,
+          "endLine": 84,
+          "params": [
+            "objectiveId"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "createStubLessonPlan",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "assertStubLessonPlan",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "createStubMcqs",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "FIXTURE_PDF_TEXT",
+          "line": 86,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "assertStubLessonPlan",
+          "callee": "LessonPlanSchema.parse",
+          "lineNumber": 31
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/edpath-graph.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 391,
+      "nonEmptyLines": 339,
+      "metrics": {
+        "importCount": 15,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/graph-routing.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 84,
+      "nonEmptyLines": 75,
+      "functions": [
+        {
+          "name": "generateMcqState",
+          "startLine": 7,
+          "endLine": 15,
+          "params": [
+            "partial"
+          ]
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/graph.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 143,
+      "nonEmptyLines": 131,
+      "functions": [
+        {
+          "name": "routeAfterApproval",
+          "startLine": 22,
+          "endLine": 29,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "routeAfterPlan",
+          "startLine": 31,
+          "endLine": 36,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "routeAfterGenerateMcq",
+          "startLine": 38,
+          "endLine": 55,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "routeAfterAwaitInput",
+          "startLine": 57,
+          "endLine": 70,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "routeAfterGrade",
+          "startLine": 72,
+          "endLine": 79,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "createEdPathWorkflow",
+          "startLine": 81,
+          "endLine": 128,
+          "params": []
+        },
+        {
+          "name": "createEdPathGraph",
+          "startLine": 130,
+          "endLine": 139,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "routeAfterGenerateMcq",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "routeAfterAwaitInput",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "createEdPathGraph",
+          "line": 130,
+          "isDefault": false
+        },
+        {
+          "name": "graph",
+          "line": 141,
+          "isDefault": false
+        },
+        {
+          "name": "createEdPathWorkflow",
+          "line": 143,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode(\"plan_lesson\", planNode)\n    .addNode(\"approval_gate\", approvalGateNode)\n    .addNode(\"generate_mcq\", generateMcqNode)\n    .addNode(\"await_input\", awaitInputNode)\n    .addNode(\"assist\", assistNode)\n    .addNode(\"grade\", gradeNode)\n    .addNode(\"assemble_feedback\", feedbackNode)\n    .addNode(\"advance\", advanceNode)\n    .addNode(\"summarize\", summarizeNode)\n    .addEdge(START, \"plan_lesson\")\n    .addConditionalEdges(\"plan_lesson\", routeAfterPlan, {\n      approval_gate: \"approval_gate\",\n      [END]: END,\n    })\n    .addConditionalEdges(\"approval_gate\", routeAfterApproval, {\n      plan_lesson: \"plan_lesson\",\n      generate_mcq: \"generate_mcq\",\n    })\n    .addConditionalEdges(\"generate_mcq\", routeAfterGenerateMcq, {\n      await_input: \"await_input\",\n      generate_mcq: \"generate_mcq\",\n    })\n    .addConditionalEdges(\"await_input\", routeAfterAwaitInput, {\n      assist: \"assist\",\n      grade: \"grade\",\n      advance: \"advance\",\n      generate_mcq: \"generate_mcq\",\n    })\n    .addEdge(\"assist\", \"await_input\")\n    .addConditionalEdges(\"grade\", routeAfterGrade, {\n      assemble_feedback: \"assemble_feedback\",\n      await_input: \"await_input\",\n    })\n    // Feedback always pauses at await_input so green+explanation / red+hint is a\n    // stable, readable resting state. Correct/exhausted advance only on the\n    // user's explicit \"advance\" signal (routed from await_input above).\n    .addEdge(\"assemble_feedback\", \"await_input\")\n    .addConditionalEdges(\"advance\", routeAfterAdvance, {\n      await_input: \"await_input\",\n      generate_mcq: \"generate_mcq\",\n      summarize: \"summarize\",\n    })\n    .addEdge",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode(\"plan_lesson\", planNode)\n    .addNode(\"approval_gate\", approvalGateNode)\n    .addNode(\"generate_mcq\", generateMcqNode)\n    .addNode(\"await_input\", awaitInputNode)\n    .addNode(\"assist\", assistNode)\n    .addNode(\"grade\", gradeNode)\n    .addNode(\"assemble_feedback\", feedbackNode)\n    .addNode(\"advance\", advanceNode)\n    .addNode(\"summarize\", summarizeNode)\n    .addEdge(START, \"plan_lesson\")\n    .addConditionalEdges(\"plan_lesson\", routeAfterPlan, {\n      approval_gate: \"approval_gate\",\n      [END]: END,\n    })\n    .addConditionalEdges(\"approval_gate\", routeAfterApproval, {\n      plan_lesson: \"plan_lesson\",\n      generate_mcq: \"generate_mcq\",\n    })\n    .addConditionalEdges(\"generate_mcq\", routeAfterGenerateMcq, {\n      await_input: \"await_input\",\n      generate_mcq: \"generate_mcq\",\n    })\n    .addConditionalEdges(\"await_input\", routeAfterAwaitInput, {\n      assist: \"assist\",\n      grade: \"grade\",\n      advance: \"advance\",\n      generate_mcq: \"generate_mcq\",\n    })\n    .addEdge(\"assist\", \"await_input\")\n    .addConditionalEdges(\"grade\", routeAfterGrade, {\n      assemble_feedback: \"assemble_feedback\",\n      await_input: \"await_input\",\n    })\n    // Feedback always pauses at await_input so green+explanation / red+hint is a\n    // stable, readable resting state. Correct/exhausted advance only on the\n    // user's explicit \"advance\" signal (routed from await_input above).\n    .addEdge(\"assemble_feedback\", \"await_input\")\n    .addConditionalEdges",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode(\"plan_lesson\", planNode)\n    .addNode(\"approval_gate\", approvalGateNode)\n    .addNode(\"generate_mcq\", generateMcqNode)\n    .addNode(\"await_input\", awaitInputNode)\n    .addNode(\"assist\", assistNode)\n    .addNode(\"grade\", gradeNode)\n    .addNode(\"assemble_feedback\", feedbackNode)\n    .addNode(\"advance\", advanceNode)\n    .addNode(\"summarize\", summarizeNode)\n    .addEdge(START, \"plan_lesson\")\n    .addConditionalEdges(\"plan_lesson\", routeAfterPlan, {\n      approval_gate: \"approval_gate\",\n      [END]: END,\n    })\n    .addConditionalEdges(\"approval_gate\", routeAfterApproval, {\n      plan_lesson: \"plan_lesson\",\n      generate_mcq: \"generate_mcq\",\n    })\n    .addConditionalEdges(\"generate_mcq\", routeAfterGenerateMcq, {\n      await_input: \"await_input\",\n      generate_mcq: \"generate_mcq\",\n    })\n    .addConditionalEdges(\"await_input\", routeAfterAwaitInput, {\n      assist: \"assist\",\n      grade: \"grade\",\n      advance: \"advance\",\n      generate_mcq: \"generate_mcq\",\n    })\n    .addEdge(\"assist\", \"await_input\")\n    .addConditionalEdges(\"grade\", routeAfterGrade, {\n      assemble_feedback: \"assemble_feedback\",\n      await_input: \"await_input\",\n    })\n    // Feedback always pauses at await_input so green+explanation / red+hint is a\n    // stable, readable resting state. Correct/exhausted advance only on the\n    // user's explicit \"advance\" signal (routed from await_input above).\n    .addEdge",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode(\"plan_lesson\", planNode)\n    .addNode(\"approval_gate\", approvalGateNode)\n    .addNode(\"generate_mcq\", generateMcqNode)\n    .addNode(\"await_input\", awaitInputNode)\n    .addNode(\"assist\", assistNode)\n    .addNode(\"grade\", gradeNode)\n    .addNode(\"assemble_feedback\", feedbackNode)\n    .addNode(\"advance\", advanceNode)\n    .addNode(\"summarize\", summarizeNode)\n    .addEdge(START, \"plan_lesson\")\n    .addConditionalEdges(\"plan_lesson\", routeAfterPlan, {\n      approval_gate: \"approval_gate\",\n      [END]: END,\n    })\n    .addConditionalEdges(\"approval_gate\", routeAfterApproval, {\n      plan_lesson: \"plan_lesson\",\n      generate_mcq: \"generate_mcq\",\n    })\n    .addConditionalEdges(\"generate_mcq\", routeAfterGenerateMcq, {\n      await_input: \"await_input\",\n      generate_mcq: \"generate_mcq\",\n    })\n    .addConditionalEdges(\"await_input\", routeAfterAwaitInput, {\n      assist: \"assist\",\n      grade: \"grade\",\n      advance: \"advance\",\n      generate_mcq: \"generate_mcq\",\n    })\n    .addEdge(\"assist\", \"await_input\")\n    .addConditionalEdges",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode(\"plan_lesson\", planNode)\n    .addNode(\"approval_gate\", approvalGateNode)\n    .addNode(\"generate_mcq\", generateMcqNode)\n    .addNode(\"await_input\", awaitInputNode)\n    .addNode(\"assist\", assistNode)\n    .addNode(\"grade\", gradeNode)\n    .addNode(\"assemble_feedback\", feedbackNode)\n    .addNode(\"advance\", advanceNode)\n    .addNode(\"summarize\", summarizeNode)\n    .addEdge(START, \"plan_lesson\")\n    .addConditionalEdges(\"plan_lesson\", routeAfterPlan, {\n      approval_gate: \"approval_gate\",\n      [END]: END,\n    })\n    .addConditionalEdges(\"approval_gate\", routeAfterApproval, {\n      plan_lesson: \"plan_lesson\",\n      generate_mcq: \"generate_mcq\",\n    })\n    .addConditionalEdges(\"generate_mcq\", routeAfterGenerateMcq, {\n      await_input: \"await_input\",\n      generate_mcq: \"generate_mcq\",\n    })\n    .addConditionalEdges(\"await_input\", routeAfterAwaitInput, {\n      assist: \"assist\",\n      grade: \"grade\",\n      advance: \"advance\",\n      generate_mcq: \"generate_mcq\",\n    })\n    .addEdge",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode(\"plan_lesson\", planNode)\n    .addNode(\"approval_gate\", approvalGateNode)\n    .addNode(\"generate_mcq\", generateMcqNode)\n    .addNode(\"await_input\", awaitInputNode)\n    .addNode(\"assist\", assistNode)\n    .addNode(\"grade\", gradeNode)\n    .addNode(\"assemble_feedback\", feedbackNode)\n    .addNode(\"advance\", advanceNode)\n    .addNode(\"summarize\", summarizeNode)\n    .addEdge(START, \"plan_lesson\")\n    .addConditionalEdges(\"plan_lesson\", routeAfterPlan, {\n      approval_gate: \"approval_gate\",\n      [END]: END,\n    })\n    .addConditionalEdges(\"approval_gate\", routeAfterApproval, {\n      plan_lesson: \"plan_lesson\",\n      generate_mcq: \"generate_mcq\",\n    })\n    .addConditionalEdges(\"generate_mcq\", routeAfterGenerateMcq, {\n      await_input: \"await_input\",\n      generate_mcq: \"generate_mcq\",\n    })\n    .addConditionalEdges",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode(\"plan_lesson\", planNode)\n    .addNode(\"approval_gate\", approvalGateNode)\n    .addNode(\"generate_mcq\", generateMcqNode)\n    .addNode(\"await_input\", awaitInputNode)\n    .addNode(\"assist\", assistNode)\n    .addNode(\"grade\", gradeNode)\n    .addNode(\"assemble_feedback\", feedbackNode)\n    .addNode(\"advance\", advanceNode)\n    .addNode(\"summarize\", summarizeNode)\n    .addEdge(START, \"plan_lesson\")\n    .addConditionalEdges(\"plan_lesson\", routeAfterPlan, {\n      approval_gate: \"approval_gate\",\n      [END]: END,\n    })\n    .addConditionalEdges(\"approval_gate\", routeAfterApproval, {\n      plan_lesson: \"plan_lesson\",\n      generate_mcq: \"generate_mcq\",\n    })\n    .addConditionalEdges",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode(\"plan_lesson\", planNode)\n    .addNode(\"approval_gate\", approvalGateNode)\n    .addNode(\"generate_mcq\", generateMcqNode)\n    .addNode(\"await_input\", awaitInputNode)\n    .addNode(\"assist\", assistNode)\n    .addNode(\"grade\", gradeNode)\n    .addNode(\"assemble_feedback\", feedbackNode)\n    .addNode(\"advance\", advanceNode)\n    .addNode(\"summarize\", summarizeNode)\n    .addEdge(START, \"plan_lesson\")\n    .addConditionalEdges(\"plan_lesson\", routeAfterPlan, {\n      approval_gate: \"approval_gate\",\n      [END]: END,\n    })\n    .addConditionalEdges",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode(\"plan_lesson\", planNode)\n    .addNode(\"approval_gate\", approvalGateNode)\n    .addNode(\"generate_mcq\", generateMcqNode)\n    .addNode(\"await_input\", awaitInputNode)\n    .addNode(\"assist\", assistNode)\n    .addNode(\"grade\", gradeNode)\n    .addNode(\"assemble_feedback\", feedbackNode)\n    .addNode(\"advance\", advanceNode)\n    .addNode(\"summarize\", summarizeNode)\n    .addEdge(START, \"plan_lesson\")\n    .addConditionalEdges",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode(\"plan_lesson\", planNode)\n    .addNode(\"approval_gate\", approvalGateNode)\n    .addNode(\"generate_mcq\", generateMcqNode)\n    .addNode(\"await_input\", awaitInputNode)\n    .addNode(\"assist\", assistNode)\n    .addNode(\"grade\", gradeNode)\n    .addNode(\"assemble_feedback\", feedbackNode)\n    .addNode(\"advance\", advanceNode)\n    .addNode(\"summarize\", summarizeNode)\n    .addEdge",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode(\"plan_lesson\", planNode)\n    .addNode(\"approval_gate\", approvalGateNode)\n    .addNode(\"generate_mcq\", generateMcqNode)\n    .addNode(\"await_input\", awaitInputNode)\n    .addNode(\"assist\", assistNode)\n    .addNode(\"grade\", gradeNode)\n    .addNode(\"assemble_feedback\", feedbackNode)\n    .addNode(\"advance\", advanceNode)\n    .addNode",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode(\"plan_lesson\", planNode)\n    .addNode(\"approval_gate\", approvalGateNode)\n    .addNode(\"generate_mcq\", generateMcqNode)\n    .addNode(\"await_input\", awaitInputNode)\n    .addNode(\"assist\", assistNode)\n    .addNode(\"grade\", gradeNode)\n    .addNode(\"assemble_feedback\", feedbackNode)\n    .addNode",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode(\"plan_lesson\", planNode)\n    .addNode(\"approval_gate\", approvalGateNode)\n    .addNode(\"generate_mcq\", generateMcqNode)\n    .addNode(\"await_input\", awaitInputNode)\n    .addNode(\"assist\", assistNode)\n    .addNode(\"grade\", gradeNode)\n    .addNode",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode(\"plan_lesson\", planNode)\n    .addNode(\"approval_gate\", approvalGateNode)\n    .addNode(\"generate_mcq\", generateMcqNode)\n    .addNode(\"await_input\", awaitInputNode)\n    .addNode(\"assist\", assistNode)\n    .addNode",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode(\"plan_lesson\", planNode)\n    .addNode(\"approval_gate\", approvalGateNode)\n    .addNode(\"generate_mcq\", generateMcqNode)\n    .addNode(\"await_input\", awaitInputNode)\n    .addNode",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode(\"plan_lesson\", planNode)\n    .addNode(\"approval_gate\", approvalGateNode)\n    .addNode(\"generate_mcq\", generateMcqNode)\n    .addNode",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode(\"plan_lesson\", planNode)\n    .addNode(\"approval_gate\", approvalGateNode)\n    .addNode",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode(\"plan_lesson\", planNode)\n    .addNode",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathWorkflow",
+          "callee": "new StateGraph(EdPathStateAnnotation, {\n    output: CoAgentStateOutputAnnotation,\n  })\n    .addNode",
+          "lineNumber": 82
+        },
+        {
+          "caller": "createEdPathGraph",
+          "callee": "createEdPathWorkflow().compile",
+          "lineNumber": 136
+        },
+        {
+          "caller": "createEdPathGraph",
+          "callee": "createEdPathWorkflow",
+          "lineNumber": 136
+        }
+      ],
+      "metrics": {
+        "importCount": 12,
+        "exportCount": 5,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/assist-input.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 50,
+      "nonEmptyLines": 45,
+      "functions": [
+        {
+          "name": "buildAssistInput",
+          "startLine": 11,
+          "endLine": 39,
+          "params": [
+            "state",
+            "userMessage"
+          ]
+        },
+        {
+          "name": "assertAssistFirewall",
+          "startLine": 42,
+          "endLine": 50,
+          "params": [
+            "input"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "buildAssistInput",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "assertAssistFirewall",
+          "line": 42,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "assertAssistFirewall",
+          "callee": "JSON.stringify",
+          "lineNumber": 43
+        },
+        {
+          "caller": "assertAssistFirewall",
+          "callee": "json.includes",
+          "lineNumber": 46
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/grade-answer.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 16,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/grade-answer.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 35,
+      "functions": [
+        {
+          "name": "gradeAnswer",
+          "startLine": 19,
+          "endLine": 40,
+          "params": [
+            "input"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "GradingError",
+          "startLine": 11,
+          "endLine": 16,
+          "methods": [
+            "constructor"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "GradingError",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "gradeAnswer",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "constructor",
+          "callee": "super",
+          "lineNumber": 13
+        },
+        {
+          "caller": "gradeAnswer",
+          "callee": "Number.isInteger",
+          "lineNumber": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/llm/client.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 107,
+      "nonEmptyLines": 92,
+      "functions": [
+        {
+          "name": "setLlmClientOverride",
+          "startLine": 38,
+          "endLine": 40,
+          "params": [
+            "client"
+          ]
+        },
+        {
+          "name": "createOpenAiClient",
+          "startLine": 42,
+          "endLine": 52,
+          "params": [
+            "model",
+            "jsonMode"
+          ]
+        },
+        {
+          "name": "createDefaultLlmClient",
+          "startLine": 55,
+          "endLine": 85,
+          "params": []
+        },
+        {
+          "name": "getLlmClient",
+          "startLine": 87,
+          "endLine": 89,
+          "params": []
+        },
+        {
+          "name": "getPlanModel",
+          "startLine": 95,
+          "endLine": 99,
+          "params": [
+            "repairAttempt"
+          ]
+        },
+        {
+          "name": "getDefaultModel",
+          "startLine": 101,
+          "endLine": 103,
+          "params": []
+        },
+        {
+          "name": "getPlanEscapeModel",
+          "startLine": 105,
+          "endLine": 107,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "setLlmClientOverride",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "createDefaultLlmClient",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "getLlmClient",
+          "line": 87,
+          "isDefault": false
+        },
+        {
+          "name": "getPlanModel",
+          "line": 95,
+          "isDefault": false
+        },
+        {
+          "name": "getDefaultModel",
+          "line": 101,
+          "isDefault": false
+        },
+        {
+          "name": "getPlanEscapeModel",
+          "line": 105,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "invoke",
+          "callee": "createOpenAiClient",
+          "lineNumber": 63
+        },
+        {
+          "caller": "invoke",
+          "callee": "chat.invoke",
+          "lineNumber": 64
+        },
+        {
+          "caller": "invoke",
+          "callee": "response.content\n              .map((part) => (\"text\" in part ? part.text : \"\"))\n              .join",
+          "lineNumber": 72
+        },
+        {
+          "caller": "invoke",
+          "callee": "response.content\n              .map",
+          "lineNumber": 72
+        },
+        {
+          "caller": "invoke",
+          "callee": "Math.min",
+          "lineNumber": 78
+        },
+        {
+          "caller": "invoke",
+          "callee": "Math.min",
+          "lineNumber": 80
+        },
+        {
+          "caller": "getLlmClient",
+          "callee": "createDefaultLlmClient",
+          "lineNumber": 88
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 6,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/parse-mcq-batch.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 39,
+      "functions": [
+        {
+          "name": "normalizeMcqBatch",
+          "startLine": 8,
+          "endLine": 26,
+          "params": [
+            "raw"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "normalizeMcqBatch",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "McqBatchResponseParser",
+          "line": 28,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "normalizeMcqBatch",
+          "callee": "Array.isArray",
+          "lineNumber": 9
+        },
+        {
+          "caller": "normalizeMcqBatch",
+          "callee": "Array.isArray",
+          "lineNumber": 16
+        },
+        {
+          "caller": "normalizeMcqBatch",
+          "callee": "Array.isArray",
+          "lineNumber": 20
+        },
+        {
+          "caller": "safeParse",
+          "callee": "normalizeMcqBatch",
+          "lineNumber": 32
+        },
+        {
+          "caller": "safeParse",
+          "callee": "McqBatchSchema.safeParse",
+          "lineNumber": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/source-anchor.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 66,
+      "nonEmptyLines": 57,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/source-anchor.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 76,
+      "nonEmptyLines": 66,
+      "functions": [
+        {
+          "name": "normalizeForAnchor",
+          "startLine": 7,
+          "endLine": 13,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "tokenize",
+          "startLine": 24,
+          "endLine": 27,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "containsRun",
+          "startLine": 30,
+          "endLine": 49,
+          "params": [
+            "tokens",
+            "window"
+          ]
+        },
+        {
+          "name": "isSourceAnchored",
+          "startLine": 58,
+          "endLine": 76,
+          "params": [
+            "sourceQuote",
+            "pdfText"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "normalizeForAnchor",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "isSourceAnchored",
+          "line": 58,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "normalizeForAnchor",
+          "callee": "text\n    .toLowerCase()\n    .replace(/\\s+/g, \" \")\n    .replace(/[^\\w\\s]/g, \"\")\n    .trim",
+          "lineNumber": 8
+        },
+        {
+          "caller": "normalizeForAnchor",
+          "callee": "text\n    .toLowerCase()\n    .replace(/\\s+/g, \" \")\n    .replace",
+          "lineNumber": 8
+        },
+        {
+          "caller": "normalizeForAnchor",
+          "callee": "text\n    .toLowerCase()\n    .replace",
+          "lineNumber": 8
+        },
+        {
+          "caller": "normalizeForAnchor",
+          "callee": "text\n    .toLowerCase",
+          "lineNumber": 8
+        },
+        {
+          "caller": "tokenize",
+          "callee": "normalizeForAnchor",
+          "lineNumber": 25
+        },
+        {
+          "caller": "tokenize",
+          "callee": "normalized.split",
+          "lineNumber": 26
+        },
+        {
+          "caller": "isSourceAnchored",
+          "callee": "tokenize",
+          "lineNumber": 59
+        },
+        {
+          "caller": "isSourceAnchored",
+          "callee": "tokenize",
+          "lineNumber": 60
+        },
+        {
+          "caller": "isSourceAnchored",
+          "callee": "Math.min",
+          "lineNumber": 66
+        },
+        {
+          "caller": "isSourceAnchored",
+          "callee": "quoteTokens.slice",
+          "lineNumber": 69
+        },
+        {
+          "caller": "isSourceAnchored",
+          "callee": "containsRun",
+          "lineNumber": 70
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/structured-generate.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 216,
+      "nonEmptyLines": 189,
+      "functions": [
+        {
+          "name": "createMockClient",
+          "startLine": 26,
+          "endLine": 49,
+          "params": [
+            "opts"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "invoke",
+          "callee": "calls.push",
+          "lineNumber": 36
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/lib/structured-generate.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 122,
+      "nonEmptyLines": 109,
+      "functions": [
+        {
+          "name": "extractJson",
+          "startLine": 44,
+          "endLine": 49,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "structuredGenerate",
+          "startLine": 52,
+          "endLine": 122,
+          "params": [
+            "options"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "structuredGenerate",
+          "line": 52,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "extractJson",
+          "callee": "text.trim",
+          "lineNumber": 45
+        },
+        {
+          "caller": "extractJson",
+          "callee": "trimmed.match",
+          "lineNumber": 46
+        },
+        {
+          "caller": "extractJson",
+          "callee": "fenceMatch?.[1]?.trim",
+          "lineNumber": 47
+        },
+        {
+          "caller": "extractJson",
+          "callee": "JSON.parse",
+          "lineNumber": 48
+        },
+        {
+          "caller": "structuredGenerate",
+          "callee": "getLlmClient",
+          "lineNumber": 55
+        },
+        {
+          "caller": "structuredGenerate",
+          "callee": "options.getModel",
+          "lineNumber": 73
+        },
+        {
+          "caller": "structuredGenerate",
+          "callee": "client.invoke",
+          "lineNumber": 74
+        },
+        {
+          "caller": "structuredGenerate",
+          "callee": "extractJson",
+          "lineNumber": 96
+        },
+        {
+          "caller": "structuredGenerate",
+          "callee": "options.schema.safeParse",
+          "lineNumber": 104
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/nodes/advance.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 87,
+      "nonEmptyLines": 77,
+      "functions": [
+        {
+          "name": "advanceNode",
+          "startLine": 11,
+          "endLine": 63,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "routeAfterAdvance",
+          "startLine": 69,
+          "endLine": 87,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "advanceNode",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "routeAfterAdvance",
+          "line": 69,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "advanceNode",
+          "callee": "withCoAgentSnapshot",
+          "lineNumber": 16
+        },
+        {
+          "caller": "advanceNode",
+          "callee": "withCoAgentSnapshot",
+          "lineNumber": 28
+        },
+        {
+          "caller": "advanceNode",
+          "callee": "withCoAgentSnapshot",
+          "lineNumber": 42
+        },
+        {
+          "caller": "advanceNode",
+          "callee": "withCoAgentSnapshot",
+          "lineNumber": 55
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/nodes/approval-gate.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 54,
+      "nonEmptyLines": 48,
+      "functions": [
+        {
+          "name": "approvalGateNode",
+          "startLine": 14,
+          "endLine": 54,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "approvalGateNode",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "approvalGateNode",
+          "callee": "withCoAgentSnapshot",
+          "lineNumber": 19
+        },
+        {
+          "caller": "approvalGateNode",
+          "callee": "interrupt",
+          "lineNumber": 28
+        },
+        {
+          "caller": "approvalGateNode",
+          "callee": "ApprovalDecisionSchema.safeParse",
+          "lineNumber": 36
+        },
+        {
+          "caller": "approvalGateNode",
+          "callee": "withCoAgentSnapshot",
+          "lineNumber": 38
+        },
+        {
+          "caller": "approvalGateNode",
+          "callee": "withCoAgentSnapshot",
+          "lineNumber": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/nodes/assist.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 82,
+      "nonEmptyLines": 70,
+      "functions": [
+        {
+          "name": "assistNode",
+          "startLine": 22,
+          "endLine": 82,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "assistNode",
+          "line": 22,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "assistNode",
+          "callee": "isOpenAiConfigured",
+          "lineNumber": 34
+        },
+        {
+          "caller": "assistNode",
+          "callee": "assertAssistFirewall",
+          "lineNumber": 37
+        },
+        {
+          "caller": "assistNode",
+          "callee": "buildAssistInput",
+          "lineNumber": 37
+        },
+        {
+          "caller": "assistNode",
+          "callee": "buildAssistInput",
+          "lineNumber": 39
+        },
+        {
+          "caller": "assistNode",
+          "callee": "assertAssistFirewall",
+          "lineNumber": 40
+        },
+        {
+          "caller": "assistNode",
+          "callee": "input.options.map((o, i) => `${i}. ${o}`).join",
+          "lineNumber": 52
+        },
+        {
+          "caller": "assistNode",
+          "callee": "input.options.map",
+          "lineNumber": 52
+        },
+        {
+          "caller": "assistNode",
+          "callee": "getLlmClient",
+          "lineNumber": 58
+        },
+        {
+          "caller": "assistNode",
+          "callee": "client.invoke",
+          "lineNumber": 59
+        },
+        {
+          "caller": "assistNode",
+          "callee": "withCoAgentSnapshot",
+          "lineNumber": 71
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/nodes/await-input.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 72,
+      "nonEmptyLines": 64,
+      "functions": [
+        {
+          "name": "awaitInputNode",
+          "startLine": 14,
+          "endLine": 72,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "awaitInputNode",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "awaitInputNode",
+          "callee": "interrupt",
+          "lineNumber": 17
+        },
+        {
+          "caller": "awaitInputNode",
+          "callee": "ResumePayloadSchema.safeParse",
+          "lineNumber": 21
+        },
+        {
+          "caller": "awaitInputNode",
+          "callee": "withCoAgentSnapshot",
+          "lineNumber": 23
+        },
+        {
+          "caller": "awaitInputNode",
+          "callee": "withCoAgentSnapshot",
+          "lineNumber": 36
+        },
+        {
+          "caller": "awaitInputNode",
+          "callee": "withCoAgentSnapshot",
+          "lineNumber": 48
+        },
+        {
+          "caller": "awaitInputNode",
+          "callee": "withCoAgentSnapshot",
+          "lineNumber": 58
+        },
+        {
+          "caller": "awaitInputNode",
+          "callee": "withCoAgentSnapshot",
+          "lineNumber": 67
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/edpath-backend/src/agent/nodes/feedback.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 63,
+      "nonEmptyLines": 56,
+      "functions": [
+        {
+          "name": "feedbackNode",
+          "startLine": 14,
+          "endLine": 63,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "feedbackNode",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "feedbackNode",
+          "callee": "withCoAgentSnapshot",
+          "lineNumber": 22
+        },
+        {
+          "caller": "feedbackNode",
+          "callee": "FeedbackSchema.parse",
+          "lineNumber": 56
+        },
+        {
+          "caller": "feedbackNode",
+          "callee": "withCoAgentSnapshot",
+          "lineNumber": 58
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

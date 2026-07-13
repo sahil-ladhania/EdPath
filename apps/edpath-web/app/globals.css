@@ -1,15 +1,19 @@
+/* Import tailwindcss */
 @import "tailwindcss";
 @import "@repo/tokens/tokens.css";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+/* Custom variant for dark mode */
 @custom-variant dark (&:is(.dark *));
 
+/* Custom body styles */
 body {
   background: var(--paper);
   color: var(--ink);
-}
+};
 
+/* Custom theme styles */
 @theme inline {
   --font-heading: var(--font-bricolage);
   --font-sans: var(--font-inter);
@@ -41,6 +45,7 @@ body {
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* Custom base styles */
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -51,4 +56,4 @@ body {
   html {
     @apply font-sans;
   }
-}
+};

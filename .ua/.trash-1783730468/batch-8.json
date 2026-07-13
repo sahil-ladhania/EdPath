@@ -1,0 +1,81 @@
+{
+  "nodes": [
+    {
+      "id": "document:AGENTS.md",
+      "type": "document",
+      "name": "AGENTS.md",
+      "filePath": "AGENTS.md",
+      "summary": "Canonical always-on agent rules read by Claude Code and Cursor: defines what EdPath is, the non-negotiable workflow constraints, the tech stack, and a doc map routing each task to the single relevant reference doc.",
+      "tags": ["documentation", "agent-rules", "governance", "overview"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:CLAUDE.md",
+      "type": "document",
+      "name": "CLAUDE.md",
+      "filePath": "CLAUDE.md",
+      "summary": "Thin Claude Code entry document that imports AGENTS.md as the single source of agent rules, reserving this file only for Claude-specific guidance that does not belong in the shared rules.",
+      "tags": ["documentation", "agent-rules", "entry-point"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Primary project README documenting EdPath end to end: product flow, tech stack, system and LangGraph agent architecture, setup, local run instructions, environment variables, persistence, and evals.",
+      "tags": ["documentation", "entry-point", "overview", "architecture"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:langgraph.json",
+      "type": "config",
+      "name": "langgraph.json",
+      "filePath": "langgraph.json",
+      "summary": "LangGraph CLI registration config that declares the 'edpath-agent' graph, pointing to the compiled graph export in the backend and wiring in the backend .env file.",
+      "tags": ["configuration", "langgraph", "agent", "build-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "Root monorepo manifest defining npm workspaces (apps/*, packages/*), Turbo-driven build/dev/lint/test scripts, the LangGraph dev command, and shared dev dependencies like Turbo, TypeScript, and Prettier.",
+      "tags": ["configuration", "monorepo", "build-system", "package-manifest"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:turbo.json",
+      "type": "config",
+      "name": "turbo.json",
+      "filePath": "turbo.json",
+      "summary": "Turborepo pipeline configuration defining the task graph and caching for build, lint, check-types, test, and dev across the monorepo workspaces.",
+      "tags": ["configuration", "monorepo", "build-system", "ci-cd"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:langgraph.json",
+      "target": "file:apps/edpath-backend/src/agent/graph.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:apps/edpath-backend/src/agent/graph.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:CLAUDE.md",
+      "target": "document:AGENTS.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

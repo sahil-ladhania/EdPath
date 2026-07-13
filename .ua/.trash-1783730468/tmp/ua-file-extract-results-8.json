@@ -1,0 +1,278 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 41,
+      "nonEmptyLines": 29,
+      "sections": [
+        {
+          "heading": "AGENTS.md",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "What EdPath is",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Non-negotiables (do not violate)",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "Stack",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "Doc map — read the ONE that fits the task",
+          "level": 2,
+          "line": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "CLAUDE.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 7,
+      "nonEmptyLines": 4,
+      "sections": [
+        {
+          "heading": "CLAUDE.md",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 233,
+      "nonEmptyLines": 175,
+      "sections": [
+        {
+          "heading": "EdPath",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "What it does",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "Tech stack",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Architecture",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "1. Product flow",
+          "level": 3,
+          "line": 38
+        },
+        {
+          "heading": "2. System architecture (as it runs today)",
+          "level": 3,
+          "line": 62
+        },
+        {
+          "heading": "3. Agent architecture (the LangGraph graph)",
+          "level": 3,
+          "line": 101
+        },
+        {
+          "heading": "Prerequisites",
+          "level": 2,
+          "line": 133
+        },
+        {
+          "heading": "Setup",
+          "level": 2,
+          "line": 139
+        },
+        {
+          "heading": "Run locally",
+          "level": 2,
+          "line": 151
+        },
+        {
+          "heading": "Environment variables",
+          "level": 3,
+          "line": 170
+        },
+        {
+          "heading": "Smoke test",
+          "level": 3,
+          "line": 188
+        },
+        {
+          "heading": "Documentation",
+          "level": 2,
+          "line": 199
+        },
+        {
+          "heading": "Persistence",
+          "level": 2,
+          "line": 213
+        },
+        {
+          "heading": "Evals",
+          "level": 2,
+          "line": 223
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 15
+      }
+    },
+    {
+      "path": "langgraph.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 8,
+      "nonEmptyLines": 8,
+      "sections": [
+        {
+          "heading": "$schema",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "dependencies",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "env",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "graphs",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 27,
+      "nonEmptyLines": 27,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "private",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "devDependencies",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "engines",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "packageManager",
+          "level": 1,
+          "line": 22
+        },
+        {
+          "heading": "workspaces",
+          "level": 1,
+          "line": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "turbo.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 24,
+      "nonEmptyLines": 24,
+      "sections": [
+        {
+          "heading": "$schema",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "ui",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "tasks",
+          "level": 1,
+          "line": 4
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    }
+  ]
+}

@@ -1,6 +1,8 @@
 /**
  * pdf.js text extraction — raw text + page count from a PDF buffer.
 **/
+
+// Import Dependencies
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 
 // Define the pdf extraction result interface

@@ -1,6 +1,6 @@
 "use client";
 
-// Import React and types
+// Import Dependencies
 import { useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FileUpIcon, FileTextIcon, PlayIcon } from "lucide-react";

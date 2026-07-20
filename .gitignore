@@ -46,6 +46,9 @@ docs/reference/challenges.md
 docs/reference/db-schema.md
 docs/reference/feature-flow.md
 docs/reference/design-decisions.md
+docs/reference/architecture.md
+docs/reference/agent-architecture.md
+docs/reference/design-decisions.md
 # Understand Anything local analysis cache (never commit)
 .ua/
 

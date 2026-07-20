@@ -20,9 +20,11 @@
 - [6. Storage — pressure-tested](#6-storage--pressure-tested)
 - [7. Responsibility boundaries](#7-responsibility-boundaries)
 - [8. Stack (locked)](#8-stack-locked)
-- [9. Resolved in `design-decisions.md`](#9-resolved-in-design-decisionsmd)
+- [9. Resolved in](#9-resolved-in-design-decisionsmd) `design-decisions.md`
 
 ---
+
+
 
 ## 1. What EdPath is
 
@@ -41,12 +43,16 @@ It is a **deterministic teaching system powered by an LLM**: a structured LangGr
 ### Scope fence
 
 - **In:** exactly what `assignment.md` requires — the nine acceptance criteria.
-- **Out / deferred to `design-decisions.md`:** PDF input limits, hint reveal level, quiz batch-vs-single, feedback detail, state-storage specifics, knowledge representation, completion criteria, user freedom, etc. Where this document needs a position on one, it adopts the simplest default and tags it `PROVISIONAL`.
+- **Out / deferred to** `design-decisions.md`**:** PDF input limits, hint reveal level, quiz batch-vs-single, feedback detail, state-storage specifics, knowledge representation, completion criteria, user freedom, etc. Where this document needs a position on one, it adopts the simplest default and tags it `PROVISIONAL`.
 - **Non-goals:** no multi-PDF, no RAG / vector DB, no multi-user/auth, no bespoke persistence schema (checkpointer first).
 
 ---
 
+
+
 ## 2. The contract (Gate 0)
+
+
 
 ### System input
 
@@ -66,6 +72,8 @@ It is a **deterministic teaching system powered by an LLM**: a structured LangGr
 
 ---
 
+
+
 ### System output
 
 A **completed, resumable lesson session**, surfaced as four observable artifacts in sequence:
@@ -79,7 +87,10 @@ Backing all four: **checkpointed session state** that is the single source of tr
 
 ---
 
+
+
 ### Success criteria (traced to acceptance criteria)
+
 
 | #   | Measurable "done"                                                                                                                                       | AC                |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
@@ -95,7 +106,10 @@ Backing all four: **checkpointed session state** that is the single source of tr
 | S10 | A help turn **never leaks the correct option** and **steers back** to the question.                                                                     | Desired-flow §3   |
 | S11 | Session state is **resumable and consistent**; the report reflects true progress.                                                                       | Challenges #1, #5 |
 
+
 ---
+
+
 
 ## 3. Workflow, not agent (Gate 1)
 
@@ -135,19 +149,20 @@ The full path is drawable up front (the assignment's numbered "Desired Flow"); o
 
 ---
 
+
+
 ### The one dynamic part, kept bounded
 
 Node **[4a] ASSIST** (the "hint / learn more" turn, Challenge #2) is the only free-form pocket. It stays boxed in:
 
 1. **Structurally contained** — a side edge off [4] whose *only* exit is back to [4]; it cannot advance, grade, re-plan, or end.
-
-2. **Counted** — per-question help ceiling **`MAX_HELP = 3`** (locked — B3), then steers back.
-
+2. **Counted** — per-question help ceiling `MAX_HELP = 3` (locked — B3), then steers back.
 3. **Guardrailed** — never receives `correctIndex`; must help *and* steer back (S10).
-
 4. **No tools, no exploration** — a single LLM call, so it is not an agent loop.
 
 ---
+
+
 
 ## 4. System components & data flow
 
@@ -183,24 +198,18 @@ Node **[4a] ASSIST** (the "hint / learn more" turn, Challenge #2) is the only fr
 **Happy path**
 
 1. Upload PDF → `edpath-web` POSTs to `edpath-backend /upload`.
-
 2. Backend **extracts + cleans** text → `pdfText`; **rejects empty/unparseable PDFs here** (fail fast — Challenge #3). Extraction lives outside the graph, so the graph only starts on good text.
-
 3. Backend starts the graph with a `threadId`, seeding `pdfText`.
-
 4. `plan` runs → `approval_gate` **interrupt** → state checkpointed → halt.
-
 5. State mirrors to the UI via CopilotKit; plan renders for approval.
-
 6. Approve → resume → quiz loop; each MCQ mirrors to the widget; `await_input` interrupt pauses for answer/help.
-
 7. Submit → deterministic grade → green/red feedback → retry or advance.
-
 8. All objectives done → `summarize` → report renders → END.
-
 9. Every step traced to LangSmith; every artifact Zod-validated at the backend boundary.
 
 ---
+
+
 
 ## 5. The CopilotKit bridge ⚠️ verify against current CopilotKit docs
 
@@ -230,6 +239,8 @@ CopilotKit surfaces the LangGraph `interrupt` and sends the resume (Challenge #1
 
 ---
 
+
+
 ## 6. Storage — pressure-tested
 
 The only durable surface is the **LangGraph checkpoint** (the state object per `threadId`) — that *is* progress, plan, score, and the resume point. There is no separate domain data model.
@@ -241,17 +252,23 @@ The only durable surface is the **LangGraph checkpoint** (the state object per `
 
 ---
 
+
+
 ## 7. Responsibility boundaries
 
-| Layer                          | Owns                                                                                                                                                                                  | Does **not** own                                                                                   |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| **Frontend (`edpath-web`)**    | Rendering: upload UI, plan-approval widget, MCQ widget (radios/submit, green/red), summary; mirroring agent state via CopilotKit; sending intents (approve, answer index, help text). | No business logic, no grading, **no progress/score state** (no ad-hoc client state), no LLM calls. |
-| **Backend (`edpath-backend`)** | PDF extraction + cleaning; starting/owning graph runs (`threadId`); hosting the CopilotKit Runtime; **Zod-validating every artifact** at the boundary; wiring tracing + checkpointer. | No pedagogical decisions; no UI rendering.                                                         |
-| **Agent (LangGraph)**          | The whole control flow (N1–N9, branches, interrupts), the **single-source-of-truth state**, deterministic grading, bounded loops.                                                     | No transport/protocol; no extraction; no rendering.                                                |
-| **LLM (OpenAI)**               | Filling content at generative nodes only; returning schema-valid artifacts.                                                                                                           | **Never** chooses control flow, grades, or sees `correctIndex` in assist.                          |
-| **Shared packages**            | `schemas` (Zod contracts, one source of truth both ends), `ui` (shared widgets), `tokens` (green/red functional feedback).                                                            | —                                                                                                  |
+
+| Layer                              | Owns                                                                                                                                                                                  | Does **not** own                                                                                   |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| **Frontend (**`edpath-web`**)**    | Rendering: upload UI, plan-approval widget, MCQ widget (radios/submit, green/red), summary; mirroring agent state via CopilotKit; sending intents (approve, answer index, help text). | No business logic, no grading, **no progress/score state** (no ad-hoc client state), no LLM calls. |
+| **Backend (**`edpath-backend`**)** | PDF extraction + cleaning; starting/owning graph runs (`threadId`); hosting the CopilotKit Runtime; **Zod-validating every artifact** at the boundary; wiring tracing + checkpointer. | No pedagogical decisions; no UI rendering.                                                         |
+| **Agent (LangGraph)**              | The whole control flow (N1–N9, branches, interrupts), the **single-source-of-truth state**, deterministic grading, bounded loops.                                                     | No transport/protocol; no extraction; no rendering.                                                |
+| **LLM (OpenAI)**                   | Filling content at generative nodes only; returning schema-valid artifacts.                                                                                                           | **Never** chooses control flow, grades, or sees `correctIndex` in assist.                          |
+| **Shared packages**                | `schemas` (Zod contracts, one source of truth both ends), `ui` (shared widgets), `tokens` (green/red functional feedback).                                                            | —                                                                                                  |
+
 
 ---
+
+
 
 ## 8. Stack (locked)
 
@@ -267,11 +284,13 @@ The only durable surface is the **LangGraph checkpoint** (the state object per `
 
 ---
 
+
+
 ## 9. Resolved in `design-decisions.md`
 
 The items this document previously left `PROVISIONAL` are now locked in `design-decisions.md` and reconciled above:
 
-**Locked (resolved in `design-decisions.md`)**
+**Locked (resolved in** `design-decisions.md`**)**
 
 - PDF size/page ceiling and extraction strategy for messy/scanned PDFs → **D3 / B6** (≈50 pages / 50K tokens / 200K chars; whole cleaned text in context; reject scanned/oversized; no OCR).
 - Quiz shape: N MCQs per objective vs. one → **D2 / B1** (fixed `N = 3`, generated lazily per objective, presented one at a time).
@@ -279,3 +298,4 @@ The items this document previously left `PROVISIONAL` are now locked in `design-
 - Difficulty representation in the plan → **D17** (`difficulty: "easy" | "medium" | "hard"`).
 - Per-question retry cap, help-turn cap, max objectives, per-run cost ceiling → **B2 / B3 / B4 / B7** (`MAX_ATTEMPTS = 3`, `MAX_HELP = 3`, ≤ 8 objectives, ≈1.5M tokens/thread).
 - Final state-storage lock → **C5 / D5** (Postgres-only checkpointer; Redis deferred).
+

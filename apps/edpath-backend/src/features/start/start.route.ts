@@ -1,6 +1,8 @@
 /**
  * POST /start route — threadId + PDF upload; maps service errors to HTTP status.
 **/
+
+// Import Dependencies
 import type { RequestHandler } from "express";
 import { buildUploadLimits, createUploadMiddleware, sendUploadResult, uploadErrorHandler, UPLOAD_FIELD_NAME } from "../upload/upload-middleware.js";
 import { InvalidThreadIdError, LangGraphDeploymentError, startLesson, ThreadAlreadyStartedError } from "./start.service.js";

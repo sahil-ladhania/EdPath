@@ -2,6 +2,8 @@
  * PDF upload pipeline — magic-byte check → extract → clean → gate by limits → typed result.
  * Linear validation gauntlet upstream of the graph; pdfText never crosses HTTP.
 **/
+
+// Import Dependencies
 import type { PdfMeta, UploadRejectReason } from "@repo/types";
 import { extractPdfText, PdfExtractionError } from "./pdf-extract.js";
 import { cleanPdfText, estimateTokens } from "./pdf-clean.js";

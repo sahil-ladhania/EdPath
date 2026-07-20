@@ -1,6 +1,8 @@
 /**
  * LangGraph deployment client — seeds a lesson thread; idempotent create guard.
 **/
+
+// Import Dependencies
 import { Client } from "@langchain/langgraph-sdk";
 import { env } from "../../config/env.js";
 import type { GraphUpdate } from "../../agent/state/annotation.js";
